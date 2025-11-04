@@ -8,14 +8,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
+COPY . .
 
 RUN pip install --no-cache-dir -r requirements.txt
 RUN python manage.py migrate --noinput
 RUN python manage.py collectstatic --noinput
 
-
-COPY . .
 
 EXPOSE 8100 8101 8102
 
