@@ -11,8 +11,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY . .
 
 RUN pip install --no-cache-dir -r requirements.txt
-RUN python manage.py migrate --noinput
-RUN python manage.py collectstatic --noinput
 
 
 EXPOSE 8100 8101 8102
@@ -20,4 +18,3 @@ EXPOSE 8100 8101 8102
 COPY run.sh /app/run.sh
 RUN chmod +x /app/run.sh
 
-ENTRYPOINT ["/app/run.sh"]

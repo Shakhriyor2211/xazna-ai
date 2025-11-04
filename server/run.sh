@@ -3,6 +3,10 @@ set -euo pipefail
 
 trap "kill 0" EXIT
 
+echo ">>> Starting Django setup..."
+python manage.py migrate --noinput
+python manage.py collectstatic --noinput
+
 echo ">>> Starting Django gunicorn server..."
 gunicorn xazna.wsgi:application -w 4 -b 0.0.0.0:8100 &
 GUNICORN_PID=$!
