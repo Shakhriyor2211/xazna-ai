@@ -18,3 +18,4 @@ EXPOSE 8100 8101 8102
 COPY run.sh /app/run.sh
 RUN chmod +x /app/run.sh
 
+ENTRYPOINT ["/app/run.sh"]
