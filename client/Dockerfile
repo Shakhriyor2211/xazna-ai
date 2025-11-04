@@ -21,6 +21,8 @@ COPY --from=builder --chown=nextjs:nextjs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nextjs /app/public ./public
 COPY --from=builder --chown=nextjs:nextjs /app/package*.json ./
 
+USER nextjs
+
 EXPOSE 3100
 
 ENV PORT=3100
