@@ -1,0 +1,62 @@
+version: "3.9"
+
+services:
+  pg_service:
+    image: postgres:17
+    container_name: xazna_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - nginx_net
+
+  redis:
+    image: redis:7-alpine
+    container_name: xazna_redis
+    ports:
+      - "6379"
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 2gb --maxmemory-policy allkeys-lru
+    networks:
+      - nginx_net
+
+  server:
+    image: xazna_server:latest
+    container_name: xazna_server
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "8100:8100"
+      - "8101:8101"
+      - "8102:8102"
+    volumes:
+      - media:/app/media-files/
+    depends_on:
+      - pg_service
+      - redis
+    networks:
+      - nginx_net
+
+  client:
+    image: xazna_client:latest
+    container_name: xazna_client
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "3100:3100"
+    networks:
+      - nginx_net
+
+volumes:
+  pg_data:
+  media:
+
+networks:
+  nginx_net:
+    external: true
