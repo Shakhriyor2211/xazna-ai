@@ -47,7 +47,7 @@ services:
     container_name: xazna_client
     restart: always
     env_file:
-      - .env
+      - client/.env
     ports:
       - "3100:3100"
     networks:
