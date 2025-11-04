@@ -4,11 +4,11 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --no-cache
+RUN npm install
 
 COPY . .
 
-RUN npm run build --no-cache
+RUN npm run build
 
 FROM node:20-alpine AS runner
 
