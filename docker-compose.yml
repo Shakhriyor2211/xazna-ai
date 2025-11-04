@@ -26,8 +26,6 @@ services:
     image: xazna_server:latest
     container_name: xazna_server
     restart: always
-    command: python manage.py migrate
-      python manage.py collectstatic
     env_file:
       - server/.env
     ports:
@@ -41,8 +39,6 @@ services:
       - redis
     networks:
       - nginx_net
-
-    entrypoint: ["/app/run.sh"]
 
   client:
     image: xazna_client:latest
