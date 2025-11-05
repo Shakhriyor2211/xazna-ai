@@ -47,7 +47,7 @@ services:
     env_file:
       - client/.env
     ports:
-      - "3100:3100"
+      - "2102:3100"
     networks:
       - nginx_net
 
