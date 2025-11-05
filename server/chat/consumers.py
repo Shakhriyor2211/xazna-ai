@@ -46,6 +46,7 @@ class ChatConsumer(BaseWebsocketConsumer):
             await database_sync_to_async(self.session.save)()
             self.stream_task = asyncio.create_task(self._stream_llm())
 
+
     async def on_receive(self, request):
         data = json.loads(request)
         action = data.get("action")

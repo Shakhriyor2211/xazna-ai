@@ -76,6 +76,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     "172.28.23.100",
+    "ai.xazna.uz",
     "xazna_server",
     "xazna_client",
 ]
@@ -109,7 +110,9 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "http://ai.xazna.uz",
+    "https://ai.xazna.uz"
 ]
 
 USE_X_FORWARDED_HOST = True

@@ -79,6 +79,7 @@ class BaseWebsocketConsumer(AsyncWebsocketConsumer):
 
     async def connect(self):
         await self.accept()
+        await self.close(code=4400)
         is_valid = await self._validate()
 
         if not is_valid:
