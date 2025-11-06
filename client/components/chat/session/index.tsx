@@ -83,8 +83,11 @@ export function ChatSession() {
   const handleWsConnect = useCallback(() => {
     if (ws.current !== null) ws.current.close();
 
+    // ws.current = new WebSocket(
+    //   `${ENDPOINTS.ws_client_base}/${ENDPOINTS.chat_message}/${sessionId}/`
+    // );
     ws.current = new WebSocket(
-      `${ENDPOINTS.ws_client_base}/${ENDPOINTS.chat_message}/${sessionId}/`
+     `wss://${window.location.host}/chat/message/7f24dbb1-9a5f-40b4-9c5e-2a0580dd5ed0/`
     );
 
     ws.current.onmessage = async (event) => {
