@@ -14,7 +14,21 @@ const wsProxy = createProxyMiddleware({
   logLevel: "debug",
   pathRewrite: (path) => (path.endsWith("/") ? path : path + "/")
 });
-  
+
+
+const mediaProxy = createProxyMiddleware({
+  target: process.env.NEXT_PUBLIC_HTTP_SERVER_URL + "/media",
+  changeOrigin: false,
+  logLevel: "debug",
+  pathRewrite: (path) => (path.endsWith("/") ? path : path + "/"),
+});
+
+const protectedProxy = createProxyMiddleware({
+  target: process.env.NEXT_PUBLIC_HTTP_SERVER_URL + "/protected",
+  changeOrigin: false,
+  logLevel: "debug",
+  pathRewrite: (path) => (path.endsWith("/") ? path : path + "/"),
+});
 
 const apiProxy = createProxyMiddleware({
   target: process.env.NEXT_PUBLIC_HTTP_SERVER_URL + "/api",
@@ -28,6 +42,8 @@ app.prepare().then(() => {
 
   server.use("/ws", wsProxy);
   server.use("/api", apiProxy);
+  server.use("/media", mediaProxy);
+  server.use("/protected", protectedProxy);
 
   server.all(/.*/, (req, res) => handle(req, res));
 
