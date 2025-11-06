@@ -28,6 +28,7 @@ services:
       - server/.env
     ports:
       - "8100:8100"
+      - "8101:8101"
       - "8102:8102"
     volumes:
       - media:/app/media-files/

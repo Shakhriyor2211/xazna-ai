@@ -8,7 +8,7 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const wsProxy = createProxyMiddleware({
-  target: process.env.NEXT_PUBLIC_WS_SERVER_URL + "/ws",
+  target: process.env.NEXT_PUBLIC_WS_SERVER_URL,
   changeOrigin: false,
   ws: true,
   logLevel: "debug",
