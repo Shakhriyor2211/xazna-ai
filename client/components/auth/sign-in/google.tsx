@@ -9,7 +9,6 @@ import { useAlertStore } from "@/providers/alert";
 import { AxiosErrorProps } from "@/types";
 import { Button, Spinner } from "@heroui/react";
 
-const SERVER = process.env.NEXT_PUBLIC_SERVER_URL;
 const CLIENT = process.env.NEXT_PUBLIC_CLIENT_URL;
 
 export function GoogleSignIn() {
@@ -56,7 +55,7 @@ export function GoogleSignIn() {
 
   const connectGoogle = useGoogleLogin({
     ux_mode: "redirect",
-    redirect_uri: `${SERVER}${ENDPOINTS.server_base}${ENDPOINTS.google_oauth}/`,
+    redirect_uri: `${ENDPOINTS.http_server_base}${ENDPOINTS.google_oauth}/`,
     state: JSON.stringify({
       next: `${CLIENT}${next ?? ROUTES.main}`,
       fallback: `${CLIENT}/404`,

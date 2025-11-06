@@ -77,12 +77,7 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "172.28.23.100",
     "0.0.0.0",
-    "ai.xazna.uz",
-    "xazna_server",
-    "xazna_server:8100",
-    "xazna_server:8101",
-    "xazna_client",
-    "xazna_client:3100",
+    "ai.xazna.uz"
 ]
 
 INSTALLED_APPS = [

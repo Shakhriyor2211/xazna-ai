@@ -15,8 +15,6 @@ services:
   redis:
     image: redis:7-alpine
     container_name: xazna_redis
-    ports:
-      - "6379"
     restart: unless-stopped
     command: redis-server --appendonly yes --maxmemory 2gb --maxmemory-policy allkeys-lru
     networks:
@@ -29,7 +27,6 @@ services:
     env_file:
       - server/.env
     ports:
-      - "8100:8100"
       - "8101:8101"
       - "8102:8102"
     volumes:
@@ -47,7 +44,7 @@ services:
     env_file:
       - client/.env
     ports:
-      - "2102:3100"
+      - "3100:3100"
     networks:
       - nginx_net
 

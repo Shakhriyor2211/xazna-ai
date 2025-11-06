@@ -4,7 +4,6 @@ import { UserMessage } from "./user";
 import {
   Dispatch,
   Fragment,
-  MutableRefObject,
   SetStateAction,
   useCallback,
   useEffect,

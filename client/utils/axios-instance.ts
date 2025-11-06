@@ -34,7 +34,7 @@ axiosInstance.interceptors.response.use(
         isRefreshing = true;
         try {
           const _ = await axios.post(
-            `${ENDPOINTS.client_base}${ENDPOINTS.refresh_token}`
+            `${ENDPOINTS.http_client_base}${ENDPOINTS.refresh_token}`
           );
           refreshAndRetryQueue.forEach(({ config, resolve, reject }) => {
             axiosInstance
@@ -65,7 +65,7 @@ const customRequest = async ({
   headers = {},
   data = {},
   withCredentials = true,
-  baseURL = ENDPOINTS.client_base,
+  baseURL = ENDPOINTS.http_client_base,
 }: AxiosProps) =>
   await axiosInstance({ method, url, data, headers, withCredentials, baseURL });
 export const getRequest = async (params: AxiosProps) =>
