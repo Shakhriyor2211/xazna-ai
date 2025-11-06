@@ -53,8 +53,8 @@ STT_SERVER = os.getenv("STT_SERVER")
 STT_MODEL = os.getenv("STT_MODEL")
 LLM_SERVER = os.getenv("LLM_SERVER")
 
-CELERY_BROKER_URL = f"""redis://{os.getenv("REDIS_HOST")}:6379/0"""
-CELERY_RESULT_BACKEND = f"""redis://{os.getenv("REDIS_HOST")}:6379/0"""
+CELERY_BROKER_URL = f"""redis://{os.getenv("REDIS_HOST")}:{os.getenv("REDIS_PORT")}/0"""
+CELERY_RESULT_BACKEND = f"""redis://{os.getenv("REDIS_HOST")}:{os.getenv("REDIS_PORT")}/0"""
 CELERY_RESULT_EXTENDED = True
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 10800
@@ -76,9 +76,13 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     "172.28.23.100",
+    "0.0.0.0",
     "ai.xazna.uz",
     "xazna_server",
+    "xazna_server:8100",
+    "xazna_server:8101",
     "xazna_client",
+    "xazna_client:3100",
 ]
 
 INSTALLED_APPS = [
@@ -158,7 +162,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
+            "hosts": [(os.getenv("REDIS_HOST", "127.0.0.1"), int(os.getenv("REDIS_PORT", 6379)))],
         },
     },
 }
