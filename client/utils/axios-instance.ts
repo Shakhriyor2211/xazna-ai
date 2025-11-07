@@ -19,7 +19,6 @@ interface AxiosProps {
 let refreshAndRetryQueue: RetryQueueItem[] = [];
 let isRefreshing = false;
 
-const REFETCH_EXCLUDE = [ENDPOINTS.verify_token];
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.response.use(
@@ -27,7 +26,6 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const originalRequest: AxiosRequestConfig = error.config;
     const code = error.response.data.code;
-    console.log(error);
 
     if (code === "expired_token" && error.response.status === 401) {
       if (!isRefreshing) {
@@ -67,7 +65,9 @@ const customRequest = async ({
   withCredentials = true,
   baseURL = ENDPOINTS.http_client_base,
 }: AxiosProps) =>
-  await axiosInstance({ method, url, data, headers, withCredentials, baseURL });
+  await axiosInstance({ method, url: url.endsWith("/") ? url : url + "/", data, headers, withCredentials, baseURL });
+
+
 export const getRequest = async (params: AxiosProps) =>
   await customRequest(params);
 export const postRequest = async (params: AxiosProps) =>
