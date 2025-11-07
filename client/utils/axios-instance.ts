@@ -32,7 +32,7 @@ axiosInstance.interceptors.response.use(
         isRefreshing = true;
         try {
           const _ = await axios.post(
-            `${ENDPOINTS.http_client_base}${ENDPOINTS.refresh_token}`
+            `${ENDPOINTS.http_client_base}${ENDPOINTS.refresh_token}/`
           );
           refreshAndRetryQueue.forEach(({ config, resolve, reject }) => {
             axiosInstance

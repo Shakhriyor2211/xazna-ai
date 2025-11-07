@@ -72,13 +72,15 @@ GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 GOOGLE_REDIRECT_URI = os.getenv("GOOGLE_REDIRECT_URI")
 
 
-ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
-    "172.28.23.100",
-    "0.0.0.0",
-    "ai.xazna.uz"
-]
+# ALLOWED_HOSTS = [
+#     "localhost",
+#     "127.0.0.1",
+#     "172.28.23.100",
+#     "0.0.0.0",
+#     "ai.xazna.uz"
+# ]
+
+ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -113,10 +115,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://ai.xazna.uz",
     "https://ai.xazna.uz"
 ]
-
-# USE_X_FORWARDED_HOST = True
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'http')
-
 
 
 MIDDLEWARE = [
