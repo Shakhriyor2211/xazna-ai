@@ -16,7 +16,10 @@ WORKDIR /app
 
 RUN addgroup -S nextjs && adduser -S nextjs -G nextjs
 
-COPY --from=builder --chown=nextjs:nextjs /app ./
+COPY --from=builder --chown=nextjs:nextjs /app/public ./public
+COPY --from=builder --chown=nextjs:nextjs /app/package.json ./package.json
+COPY --from=builder --chown=nextjs:nextjs /app/.next ./.next
+COPY --from=builder --chown=nextjs:nextjs /app/node_modules ./node_modules
 
 USER nextjs
 
@@ -25,4 +28,4 @@ EXPOSE 3100
 ENV PORT=3100
 ENV HOSTNAME=0.0.0.0
 
-CMD ["node", "server.mjs"]
+CMD ["npm", "start"]
