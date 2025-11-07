@@ -83,7 +83,7 @@ export function ChatSession() {
     if (ws.current !== null) ws.current.close();
 
     ws.current = new WebSocket(
-      `${ENDPOINTS.ws_client_base}/${ENDPOINTS.chat_message}/${sessionId}/`
+      `ws://localhost:2102${ENDPOINTS.ws_client_base}/${ENDPOINTS.chat_message}/${sessionId}/`
     );
 
     ws.current.onmessage = async (event) => {
