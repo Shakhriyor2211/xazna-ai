@@ -2,6 +2,19 @@ version: "3.9"
 name: xazna-ai
 
 services:
+  nginx:
+    image: nginx:alpine
+    container_name: xazna_proxy
+    ports:
+      - "3300:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - nginx_net
+    depends_on:
+      - server
+      - client
+
   pg_service:
     image: postgres:17
     container_name: xazna_postgres

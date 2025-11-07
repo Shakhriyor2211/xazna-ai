@@ -4,7 +4,7 @@ import { useParams, usePathname, useRouter } from "next/navigation";
 import { SessionForm } from "./form";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getRequest, postRequest } from "@/utils/axios-instance";
-import { ENDPOINTS, ROUTES, WS_SERVER_URL } from "@/shared/site";
+import { ENDPOINTS, ROUTES } from "@/shared/site";
 import { useAlertStore } from "@/providers/alert";
 import { SessionMessage } from "./message";
 import { ChatMessageProps } from "@/types";
@@ -15,7 +15,6 @@ export function ChatSession() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [messages, setMessages] = useState<ChatMessageProps[]>([]);
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
-  const lastMessage = useRef<null | string>(null);
   const messagesRef = useRef<ChatMessageProps[]>([]);
   const path = usePathname();
   const { push } = useRouter();
