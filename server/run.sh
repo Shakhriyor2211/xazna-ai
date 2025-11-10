@@ -3,9 +3,14 @@ set -euo pipefail
 
 trap "kill 0" EXIT
 
-echo ">>> Starting Django setup..."
+
+
+echo ">>> Starting Django migrations..."
 python manage.py makemigrations --noinput
 python manage.py migrate --noinput
+
+
+echo ">>> Collecting  Django static files..."
 python manage.py collectstatic --noinput
 
 mkdir -p /app/logs
