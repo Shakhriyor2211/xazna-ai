@@ -9,6 +9,8 @@ services:
       - "2102:80"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - media:/app/media-files/
+      - static:/app/staticfiles/
     networks:
       - nginx_net
     depends_on:
