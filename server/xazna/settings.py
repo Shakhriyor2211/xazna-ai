@@ -64,7 +64,7 @@ CELERY_WORKER_MAX_MEMORY = 1024 * 1024 * 4  # 4 GB
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")
-DEBUG = os.getenv("DEBUG")
+DEBUG = os.getenv("DEBUG") == "dev"
 BASE_URL = os.getenv("BASE_URL")
 AUTH_USER_MODEL = "accounts.CustomUserModel"
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")

@@ -9,7 +9,8 @@ import { useAlertStore } from "@/providers/alert";
 import { AxiosErrorProps } from "@/types";
 import { Button, Spinner } from "@heroui/react";
 
-const CLIENT = process.env.NEXT_PUBLIC_CLIENT_URL;
+const TARGET_URL = process.env.NEXT_PUBLIC_GOOGLE_TARGET_URL;
+const REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
 
 export function GoogleSignIn() {
   const { setAlert } = useAlertStore();
@@ -55,10 +56,10 @@ export function GoogleSignIn() {
 
   const connectGoogle = useGoogleLogin({
     ux_mode: "redirect",
-    redirect_uri: `${ENDPOINTS.http_server_base}${ENDPOINTS.google_oauth}/`,
+    redirect_uri: REDIRECT_URI,
     state: JSON.stringify({
-      next: `${CLIENT}${next ?? ROUTES.main}`,
-      fallback: `${CLIENT}/404`,
+      next: `${TARGET_URL}${next ?? ROUTES.main}`,
+      fallback: `${TARGET_URL}/404`,
     }),
     onSuccess: handleSuccess,
     onError: handleError,

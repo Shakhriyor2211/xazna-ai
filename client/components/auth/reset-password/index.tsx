@@ -8,7 +8,7 @@ import { FormEvent, useCallback, useState } from "react";
 import { IoFileTrayFullOutline } from "react-icons/io5";
 import { MdArrowBack } from "react-icons/md";
 
-const CLIENT = process.env.NEXT_PUBLIC_CLIENT_URL;
+const TARGET_URL = process.env.NEXT_PUBLIC_GOOGLE_TARGET_URL;
 
 export const ResetPassword = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +41,10 @@ export const ResetPassword = () => {
       try {
         const { data } = await postRequest({
           url: ENDPOINTS.password_reset,
-          data: { email, target: `${CLIENT}${ROUTES.password_reset_confirm}` },
+          data: {
+            email,
+            target: `${TARGET_URL}${ROUTES.password_reset_confirm}`,
+          },
         });
         if (data) {
           setIsSuccess(true);
