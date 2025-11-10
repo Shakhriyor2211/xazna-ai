@@ -5,7 +5,6 @@ from kombu import Queue
 from celery.schedules import crontab
 from dotenv import load_dotenv
 
-
 load_dotenv()
 
 CELERY_TASK_QUEUES = (
@@ -13,7 +12,6 @@ CELERY_TASK_QUEUES = (
     Queue("clean", routing_key="clean.#"),
     Queue("check", routing_key="check.#"),
 )
-
 
 CELERY_TASK_ROUTES = {
     "tasks.convert_file": {"queue": "conversion", "routing_key": "conversion.file"},
@@ -27,7 +25,6 @@ CELERY_TASK_ROUTES = {
     }
 }
 
-
 CELERY_BEAT_SCHEDULE = {
     "clean-tokens-daily": {
         "task": "accounts.tasks.clean_password_reset_tokens",
@@ -39,7 +36,7 @@ CELERY_BEAT_SCHEDULE = {
     },
     "check-subscriptions-daily": {
         "task": "finance.tasks.check_subscriptions",
-        "schedule":crontab(hour=0, minute=0),  # every day at 00:00 server time
+        "schedule": crontab(hour=0, minute=0),  # every day at 00:00 server time
         "options": {
             "queue": "check",
             "routing_key": "check.subscriptions"
@@ -70,7 +67,6 @@ AUTH_USER_MODEL = "accounts.CustomUserModel"
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 GOOGLE_REDIRECT_URI = os.getenv("GOOGLE_REDIRECT_URI")
-
 
 # ALLOWED_HOSTS = [
 #     "localhost",
@@ -106,7 +102,6 @@ INSTALLED_APPS = [
     "plan"
 ]
 
-
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
@@ -116,8 +111,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://ai.xazna.uz"
 ]
 
-
 MIDDLEWARE = [
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -149,7 +144,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "xazna.wsgi.application"
 ASGI_APPLICATION = "xazna.asgi.application"
-
 
 CHANNEL_LAYERS = {
     "default": {
