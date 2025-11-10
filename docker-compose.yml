@@ -9,8 +9,6 @@ services:
       - "2102:80"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - media:/app/media-files/
-      - static:/app/staticfiles/
     networks:
       - nginx_net
     depends_on:
@@ -47,7 +45,6 @@ services:
       - "8102:8102"
     volumes:
       - media:/app/media-files/
-      - static:/app/staticfiles/
     depends_on:
       - pg_service
       - redis
@@ -66,7 +63,6 @@ services:
 volumes:
   pg_data:
   media:
-  static:
 
 networks:
   nginx_net:
