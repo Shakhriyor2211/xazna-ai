@@ -45,6 +45,7 @@ services:
       - "8102:8102"
     volumes:
       - media:/app/media-files/
+      - static:/app/staticfiles/
     depends_on:
       - pg_service
       - redis
@@ -63,6 +64,7 @@ services:
 volumes:
   pg_data:
   media:
+  static:
 
 networks:
   nginx_net:
