@@ -79,8 +79,10 @@ class STTAPIView(APIView):
 
                 audio = convert_to_wav(file)
 
+                m = client.models.list().data[0].id
+
                 transcript = client.audio.transcriptions.create(
-                    model=settings.STT_MODEL,
+                    model=m,
                     file=audio,
                     language="en",
                     stream=True,
