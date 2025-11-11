@@ -8,7 +8,6 @@ from django.core.files import File
 from pydub import AudioSegment
 from xazna import settings
 
-
 async def send_post_request(payload, url, request_type="json"):
     async with httpx.AsyncClient(timeout=None) as client:
         if request_type == "json":
@@ -80,9 +79,7 @@ def convert_to_wav(audio_file):
 
     audio_io = BytesIO(audio_bytes)
 
-    original_format = audio_file.name.split('.')[-1].lower()
-
-    audio = AudioSegment.from_file(audio_io, format=original_format)
+    audio = AudioSegment.from_file(audio_io)
 
     wav_io = BytesIO()
     audio.set_frame_rate(44100).set_channels(1).set_sample_width(2).export(
