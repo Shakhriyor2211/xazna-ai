@@ -47,7 +47,6 @@ CELERY_BEAT_SCHEDULE = {
 TTS_TRITON_SERVER = os.getenv("TTS_TRITON_SERVER")
 STT_SERVER_API_KEY = os.getenv("STT_SERVER_API_KEY")
 STT_SERVER = os.getenv("STT_SERVER")
-STT_MODEL = os.getenv("STT_MODEL")
 LLM_SERVER = os.getenv("LLM_SERVER")
 
 CELERY_BROKER_URL = f"""redis://{os.getenv("REDIS_HOST")}:{os.getenv("REDIS_PORT")}/0"""
@@ -68,15 +67,12 @@ GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 GOOGLE_REDIRECT_URI = os.getenv("GOOGLE_REDIRECT_URI")
 
-# ALLOWED_HOSTS = [
-#     "localhost",
-#     "127.0.0.1",
-#     "172.28.23.100",
-#     "0.0.0.0",
-#     "ai.xazna.uz"
-# ]
-
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "0.0.0.0",
+    "ai.xazna.uz"
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
