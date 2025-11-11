@@ -22,6 +22,7 @@ import tritonclient.grpc as triton_grpc
 class TTSSettingsAPIView(APIView):
     auth_required = True
 
+    @swagger_auto_schema(operation_description="TTS settings...", tags=["TTS"])
     def get(self, request):
         models = list(TTSModelModel.objects.values_list("title", flat=True))
         emotions = list(TTSEmotionModel.objects.values_list("title", flat=True))
@@ -38,8 +39,9 @@ class TTSAPIView(APIView):
     auth_required = True
 
     @swagger_auto_schema(
-        operation_description="Text to speech...",
-        request_body=TTSSerializer
+        operation_description="TTS generate...",
+        request_body=TTSSerializer,
+        tags=["TTS"]
     )
     def post(self, request):
         try:
@@ -140,7 +142,9 @@ class TTSListAPIView(APIView):
             'ordering', openapi.IN_QUERY, description="Comma-separated fields (e.g. `created_at,text`)",
             type=openapi.TYPE_STRING
         ),
-    ])
+    ],
+    tags=["TTS"]
+    )
     def get(self, request):
         ordering = request.query_params.get('ordering', '-created_at')
 
@@ -166,6 +170,7 @@ class TTSSearchAPIView(APIView):
                 required=True
             )
         ],
+        tags=["TTS"]
     )
     def get(self, request):
         q = request.GET['q'].strip()
@@ -189,6 +194,7 @@ class TTSDeleteAPIView(APIView):
                 )
             },
         ),
+        tags=["TTS"]
     )
     def post(self, request):
         try:

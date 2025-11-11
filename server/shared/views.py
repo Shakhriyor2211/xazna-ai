@@ -4,6 +4,7 @@ from django.http import Http404, FileResponse
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.views import APIView
 from shared.models import AudioModel
+from drf_yasg.utils import swagger_auto_schema
 
 
 class CustomPagination(PageNumberPagination):
@@ -16,6 +17,7 @@ class CustomPagination(PageNumberPagination):
 class ProtectedAudioStreamView(APIView):
     auth_required = True
 
+    @swagger_auto_schema(operation_description="Stream audio...", tags=["Media"])
     def get(self, request, id):
         try:
             audio = AudioModel.objects.get(pk=id)
@@ -41,6 +43,7 @@ class ProtectedAudioStreamView(APIView):
 class ProtectedAudioDownloadView(APIView):
     auth_required = True
 
+    @swagger_auto_schema(operation_description="Download audio...", tags=["Media"])
     def get(self, request, id):
         try:
             audio = AudioModel.objects.get(pk=id)

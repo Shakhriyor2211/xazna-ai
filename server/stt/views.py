@@ -26,7 +26,7 @@ class STTAPIView(APIView):
     parser_classes = [MultiPartParser]
     auth_required = True
 
-    @swagger_auto_schema(operation_description='STT generate...', request_body=STTSerializer)
+    @swagger_auto_schema(operation_description='STT generate...', request_body=STTSerializer, tags=["STT"])
     def post(self, request):
         try:
             with transaction.atomic():
@@ -128,7 +128,9 @@ class STTListAPIView(APIView):
             'ordering', openapi.IN_QUERY, description="Comma-separated fields (e.g. `created_at,text`)",
             type=openapi.TYPE_STRING
         ),
-    ])
+    ],
+    tags=["STT"]
+    )
     def get(self, request):
         ordering = request.query_params.get('ordering', '-created_at')
 
@@ -147,7 +149,8 @@ class STTChangeAPIView(APIView):
 
     @swagger_auto_schema(
         operation_description="STT change...",
-        request_body=STTChangeSerializer
+        request_body=STTChangeSerializer,
+        tags=["STT"]
     )
     def put(self, request, stt_id):
         stt_instance = STTModel.objects.get(id=stt_id, user=request.user)
@@ -177,6 +180,7 @@ class STTDeleteAPIView(APIView):
                 )
             },
         ),
+        tags=["STT"]
     )
     def post(self, request):
         try:
@@ -201,6 +205,7 @@ class STTSearchAPIView(APIView):
                 required=True
             )
         ],
+        tags=["STT"]
     )
     def get(self, request):
         q = request.GET['q'].strip()

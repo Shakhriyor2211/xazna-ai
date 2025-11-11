@@ -2,7 +2,6 @@ from drf_yasg import openapi
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-
 from shared.utils import generate_title
 from .models import ChatSessionModel, ChatMessageModel
 from .serializers import ChatSessionSerializer, ChatMessageSerializer
@@ -11,6 +10,10 @@ from drf_yasg.utils import swagger_auto_schema
 class ChatSessionListAPIView(APIView):
     auth_required = True
 
+    @swagger_auto_schema(
+        operation_description="Chat session list..",
+        tags=["Chat"]
+    )
     def get(self, request):
         sessions = ChatSessionModel.objects.filter(user=request.user).order_by("-created_at")
         serializer = ChatSessionSerializer(sessions, many=True)
@@ -20,6 +23,10 @@ class ChatSessionListAPIView(APIView):
 class ChatMessageListAPIView(APIView):
     auth_required = True
 
+    @swagger_auto_schema(
+        operation_description="Chat list..",
+        tags=["Chat"]
+    )
     def get(self, request, session_id):
         session = ChatSessionModel.objects.filter(id=session_id, user=request.user).first()
         messages = session.messages.order_by("created_at")
@@ -30,7 +37,7 @@ class ChatSessionAPIView(APIView):
     auth_required = True
 
     @swagger_auto_schema(
-        operation_description="Create a new chat session and first user message",
+        operation_description="Create a new chat session",
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
             properties={
@@ -38,18 +45,7 @@ class ChatSessionAPIView(APIView):
             },
             required=["message"],
         ),
-        responses={
-            201: openapi.Schema(
-                type=openapi.TYPE_OBJECT,
-                properties={
-                    "id": openapi.Schema(type=openapi.TYPE_INTEGER),
-                    "title": openapi.Schema(type=openapi.TYPE_STRING),
-                    "created_at": openapi.Schema(type=openapi.TYPE_STRING, format="date-time"),
-                    "updated_at": openapi.Schema(type=openapi.TYPE_STRING, format="date-time"),
-                }
-            ),
-            400: "Bad Request",
-        }
+        tags=["Chat"]
     )
     def post(self, request):
         try:
@@ -74,26 +70,15 @@ class ChatSessionItemAPIView(APIView):
     auth_required = True
 
     @swagger_auto_schema(
-        operation_description="Create a new chat session and first user message",
+        operation_description="Change session title...",
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
             properties={
-                "message": openapi.Schema(type=openapi.TYPE_STRING, description="User message to start chat"),
+                "title": openapi.Schema(type=openapi.TYPE_STRING, description="Title"),
             },
-            required=["message"],
+            required=["title"],
         ),
-        responses={
-            201: openapi.Schema(
-                type=openapi.TYPE_OBJECT,
-                properties={
-                    "id": openapi.Schema(type=openapi.TYPE_INTEGER),
-                    "title": openapi.Schema(type=openapi.TYPE_STRING),
-                    "created_at": openapi.Schema(type=openapi.TYPE_STRING, format="date-time"),
-                    "updated_at": openapi.Schema(type=openapi.TYPE_STRING, format="date-time"),
-                }
-            ),
-            400: "Bad Request",
-        }
+        tags=["Chat"]
     )
 
     def put(self, request, session_id):
@@ -116,9 +101,10 @@ class ChatSessionItemAPIView(APIView):
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
-
-
+    @swagger_auto_schema(
+        operation_description="Delete session...",
+        tags=["Chat"]
+    )
     def delete(self, request, session_id):
         try:
             session = ChatSessionModel.objects.filter(user=request.user, id=session_id).first()

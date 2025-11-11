@@ -38,20 +38,20 @@ base_patterns = [
     path("finance/", include("finance.urls")),
     path("subscription/", include("subscription.urls")),
     path("plan/", include("plan.urls")),
-    path("chat/", include("chat.urls")),
+    path("chat/", include("chat.urls"))
 ]
 
 
 protected_media_patterns = [
-    path("audio/stream/<id>/", ProtectedAudioStreamView.as_view(), name="audio_stream"),
-    path("audio/download/<id>/", ProtectedAudioDownloadView.as_view(), name="audio_download")
+    path("audio/stream/<id>", ProtectedAudioStreamView.as_view(), name="audio_stream"),
+    path("audio/download/<id>", ProtectedAudioDownloadView.as_view(), name="audio_download")
 ]
 
 urlpatterns = [
     path("swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="schema_swagger_ui"),
     path("api/", include(base_patterns)),
     path("admin/", admin.site.urls),
-    path("protected/media/", include(protected_media_patterns)),
+    # path("protected/media/", include(protected_media_patterns)),
 
 ]
 

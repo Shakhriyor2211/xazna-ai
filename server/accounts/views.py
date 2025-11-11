@@ -12,7 +12,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
-from accounts.models import CustomUserModel, SocialAccountModel, EmailConfirmOtpModel, PasswordResetTokenModel, PictureModel
+from accounts.models import CustomUserModel, SocialAccountModel, EmailConfirmOtpModel, PasswordResetTokenModel, \
+    PictureModel
 from accounts.serializers import SignUpSerializer, UserSerializer, SignInSerializer, RefreshTokenSerializer, \
     VerifyTokenSerializer, ResendEmailCodeSerializer, VerifyEmailCodeSerializer, PasswordChangeSerializer, \
     ProfileChangeInfoSerializer, PictureSerializer
@@ -28,6 +29,7 @@ from xazna import settings
 class UserProfileView(APIView):
     auth_required = True
 
+    @swagger_auto_schema(operation_description="User profile...", tags=["User"])
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -37,7 +39,7 @@ class UsersView(APIView):
     auth_required = True
     admin_required = True
 
-    @swagger_auto_schema(operation_description="Users...")
+    @swagger_auto_schema(operation_description="Users...", tags=["User"])
     def get(self, request):
         users = CustomUserModel.objects.all()
         serializer = UserSerializer(users, many=True)
@@ -48,7 +50,7 @@ class UserDetailView(APIView):
     auth_required = True
     admin_required = True
 
-    @swagger_auto_schema(operation_description="User detail...")
+    @swagger_auto_schema(operation_description="User detail...", tags=["User"])
     def get(self, request, user_id):
         user = get_object_or_404(CustomUserModel, id=user_id)
         serializer = UserSerializer(user)
@@ -56,7 +58,7 @@ class UserDetailView(APIView):
 
 
 class SignUpView(APIView):
-    @swagger_auto_schema(operation_description="Sign up...", request_body=SignUpSerializer)
+    @swagger_auto_schema(operation_description="Sign up...", request_body=SignUpSerializer, tags=["Auth"])
     def post(self, request):
         serializer = SignUpSerializer(data=request.data)
         if serializer.is_valid():
@@ -101,7 +103,7 @@ class SignUpView(APIView):
 
 
 class SignInView(APIView):
-    @swagger_auto_schema(operation_description="Sign in...", request_body=SignInSerializer)
+    @swagger_auto_schema(operation_description="Sign in...", request_body=SignInSerializer, tags=["Auth"])
     def post(self, request):
         serializer = SignInSerializer(data=request.data)
 
@@ -111,7 +113,7 @@ class SignInView(APIView):
             if not user_instance.is_active:
                 email_otp = EmailConfirmOtpModel.objects.filter(user=user_instance).first()
 
-                if email_otp is None :
+                if email_otp is None:
                     email_otp = EmailConfirmOtpModel.objects.create(user=user_instance)
                     email_otp.code, email_otp.expires_at = generate_email_otp(email_otp.code)
                     email_otp.remaining_resends -= 1
@@ -179,7 +181,8 @@ class SignInView(APIView):
 
 
 class ResendEmailCodeView(APIView):
-    @swagger_auto_schema(operation_description="Send email confirmation...", request_body=ResendEmailCodeSerializer)
+    @swagger_auto_schema(operation_description="Send email confirmation...", request_body=ResendEmailCodeSerializer,
+                         tags=["Auth"])
     def post(self, request):
         try:
             otp_id = request.data.get("otp_id")
@@ -222,7 +225,8 @@ class ResendEmailCodeView(APIView):
 class VerifyEmailCodeView(APIView):
     @swagger_auto_schema(
         operation_description="Verify confirmation code...",
-        request_body=VerifyEmailCodeSerializer
+        request_body=VerifyEmailCodeSerializer,
+        tags=["Auth"]
     )
     def post(self, request):
         code = request.data.get("code")
@@ -284,7 +288,8 @@ class VerifyEmailCodeView(APIView):
 class RefreshTokenView(APIView):
     @swagger_auto_schema(
         operation_description="Refresh token...",
-        request_body=RefreshTokenSerializer
+        request_body=RefreshTokenSerializer,
+        tags=["Auth"]
     )
     def post(self, request):
         serializer = RefreshTokenSerializer(data=request.data)
@@ -330,7 +335,8 @@ class RefreshTokenView(APIView):
 class VerifyTokenView(APIView):
     @swagger_auto_schema(
         operation_description="Verify access token...",
-        request_body=VerifyTokenSerializer
+        request_body=VerifyTokenSerializer,
+        tags=["Auth"]
     )
     def post(self, request):
         serializer = VerifyTokenSerializer(data=request.data)
@@ -348,8 +354,7 @@ class VerifyTokenView(APIView):
 
 
 class SignOutView(APIView):
-
-    @swagger_auto_schema(operation_description="Sign out...", )
+    @swagger_auto_schema(operation_description="Sign out...", tags=["Auth"])
     def post(self, request):
         refresh_token = request.COOKIES.get("refresh_token")
 
@@ -368,7 +373,15 @@ class SignOutView(APIView):
 
 
 class GoogleOAuthView(APIView):
-    @swagger_auto_schema(operation_description="Google oauth...")
+    @swagger_auto_schema(operation_description="Google oauth...",
+                         request_body=openapi.Schema(
+                             type=openapi.TYPE_OBJECT,
+                             required=["email"],
+                             properties={
+                                 "code": openapi.Schema(type=openapi.TYPE_STRING, description="Code")
+                             }
+                         ),
+                         tags=["Auth"])
     def post(self, request):
         code = request.data.get("code")
         if not code:
@@ -407,11 +420,12 @@ class GoogleOAuthView(APIView):
             last_name = idinfo.get("family_name", "")
 
             user, _ = CustomUserModel.objects.get_or_create(email=email, defaults={"first_name": first_name,
-                                                                              "last_name": last_name})
+                                                                                   "last_name": last_name})
 
-            _, social_account_created = SocialAccountModel.objects.get_or_create(provider_user_id=idinfo["sub"], defaults={
-                "user": user,
-                "provider": "google"})
+            _, social_account_created = SocialAccountModel.objects.get_or_create(provider_user_id=idinfo["sub"],
+                                                                                 defaults={
+                                                                                     "user": user,
+                                                                                     "provider": "google"})
 
             if social_account_created:
                 user.is_active = True
@@ -460,6 +474,7 @@ class GoogleOAuthView(APIView):
         except ValueError:
             return Response({"error": "Something went wrong"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    @swagger_auto_schema(operation_description="Google oauth redirect callback...", tags=["Auth"])
     def get(self, request):
         code = request.GET.get("code")
         state = request.GET.get("state")
@@ -503,11 +518,12 @@ class GoogleOAuthView(APIView):
             last_name = idinfo.get("family_name", "")
 
             user, _ = CustomUserModel.objects.get_or_create(email=email, defaults={"first_name": first_name,
-                                                                              "last_name": last_name})
+                                                                                   "last_name": last_name})
 
-            _, social_account_created = SocialAccountModel.objects.get_or_create(provider_user_id=idinfo["sub"], defaults={
-                "user": user,
-                "provider": "google"})
+            _, social_account_created = SocialAccountModel.objects.get_or_create(provider_user_id=idinfo["sub"],
+                                                                                 defaults={
+                                                                                     "user": user,
+                                                                                     "provider": "google"})
 
             if social_account_created:
                 user.is_active = True
@@ -573,7 +589,7 @@ class GoogleOAuthView(APIView):
 class PasswordResetView(APIView):
 
     @swagger_auto_schema(
-        operation_description="Reset password...",
+        operation_description="Password reset...",
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
             required=["email"],
@@ -581,9 +597,11 @@ class PasswordResetView(APIView):
                 "email": openapi.Schema(type=openapi.TYPE_STRING, format=openapi.FORMAT_EMAIL,
                                         description="User email address"),
                 "target": openapi.Schema(type=openapi.TYPE_STRING, format=openapi.FORMAT_EMAIL,
-                                        description="Email confirmation target")
+                                         description="Email confirmation target")
             }
-        ))
+        ),
+        tags=["Auth"]
+    )
     def post(self, request):
         try:
             email = request.data.get("email")
@@ -612,6 +630,7 @@ class PasswordResetView(APIView):
 
 
 class PasswordResetConfirmView(APIView):
+    @swagger_auto_schema(operation_description="Password reset confirm...", tags=["Auth"])
     def get(self, request, slug):
         t = PasswordResetTokenModel.objects.filter(slug=slug).first()
         if t is None:
@@ -644,7 +663,8 @@ class PasswordResetConfirmView(APIView):
                     description="New password"
                 ),
             },
-        )
+        ),
+        tags=["Auth"]
     )
     def post(self, request, slug):
         try:
@@ -688,7 +708,8 @@ class PasswordChangeView(APIView):
 
     @swagger_auto_schema(
         operation_description="Password change..",
-        request_body=PasswordChangeSerializer
+        request_body=PasswordChangeSerializer,
+        tags=["Auth"]
     )
     def put(self, request):
         if not request.user.regular_auth:
@@ -710,7 +731,8 @@ class ProfileChangeInfoView(APIView):
 
     @swagger_auto_schema(
         operation_description="Profile info change..",
-        request_body=ProfileChangeInfoSerializer
+        request_body=ProfileChangeInfoSerializer,
+        tags=["User"]
     )
     def patch(self, request):
         user_instance = request.user
@@ -759,7 +781,8 @@ class ProfileChangeImageView(APIView):
 
     @swagger_auto_schema(
         operation_description="Profile image change..",
-        request_body=PictureSerializer
+        request_body=PictureSerializer,
+        tags=["User"]
     )
     def post(self, request, *args, **kwargs):
         try:
@@ -773,6 +796,7 @@ class ProfileChangeImageView(APIView):
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    @swagger_auto_schema(operation_description="Profile image delete...", tags=["User"])
     def delete(self, request, *args, **kwargs):
         try:
             picture_obj = request.user.picture

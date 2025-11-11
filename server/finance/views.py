@@ -11,6 +11,7 @@ from django.db import transaction
 class ExpenseListAPIView(APIView):
     auth_required = True
 
+    @swagger_auto_schema(operation_description='Expense list...', tags=["Finance"])
     def get(self, request):
         ordering = request.query_params.get('ordering', '-created_at')
 
@@ -28,7 +29,7 @@ class ExpenseListAPIView(APIView):
 class BalanceTopUpAPIView(APIView):
     auth_required = True
 
-    @swagger_auto_schema(operation_description="Top up balance...", request_body=TransactionSerializer)
+    @swagger_auto_schema(operation_description="Top up balance...", request_body=TransactionSerializer, tags=["Finance"])
     def post(self, request):
         try:
             with transaction.atomic():
@@ -43,7 +44,7 @@ class BalanceTopUpAPIView(APIView):
 class BalanceManageAPIView(APIView):
     auth_required = True
 
-    @swagger_auto_schema(operation_description='Manage subscription...', request_body=BalanceManageSerializer)
+    @swagger_auto_schema(operation_description='Manage subscription...', request_body=BalanceManageSerializer, tags=["Finance"])
     def patch(self, request):
         try:
             serializer = BalanceManageSerializer(
@@ -62,6 +63,7 @@ class BalanceManageAPIView(APIView):
 class TransactionListAPIView(APIView):
     auth_required = True
 
+    @swagger_auto_schema(operation_description='Transaction list...', tags=["Finance"])
     def get(self, request):
         ordering = request.query_params.get('ordering', '-created_at')
 

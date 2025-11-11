@@ -6,15 +6,15 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: `${SERVER_URL}/api/:path*/`,
+        destination: `${SERVER_URL}/api/:path*`,
       },
       {
         source: "/media/:path*",
-        destination: `${SERVER_URL}/media/:path*/`,
+        destination: `${SERVER_URL}/media/:path*`,
       },
       {
         source: "/protected/:path*",
-        destination: `${SERVER_URL}/protected/:path*/`,
+        destination: `${SERVER_URL}/protected/:path*`,
       },
     ];
   },

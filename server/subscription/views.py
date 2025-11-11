@@ -17,7 +17,7 @@ from django.db import transaction
 class SubscriptionRestartAPIView(APIView):
     auth_required = True
 
-    @swagger_auto_schema(operation_description="Restart subscription...")
+    @swagger_auto_schema(operation_description="Restart subscription...", tags=["Subscription"])
     def post(self, request):
         try:
             with transaction.atomic():
@@ -73,7 +73,7 @@ class SubscriptionRestartAPIView(APIView):
 class SubscriptionChangeAPIView(APIView):
     auth_required = True
 
-    @swagger_auto_schema(operation_description='Change subscription...', request_body=SubscriptionChangeSerializer)
+    @swagger_auto_schema(operation_description='Change subscription...', request_body=SubscriptionChangeSerializer, tags=["Subscription"])
     def post(self, request):
         try:
             with transaction.atomic():
@@ -137,7 +137,7 @@ class SubscriptionChangeAPIView(APIView):
 class SubscriptionManageAPIView(APIView):
     auth_required = True
 
-    @swagger_auto_schema(operation_description='Manage subscription...', request_body=SubscriptionManageSerializer)
+    @swagger_auto_schema(operation_description='Manage subscription...', request_body=SubscriptionManageSerializer, tags=["Subscription"])
     def patch(self, request):
         try:
             serializer = SubscriptionManageSerializer(
@@ -167,7 +167,9 @@ class SubscriptionListAPIView(APIView):
             'ordering', openapi.IN_QUERY, description="Comma-separated fields (e.g. `created_at,text`)",
             type=openapi.TYPE_STRING
         ),
-    ])
+    ],
+    tags=["Subscription"]
+    )
     def get(self, request):
         ordering = request.query_params.get('ordering', '-created_at')
 
@@ -184,6 +186,8 @@ class SubscriptionListAPIView(APIView):
 class SubscriptionCheckAPIView(APIView):
     auth_required = True
     admin_required = True
+
+    @swagger_auto_schema(operation_description='Subscription check...', tags=["Subscription"])
 
     def get(self, request):
         with transaction.atomic():
