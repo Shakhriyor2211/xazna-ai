@@ -1,12 +1,12 @@
-import { useUserStore } from "@/hooks/user";
 import { ENDPOINTS } from "@/shared/site";
-import { PlansProps } from "@/types";
+import { BalanceProps, PlansProps } from "@/types";
 import { getRequest } from "@/utils/axios-instance";
 import { Button, Skeleton } from "@heroui/react";
 import { Fragment, useCallback, useEffect, useState } from "react";
 import { SubscriptionChange } from "./modal/change";
 import { SubscriptionRestart } from "./modal/restart";
 import { useMillify } from "@/hooks/millify";
+import { useAlertStore } from "@/providers/alert";
 
 interface SubscriptionPlansProps {
   isYearly: boolean;
@@ -14,21 +14,46 @@ interface SubscriptionPlansProps {
 
 export function SubscriptionPlans({ isYearly }: SubscriptionPlansProps) {
   const [plans, setPlans] = useState<PlansProps[]>([]);
-  const { user } = useUserStore();
   const [isLoading, setIsLoading] = useState(true);
+  const [balance, setBalance] = useState<BalanceProps | null>(null);
+  const { setAlert } = useAlertStore();
 
   const getPlans = useCallback(async () => {
     try {
       const { data } = await getRequest({ url: ENDPOINTS.plans });
       if (data) setPlans(data);
     } catch {
+      setAlert((prev) => ({
+        ...prev,
+        isVisible: true,
+        color: "danger",
+        title: "",
+        description: "Failed to load plans.",
+      }));
     } finally {
       setIsLoading(false);
     }
   }, [plans]);
 
+  const getBalance = useCallback(async () => {
+    try {
+      const { data } = await getRequest({ url: ENDPOINTS.balance_info });
+
+      if (data) setBalance(data);
+    } catch {
+      setAlert((prev) => ({
+        ...prev,
+        isVisible: true,
+        color: "danger",
+        title: "",
+        description: "Failed to load balance.",
+      }));
+    }
+  }, []);
+
   useEffect(() => {
     getPlans();
+    getBalance();
   }, []);
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 my-8">
@@ -57,8 +82,8 @@ export function SubscriptionPlans({ isYearly }: SubscriptionPlansProps) {
               <div
                 key={plan.id}
                 className={`rounded-xl px-6 pt-6 pb-8 flex flex-col h-90 ${
-                  user?.balance.subscription.title === plan.title &&
-                  (user?.balance.subscription.period === "annual") === isYearly
+                  balance?.subscription.title === plan.title &&
+                  (balance.subscription.period === "annual") === isYearly
                     ? "bg-primary/20"
                     : "border border-default-200"
                 }`}
@@ -102,14 +127,14 @@ export function SubscriptionPlans({ isYearly }: SubscriptionPlansProps) {
                       )}
                       <div
                         className={
-                          user?.balance.subscription.title === "Free" &&
+                          balance?.subscription.title === "Free" &&
                           plan.title === "Free"
                             ? "invisible"
                             : "visible"
                         }
                       >
-                        {user?.balance.subscription.title === plan.title &&
-                        (user?.balance.subscription.period === "annual") ===
+                        {balance?.subscription.title === plan.title &&
+                        (balance?.subscription.period === "annual") ===
                           isYearly &&
                         plan.title !== "Free" ? (
                           <SubscriptionRestart />

@@ -156,7 +156,7 @@ export function Header({ title }: { title: string }) {
                           </span>
                           <span className="text-xs">
                             {useMillify(
-                              Number(balance?.subscription.credit) ?? 0
+                              Number(balance?.subscription.credit ?? 0)
                             )}
                           </span>
                         </div>
@@ -166,7 +166,7 @@ export function Header({ title }: { title: string }) {
                           </span>
                           <span className="text-xs">
                             {useMillify(
-                              Number(balance?.subscription.credit_expense) ?? 0
+                              Number(balance?.subscription.credit_expense ?? 0)
                             )}
                           </span>
                         </div>
@@ -175,7 +175,7 @@ export function Header({ title }: { title: string }) {
                             Balance
                           </span>
                           <span className="text-xs">
-                            {useMillify(Number(balance?.cash) ?? 0)} UZS
+                            {useMillify(Number(balance?.cash ?? 0))} UZS
                           </span>
                         </div>
                       </div>

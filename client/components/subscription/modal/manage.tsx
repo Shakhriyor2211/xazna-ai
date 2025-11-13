@@ -1,9 +1,8 @@
 import { useMillify } from "@/hooks/millify";
-import { useUserStore } from "@/hooks/user";
 import { useAlertStore } from "@/providers/alert";
 import { ENDPOINTS } from "@/shared/site";
-import { UserProps } from "@/types";
-import { patchRequest } from "@/utils/axios-instance";
+import { BalanceProps } from "@/types";
+import { getRequest, patchRequest } from "@/utils/axios-instance";
 import {
   Button,
   Modal,
@@ -13,12 +12,12 @@ import {
   Switch,
   useDisclosure,
 } from "@heroui/react";
-import { ChangeEvent, Fragment, useCallback } from "react";
+import { ChangeEvent, Fragment, useCallback, useEffect, useState } from "react";
 import { IoSettingsOutline } from "react-icons/io5";
 
 export function SubscriptionManage() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const { user, setUser } = useUserStore();
+  const [balance, setBalance] = useState<BalanceProps | null>(null);
   const { setAlert } = useAlertStore();
 
   const handleAutoRenew = useCallback(
@@ -31,13 +30,14 @@ export function SubscriptionManage() {
         });
 
         if (data) {
-          setUser((prev: UserProps) => ({
-            ...prev,
-            balance: {
-              ...prev.balance,
-              subscription: { ...prev.balance.subscription, auto_renew: value },
-            },
-          }));
+          setBalance((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  subscription: { ...prev.subscription, auto_renew: value },
+                }
+              : prev
+          );
         }
       } catch {
         setAlert((prev) => ({
@@ -49,7 +49,7 @@ export function SubscriptionManage() {
         }));
       }
     },
-    [user]
+    [balance]
   );
   const handleChargeable = useCallback(
     async (event: ChangeEvent<HTMLInputElement>) => {
@@ -61,13 +61,14 @@ export function SubscriptionManage() {
         });
 
         if (data) {
-          setUser((prev: UserProps) => ({
-            ...prev,
-            balance: {
-              ...prev.balance,
-              chargeable: value,
-            },
-          }));
+          setBalance((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  chargeable: value,
+                }
+              : prev
+          );
         }
       } catch {
         setAlert((prev) => ({
@@ -79,8 +80,28 @@ export function SubscriptionManage() {
         }));
       }
     },
-    [user]
+    [balance]
   );
+
+  const getBalance = useCallback(async () => {
+    try {
+      const { data } = await getRequest({ url: ENDPOINTS.balance_info });
+
+      if (data) setBalance(data);
+    } catch {
+      setAlert((prev) => ({
+        ...prev,
+        isVisible: true,
+        color: "danger",
+        title: "",
+        description: "Failed to load balance.",
+      }));
+    }
+  }, []);
+
+  useEffect(() => {
+    getBalance();
+  }, []);
 
   return (
     <Fragment>
@@ -110,21 +131,23 @@ export function SubscriptionManage() {
                   <div className="flex items-center justify-between text-sm border-b pb-1 border-default-200">
                     <span>Current plan</span>
                     <span className="font-semibold">
-                      {user?.balance.subscription.title}
+                      {balance?.subscription.title}
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-sm border-b pb-1 border-default-200">
                     <span>Credits</span>
                     <span className="font-semibold">
-                      {useMillify(user?.balance.subscription.credit_expense)}
+                      {useMillify(
+                        Number(balance?.subscription.credit_expense ?? 0)
+                      )}
                       &nbsp;/&nbsp;
-                      {useMillify(user?.balance.subscription.credit)}
+                      {useMillify(Number(balance?.subscription.credit ?? 0))}
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-sm border-b pb-1 border-default-200">
                     <span>Plan cost</span>
                     <span className="font-semibold">
-                      {useMillify(user?.balance.subscription.price)} UZS
+                      {useMillify(Number(balance?.subscription.price ?? 0))} UZS
                     </span>
                   </div>
                 </div>
@@ -133,7 +156,7 @@ export function SubscriptionManage() {
                     <span>Auto-renew plan</span>
                     <Switch
                       size="sm"
-                      isSelected={user?.balance.subscription.auto_renew}
+                      isSelected={balance?.subscription.auto_renew}
                       onChange={handleAutoRenew}
                     />
                   </div>
@@ -141,7 +164,7 @@ export function SubscriptionManage() {
                     <span>Over-limit cash payment</span>
                     <Switch
                       size="sm"
-                      isSelected={user?.balance.chargeable}
+                      isSelected={balance?.chargeable}
                       onChange={handleChargeable}
                     />
                   </div>
