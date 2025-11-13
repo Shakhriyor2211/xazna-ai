@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from drf_yasg.utils import swagger_auto_schema
-from finance.models import TransactionModel, ExpenseModel
-from finance.serializers import BalanceManageSerializer, TransactionSerializer, ExpenseListSerializer
+from finance.models import TransactionModel, ExpenseModel, BalanceModel
+from finance.serializers import BalanceManageSerializer, TransactionSerializer, ExpenseListSerializer, BalanceSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from shared.views import CustomPagination
@@ -23,6 +23,17 @@ class ExpenseListAPIView(APIView):
         serializer = ExpenseListSerializer(paginated_qs, many=True)
 
         return paginator.get_paginated_response(serializer.data)
+
+
+
+class BalanceAPIView(APIView):
+    auth_required = True
+
+    @swagger_auto_schema(operation_description="Balance...", tags=["Finance"])
+    def get(self, request):
+        balance = BalanceModel.objects.filter(user=request.user).first()
+        serializer = BalanceSerializer(balance)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
 

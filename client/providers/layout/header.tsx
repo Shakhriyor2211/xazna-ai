@@ -1,7 +1,7 @@
 "use client";
 import { useUserStore } from "@/hooks/user";
 import { ENDPOINTS, ROUTES } from "@/shared/site";
-import { postRequest } from "@/utils/axios-instance";
+import { getRequest, postRequest } from "@/utils/axios-instance";
 import { Avatar } from "@heroui/avatar";
 import {
   Dropdown,
@@ -12,7 +12,7 @@ import {
 } from "@heroui/dropdown";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Fragment, useCallback, useMemo, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { ThemeSwitch } from "./theme-switch";
 import { Skeleton } from "@heroui/skeleton";
 import { Navbar, NavbarMenu, NavbarMenuToggle } from "@heroui/react";
@@ -20,29 +20,63 @@ import { Divider } from "@heroui/divider";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { useMillify } from "@/hooks/millify";
 import { ChatSessions } from "./chat-session";
+import { useAlertStore } from "../alert";
+import { BalanceProps } from "@/types";
 
 export function Header({ title }: { title: string }) {
   const pathname = usePathname();
   const { user } = useUserStore();
+  const { setAlert } = useAlertStore();
+  const [balance, setBalance] = useState<BalanceProps | null>(null);
+  const [progress, setProgress] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const path = usePathname();
   const { push } = useRouter();
-
-  const progress = useMemo(
-    () =>
-      100 -
-      (Number(user?.balance.subscription.credit_expense) /
-        Number(user?.balance.subscription.credit)) *
-        100,
-    [user?.balance.subscription]
-  );
 
   const signOut = useCallback(async () => {
     try {
       const _ = await postRequest({ url: ENDPOINTS.sign_out });
       push(`${ROUTES.sign_in}?next=${path}`);
-    } catch {}
-  }, [user]);
+    } catch {
+      setAlert((prev) => ({
+        ...prev,
+        isVisible: true,
+        color: "danger",
+        title: "",
+        description: "Failed to sign out.",
+      }));
+    }
+  }, []);
+
+  const getBalance = useCallback(async () => {
+    try {
+      const { data } = await getRequest({ url: ENDPOINTS.balance_info });
+
+      if (data) {
+        setBalance(data);
+
+        setProgress(
+          100 -
+            (Number(data.subscription.credit_expense) /
+              Number(data.subscription.credit)) *
+              100
+        );
+      }
+    } catch {
+      setAlert((prev) => ({
+        ...prev,
+        isVisible: true,
+        color: "danger",
+        title: "",
+        description: "Failed to load balance.",
+      }));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isDropDownOpen) getBalance();
+  }, [isDropDownOpen]);
 
   return (
     <Navbar
@@ -64,7 +98,7 @@ export function Header({ title }: { title: string }) {
             <Fragment>
               <ThemeSwitch />
 
-              <Dropdown placement="bottom-end">
+              <Dropdown placement="bottom-end" onOpenChange={setIsDropDownOpen}>
                 <DropdownTrigger>
                   <Avatar
                     color={
@@ -121,7 +155,9 @@ export function Header({ title }: { title: string }) {
                             Total
                           </span>
                           <span className="text-xs">
-                            {useMillify(user?.balance.subscription.credit)}
+                            {useMillify(
+                              Number(balance?.subscription.credit) ?? 0
+                            )}
                           </span>
                         </div>
                         <div className="flex justify-between items-center space-x-2">
@@ -130,7 +166,7 @@ export function Header({ title }: { title: string }) {
                           </span>
                           <span className="text-xs">
                             {useMillify(
-                              user?.balance.subscription.credit_expense
+                              Number(balance?.subscription.credit_expense) ?? 0
                             )}
                           </span>
                         </div>
@@ -139,7 +175,7 @@ export function Header({ title }: { title: string }) {
                             Balance
                           </span>
                           <span className="text-xs">
-                            {useMillify(user.balance.cash)} UZS
+                            {useMillify(Number(balance?.cash) ?? 0)} UZS
                           </span>
                         </div>
                       </div>

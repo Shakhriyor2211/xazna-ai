@@ -1,5 +1,5 @@
 import { ENDPOINTS } from "@/shared/site";
-import { getDataError, getRequest, postRequest } from "@/utils/axios-instance";
+import { getDataError, postRequest } from "@/utils/axios-instance";
 import { Button, Spinner } from "@heroui/react";
 import { filesize } from "filesize";
 import {
@@ -20,7 +20,6 @@ import {
   ContentHistoryProps,
 } from "@/types";
 import { useAlertStore } from "@/providers/alert";
-import { useUserStore } from "@/hooks/user";
 
 interface STTGenerateProps {
   history: ContentHistoryProps;
@@ -37,8 +36,6 @@ export function STTGenerate({
 }: STTGenerateProps) {
   const [file, setFile] = useState<File | null>(null);
   const { setAlert } = useAlertStore();
-  const { setUser } = useUserStore();
-
   const [isLoading, setIsLoading] = useState(false);
 
   const handleDrop = useCallback(
@@ -64,21 +61,6 @@ export function STTGenerate({
     setFile(null);
   }, [file]);
 
-  const getUser = useCallback(async () => {
-    try {
-      const res = await getRequest({ url: ENDPOINTS.profile });
-      setUser(res.data);
-    } catch {
-      setAlert((prev) => ({
-        ...prev,
-        color: "danger",
-        title: "",
-        description: "Failed to load user data.",
-        isVisible: true,
-      }));
-    }
-  }, []);
-
   const handleSubmit = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
@@ -100,7 +82,6 @@ export function STTGenerate({
           },
         });
         if (data) {
-          getUser();
           setSttData({
             audioUrl: `${ENDPOINTS.audio_stream}/${data.audio.id}`,
             downloadUrl: `${ENDPOINTS.audio_download}/${data.audio.id}`,

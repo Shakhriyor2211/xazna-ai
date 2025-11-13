@@ -168,9 +168,8 @@ class PictureSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     picture = PictureSerializer(read_only=True)
-    balance = BalanceSerializer(read_only=True)
 
     class Meta:
         model = CustomUserModel
-        fields = ["id", "first_name", "last_name", "email", "picture", "balance", "created_at", "last_password_update",
+        fields = ["id", "first_name", "last_name", "email", "picture", "created_at", "last_password_update",
                   "regular_auth", "is_active", "is_blocked"]

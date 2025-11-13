@@ -55,6 +55,7 @@ export const ENDPOINTS = {
   subsciritpion_manage: "subscription/manage",
   subsciritpion_change: "subscription/change",
   subsciritpion_restart: "subscription/restart",
+  balance_info: "finance/balance/info",
   balance_manage: "finance/balance/manage",
   transaction_list: "finance/transaction/list",
   monitorting_list: "finance/expense/list",

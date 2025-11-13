@@ -21,11 +21,9 @@ import { TTSSettings } from "./settings";
 import { TTSSettingsMobile } from "./settings/mobile";
 import { TTSHistoryMobile } from "./history/mobile";
 import { RiHistoryFill } from "react-icons/ri";
-import { useUserStore } from "@/hooks/user";
 
 export function TTS() {
   const [text, setText] = useState("");
-  const { setUser } = useUserStore();
   const [ttsData, setTtsData] = useState<ContentDataProps>({
     text: "",
     audioUrl: "",
@@ -113,21 +111,6 @@ export function TTS() {
     }
   }, []);
 
-  const getUser = useCallback(async () => {
-    try {
-      const res = await getRequest({ url: ENDPOINTS.profile });
-      setUser(res.data);
-    } catch {
-      setAlert((prev) => ({
-        ...prev,
-        color: "danger",
-        title: "",
-        description: "Failed to load user data.",
-        isVisible: true,
-      }));
-    }
-  }, []);
-
   const handleSubmit = useCallback(
     async (event: FormEvent) => {
       event.preventDefault();
@@ -148,7 +131,6 @@ export function TTS() {
           },
         });
         if (data) {
-          getUser();
           setTtsData({
             text: data.text,
             audioUrl: `${ENDPOINTS.audio_stream}/${data.audio.id}`,

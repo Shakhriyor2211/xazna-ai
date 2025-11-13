@@ -40,7 +40,7 @@ interface SubscritionProps {
   end_date: string;
 }
 
-interface BalanceProps {
+export interface BalanceProps {
   id: number;
   subscription: SubscritionProps;
   created_at: string;
@@ -57,7 +57,6 @@ export interface UserProps {
   role: "admin" | "superadmin" | "user";
   created_at: string;
   last_password_update: string | null;
-  balance: BalanceProps;
   is_blocked: boolean;
   is_active: boolean;
   regular_auth: boolean;
