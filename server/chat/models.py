@@ -14,6 +14,8 @@ class ChatSessionModel(BaseModel):
     )
     user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
+    context = models.PositiveIntegerField(default=0)
+    context_expense = models.PositiveIntegerField(default=0)
     is_streaming = models.BooleanField(default=False)
 
     class Meta:
@@ -36,6 +38,7 @@ class ChatMessageModel(BaseModel):
     session = models.ForeignKey("ChatSessionModel", on_delete=models.CASCADE, related_name="messages")
     role = models.CharField(max_length=20, choices=[("user", "user"), ("assistant", "assistant")])
     content = models.TextField(null=True, blank=True)
+    mdl = models.CharField(max_length=50, blank=True, null=True)
     error = models.TextField(null=True, blank=True)
 
     class Meta:

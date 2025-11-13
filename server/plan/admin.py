@@ -1,6 +1,6 @@
 from django.contrib import admin
 from plan.models import PlanModel, PlanMonthlyModel, PlanAnnualModel, PlanSTTRateModel, PlanTTSRateModel, PlanChatRateModel, \
-    PlanSTTCreditRateModel, PlanTTSCreditRateModel, PlanChatCreditRateModel, PlanChatSessionRateModel, PlanRateModel
+    PlanSTTCreditRateModel, PlanTTSCreditRateModel, PlanChatCreditRateModel, PlanRateModel
 
 
 @admin.register(PlanModel)
@@ -104,13 +104,6 @@ class ChatCreditRateAdmin(admin.ModelAdmin):
     )
 
 
-@admin.register(PlanChatSessionRateModel)
-class ChatSessionRateModel(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "chat",
-        "limit",
-    )
 
 
 

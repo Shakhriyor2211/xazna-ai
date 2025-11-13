@@ -124,6 +124,9 @@ export function MonitoringTable() {
         onSortChange={handleOrderChange}
       >
         <TableHeader>
+          <TableColumn key={"counter"} align="start" allowsSorting>
+            #
+          </TableColumn>
           <TableColumn key={"id"} align="start" allowsSorting>
             ID
           </TableColumn>
@@ -149,14 +152,13 @@ export function MonitoringTable() {
           {history.data.map((item, i) => {
             return (
               <TableRow key={item.id}>
+                <TableCell>{i + 1}</TableCell>
                 <TableCell className="max-w-40 truncate">{item.id}</TableCell>
-
                 <TableCell className="uppercase">{item.operation}</TableCell>
                 <TableCell className="uppercase">{item.credit}</TableCell>
                 <TableCell className="uppercase">
                   {`${useMillify(Number(item.cash))} UZS`}
                 </TableCell>
-
                 <TableCell>{longDate(item.created_at)}</TableCell>
               </TableRow>
             );

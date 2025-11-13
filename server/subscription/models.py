@@ -7,16 +7,13 @@ from xazna.models import BaseModel, CreditSubRateBaseModel
 
 class SubscriptionModel(BaseModel):
     title = models.CharField(max_length=50)
+    discount = models.DecimalField(max_digits=3, decimal_places=1,
+                                   validators=[MinValueValidator(0), MaxValueValidator(100)], default=0)
     credit = models.DecimalField(max_digits=16, decimal_places=4, validators=[MinValueValidator(0)], default=0)
     credit_expense = models.DecimalField(max_digits=16, decimal_places=4, validators=[MinValueValidator(0)], default=0)
     chat_session = models.PositiveIntegerField(default=0)
     chat_session_expense = models.PositiveIntegerField(default=0)
     chat_context = models.PositiveIntegerField(default=0)
-    chat_context_expense = models.PositiveIntegerField(default=0)
-    session = models.PositiveIntegerField(default=0)
-    session_expense = models.PositiveIntegerField(default=0)
-    discount = models.DecimalField(max_digits=3, decimal_places=1,
-                                   validators=[MinValueValidator(0), MaxValueValidator(100)], default=0)
     auto_renew = models.BooleanField(default=False)
     price = models.DecimalField(max_digits=16, decimal_places=4, validators=[MinValueValidator(0)], default=0)
     status = models.CharField(
@@ -64,11 +61,6 @@ class SubscriptionModel(BaseModel):
             chat=chat_rate,
             limit=overrides.get("chat_credit_limit", getattr(plan.rate.chat.credit, "limit", 0)),
             time=overrides.get("chat_credit_time", getattr(plan.rate.chat.credit, "time", 0)),
-        )
-
-        SubChatSessionRateModel.objects.create(
-            chat=chat_rate,
-            limit=overrides.get("chat_session_limit", getattr(plan.rate.chat.session, "limit", 0)),
         )
 
         return {
@@ -163,17 +155,5 @@ class SubChatCreditRateModel(CreditSubRateBaseModel):
         verbose_name_plural = "Chat credit rates"
         db_table = "sub_chat_credit_rate"
 
-
-class SubChatSessionRateModel(BaseModel):
-    chat = models.OneToOneField("SubChatRateModel", on_delete=models.CASCADE, related_name="session")
-    limit = models.DecimalField(max_digits=16, decimal_places=4,
-                                validators=[MinValueValidator(0)], default=0)
-    usage = models.DecimalField(max_digits=16, decimal_places=4,
-                                validators=[MinValueValidator(0)], default=0)
-
-    class Meta:
-        verbose_name = "Chat session rate"
-        verbose_name_plural = "Chat session rates"
-        db_table = "sub_chat_session_rate"
 
 

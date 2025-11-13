@@ -3,7 +3,7 @@ from .models import ChatSessionModel, ChatMessageModel, ChatModelModel
 
 
 @admin.register(ChatModelModel)
-class TTSModelAdmin(admin.ModelAdmin):
+class ChatModelAdmin(admin.ModelAdmin):
     exclude = ("user",)
     list_display = (
         "title",
@@ -33,7 +33,7 @@ class ChatMessageAdmin(admin.ModelAdmin):
 
 @admin.register(ChatSessionModel)
 class ChatSessionAdmin(admin.ModelAdmin):
-    list_display = ("id", "user", "title", "created_at", "updated_at")
+    list_display = ("id", "user", "title", "context", "context_expense", "created_at", "updated_at")
     list_filter = ("created_at",)
     search_fields = ("title", "user__email", "user__username")
 

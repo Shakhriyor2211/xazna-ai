@@ -2,8 +2,7 @@ from rest_framework import serializers
 from plan.models import (
     PlanRateModel, PlanModel, PlanMonthlyModel, PlanAnnualModel,
     PlanSTTRateModel, PlanTTSRateModel, PlanChatRateModel,
-    PlanSTTCreditRateModel, PlanTTSCreditRateModel, PlanChatCreditRateModel,
-    PlanChatSessionRateModel,
+    PlanSTTCreditRateModel, PlanTTSCreditRateModel, PlanChatCreditRateModel
 )
 
 class PlanSTTCreditRateSerializer(serializers.ModelSerializer):
@@ -24,11 +23,6 @@ class PlanChatCreditRateSerializer(serializers.ModelSerializer):
         fields = ["limit", "time"]
 
 
-class PlanChatSessionRateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PlanChatSessionRateModel
-        fields = ["limit"]
-
 
 class PlanSTTRateSerializer(serializers.ModelSerializer):
     credit = PlanSTTCreditRateSerializer()
@@ -48,11 +42,10 @@ class PlanTTSRateSerializer(serializers.ModelSerializer):
 
 class PlanChatRateSerializer(serializers.ModelSerializer):
     credit = PlanChatCreditRateSerializer()
-    session = PlanChatSessionRateSerializer()
 
     class Meta:
         model = PlanChatRateModel
-        fields = ["credit", "session"]
+        fields = ["credit"]
 
 
 class PlanRateSerializer(serializers.ModelSerializer):

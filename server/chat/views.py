@@ -1,11 +1,14 @@
+from datetime import timedelta
+
 from drf_yasg import openapi
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from shared.utils import generate_title
-from .models import ChatSessionModel, ChatMessageModel
+from .models import ChatSessionModel, ChatMessageModel, ChatModelModel
 from .serializers import ChatSessionSerializer, ChatMessageSerializer
 from drf_yasg.utils import swagger_auto_schema
+from django.utils import timezone
 
 class ChatSessionListAPIView(APIView):
     auth_required = True
@@ -41,7 +44,8 @@ class ChatSessionAPIView(APIView):
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
             properties={
-                "message": openapi.Schema(type=openapi.TYPE_STRING, description="User message to start chat"),
+                "content": openapi.Schema(type=openapi.TYPE_STRING, description="Content"),
+                "mdl": openapi.Schema(type=openapi.TYPE_STRING, description="Model"),
             },
             required=["message"],
         ),
@@ -49,14 +53,55 @@ class ChatSessionAPIView(APIView):
     )
     def post(self, request):
         try:
-            message = request.data.get("message")
+            subscription = request.user.balance.subscription
 
-            if not message:
-                return Response({"message": "Message is required."}, status=status.HTTP_400_BAD_REQUEST)
+            if subscription.chat_session_expense == subscription.chat_session:
+                return Response(data={"message": "Session limit reached."}, status=status.HTTP_403_FORBIDDEN)
 
-            session = ChatSessionModel.objects.create(user=request.user, title=generate_title(message), is_streaming=True)
+            cnt = request.data.get("content")
+            mdl = request.data.get("model")
 
-            ChatMessageModel.objects.create(content=message, role="user", session=session)
+            if not cnt:
+                return Response({"message": "Content is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+            if not mdl:
+                return Response({"message": "Model is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+            plan = ChatModelModel.objects.get(title=mdl)
+            balance = request.user.balance
+            subscription = balance.subscription
+            credit_rate = subscription.rate.chat.credit
+
+            if credit_rate.reset is None or credit_rate.reset < timezone.now():
+                credit_rate.reset = timezone.now() + timedelta(minutes=credit_rate.time)
+                credit_rate.usage = 0
+
+            credit_avail = subscription.credit - subscription.credit_expense
+            credit_active = min(credit_avail, credit_rate.limit - credit_rate.usage)
+            char_length = len(cnt)
+
+
+            if balance.chargeable and char_length > credit_active / plan.credit:
+                remainder = char_length - int(credit_active / plan.credit)
+                cash_usage = remainder * plan.cash
+
+                if cash_usage > balance.cash:
+                    return Response(data={"message": "Not enough founds."}, status=status.HTTP_403_FORBIDDEN)
+
+            else:
+                if char_length > credit_avail / plan.credit:
+                    return Response(data={"message": "Not enough credits."}, status=status.HTTP_403_FORBIDDEN)
+
+                if char_length > credit_active / plan.credit:
+                    return Response(data={"message": "Request limit exceeded."}, status=status.HTTP_403_FORBIDDEN)
+
+
+            session = ChatSessionModel.objects.create(user=request.user, title=generate_title(cnt), is_streaming=True, context=subscription.chat_context)
+
+            ChatMessageModel.objects.create(content=cnt, role="user", mdl=mdl, session=session)
+
+            subscription.chat_session_expense += 1
+            subscription.save()
 
             return Response(data={"slug": session.id}, status=status.HTTP_201_CREATED)
 
@@ -113,6 +158,10 @@ class ChatSessionItemAPIView(APIView):
                 return Response(data={"message": "Session not found."}, status=status.HTTP_404_NOT_FOUND)
 
             session.delete()
+
+            subscription = request.user.balance.subscription
+            subscription.chat_session_expense -= 1
+            subscription.save()
 
             return Response(data={"message": "Session successfully deleted."}, status=status.HTTP_200_OK)
 

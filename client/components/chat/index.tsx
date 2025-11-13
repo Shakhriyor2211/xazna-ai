@@ -35,7 +35,7 @@ export function Chat() {
     try {
       const { data } = await postRequest({
         url: ENDPOINTS.chat_session_generate,
-        data: { message: value.trim() },
+        data: { content: value.trim(), model: "Base" },
       });
       if (data) {
         replace(`${ROUTES.chat}/${data.slug}`);

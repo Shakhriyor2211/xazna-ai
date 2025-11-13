@@ -124,17 +124,5 @@ class PlanChatCreditRateModel(CreditPlanRateBaseModel):
 
 
 
-class PlanChatSessionRateModel(BaseModel):
-    chat = models.OneToOneField("PlanChatRateModel", on_delete=models.CASCADE, related_name="session")
-    limit = models.DecimalField(max_digits=16, decimal_places=4,
-                                validators=[MinValueValidator(0)], default=0)
-
-    class Meta:
-        verbose_name = "Chat session rate"
-        verbose_name_plural = "Chat session rates"
-        db_table = "plan_chat_session_rate"
-
-
-
 
 

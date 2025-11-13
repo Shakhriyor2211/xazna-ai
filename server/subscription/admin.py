@@ -1,6 +1,6 @@
 from django.contrib import admin
 from subscription.models import SubscriptionModel, SubRateModel, SubSTTRateModel, SubTTSRateModel, SubChatRateModel, \
-    SubSTTCreditRateModel, SubTTSCreditRateModel, SubChatCreditRateModel, SubChatSessionRateModel
+    SubSTTCreditRateModel, SubTTSCreditRateModel, SubChatCreditRateModel
 
 
 @admin.register(SubscriptionModel)
@@ -13,7 +13,6 @@ class SubscriptionAdmin(admin.ModelAdmin):
         "chat_session",
         "chat_session_expense",
         "chat_context",
-        "chat_context_expense",
         "status",
         "auto_renew",
         "user",
@@ -23,8 +22,6 @@ class SubscriptionAdmin(admin.ModelAdmin):
         "rate__stt__credit__usage",
         "rate__chat__credit__limit",
         "rate__chat__credit__usage",
-        "rate__chat__session__limit",
-        "rate__chat__session__usage",
         "start_date",
         "end_date"
     )
@@ -86,12 +83,5 @@ class SubscriptionAdmin(admin.ModelAdmin):
             "time",
         )
 
-    @admin.register(SubChatSessionRateModel)
-    class ChatSessionRateModel(admin.ModelAdmin):
-        list_display = (
-            "id",
-            "chat",
-            "limit",
-        )
 
 

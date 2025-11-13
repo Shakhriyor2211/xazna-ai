@@ -7,9 +7,10 @@ class ChatMessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ChatMessageModel
-        fields = ["id", "role", "content", "created_at", "updated_at"]
+        fields = ["id", "role", "content", "mdl", "created_at", "updated_at"]
         extra_kwargs = {
             "role": {"read_only": True},
+            "mdl": {"read_only": True},
             "status": {"read_only": True}
         }
 

@@ -1,3 +1,5 @@
+import uuid
+
 from django.core.validators import MinValueValidator
 from django.db import models
 from xazna.models import BaseModel
@@ -44,11 +46,19 @@ class TransactionModel(BaseModel):
 
 
 class ExpenseModel(BaseModel):
-    operation = models.CharField(choices=[("tts", "tts"), ("stt", "stt")])
+    id = models.CharField(
+        max_length=36,
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+        unique=True
+    )
+    operation = models.CharField(choices=[("tts", "tts"), ("stt", "stt"), ("chat", "chat")])
     credit = models.DecimalField(max_digits=16, decimal_places=4, validators=[MinValueValidator(0)], default=0)
     cash = models.DecimalField(max_digits=16, decimal_places=4, validators=[MinValueValidator(0)], default=0)
     tts = models.ForeignKey("tts.TTSModel", on_delete=models.CASCADE, null=True, blank=True)
     stt = models.ForeignKey("stt.STTModel", on_delete=models.CASCADE, null=True, blank=True)
+    chat = models.ForeignKey("chat.ChatMessageModel", on_delete=models.CASCADE, null=True, blank=True)
     user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE)
 
     class Meta:

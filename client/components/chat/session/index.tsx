@@ -37,7 +37,9 @@ export function ChatSession() {
       setMessages([...messagesRef.current]);
 
       try {
-        ws.current?.send(JSON.stringify({ content: v, action: "message" }));
+        ws.current?.send(
+          JSON.stringify({ content: v, action: "message", model: "Base" })
+        );
       } catch (err) {
         setAlert((prev) => ({
           ...prev,
@@ -83,11 +85,11 @@ export function ChatSession() {
     if (ws.current !== null) ws.current.close();
 
     ws.current = new WebSocket(
-      `${ENDPOINTS.ws_client_base}/${ENDPOINTS.chat_message}/${sessionId}`
+      `ws:localhost:8000${ENDPOINTS.ws_client_base}/${ENDPOINTS.chat_message}/${sessionId}`
     );
 
     ws.current.onmessage = async (event) => {
-      const { status, token } = JSON.parse(event.data);
+      const { status, token, message } = JSON.parse(event.data);
 
       if (status === 201) {
         messagesRef.current = [
@@ -109,11 +111,20 @@ export function ChatSession() {
         setIsStreaming(false);
       } else if (status === 401) {
         refreshToken();
+      } else if (status === 403 && message) {
+        setAlert((prev) => ({
+          ...prev,
+          isVisible: true,
+          color: "danger",
+          title: "",
+          description: message,
+        }));
       } else {
         setAlert((prev) => ({
           ...prev,
           isVisible: true,
           color: "danger",
+          title: "",
           description: "Failed to receive message.",
         }));
       }

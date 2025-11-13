@@ -3,8 +3,7 @@ from django.dispatch import receiver
 from accounts.models import CustomUserModel, PictureModel
 from finance.models import BalanceModel
 from plan.models import PlanModel
-from subscription.models import SubscriptionModel, SubRateModel, SubSTTRateModel, SubTTSRateModel, SubChatRateModel, \
-    SubSTTCreditRateModel, SubTTSCreditRateModel, SubChatCreditRateModel, SubChatSessionRateModel
+from subscription.models import SubscriptionModel
 
 
 @receiver(post_save, sender=CustomUserModel)
