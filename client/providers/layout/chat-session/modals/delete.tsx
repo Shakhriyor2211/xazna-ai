@@ -50,7 +50,7 @@ export function SessionDelete({
         ...prev,
         isVisible: true,
         color: "danger",
-        description: "Failed to rename title.",
+        description: "Failed to delete session.",
       }));
     } finally {
       setIsOpen(false);
