@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from tts.models import TTSModel, TTSEmotionModel, TTSAudioFormatModel, TTSModelModel
+from tts.models import TTSModel, TTSEmotionModel, TTSAudioFormatModel, TTSModelModel, UserTTSErrorLogModel, \
+    ServiceTTSErrorLogModel
 
 
 @admin.register(TTSModel)
@@ -71,4 +72,44 @@ class TTSAudioFormatAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.user = request.user
         super().save_model(request, obj, form, change)
+
+
+
+@admin.register(UserTTSErrorLogModel)
+class UserTTSErrorLogAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "short_message",
+        "short_text",
+        "user",
+        "created_at"
+    )
+
+    def short_message(self, obj):
+        return (obj.message[:50] + "...") if obj.message is not None and obj.message and len(obj.message) > 50 else obj.message
+    short_message.short_description = "Message"
+
+    def short_text(self, obj):
+        return (obj.text[:50] + "...") if obj.text is not None and obj.text and len(obj.text) > 50 else obj.text
+    short_text.short_description = "Text"
+
+@admin.register(ServiceTTSErrorLogModel)
+class ServiceTTSErrorLogAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "short_message",
+        "short_text",
+        "service",
+        "created_at"
+    )
+
+    def short_message(self, obj):
+        return (obj.message[:50] + "...") if obj.message is not None and obj.message and len(obj.message) > 50 else obj.message
+    short_message.short_description = "Message"
+
+    def short_text(self, obj):
+        return (obj.text[:50] + "...") if obj.text is not None and obj.text and len(obj.text) > 50 else obj.text
+    short_text.short_description = "Text"
+
+
 

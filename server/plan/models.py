@@ -6,8 +6,8 @@ from xazna.models import BaseModel, CreditPlanRateBaseModel
 class PlanModel(BaseModel):
     title = models.CharField(max_length=50, unique=True)
     description = models.TextField(blank=True, null=True)
-    chat_session = models.PositiveIntegerField(default=0)
-    chat_context = models.PositiveIntegerField(default=0)
+    llm_session = models.PositiveIntegerField(default=0)
+    llm_context = models.PositiveIntegerField(default=0)
     user = models.ForeignKey(
         "accounts.CustomUserModel",
         on_delete=models.SET_NULL,
@@ -85,13 +85,13 @@ class PlanTTSRateModel(BaseModel):
     def __str__(self):
         return self.rate.plan.title
 
-class PlanChatRateModel(BaseModel):
-    rate = models.OneToOneField("PlanRateModel", on_delete=models.CASCADE, related_name="chat")
+class PlanLLMRateModel(BaseModel):
+    rate = models.OneToOneField("PlanRateModel", on_delete=models.CASCADE, related_name="llm")
 
     class Meta:
-        verbose_name = "Chat rate"
-        verbose_name_plural = "Chat rates"
-        db_table = "plan_chat_rate"
+        verbose_name = "LLM rate"
+        verbose_name_plural = "LLM rates"
+        db_table = "plan_llm_rate"
 
     def __str__(self):
         return self.rate.plan.title
@@ -114,13 +114,13 @@ class PlanTTSCreditRateModel(CreditPlanRateBaseModel):
         db_table = "plan_tts_credit_rate"
 
 
-class PlanChatCreditRateModel(CreditPlanRateBaseModel):
-    chat = models.OneToOneField("PlanChatRateModel", on_delete=models.CASCADE, related_name="credit")
+class PlanLLMCreditRateModel(CreditPlanRateBaseModel):
+    llm = models.OneToOneField("PlanLLMRateModel", on_delete=models.CASCADE, related_name="credit")
 
     class Meta:
-        verbose_name = "Chat credit rate"
-        verbose_name_plural = "Chat credit rates"
-        db_table = "plan_chat_credit_rate"
+        verbose_name = "LLM credit rate"
+        verbose_name_plural = "LLM credit rates"
+        db_table = "plan_llm_credit_rate"
 
 
 

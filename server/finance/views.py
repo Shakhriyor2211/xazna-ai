@@ -15,7 +15,7 @@ class ExpenseListAPIView(APIView):
     def get(self, request):
         ordering = request.query_params.get('ordering', '-created_at')
 
-        queryset = ExpenseModel.objects.filter(user=request.user).order_by(ordering)
+        queryset = ExpenseModel.objects.filter(user=request.user, consumer="user").order_by(ordering)
 
         paginator = CustomPagination()
         paginated_qs = paginator.paginate_queryset(queryset, request)

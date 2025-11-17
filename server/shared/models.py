@@ -7,7 +7,7 @@ from xazna.models import BaseModel
 
 
 class AudioModel(BaseModel):
-    id = models.CharField(
+    id = models.UUIDField(
         max_length=36,
         primary_key=True,
         default=uuid.uuid4,
@@ -30,7 +30,7 @@ class AudioModel(BaseModel):
     class Meta:
         verbose_name = "Audio"
         verbose_name_plural = "Audios"
-        db_table = 'audio'
+        db_table = "audio"
 
 
 

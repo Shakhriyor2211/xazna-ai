@@ -9,7 +9,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from finance.models import ExpenseModel
 from shared.models import AudioModel
-from shared.utils import get_audio_duration, text_decode, convert_to_wav
+from stt.models import UserSTTErrorLogModel
+from shared.utils import get_audio_duration, text_decode, convert_to_wav, stt_transaction
 from shared.views import CustomPagination
 from stt.models import STTModel, STTModelModel
 from stt.serializers import STTListSerializer, STTChangeSerializer, STTSerializer
@@ -18,6 +19,7 @@ from django.utils import timezone
 from django.db import transaction
 from openai import OpenAI
 
+from xazna.exceptions import CustomException
 
 client = OpenAI(base_url=settings.STT_SERVER, api_key=settings.STT_SERVER_API_KEY)
 
@@ -28,56 +30,21 @@ class STTAPIView(APIView):
 
     @swagger_auto_schema(operation_description='STT generate...', request_body=STTSerializer, tags=["STT"])
     def post(self, request):
+        audio_instance = None
         try:
+            serializer = STTSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+
+            mdl = serializer.validated_data["mdl"]
+
+            audio_instance = AudioModel.objects.create(user=request.user, file=serializer.validated_data["file"])
+            balance = request.user.balance
+            subscription = balance.subscription
+            credit_rate = subscription.rate.stt.credit
+            credit_usage, cash_usage = stt_transaction(balance, subscription, credit_rate, audio_instance.file, mdl)
+
             with transaction.atomic():
-                serializer = STTSerializer(data=request.data)
-                serializer.is_valid(raise_exception=True)
-
-                model = serializer.validated_data["model"]
-
-                file = serializer.validated_data["file"]
-
-                plan = STTModelModel.objects.get(title=model)
-
-                balance = request.user.balance
-                subscription = balance.subscription
-                credit_rate = subscription.rate.stt.credit
-
-
-                if credit_rate.reset is None or credit_rate.reset < timezone.now():
-                    credit_rate.reset= timezone.now() + timedelta(minutes=credit_rate.time)
-                    credit_rate.usage = 0
-
-                credit_avail = subscription.credit - subscription.credit_expense
-                credit_active = min(credit_avail, credit_rate.limit - credit_rate.usage)
-                audio_duration = math.ceil(get_audio_duration(file))
-                credit_usage = audio_duration * plan.credit
-                cash_usage = 0
-
-                if balance.chargeable and audio_duration > credit_active / plan.credit:
-                    remainder = audio_duration - int(credit_active / plan.credit)
-                    credit_usage = (audio_duration - remainder) * plan.credit
-                    cash_usage = remainder * plan.cash
-
-                    if cash_usage > balance.cash:
-                        return Response(data={"message": "Not enough founds."},
-                                        status=status.HTTP_403_FORBIDDEN)
-
-                    balance.cash -= cash_usage
-
-                else:
-                    if audio_duration > credit_avail / plan.credit:
-                        return Response(data={"message": "Not enough credits."},
-                                        status=status.HTTP_403_FORBIDDEN)
-
-                    if audio_duration > credit_active / plan.credit:
-                        return Response(data={"message": "Request limit exceeded."},
-                                        status=status.HTTP_403_FORBIDDEN)
-
-                subscription.credit_expense += credit_usage
-                credit_rate.usage += credit_usage
-
-                audio = convert_to_wav(file)
+                audio = convert_to_wav(audio_instance.file)
 
                 m = client.models.list().data[0].id
 
@@ -90,15 +57,21 @@ class STTAPIView(APIView):
                 )
 
                 text = ""
+
                 for event in transcript:
                     chunk = event.choices[0]["delta"]["content"]
                     text += chunk
 
                 text = re.sub(r"(Ğ|ğ|Õ|õ|Ş|ş|Ç|ç)", text_decode, text)
 
-                audio_instance = AudioModel.objects.create(user=request.user, file=file)
-                stt_instance = STTModel.objects.create(text=text, user=request.user, audio=audio_instance)
-                ExpenseModel.objects.create(operation="stt", credit=credit_usage, cash=cash_usage, stt=stt_instance, user=request.user)
+                stt_instance = STTModel.objects.create(text=text, user=request.user, mdl=mdl, audio=audio_instance)
+
+                subscription.credit_expense += credit_usage
+                credit_rate.usage += credit_usage
+                balance.cash -= cash_usage
+
+                ExpenseModel.objects.create(operation="stt", operation_id=stt_instance.id, credit=credit_usage,
+                                            cash=cash_usage, user=request.user)
 
                 stt = STTListSerializer(stt_instance)
 
@@ -107,10 +80,10 @@ class STTAPIView(APIView):
                 credit_rate.save()
 
                 return Response(data=stt.data, status=status.HTTP_200_OK)
-
-
-        except Exception as error:
-            print(error)
+        except CustomException as e:
+            return Response(data={"message": str(e)}, status=e.status)
+        except Exception as e:
+            UserSTTErrorLogModel.objects.create(message=str(e), audio=audio_instance, user=self.request.user)
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -129,8 +102,8 @@ class STTListAPIView(APIView):
             type=openapi.TYPE_STRING
         ),
     ],
-    tags=["STT"]
-    )
+                         tags=["STT"]
+                         )
     def get(self, request):
         ordering = request.query_params.get('ordering', '-created_at')
 

@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from plan.models import (
     PlanRateModel, PlanModel, PlanMonthlyModel, PlanAnnualModel,
-    PlanSTTRateModel, PlanTTSRateModel, PlanChatRateModel,
-    PlanSTTCreditRateModel, PlanTTSCreditRateModel, PlanChatCreditRateModel
+    PlanSTTRateModel, PlanTTSRateModel, PlanLLMRateModel,
+    PlanSTTCreditRateModel, PlanTTSCreditRateModel, PlanLLMCreditRateModel
 )
 
 class PlanSTTCreditRateSerializer(serializers.ModelSerializer):
@@ -17,9 +17,9 @@ class PlanTTSCreditRateSerializer(serializers.ModelSerializer):
         fields = ["limit", "time"]
 
 
-class PlanChatCreditRateSerializer(serializers.ModelSerializer):
+class PlanLLMCreditRateSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PlanChatCreditRateModel
+        model = PlanLLMCreditRateModel
         fields = ["limit", "time"]
 
 
@@ -40,22 +40,22 @@ class PlanTTSRateSerializer(serializers.ModelSerializer):
         fields = ["credit"]
 
 
-class PlanChatRateSerializer(serializers.ModelSerializer):
-    credit = PlanChatCreditRateSerializer()
+class PlanLLMRateSerializer(serializers.ModelSerializer):
+    credit = PlanLLMCreditRateSerializer()
 
     class Meta:
-        model = PlanChatRateModel
+        model = PlanLLMRateModel
         fields = ["credit"]
 
 
 class PlanRateSerializer(serializers.ModelSerializer):
     stt = PlanSTTRateSerializer()
     tts = PlanTTSRateSerializer()
-    chat = PlanChatRateSerializer()
+    llm = PlanLLMRateSerializer()
 
     class Meta:
         model = PlanRateModel
-        fields = ["stt", "tts", "chat"]
+        fields = ["stt", "tts", "llm"]
 
 
 class PlanMonthlySerializer(serializers.ModelSerializer):

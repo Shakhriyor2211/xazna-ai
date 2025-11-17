@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from .models import ChatSessionModel, ChatMessageModel
+from llm.models import LLMSessionModel, LLMMessageModel
 
 
 
-class ChatMessageSerializer(serializers.ModelSerializer):
+class LLMMessageSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = ChatMessageModel
+        model = LLMMessageModel
         fields = ["id", "role", "content", "mdl", "created_at", "updated_at"]
         extra_kwargs = {
             "role": {"read_only": True},
@@ -17,9 +17,9 @@ class ChatMessageSerializer(serializers.ModelSerializer):
 
 
 
-class ChatSessionSerializer(serializers.ModelSerializer):
+class LLMSessionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ChatSessionModel
+        model = LLMSessionModel
         fields = ["id", "title", "created_at", "updated_at"]
         extra_kwargs = {
             "title": {"read_only": True},

@@ -1,7 +1,6 @@
 from rest_framework.exceptions import APIException
 
 
-
 class ForbiddenException(APIException):
     status_code = 403
 
@@ -21,7 +20,7 @@ class BadRequestException(APIException):
             "code": code
         }
 
-class ChatException(Exception):
+class CustomException(Exception):
 
     def __init__(self, message, status=400):
         self.message = message

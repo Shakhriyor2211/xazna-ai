@@ -1,46 +1,48 @@
 from datetime import timedelta
-
 from drf_yasg import openapi
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from llm.models import UserLLMErrorLogModel
 from shared.utils import generate_title
-from .models import ChatSessionModel, ChatMessageModel, ChatModelModel
-from .serializers import ChatSessionSerializer, ChatMessageSerializer
+from llm.models import LLMSessionModel, LLMMessageModel, LLMModelModel
+from llm.serializers import LLMSessionSerializer, LLMMessageSerializer
 from drf_yasg.utils import swagger_auto_schema
 from django.utils import timezone
 
-class ChatSessionListAPIView(APIView):
+
+class LLMSessionListAPIView(APIView):
     auth_required = True
 
     @swagger_auto_schema(
-        operation_description="Chat session list..",
-        tags=["Chat"]
+        operation_description="LLM session list..",
+        tags=["LLM"]
     )
     def get(self, request):
-        sessions = ChatSessionModel.objects.filter(user=request.user).order_by("-created_at")
-        serializer = ChatSessionSerializer(sessions, many=True)
+        sessions = LLMSessionModel.objects.filter(user=request.user).order_by("-created_at")
+        serializer = LLMSessionSerializer(sessions, many=True)
         return Response(serializer.data)
 
 
-class ChatMessageListAPIView(APIView):
+class LLMMessageListAPIView(APIView):
     auth_required = True
 
     @swagger_auto_schema(
-        operation_description="Chat list..",
-        tags=["Chat"]
+        operation_description="LLM list..",
+        tags=["LLM"]
     )
     def get(self, request, session_id):
-        session = ChatSessionModel.objects.filter(id=session_id, user=request.user).first()
+        session = LLMSessionModel.objects.filter(id=session_id, user=request.user).first()
         messages = session.messages.order_by("created_at")
-        serializer = ChatMessageSerializer(messages, many=True)
+        serializer = LLMMessageSerializer(messages, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
-class ChatSessionAPIView(APIView):
+
+class LLMSessionAPIView(APIView):
     auth_required = True
 
     @swagger_auto_schema(
-        operation_description="Create a new chat session",
+        operation_description="Create a new LLM session",
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
             properties={
@@ -49,17 +51,13 @@ class ChatSessionAPIView(APIView):
             },
             required=["message"],
         ),
-        tags=["Chat"]
+        tags=["LLM"]
     )
     def post(self, request):
+        cnt = None
         try:
-            subscription = request.user.balance.subscription
-
-            if subscription.chat_session_expense == subscription.chat_session:
-                return Response(data={"message": "Session limit reached."}, status=status.HTTP_403_FORBIDDEN)
-
             cnt = request.data.get("content")
-            mdl = request.data.get("model")
+            mdl = request.data.get("mdl")
 
             if not cnt:
                 return Response({"message": "Content is required."}, status=status.HTTP_400_BAD_REQUEST)
@@ -67,10 +65,16 @@ class ChatSessionAPIView(APIView):
             if not mdl:
                 return Response({"message": "Model is required."}, status=status.HTTP_400_BAD_REQUEST)
 
-            plan = ChatModelModel.objects.get(title=mdl)
+            subscription = request.user.balance.subscription
+            expense = LLMSessionModel.objects.filter(user=request.user).count()
+
+            if expense == subscription.llm_session:
+                return Response(data={"message": "Session limit reached."}, status=status.HTTP_403_FORBIDDEN)
+
+            plan = LLMModelModel.objects.get(title=mdl)
             balance = request.user.balance
             subscription = balance.subscription
-            credit_rate = subscription.rate.chat.credit
+            credit_rate = subscription.rate.llm.credit
 
             if credit_rate.reset is None or credit_rate.reset < timezone.now():
                 credit_rate.reset = timezone.now() + timedelta(minutes=credit_rate.time)
@@ -79,7 +83,6 @@ class ChatSessionAPIView(APIView):
             credit_avail = subscription.credit - subscription.credit_expense
             credit_active = min(credit_avail, credit_rate.limit - credit_rate.usage)
             char_length = len(cnt)
-
 
             if balance.chargeable and char_length > credit_active / plan.credit:
                 remainder = char_length - int(credit_active / plan.credit)
@@ -95,23 +98,22 @@ class ChatSessionAPIView(APIView):
                 if char_length > credit_active / plan.credit:
                     return Response(data={"message": "Request limit exceeded."}, status=status.HTTP_403_FORBIDDEN)
 
+            session = LLMSessionModel.objects.create(user=request.user, title=generate_title(cnt), is_streaming=True,
+                                                     context=subscription.llm_context)
 
-            session = ChatSessionModel.objects.create(user=request.user, title=generate_title(cnt), is_streaming=True, context=subscription.chat_context)
+            LLMMessageModel.objects.create(content=cnt, role="user", mdl=mdl, session=session)
 
-            ChatMessageModel.objects.create(content=cnt, role="user", mdl=mdl, session=session)
-
-            subscription.chat_session_expense += 1
+            subscription.llm_session_expense += 1
             subscription.save()
 
             return Response(data={"slug": session.id}, status=status.HTTP_201_CREATED)
 
         except Exception as e:
-            print(e)
+            UserLLMErrorLogModel.objects.create(message=str(e), content=cnt, user=self.request.user)
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-
-class ChatSessionItemAPIView(APIView):
+class LLMSessionItemAPIView(APIView):
     auth_required = True
 
     @swagger_auto_schema(
@@ -123,9 +125,8 @@ class ChatSessionItemAPIView(APIView):
             },
             required=["title"],
         ),
-        tags=["Chat"]
+        tags=["LLM"]
     )
-
     def put(self, request, session_id):
         try:
             title = request.data.get("title")
@@ -133,7 +134,7 @@ class ChatSessionItemAPIView(APIView):
             if title is None:
                 return Response(data={"message": "Title is required."}, status=status.HTTP_400_BAD_REQUEST)
 
-            session = ChatSessionModel.objects.filter(user=request.user, id=session_id).first()
+            session = LLMSessionModel.objects.filter(user=request.user, id=session_id).first()
 
             if session is None:
                 return Response(data={"message": "Session not found."}, status=status.HTTP_404_NOT_FOUND)
@@ -148,11 +149,11 @@ class ChatSessionItemAPIView(APIView):
 
     @swagger_auto_schema(
         operation_description="Delete session...",
-        tags=["Chat"]
+        tags=["LLM"]
     )
     def delete(self, request, session_id):
         try:
-            session = ChatSessionModel.objects.filter(user=request.user, id=session_id).first()
+            session = LLMSessionModel.objects.filter(user=request.user, id=session_id).first()
 
             if session is None:
                 return Response(data={"message": "Session not found."}, status=status.HTTP_404_NOT_FOUND)
@@ -160,7 +161,7 @@ class ChatSessionItemAPIView(APIView):
             session.delete()
 
             subscription = request.user.balance.subscription
-            subscription.chat_session_expense -= 1
+            subscription.llm_session_expense -= 1
             subscription.save()
 
             return Response(data={"message": "Session successfully deleted."}, status=status.HTTP_200_OK)

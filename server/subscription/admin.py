@@ -1,6 +1,6 @@
 from django.contrib import admin
-from subscription.models import SubscriptionModel, SubRateModel, SubSTTRateModel, SubTTSRateModel, SubChatRateModel, \
-    SubSTTCreditRateModel, SubTTSCreditRateModel, SubChatCreditRateModel
+from subscription.models import SubscriptionModel, SubRateModel, SubSTTRateModel, SubTTSRateModel, SubLLMRateModel, \
+    SubSTTCreditRateModel, SubTTSCreditRateModel, SubLLMCreditRateModel
 
 
 @admin.register(SubscriptionModel)
@@ -10,9 +10,8 @@ class SubscriptionAdmin(admin.ModelAdmin):
         "title",
         "credit",
         "credit_expense",
-        "chat_session",
-        "chat_session_expense",
-        "chat_context",
+        "llm_session",
+        "llm_context",
         "status",
         "auto_renew",
         "user",
@@ -20,8 +19,8 @@ class SubscriptionAdmin(admin.ModelAdmin):
         "rate__tts__credit__usage",
         "rate__stt__credit__limit",
         "rate__stt__credit__usage",
-        "rate__chat__credit__limit",
-        "rate__chat__credit__usage",
+        "rate__llm__credit__limit",
+        "rate__llm__credit__usage",
         "start_date",
         "end_date"
     )
@@ -49,8 +48,8 @@ class SubscriptionAdmin(admin.ModelAdmin):
             "rate",
         )
 
-    @admin.register(SubChatRateModel)
-    class ChatRateAdmin(admin.ModelAdmin):
+    @admin.register(SubLLMRateModel)
+    class LLMRateAdmin(admin.ModelAdmin):
         list_display = (
             "id",
             "rate__subscription"
@@ -62,6 +61,7 @@ class SubscriptionAdmin(admin.ModelAdmin):
             "id",
             "stt",
             "limit",
+            "usage",
             "time",
         )
 
@@ -71,15 +71,17 @@ class SubscriptionAdmin(admin.ModelAdmin):
             "id",
             "tts",
             "limit",
+            "usage",
             "time",
         )
 
-    @admin.register(SubChatCreditRateModel)
-    class ChatCreditRateAdmin(admin.ModelAdmin):
+    @admin.register(SubLLMCreditRateModel)
+    class LLMCreditRateAdmin(admin.ModelAdmin):
         list_display = (
             "id",
-            "chat",
+            "llm",
             "limit",
+            "usage",
             "time",
         )
 

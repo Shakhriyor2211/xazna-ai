@@ -1,5 +1,4 @@
 import uuid
-
 from django.core.validators import MinValueValidator
 from django.db import models
 from xazna.models import BaseModel
@@ -46,23 +45,35 @@ class TransactionModel(BaseModel):
 
 
 class ExpenseModel(BaseModel):
-    id = models.CharField(
+    id = models.UUIDField(
         max_length=36,
         primary_key=True,
         default=uuid.uuid4,
         editable=False,
         unique=True
     )
-    operation = models.CharField(choices=[("tts", "tts"), ("stt", "stt"), ("chat", "chat")])
+    operation = models.CharField(choices=[("tts", "tts"), ("stt", "stt"), ("llm", "llm")])
+    operation_id = models.UUIDField(
+        max_length=36,
+        default=uuid.uuid4,
+        editable=False,
+    )
     credit = models.DecimalField(max_digits=16, decimal_places=4, validators=[MinValueValidator(0)], default=0)
     cash = models.DecimalField(max_digits=16, decimal_places=4, validators=[MinValueValidator(0)], default=0)
-    tts = models.ForeignKey("tts.TTSModel", on_delete=models.CASCADE, null=True, blank=True)
-    stt = models.ForeignKey("stt.STTModel", on_delete=models.CASCADE, null=True, blank=True)
-    chat = models.ForeignKey("chat.ChatMessageModel", on_delete=models.CASCADE, null=True, blank=True)
+
     user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE)
+    consumer = models.CharField(choices=[("service", "service"), ("user", "user")], default="user")
 
     class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["operation", "operation_id"],
+                name="unique_operation_and_id"
+            )
+        ]
         verbose_name = "Expense"
         verbose_name_plural = "Expenses"
         ordering = ["-created_at"]
         db_table = "expense"
+
+

@@ -10,7 +10,7 @@ class TTSSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TTSModel
-        fields = ["text", "audio", "model", "format", "emotion"]
+        fields = ["text", "audio", "mdl", "format", "emotion"]
         extra_kwargs = {
             "audio": {"read_only": True},
         }

@@ -1,3 +1,4 @@
+import math
 import re
 from io import BytesIO
 import secrets
@@ -6,7 +7,16 @@ from django.utils import timezone
 import httpx
 from django.core.files import File
 from pydub import AudioSegment
+
+from llm.models import LLMModelModel
+from stt.models import STTModelModel
+from tts.models import TTSModelModel
 from xazna import settings
+from cryptography.fernet import Fernet
+from django.conf import settings
+
+from xazna.exceptions import CustomException
+
 
 async def send_post_request(payload, url, request_type="json"):
     async with httpx.AsyncClient(timeout=None) as client:
@@ -88,3 +98,113 @@ def convert_to_wav(audio_file):
 
     wav_io.seek(0)
     return wav_io
+
+
+
+fernet = Fernet(settings.FERNET_SECRET_KEY)
+
+def encrypt_token(raw_token: str) -> str:
+    return fernet.encrypt(raw_token.encode()).decode()
+
+def decrypt_token(encrypted_token: str) -> str:
+    return fernet.decrypt(encrypted_token.encode()).decode()
+
+
+def tts_transaction(balance, subscription, credit_rate, text, mdl):
+    plan = TTSModelModel.objects.get(title=mdl)
+
+    if credit_rate.reset is None or credit_rate.reset < timezone.now():
+        credit_rate.reset = timezone.now() + timedelta(minutes=credit_rate.time)
+        credit_rate.usage = 0
+
+    credit_avail = subscription.credit - subscription.credit_expense
+    credit_active = min(credit_avail, credit_rate.limit - credit_rate.usage)
+    char_length = len(text)
+    credit_usage = char_length * plan.credit
+    cash_usage = 0
+
+    if balance.chargeable and char_length > credit_active / plan.credit:
+        remainder = char_length - int(credit_active / plan.credit)
+        credit_usage = (char_length - remainder) * plan.credit
+        cash_usage = remainder * plan.cash
+
+        if cash_usage > balance.cash:
+            raise CustomException("Not enough founds.", 403)
+
+    else:
+        if char_length > credit_avail / plan.credit:
+            raise CustomException("Not enough credits.", 403)
+
+        if char_length > credit_active / plan.credit:
+            raise CustomException("Request limit exceeded.", 403)
+
+
+    return credit_usage, cash_usage
+
+
+
+def stt_transaction(balance, subscription, credit_rate, audio, mdl):
+    plan = STTModelModel.objects.get(title=mdl)
+
+    if credit_rate.reset is None or credit_rate.reset < timezone.now():
+        credit_rate.reset = timezone.now() + timedelta(minutes=credit_rate.time)
+        credit_rate.usage = 0
+
+    credit_avail = subscription.credit - subscription.credit_expense
+    credit_active = min(credit_avail, credit_rate.limit - credit_rate.usage)
+    audio_duration = math.ceil(get_audio_duration(audio))
+    credit_usage = audio_duration * plan.credit
+    cash_usage = 0
+
+    if balance.chargeable and audio_duration > credit_active / plan.credit:
+        remainder = audio_duration - int(credit_active / plan.credit)
+        credit_usage = (audio_duration - remainder) * plan.credit
+        cash_usage = remainder * plan.cash
+
+        if cash_usage > balance.cash:
+            raise CustomException("Not enough founds.", 403)
+
+    else:
+        if audio_duration > credit_avail / plan.credit:
+            raise CustomException("Not enough credits.", 403)
+
+        if audio_duration > credit_active / plan.credit:
+            raise CustomException("Request limit exceeded.", 403)
+
+
+    return credit_usage, cash_usage
+
+
+def llm_transaction(balance, subscription, session, credit_rate, content, mdl):
+    plan = LLMModelModel.objects.get(title=mdl)
+
+    if credit_rate.reset is None or credit_rate.reset < timezone.now():
+        credit_rate.reset = timezone.now() + timedelta(minutes=credit_rate.time)
+        credit_rate.usage = 0
+
+    credit_avail = subscription.credit - subscription.credit_expense
+    credit_active = min(credit_avail, credit_rate.limit - credit_rate.usage)
+    char_length = len(content)
+    credit_usage = char_length * plan.credit
+    cash_usage = 0
+
+    if session.context_expense + char_length > session.context:
+        raise CustomException("Message limit reached, open new session.", 403)
+
+    session.context_expense += char_length
+
+    if balance.chargeable and char_length > credit_active / plan.credit:
+        remainder = char_length - int(credit_active / plan.credit)
+        credit_usage = (char_length - remainder) * plan.credit
+        cash_usage = remainder * plan.cash
+
+        if cash_usage > balance.cash:
+            raise CustomException("Not enough founds.", 403)
+    else:
+        if char_length > credit_avail / plan.credit:
+            raise CustomException("Not enough credits.", 403)
+
+        if char_length > credit_active / plan.credit:
+            raise CustomException("Request limit exceeded.", 403)
+
+    return credit_usage, cash_usage

@@ -4,8 +4,8 @@ from django.db import models
 from xazna.models import BaseModel
 
 
-class ChatSessionModel(BaseModel):
-    id = models.CharField(
+class LLMSessionModel(BaseModel):
+    id = models.UUIDField(
         max_length=36,
         primary_key=True,
         default=uuid.uuid4,
@@ -21,34 +21,33 @@ class ChatSessionModel(BaseModel):
     class Meta:
         verbose_name = "Session"
         verbose_name_plural = "Sessions"
-        db_table = "chat_session"
+        db_table = "llm_session"
         ordering = ["-created_at"]
 
     def __str__(self):
         return self.title
 
-class ChatMessageModel(BaseModel):
-    id = models.CharField(
+class LLMMessageModel(BaseModel):
+    id = models.UUIDField(
         max_length=36,
         primary_key=True,
         default=uuid.uuid4,
         editable=False,
         unique=True
     )
-    session = models.ForeignKey("ChatSessionModel", on_delete=models.CASCADE, related_name="messages")
+    session = models.ForeignKey("LLMSessionModel", on_delete=models.CASCADE, related_name="messages")
     role = models.CharField(max_length=20, choices=[("user", "user"), ("assistant", "assistant")])
-    content = models.TextField(null=True, blank=True)
-    mdl = models.CharField(max_length=50, blank=True, null=True)
-    error = models.TextField(null=True, blank=True)
+    content = models.TextField(default="")
+    mdl = models.CharField(max_length=50)
 
     class Meta:
         verbose_name = "Message"
         verbose_name_plural = "Messages"
-        db_table = "chat_message"
+        db_table = "llm_message"
 
 
 
-class ChatModelModel(BaseModel):
+class LLMModelModel(BaseModel):
     title = models.CharField(max_length=50, unique=True)
     user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE)
     credit = models.DecimalField(max_digits=16, decimal_places=4, validators=[MinValueValidator(0)], default=0)
@@ -57,4 +56,34 @@ class ChatModelModel(BaseModel):
     class Meta:
         verbose_name = "Model"
         verbose_name_plural = "Models"
-        db_table = 'chat_model'
+        db_table = "llm_model"
+        
+
+
+class UserLLMErrorLogModel(BaseModel):
+    message = models.TextField()
+    user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE, related_name="llm_log")
+    content = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.message
+
+    class Meta:
+        verbose_name = "User error log"
+        verbose_name_plural = "User error logs"
+        db_table = "user_llm_log"
+
+
+
+class ServiceLLMErrorLogModel(BaseModel):
+    message = models.TextField()
+    service = models.ForeignKey("service.ServiceTokenModel", on_delete=models.CASCADE, related_name="llm_log")
+    content = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.message
+
+    class Meta:
+        verbose_name = "Service error log"
+        verbose_name_plural = "Service error logs"
+        db_table = "service_llm_log"

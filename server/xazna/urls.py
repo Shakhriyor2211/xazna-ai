@@ -38,7 +38,7 @@ base_patterns = [
     path("finance/", include("finance.urls")),
     path("subscription/", include("subscription.urls")),
     path("plan/", include("plan.urls")),
-    path("chat/", include("chat.urls"))
+    path("llm/", include("llm.urls"))
 ]
 
 

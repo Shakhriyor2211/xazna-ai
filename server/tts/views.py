@@ -9,14 +9,16 @@ from drf_yasg import openapi
 from finance.models import ExpenseModel
 from shared.clean.split import split
 from shared.models import AudioModel
+from tts.models import UserTTSErrorLogModel
 from shared.views import CustomPagination
 from tts.models import TTSModel, TTSModelModel, TTSEmotionModel, TTSAudioFormatModel
 from tts.serializers import TTSSerializer, TTSListSerializer
-from shared.utils import generate_audio
+from shared.utils import generate_audio, tts_transaction
 from xazna import settings
 from django.db import transaction
 import tritonclient.grpc as triton_grpc
 
+from xazna.exceptions import CustomException
 
 
 class TTSSettingsAPIView(APIView):
@@ -24,12 +26,12 @@ class TTSSettingsAPIView(APIView):
 
     @swagger_auto_schema(operation_description="TTS settings...", tags=["TTS"])
     def get(self, request):
-        models = list(TTSModelModel.objects.values_list("title", flat=True))
+        mdls = list(TTSModelModel.objects.values_list("title", flat=True))
         emotions = list(TTSEmotionModel.objects.values_list("title", flat=True))
         audio_formats = list(TTSAudioFormatModel.objects.values_list("title", flat=True))
 
         return Response(data={
-            "models": models,
+            "mdls": mdls,
             "emotions": emotions,
             "formats": audio_formats
         }, status=status.HTTP_200_OK)
@@ -44,59 +46,28 @@ class TTSAPIView(APIView):
         tags=["TTS"]
     )
     def post(self, request):
+        text = None
         try:
+            serializer = TTSSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+
+            text = serializer.validated_data["text"]
+            mdl = serializer.validated_data["mdl"]
+            format = serializer.validated_data["format"]
+
+            balance = request.user.balance
+            subscription = balance.subscription
+            credit_rate = subscription.rate.tts.credit
+            credit_usage, cash_usage  = tts_transaction(balance, subscription, credit_rate, text, mdl)
+
             with transaction.atomic():
-                serializer = TTSSerializer(data=request.data)
-                serializer.is_valid(raise_exception=True)
-                data = serializer.validated_data
-
-                plan = TTSModelModel.objects.get(title=data["model"])
-                balance = request.user.balance
-                subscription = balance.subscription
-                credit_rate = subscription.rate.stt.credit
-
-                if credit_rate.reset is None or credit_rate.reset < timezone.now():
-                    credit_rate.reset = timezone.now() + timedelta(minutes=credit_rate.time)
-                    credit_rate.usage = 0
-
-                credit_avail = subscription.credit - subscription.credit_expense
-                credit_active = min(credit_avail, credit_rate.limit - credit_rate.usage)
-                char_length = len(data["text"])
-                credit_usage = char_length * plan.credit
-                cash_usage = 0
-
-
-                if balance.chargeable and char_length > credit_active / plan.credit:
-                    remainder = char_length - int(credit_active / plan.credit)
-                    credit_usage = (char_length - remainder) * plan.credit
-                    cash_usage = remainder * plan.cash
-
-                    if cash_usage > balance.cash:
-                        return Response(data={"message": "Not enough founds."},
-                                            status=status.HTTP_403_FORBIDDEN)
-
-                    balance.cash -= cash_usage
-
-                else:
-                    if char_length > credit_avail / plan.credit:
-                        return Response(data={"message": "Not enough credits."},
-                                        status=status.HTTP_403_FORBIDDEN)
-
-                    if char_length > credit_active / plan.credit:
-                        return Response(data={"message": "Request limit exceeded."},
-                                        status=status.HTTP_403_FORBIDDEN)
-
-                subscription.credit_expense += credit_usage
-                credit_rate.usage += credit_usage
-
                 client = triton_grpc.InferenceServerClient(url=settings.TTS_TRITON_SERVER, verbose=False)
 
                 audio_chunks = []
-                for chunk in split(data["text"]):
+                for chunk in split(text):
                     input_data = np.array([[chunk.encode('utf-8')]], dtype=object)
                     inputs = [triton_grpc.InferInput("target_text", [1, 1], "BYTES")]
                     inputs[0].set_data_from_numpy(input_data)
-
 
                     outputs = [triton_grpc.InferRequestedOutput("waveform")]
                     res = client.infer(model_name="f5_tts", inputs=inputs, outputs=outputs)
@@ -108,12 +79,18 @@ class TTSAPIView(APIView):
 
                 full_audio_chunks = np.concatenate(audio_chunks, axis=0)
                 audio_instance = AudioModel.objects.create(user=request.user,
-                                                           file=generate_audio(full_audio_chunks, data["format"]))
+                                                           file=generate_audio(full_audio_chunks, format))
+
 
 
                 tts_instance = serializer.save(audio=audio_instance, user=request.user)
 
-                ExpenseModel.objects.create(operation="tts", credit=credit_usage, cash=cash_usage, tts=tts_instance, user=request.user)
+                subscription.credit_expense += credit_usage
+                credit_rate.usage += credit_usage
+                balance.cash -= cash_usage
+
+                ExpenseModel.objects.create(operation="tts", operation_id=tts_instance.id, credit=credit_usage,
+                                            cash=cash_usage, user=request.user)
 
                 tts = TTSListSerializer(tts_instance)
 
@@ -122,9 +99,10 @@ class TTSAPIView(APIView):
                 credit_rate.save()
 
                 return Response(data=tts.data, status=status.HTTP_200_OK)
-
-        except Exception as error:
-            print(error)
+        except CustomException as e:
+            return Response(data={"message": str(e)}, status=e.status)
+        except Exception as e:
+            UserTTSErrorLogModel.objects.create(message=str(e), text=text, user=self.request.user)
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -143,7 +121,7 @@ class TTSListAPIView(APIView):
             type=openapi.TYPE_STRING
         ),
     ],
-    tags=["TTS"]
+        tags=["TTS"]
     )
     def get(self, request):
         ordering = request.query_params.get('ordering', '-created_at')

@@ -59,6 +59,7 @@ CELERY_WORKER_MAX_MEMORY = 1024 * 1024 * 4  # 4 GB
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
+FERNET_SECRET_KEY = os.getenv("FERNET_SECRET_KEY")
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")
 DEBUG = os.getenv("DEBUG") == "dev"
 BASE_URL = os.getenv("BASE_URL")
@@ -93,9 +94,10 @@ INSTALLED_APPS = [
     "tts",
     "stt",
     "finance",
-    "chat",
+    "llm",
     "subscription",
-    "plan"
+    "plan",
+    "service"
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -114,7 +116,8 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "xazna.middleware.ViewAuthMiddleware",
+    "xazna.middleware.TokenViewMiddleware",
+    "xazna.middleware.AuthViewMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 

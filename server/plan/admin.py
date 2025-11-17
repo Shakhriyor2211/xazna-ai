@@ -1,6 +1,6 @@
 from django.contrib import admin
-from plan.models import PlanModel, PlanMonthlyModel, PlanAnnualModel, PlanSTTRateModel, PlanTTSRateModel, PlanChatRateModel, \
-    PlanSTTCreditRateModel, PlanTTSCreditRateModel, PlanChatCreditRateModel, PlanRateModel
+from plan.models import PlanModel, PlanMonthlyModel, PlanAnnualModel, PlanSTTRateModel, PlanTTSRateModel, PlanLLMRateModel, \
+    PlanSTTCreditRateModel, PlanTTSCreditRateModel, PlanLLMCreditRateModel, PlanRateModel
 
 
 @admin.register(PlanModel)
@@ -9,8 +9,8 @@ class PlanAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "title",
-        "chat_session",
-        "chat_context",
+        "llm_session",
+        "llm_context",
         "monthly__credit",
         "annual__credit",
         "user",
@@ -67,8 +67,8 @@ class TTSRateAdmin(admin.ModelAdmin):
         "rate",
     )
 
-@admin.register(PlanChatRateModel)
-class ChatRateAdmin(admin.ModelAdmin):
+@admin.register(PlanLLMRateModel)
+class LLMRateAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "rate__plan",
@@ -94,11 +94,11 @@ class TTSCreditRateAdmin(admin.ModelAdmin):
     )
 
 
-@admin.register(PlanChatCreditRateModel)
-class ChatCreditRateAdmin(admin.ModelAdmin):
+@admin.register(PlanLLMCreditRateModel)
+class LLMCreditRateAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "chat",
+        "llm",
         "limit",
         "time",
     )

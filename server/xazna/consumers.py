@@ -8,7 +8,7 @@ from accounts.models import CustomUserModel
 from xazna import settings
 
 
-class BaseWebsocketConsumer(AsyncWebsocketConsumer):
+class AuthWebsocketConsumer(AsyncWebsocketConsumer):
     async def _validate(self):
         auth_required = getattr(self, "auth_required", False)
 
