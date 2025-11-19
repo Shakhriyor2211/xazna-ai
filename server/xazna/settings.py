@@ -97,7 +97,8 @@ INSTALLED_APPS = [
     "llm",
     "subscription",
     "plan",
-    "service"
+    "service",
+    "log"
 ]
 
 CORS_ALLOW_CREDENTIALS = True

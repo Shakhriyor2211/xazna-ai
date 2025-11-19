@@ -1,6 +1,4 @@
-import math
 import re
-from datetime import timedelta
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
@@ -9,16 +7,14 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from finance.models import ExpenseModel
 from shared.models import AudioModel
-from stt.models import UserSTTErrorLogModel
-from shared.utils import get_audio_duration, text_decode, convert_to_wav, stt_transaction
+from log.models import UserSTTErrorLogModel
+from shared.utils import  text_decode, convert_to_wav, stt_transaction
 from shared.views import CustomPagination
-from stt.models import STTModel, STTModelModel
+from stt.models import STTModel
 from stt.serializers import STTListSerializer, STTChangeSerializer, STTSerializer
 from xazna import settings
-from django.utils import timezone
 from django.db import transaction
 from openai import OpenAI
-
 from xazna.exceptions import CustomException
 
 client = OpenAI(base_url=settings.STT_SERVER, api_key=settings.STT_SERVER_API_KEY)
@@ -38,6 +34,7 @@ class STTAPIView(APIView):
             mdl = serializer.validated_data["mdl"]
 
             audio_instance = AudioModel.objects.create(user=request.user, file=serializer.validated_data["file"])
+
             balance = request.user.balance
             subscription = balance.subscription
             credit_rate = subscription.rate.stt.credit

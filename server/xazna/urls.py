@@ -38,9 +38,9 @@ base_patterns = [
     path("finance/", include("finance.urls")),
     path("subscription/", include("subscription.urls")),
     path("plan/", include("plan.urls")),
-    path("llm/", include("llm.urls"))
+    path("llm/", include("llm.urls")),
+    path("service/", include("service.urls"))
 ]
-
 
 protected_media_patterns = [
     path("audio/stream/<id>", ProtectedAudioStreamView.as_view(), name="audio_stream"),

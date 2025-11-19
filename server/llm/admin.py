@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import LLMSessionModel, LLMMessageModel, LLMModelModel, UserLLMErrorLogModel, ServiceLLMErrorLogModel
+from .models import LLMSessionModel, LLMMessageModel, LLMModelModel
 
 
 @admin.register(LLMModelModel)
@@ -37,42 +37,5 @@ class LLMSessionAdmin(admin.ModelAdmin):
     list_filter = ("created_at",)
     search_fields = ("title", "user__email", "user__username")
 
-
-
-@admin.register(UserLLMErrorLogModel)
-class UserLLMErrorLogAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "short_message",
-        "short_content",
-        "user",
-        "created_at"
-    )
-
-    def short_message(self, obj):
-        return (obj.message[:50] + "...") if obj.message is not None and obj.message and len(obj.message) > 50 else obj.message
-    short_message.short_description = "Message"
-
-    def short_content(self, obj):
-        return (obj.content[:50] + "...") if obj.content is not None and obj.content and len(obj.content) > 50 else obj.content
-    short_content.short_description = "Content"
-
-@admin.register(ServiceLLMErrorLogModel)
-class ServiceLLMErrorLogAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "short_message",
-        "short_content",
-        "service",
-        "created_at"
-    )
-
-    def short_message(self, obj):
-        return (obj.message[:50] + "...") if obj.message is not None and obj.message and len(obj.message) > 50 else obj.message
-    short_message.short_description = "Message"
-
-    def short_content(self, obj):
-        return (obj.content[:50] + "...") if obj.content is not None and obj.content and len(obj.content) > 50 else obj.content
-    short_content.short_description = "Content"
 
 

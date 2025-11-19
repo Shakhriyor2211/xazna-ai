@@ -63,6 +63,7 @@ class TokenViewMiddleware(MiddlewareMixin):
 
         if not token_required:
             request._user = AnonymousUser()
+            request.token = None
             return None
 
         t = request.COOKIES.get("token") or request.GET.get("token")
@@ -86,6 +87,7 @@ class TokenViewMiddleware(MiddlewareMixin):
                 return JsonResponse({"message": "Account is inactive.", "code": "account_inactive"}, status=403)
 
             request._user = token.user
+            request.token = token
 
         except ExpiredSignatureError:
             return JsonResponse({"message": "Token has expired.", "code": "expired_token"}, status=401)

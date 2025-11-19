@@ -1,6 +1,4 @@
-from datetime import timedelta
 import numpy as np
-from django.utils import timezone
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.response import Response
@@ -9,7 +7,7 @@ from drf_yasg import openapi
 from finance.models import ExpenseModel
 from shared.clean.split import split
 from shared.models import AudioModel
-from tts.models import UserTTSErrorLogModel
+from log.models import UserTTSErrorLogModel
 from shared.views import CustomPagination
 from tts.models import TTSModel, TTSModelModel, TTSEmotionModel, TTSAudioFormatModel
 from tts.serializers import TTSSerializer, TTSListSerializer
@@ -17,8 +15,9 @@ from shared.utils import generate_audio, tts_transaction
 from xazna import settings
 from django.db import transaction
 import tritonclient.grpc as triton_grpc
-
 from xazna.exceptions import CustomException
+
+client = triton_grpc.InferenceServerClient(url=settings.TTS_TRITON_SERVER, verbose=False)
 
 
 class TTSSettingsAPIView(APIView):
@@ -61,8 +60,6 @@ class TTSAPIView(APIView):
             credit_usage, cash_usage  = tts_transaction(balance, subscription, credit_rate, text, mdl)
 
             with transaction.atomic():
-                client = triton_grpc.InferenceServerClient(url=settings.TTS_TRITON_SERVER, verbose=False)
-
                 audio_chunks = []
                 for chunk in split(text):
                     input_data = np.array([[chunk.encode('utf-8')]], dtype=object)

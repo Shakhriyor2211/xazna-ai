@@ -37,31 +37,3 @@ class STTModelModel(BaseModel):
         db_table = 'stt_model'
 
 
-class UserSTTErrorLogModel(BaseModel):
-    message = models.TextField()
-    user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE, related_name="stt_log")
-    audio = models.OneToOneField("shared.AudioModel", blank=True, null=True, on_delete=models.SET_NULL)
-
-    def __str__(self):
-        return self.message
-
-    class Meta:
-        verbose_name = "User error log"
-        verbose_name_plural = "User error logs"
-        db_table = "user_stt_log"
-
-
-
-class ServiceSTTErrorLogModel(BaseModel):
-    message = models.TextField()
-    service = models.ForeignKey("service.ServiceTokenModel", on_delete=models.CASCADE, related_name="stt_log")
-    audio = models.OneToOneField("shared.AudioModel", blank=True, null=True, on_delete=models.SET_NULL)
-
-    def __str__(self):
-        return self.message
-
-    class Meta:
-        verbose_name = "Service error log"
-        verbose_name_plural = "Service error logs"
-        db_table = "service_stt_log"
-

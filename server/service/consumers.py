@@ -5,7 +5,7 @@ from time import sleep
 from asgiref.sync import sync_to_async
 from channels.db import database_sync_to_async
 from openai import OpenAI
-from llm.models import LLMSessionModel, LLMMessageModel
+from service.models import ServiceLLMSessionModel, ServiceLLMMessageModel
 from llm.serializers import LLMMessageSerializer
 from shared.utils import llm_transaction
 from xazna import settings
@@ -14,15 +14,14 @@ from django.db import transaction
 from django.utils import timezone
 from xazna.exceptions import CustomException
 from datetime import timedelta
-from finance.models import ExpenseModel
-from log.models import UserLLMErrorLogModel
+from log.models import ServiceLLMErrorLogModel
 
 openai_api_key = "EMPTY"
 openai_api_base = settings.LLM_SERVER
 client = OpenAI(api_key=openai_api_key, base_url=openai_api_base)
 
 
-class LLMConsumer(AuthWebsocketConsumer):
+class ServiceLLMConsumer(AuthWebsocketConsumer):
     auth_required = True
 
     def __init__(self, *args, **kwargs):
@@ -39,7 +38,7 @@ class LLMConsumer(AuthWebsocketConsumer):
         self.contents = []
 
     async def on_connect(self):
-        self.session = await database_sync_to_async(LLMSessionModel.objects.get)(
+        self.session = await database_sync_to_async(ServiceLLMSessionModel.objects.get)(
             id=self.scope["url_route"]["kwargs"]["session_id"],
             user=self.user
         )
@@ -53,38 +52,6 @@ class LLMConsumer(AuthWebsocketConsumer):
 
         self.stream_task = None
 
-        if self.session.is_streaming and len(self.contents) == 1:
-            self.user_message = await database_sync_to_async(
-                lambda: self.session.messages
-                .exclude(role="system")
-                .order_by("created_at")
-                .first())()
-            self.assistant_message = await self._create_message(role="assistant", content="", mdl=self.user_message.mdl)
-
-            try:
-                await self._process_transaction()
-
-            except CustomException as e:
-                await self.send(json.dumps({
-                    "status": e.status,
-                    "type": "error",
-                    "message": e.message
-                }))
-                self.contents.append({"role": "assistant", "content": ""})
-            except Exception as e:
-                await self.send(json.dumps({
-                    "status": 500,
-                    "type": "error",
-                    "message": "Internal server error"
-                }))
-                self.contents.append({"role": "assistant", "content": ""})
-                await sync_to_async(UserLLMErrorLogModel.objects.create)(message=str(e),
-                                                                         content=self.user_message.content,
-                                                                         user=self.user)
-            finally:
-                self.session.is_streaming = False
-                await database_sync_to_async(self.session.save)()
-
     async def on_receive(self, request):
         data = json.loads(request)
         action = data.get("action")
@@ -96,10 +63,8 @@ class LLMConsumer(AuthWebsocketConsumer):
                     self.contents.append({"role": "assistant", "content": self.assistant_message.content})
                     await sync_to_async(self.balance.save)()
                     await sync_to_async(self.subscription.save)()
-                    await sync_to_async(self.credit_rate.save)()
-                    await sync_to_async(ExpenseModel.objects.create)(operation="llm", credit=self.credit_usage,
-                                                                     cash=self.cash_usage,
-                                                                     operation_id=self.user_message.id, user=self.user)
+                    # await sync_to_async(self.credit_rate.save)()
+
             return
 
         try:
@@ -135,8 +100,8 @@ class LLMConsumer(AuthWebsocketConsumer):
                 "message": "Internal server error"
             }))
             self.contents.append({"role": "assistant", "content": ""})
-            await sync_to_async(UserLLMErrorLogModel.objects.create)(message=str(e), content=self.user_message.content,
-                                                                     user=self.user)
+            await sync_to_async(ServiceLLMErrorLogModel.objects.create)(message=str(e), content=self.user_message.content,
+                                                                     token=self.token)
 
         finally:
             self.session.is_streaming = False
@@ -145,19 +110,16 @@ class LLMConsumer(AuthWebsocketConsumer):
     async def _process_transaction(self):
         self.balance = await sync_to_async(lambda: self.user.balance)()
         self.subscription = await sync_to_async(lambda: self.balance.subscription)()
-        self.credit_rate = await sync_to_async(lambda: self.subscription.rate.llm.credit)()
+        # self.credit_rate = await sync_to_async(lambda: self.subscription.rate.llm.credit)()
 
-        self.credit_usage, self.cash_usage = await sync_to_async(llm_transaction)(self.balance, self.subscription, self.session, self.credit_rate, self.user_message.content,
-                            self.user_message.mdl)
+        # self.credit_usage, self.cash_usage = await sync_to_async(llm_transaction)(self.balance, self.subscription, self.session, self.credit_rate, self.user_message.content,
+        #                     self.user_message.mdl)
 
-        self.session.is_streaming = True
-
-        await sync_to_async(self.session.save)()
 
         self.stream_task = asyncio.create_task(self._stream_llm())
         self.balance.cash -= self.cash_usage
         self.subscription.credit_expense += self.credit_usage
-        self.credit_rate.usage += self.credit_usage
+
 
 
     async def _stream_llm(self):
@@ -207,10 +169,7 @@ class LLMConsumer(AuthWebsocketConsumer):
             self.contents.append({"role": "assistant", "content": self.assistant_message.content})
             await sync_to_async(self.balance.save)()
             await sync_to_async(self.subscription.save)()
-            await sync_to_async(self.credit_rate.save)()
-            await sync_to_async(ExpenseModel.objects.create)(operation="llm", credit=self.credit_usage,
-                                                             cash=self.cash_usage,
-                                                             operation_id=self.user_message.id, user=self.user)
+            # await sync_to_async(self.credit_rate.save)()
 
         except Exception as e:
             await self.send(json.dumps({
@@ -219,12 +178,12 @@ class LLMConsumer(AuthWebsocketConsumer):
                 "message": "Internal server error"
             }))
             self.contents.append({"role": "assistant", "content": ""})
-            await sync_to_async(UserLLMErrorLogModel.objects.create)(message=str(e),
+            await sync_to_async(ServiceLLMErrorLogModel.objects.create)(message=str(e),
                                                                      content=self.user_message.content,
-                                                                     user=self.user)
+                                                                     token=self.token)
 
     async def _create_message(self, role, content="", mdl="Base"):
-        instance = await sync_to_async(LLMMessageModel.objects.create)(
+        instance = await sync_to_async(ServiceLLMMessageModel.objects.create)(
             session=self.session,
             role=role,
             content=content,
@@ -239,8 +198,6 @@ class LLMConsumer(AuthWebsocketConsumer):
             if self.assistant_message.content != "":
                 await sync_to_async(self.balance.save)()
                 await sync_to_async(self.subscription.save)()
-                await sync_to_async(self.credit_rate.save)()
-                await sync_to_async(ExpenseModel.objects.create)(operation="llm", credit=self.credit_usage,
-                                                                 cash=self.cash_usage,
-                                                                 operation_id=self.user_message.id, user=self.user)
+                # await sync_to_async(self.credit_rate.save)()
+
             self.stream_task.cancel()

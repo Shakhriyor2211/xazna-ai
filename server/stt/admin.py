@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-
-from stt.models import STTModel, STTModelModel, ServiceSTTErrorLogModel, UserSTTErrorLogModel
+from stt.models import STTModel, STTModelModel
 
 
 @admin.register(STTModel)
@@ -38,55 +37,4 @@ class STTModelAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.user = request.user
         super().save_model(request, obj, form, change)
-
-
-
-
-@admin.register(UserSTTErrorLogModel)
-class UserSTTErrorLogAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "short_message",
-        "audio_link",
-        "user",
-        "created_at"
-    )
-
-    def audio_link(self, obj):
-        if obj.audio and obj.audio.file:
-            return  format_html(
-                f"""<a href="{obj.audio.file.url}" target="_blank">{obj.audio.id}</a>"""
-            )
-        return "-"
-    audio_link.short_description = "Audio"
-
-    def short_message(self, obj):
-        return (obj.message[:50] + "...") if obj.message is not None and obj.message and len(obj.message) > 50 else obj.message
-    short_message.short_description = "Message"
-
-
-@admin.register(ServiceSTTErrorLogModel)
-class ServiceSTTLogAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "short_message",
-        "audio_link",
-        "service",
-        "created_at"
-    )
-
-    def audio_link(self, obj):
-        if obj.audio and obj.audio.file:
-            return  format_html(
-                f"""<a href="{obj.audio.file.url}" target="_blank">{obj.audio.id}</a>"""
-            )
-        return "-"
-    audio_link.short_description = "Audio"
-
-    def short_message(self, obj):
-        return (obj.message[:50] + "...") if obj.message is not None and obj.message and len(obj.message) > 50 else obj.message
-    short_message.short_description = "Message"
-
-
-
 

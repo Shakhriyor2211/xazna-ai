@@ -15,7 +15,7 @@ class TTSModel(BaseModel):
     )
     text = models.CharField()
     user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE)
-    audio = models.OneToOneField(AudioModel, null=True, blank=True, on_delete=models.SET_NULL)
+    audio = models.OneToOneField("shared.AudioModel", null=True, blank=True, on_delete=models.SET_NULL)
     emotion = models.CharField(max_length=50)
     mdl = models.CharField(max_length=50)
     format = models.CharField(max_length=50)
@@ -59,31 +59,4 @@ class TTSModelModel(BaseModel):
         db_table = "tts_model"
 
 
-
-class UserTTSErrorLogModel(BaseModel):
-    message = models.TextField()
-    user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE, related_name="tts_log")
-    text = models.TextField(blank=True, null=True)
-
-    def __str__(self):
-        return self.message
-
-    class Meta:
-        verbose_name = "User error log"
-        verbose_name_plural = "User error logs"
-        db_table = "user_tts_log"
-
-
-class ServiceTTSErrorLogModel(BaseModel):
-    message = models.TextField()
-    service = models.ForeignKey("service.ServiceTokenModel", on_delete=models.CASCADE, related_name="tts_log")
-    text = models.TextField(blank=True, null=True)
-
-    def __str__(self):
-        return self.message
-
-    class Meta:
-        verbose_name = "Service error log"
-        verbose_name_plural = "Service error logs"
-        db_table = "service_tts_log"
 

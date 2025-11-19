@@ -3,7 +3,7 @@ from drf_yasg import openapi
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from llm.models import UserLLMErrorLogModel
+from log.models import UserLLMErrorLogModel
 from shared.utils import generate_title
 from llm.models import LLMSessionModel, LLMMessageModel, LLMModelModel
 from llm.serializers import LLMSessionSerializer, LLMMessageSerializer
