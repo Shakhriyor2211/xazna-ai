@@ -1,9 +1,8 @@
 from rest_framework import serializers
-from plan.models import (
-    PlanRateModel, PlanModel, PlanMonthlyModel, PlanAnnualModel,
-    PlanSTTRateModel, PlanTTSRateModel, PlanLLMRateModel,
-    PlanSTTCreditRateModel, PlanTTSCreditRateModel, PlanLLMCreditRateModel
-)
+from plan.models import PlanModel, PlanMonthlyModel, PlanAnnualModel
+from rate.models import PlanRateModel, PlanTTSRateModel, PlanLLMRateModel, PlanSTTRateModel, PlanSTTCreditRateModel, \
+    PlanTTSCreditRateModel, PlanLLMCreditRateModel
+
 
 class PlanSTTCreditRateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,7 +20,6 @@ class PlanLLMCreditRateSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlanLLMCreditRateModel
         fields = ["limit", "time"]
-
 
 
 class PlanSTTRateSerializer(serializers.ModelSerializer):

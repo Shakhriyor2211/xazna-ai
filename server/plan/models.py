@@ -1,6 +1,6 @@
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
-from xazna.models import BaseModel, CreditPlanRateBaseModel
+from xazna.models import BaseModel, CreditPlanRateBaseModel, CreditPlanRateBaseModel
 
 
 class PlanModel(BaseModel):
@@ -19,11 +19,10 @@ class PlanModel(BaseModel):
         return f'''{self.title}'''
 
     class Meta:
-        verbose_name = "Data"
-        verbose_name_plural = "Data"
+        verbose_name = "List"
+        verbose_name_plural = "List"
         ordering = ["pk"]
         db_table = "plan"
-
 
 
 class PlanMonthlyModel(BaseModel):
@@ -44,85 +43,11 @@ class PlanAnnualModel(BaseModel):
     discount = models.DecimalField(max_digits=4, decimal_places=1,
                                           validators=[MinValueValidator(0), MaxValueValidator(100)], default=0)
 
+
     class Meta:
         verbose_name = "Annual fund"
         verbose_name_plural = "Annual funds"
         db_table = "plan_annual"
-
-
-class PlanRateModel(BaseModel):
-    plan = models.OneToOneField("PlanModel", on_delete=models.CASCADE, related_name="rate")
-
-    class Meta:
-        verbose_name = "Rate"
-        verbose_name_plural = "Rates"
-        db_table = "plan_rate"
-
-    def __str__(self):
-        return self.plan.title
-
-
-class PlanSTTRateModel(BaseModel):
-    rate = models.OneToOneField("PlanRateModel", on_delete=models.CASCADE, related_name="stt")
-
-    class Meta:
-        verbose_name = "STT rate"
-        verbose_name_plural = "STT rates"
-        db_table = "plan_stt_rate"
-
-    def __str__(self):
-        return self.rate.plan.title
-
-
-class PlanTTSRateModel(BaseModel):
-    rate = models.OneToOneField("PlanRateModel", on_delete=models.CASCADE, related_name="tts")
-
-    class Meta:
-        verbose_name = "TTS rate"
-        verbose_name_plural = "TTS rates"
-        db_table = "plan_tts_rate"
-
-    def __str__(self):
-        return self.rate.plan.title
-
-class PlanLLMRateModel(BaseModel):
-    rate = models.OneToOneField("PlanRateModel", on_delete=models.CASCADE, related_name="llm")
-
-    class Meta:
-        verbose_name = "LLM rate"
-        verbose_name_plural = "LLM rates"
-        db_table = "plan_llm_rate"
-
-    def __str__(self):
-        return self.rate.plan.title
-
-class PlanSTTCreditRateModel(CreditPlanRateBaseModel):
-    stt = models.OneToOneField("PlanSTTRateModel", on_delete=models.CASCADE, related_name="credit")
-
-    class Meta:
-        verbose_name = "STT credit rate"
-        verbose_name_plural = "STT credit rates"
-        db_table = "plan_stt_credit_rate"
-
-
-class PlanTTSCreditRateModel(CreditPlanRateBaseModel):
-    tts = models.OneToOneField("PlanTTSRateModel", on_delete=models.CASCADE, related_name="credit")
-
-    class Meta:
-        verbose_name = "TTS credit rate"
-        verbose_name_plural = "TTS credit rates"
-        db_table = "plan_tts_credit_rate"
-
-
-class PlanLLMCreditRateModel(CreditPlanRateBaseModel):
-    llm = models.OneToOneField("PlanLLMRateModel", on_delete=models.CASCADE, related_name="credit")
-
-    class Meta:
-        verbose_name = "LLM credit rate"
-        verbose_name_plural = "LLM credit rates"
-        db_table = "plan_llm_credit_rate"
-
-
 
 
 

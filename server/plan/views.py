@@ -14,5 +14,5 @@ class PlanListAPIView(APIView):
     def get(self, request):
         serializer = PlanSerializer(PlanModel.objects.all(), many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
-
+#
 

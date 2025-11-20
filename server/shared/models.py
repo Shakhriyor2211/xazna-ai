@@ -1,9 +1,8 @@
 import os
 import uuid
 from django.db import models
-
 from accounts.models import CustomUserModel
-from xazna.models import BaseModel
+from xazna.models import BaseModel, CreditSubRateBaseModel
 
 
 class AudioModel(BaseModel):
@@ -31,7 +30,6 @@ class AudioModel(BaseModel):
         verbose_name = "Audio"
         verbose_name_plural = "Audios"
         db_table = "audio"
-
 
 
 

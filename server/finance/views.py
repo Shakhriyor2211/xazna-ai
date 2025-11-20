@@ -7,6 +7,9 @@ from rest_framework.response import Response
 from shared.views import CustomPagination
 from django.db import transaction
 
+from sub.models import SubModel
+from sub.serializers import SubSerializer
+
 
 class ExpenseListAPIView(APIView):
     auth_required = True
@@ -31,9 +34,11 @@ class BalanceAPIView(APIView):
 
     @swagger_auto_schema(operation_description="Balance...", tags=["Finance"])
     def get(self, request):
-        balance = BalanceModel.objects.filter(user=request.user).first()
-        serializer = BalanceSerializer(balance)
-        return Response(data=serializer.data, status=status.HTTP_200_OK)
+        b_serializer = BalanceSerializer(request.user.balance)
+        sub = SubModel.objects.filter(user=request.user, status="active").first()
+        s_serializer = SubSerializer(sub)
+
+        return Response(data={"balance": b_serializer.data, "sub": s_serializer.data}, status=status.HTTP_200_OK)
 
 
 

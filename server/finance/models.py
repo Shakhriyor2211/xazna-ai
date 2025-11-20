@@ -8,8 +8,7 @@ class BalanceModel(BaseModel):
     user = models.OneToOneField("accounts.CustomUserModel", on_delete=models.CASCADE, related_name="balance")
     cash = models.DecimalField(max_digits=16, decimal_places=4, default=0)
     chargeable = models.BooleanField(default=False)
-    subscription = models.OneToOneField("subscription.SubscriptionModel", on_delete=models.SET_NULL, null=True, blank=True,
-                                        related_name="subscription")
+
 
     def __str__(self):
         return f'''{self.id}'''

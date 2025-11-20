@@ -4,9 +4,9 @@ from rest_framework.views import APIView
 from drf_yasg.utils import swagger_auto_schema
 from finance.models import BalanceModel
 from plan.models import PlanModel
-from subscription.models import SubscriptionModel
-from subscription.serializers import SubscriptionChangeSerializer, SubscriptionListSerializer, \
-    SubscriptionManageSerializer
+from sub.models import SubModel
+from sub.serializers import SubChangeSerializer, SubListSerializer, \
+    SubManageSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from django.utils import timezone
@@ -14,10 +14,10 @@ from shared.views import CustomPagination
 from django.db import transaction
 
 
-class SubscriptionRestartAPIView(APIView):
+class SubRestartAPIView(APIView):
     auth_required = True
 
-    @swagger_auto_schema(operation_description="Restart subscription...", tags=["Subscription"])
+    @swagger_auto_schema(operation_description="Restart subscription...", tags=["Sub"])
     def post(self, request):
         try:
             with transaction.atomic():
@@ -53,7 +53,7 @@ class SubscriptionRestartAPIView(APIView):
                     return Response(data={"message": "Not enough funds, please top up your balance."},
                                     status=status.HTTP_400_BAD_REQUEST)
 
-                balance.subscription = SubscriptionModel.objects.create(user=request.user,
+                balance.subscription = SubModel.objects.create(user=request.user,
                                                                         period=old_subscription.period,
                                                                         **plan)
                 balance.cash -= price
@@ -63,21 +63,21 @@ class SubscriptionRestartAPIView(APIView):
                 old_subscription.save()
                 balance.save()
 
-                return Response(data={"message": "Subscription changed successfully."}, status=status.HTTP_200_OK)
+                return Response(data={"message": "Sub changed successfully."}, status=status.HTTP_200_OK)
 
         except Exception as error:
             print(error)
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class SubscriptionChangeAPIView(APIView):
+class SubChangeAPIView(APIView):
     auth_required = True
 
-    @swagger_auto_schema(operation_description='Change subscription...', request_body=SubscriptionChangeSerializer, tags=["Subscription"])
+    @swagger_auto_schema(operation_description='Change subscription...', request_body=SubChangeSerializer, tags=["Sub"])
     def post(self, request):
         try:
             with transaction.atomic():
-                serializer = SubscriptionChangeSerializer(data=request.data)
+                serializer = SubChangeSerializer(data=request.data)
                 serializer.is_valid(raise_exception=True)
 
                 period = serializer.validated_data["period"]
@@ -95,14 +95,14 @@ class SubscriptionChangeAPIView(APIView):
                     price = plan.monthly.price * (Decimal(100 - plan.monthly.discount) / Decimal(100))
 
                 if plan.title == "Free":
-                    old_subscription = SubscriptionModel.objects.filter(title="Free", user=request.user).order_by(
+                    old_subscription = SubModel.objects.filter(title="Free", user=request.user).order_by(
                         "-start_date").first()
                     if old_subscription is not None and old_subscription.end_date >= timezone.now():
                         old_subscription.status = "active"
                         old_subscription.save()
                         balance.subscription = old_subscription
                     else:
-                        sub = SubscriptionModel.objects.create(user=request.user, title=plan.title,
+                        sub = SubModel.objects.create(user=request.user, title=plan.title,
                                                                                 credit=plan.monthly.credit,
                                                                                 period=period, price=plan.monthly.price,
                                                                                discount=plan.monthly.discount)
@@ -114,7 +114,7 @@ class SubscriptionChangeAPIView(APIView):
                         return Response(data={"message": "Not enough funds, please top up your balance."},
                                         status=status.HTTP_400_BAD_REQUEST)
 
-                    sub = SubscriptionModel.objects.create(user=request.user, title=plan.title,
+                    sub = SubModel.objects.create(user=request.user, title=plan.title,
                                                            credit=plan.monthly.credit,
                                                            period=period, price=price,
                                                            discount=plan.monthly.discount)
@@ -127,20 +127,20 @@ class SubscriptionChangeAPIView(APIView):
                 subscription.save()
                 balance.save()
 
-                return Response(data={"message": "Subscription changed successfully."}, status=status.HTTP_200_OK)
+                return Response(data={"message": "Sub changed successfully."}, status=status.HTTP_200_OK)
 
         except Exception as error:
             print(error)
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class SubscriptionManageAPIView(APIView):
+class SubManageAPIView(APIView):
     auth_required = True
 
-    @swagger_auto_schema(operation_description='Manage subscription...', request_body=SubscriptionManageSerializer, tags=["Subscription"])
+    @swagger_auto_schema(operation_description='Manage subscription...', request_body=SubManageSerializer, tags=["Sub"])
     def patch(self, request):
         try:
-            serializer = SubscriptionManageSerializer(
+            serializer = SubManageSerializer(
                 instance=request.user.balance.subscription,
                 data=request.data,
                 partial=True
@@ -153,7 +153,7 @@ class SubscriptionManageAPIView(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class SubscriptionListAPIView(APIView):
+class SubListAPIView(APIView):
     auth_required = True
 
     @swagger_auto_schema(operation_description='STT list...', manual_parameters=[
@@ -168,30 +168,30 @@ class SubscriptionListAPIView(APIView):
             type=openapi.TYPE_STRING
         ),
     ],
-    tags=["Subscription"]
+    tags=["Sub"]
     )
     def get(self, request):
         ordering = request.query_params.get('ordering', '-created_at')
 
-        queryset = SubscriptionModel.objects.filter(user=request.user).order_by(ordering)
+        queryset = SubModel.objects.filter(user=request.user).order_by(ordering)
 
         paginator = CustomPagination()
         paginated_qs = paginator.paginate_queryset(queryset, request)
 
-        serializer = SubscriptionListSerializer(paginated_qs, many=True)
+        serializer = SubListSerializer(paginated_qs, many=True)
 
         return paginator.get_paginated_response(serializer.data)
 
 
-class SubscriptionCheckAPIView(APIView):
+class SubCheckAPIView(APIView):
     auth_required = True
     admin_required = True
 
-    @swagger_auto_schema(operation_description='Subscription check...', tags=["Subscription"])
+    @swagger_auto_schema(operation_description='Sub check...', tags=["Sub"])
 
     def get(self, request):
         with transaction.atomic():
-            subscriptions = SubscriptionModel.objects.filter(status="active", end_date__lt=timezone.now())
+            subscriptions = SubModel.objects.filter(status="active", end_date__lt=timezone.now())
 
             for subscription in subscriptions:
                 subscription.status = "expired"
@@ -222,12 +222,12 @@ class SubscriptionCheckAPIView(APIView):
 
                 if subscription.auto_renew and balance.cash >= plan["price"]:
                     balance.cash -= subscription.price
-                    balance.subscription = SubscriptionModel.objects.create(user=subscription.user,
+                    balance.subscription = SubModel.objects.create(user=subscription.user,
                                                                             period=subscription.period,
                                                                             start_date=midnight, **plan)
                 else:
                     free_plan = PlanModel.objects.get(title="Free")
-                    balance.subscription = SubscriptionModel.objects.create(user=subscription.user,
+                    balance.subscription = SubModel.objects.create(user=subscription.user,
                                                                             period="monthly",
                                                                             title="Free", price=free_plan.monthly.price,
                                                                             credit=free_plan.monthly.credit,

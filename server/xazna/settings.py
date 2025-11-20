@@ -89,16 +89,18 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     "drf_yasg",
     "django_celery_beat",
+
     "shared",
     "accounts",
     "tts",
     "stt",
     "finance",
     "llm",
-    "subscription",
+    "sub",
     "plan",
     "service",
-    "log"
+    "log",
+    "rate"
 ]
 
 CORS_ALLOW_CREDENTIALS = True

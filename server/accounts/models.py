@@ -43,6 +43,7 @@ class CustomUserModel(AbstractBaseUser, PermissionsMixin):
     def is_superuser(self):
         return self.role == 'superadmin'
 
+
     def __str__(self):
         return f'''{self.email}'''
 

@@ -4,7 +4,6 @@ from django.utils.html import format_html
 
 from service.models import ServiceTokenModel, ServiceTokenPermissionModel, ServiceTTSModel, ServiceLLMMessageModel, \
     ServiceLLMSessionModel, ServiceSTTModel
-from shared.utils import encrypt_token
 
 
 @admin.register(ServiceTokenModel)

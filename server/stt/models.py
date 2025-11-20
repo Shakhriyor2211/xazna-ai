@@ -20,9 +20,9 @@ class STTModel(BaseModel):
 
 
     class Meta:
-        verbose_name = "Data"
-        verbose_name_plural = "Data"
-        db_table = 'stt_data'
+        verbose_name = "List"
+        verbose_name_plural = "List"
+        db_table = "stt"
 
 
 class STTModelModel(BaseModel):
@@ -34,6 +34,6 @@ class STTModelModel(BaseModel):
     class Meta:
         verbose_name = "Model"
         verbose_name_plural = "Models"
-        db_table = 'stt_model'
+        db_table = "stt_model"
 
 

@@ -21,9 +21,9 @@ class TTSModel(BaseModel):
     format = models.CharField(max_length=50)
 
     class Meta:
-        verbose_name = "Data"
-        verbose_name_plural = "Data"
-        db_table = "tts_data"
+        verbose_name = "List"
+        verbose_name_plural = "List"
+        db_table = "tts"
 
 
 class TTSEmotionModel(BaseModel):
