@@ -2,7 +2,7 @@ from django.utils import timezone
 from dateutil.relativedelta import relativedelta
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
-from xazna.models import BaseModel, CreditSubRateBaseModel
+from xazna.models import BaseModel
 
 
 class SubModel(BaseModel):
@@ -11,9 +11,6 @@ class SubModel(BaseModel):
                                    validators=[MinValueValidator(0), MaxValueValidator(100)], default=0)
     credit = models.DecimalField(max_digits=16, decimal_places=4, validators=[MinValueValidator(0)], default=0)
     credit_expense = models.DecimalField(max_digits=16, decimal_places=4, validators=[MinValueValidator(0)], default=0)
-    llm_session = models.PositiveIntegerField(default=0)
-    llm_session_expense = models.PositiveIntegerField(default=0)
-    llm_context = models.PositiveIntegerField(default=0)
     auto_renew = models.BooleanField(default=False)
     price = models.DecimalField(max_digits=16, decimal_places=4, validators=[MinValueValidator(0)], default=0)
     status = models.CharField(

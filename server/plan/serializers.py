@@ -1,78 +1,51 @@
 from rest_framework import serializers
-from plan.models import PlanModel, PlanMonthlyModel, PlanAnnualModel
-from rate.models import PlanRateModel, PlanTTSRateModel, PlanLLMRateModel, PlanSTTRateModel, PlanSTTCreditRateModel, \
-    PlanTTSCreditRateModel, PlanLLMCreditRateModel
+from plan.models import PlanModel
+from rate.models import PlanTTSRateModel, PlanLLMRateModel, PlanSTTRateModel
 
-
-class PlanSTTCreditRateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PlanSTTCreditRateModel
-        fields = ["limit", "time"]
-
-
-class PlanTTSCreditRateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PlanTTSCreditRateModel
-        fields = ["limit", "time"]
-
-
-class PlanLLMCreditRateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PlanLLMCreditRateModel
-        fields = ["limit", "time"]
-
-
-class PlanSTTRateSerializer(serializers.ModelSerializer):
-    credit = PlanSTTCreditRateSerializer()
-
-    class Meta:
-        model = PlanSTTRateModel
-        fields = ["credit"]
-
-
-class PlanTTSRateSerializer(serializers.ModelSerializer):
-    credit = PlanTTSCreditRateSerializer()
-
-    class Meta:
-        model = PlanTTSRateModel
-        fields = ["credit"]
 
 
 class PlanLLMRateSerializer(serializers.ModelSerializer):
-    credit = PlanLLMCreditRateSerializer()
 
     class Meta:
         model = PlanLLMRateModel
-        fields = ["credit"]
+        fields = ["credit_limit", "credit_time"]
 
 
-class PlanRateSerializer(serializers.ModelSerializer):
-    stt = PlanSTTRateSerializer()
-    tts = PlanTTSRateSerializer()
-    llm = PlanLLMRateSerializer()
+class PlanTTSRateSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = PlanRateModel
-        fields = ["stt", "tts", "llm"]
+        model = PlanTTSRateModel
+        fields = ["credit_limit", "credit_time"]
 
 
-class PlanMonthlySerializer(serializers.ModelSerializer):
+class PlanSTTRateSerializer(serializers.ModelSerializer):
+
     class Meta:
-        model = PlanMonthlyModel
-        fields = ["credit", "price", "discount"]
+        model = PlanSTTRateModel
+        fields = ["credit_limit", "credit_time"]
 
-
-class PlanAnnualSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PlanAnnualModel
-        fields = ["credit", "price", "discount"]
 
 
 class PlanSerializer(serializers.ModelSerializer):
-    rate = PlanRateSerializer()
-    monthly = PlanMonthlySerializer()
-    annual = PlanAnnualSerializer()
+    llm_rate = PlanLLMRateSerializer()
+    tts_rate = PlanTTSRateSerializer()
+    stt_rate = PlanSTTRateSerializer()
 
     class Meta:
         model = PlanModel
-        fields = ["id", "title", "description", "rate", "monthly", "annual"]
+        fields = [
+            "id",
+            "title",
+            "description",
+            "llm_session",
+            "llm_context",
+            "monthly_credit",
+            "monthly_price",
+            "monthly_discount",
+            "annual_credit",
+            "annual_price",
+            "annual_discount",
+            "llm_rate",
+            "tts_rate",
+            "stt_rate",
+        ]

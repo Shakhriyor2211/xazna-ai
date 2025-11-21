@@ -36,9 +36,9 @@ class STTAPIView(APIView):
             audio_instance = AudioModel.objects.create(user=request.user, file=serializer.validated_data["file"])
 
             balance = request.user.balance
-            subscription = balance.subscription
-            credit_rate = subscription.rate.stt.credit
-            credit_usage, cash_usage = stt_transaction(balance, subscription, credit_rate, audio_instance.file, mdl)
+            sub = request.user.active_sub
+            rate = request.user.stt_rate
+            credit_usage, cash_usage = stt_transaction(balance, sub, rate, audio_instance.file, mdl)
 
             with transaction.atomic():
                 audio = convert_to_wav(audio_instance.file)
@@ -63,8 +63,8 @@ class STTAPIView(APIView):
 
                 stt_instance = STTModel.objects.create(text=text, user=request.user, mdl=mdl, audio=audio_instance)
 
-                subscription.credit_expense += credit_usage
-                credit_rate.usage += credit_usage
+                sub.credit_expense += credit_usage
+                rate.credit_usage += credit_usage
                 balance.cash -= cash_usage
 
                 ExpenseModel.objects.create(operation="stt", operation_id=stt_instance.id, credit=credit_usage,
@@ -73,8 +73,8 @@ class STTAPIView(APIView):
                 stt = STTListSerializer(stt_instance)
 
                 balance.save()
-                subscription.save()
-                credit_rate.save()
+                sub.save()
+                rate.save()
 
                 return Response(data=stt.data, status=status.HTTP_200_OK)
         except CustomException as e:

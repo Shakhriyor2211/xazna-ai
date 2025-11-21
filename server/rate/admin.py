@@ -1,26 +1,16 @@
 from django.contrib import admin
-from rate.models import UserRateModel, UserLLMRateModel, UserTTSRateModel, UserLLMCreditRateModel, \
-    UserTTSCreditRateModel, UserSTTCreditRateModel, UserSTTRateModel, PlanRateModel, PlanLLMRateModel, PlanTTSRateModel, \
-    PlanSTTRateModel, PlanLLMCreditRateModel, PlanTTSCreditRateModel, PlanSTTCreditRateModel, TokenRateModel, \
-    TokenLLMRateModel, TokenTTSRateModel, TokenSTTRateModel, TokenLLMCreditRateModel, TokenTTSCreditRateModel, \
-    TokenSTTCreditRateModel
-
-
-@admin.register(PlanRateModel)
-class PlanRateAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "plan__title",
-        "created_at"
-    )
+from rate.models import PlanLLMRateModel, PlanTTSRateModel, PlanSTTRateModel, UserLLMRateModel, UserTTSRateModel, \
+    UserSTTRateModel, TokenLLMRateModel, TokenTTSRateModel, TokenSTTRateModel, UserLLMContextRateModel, \
+    TokenLLMContextRateModel, SubLLMRateModel, SubTTSRateModel, SubSTTRateModel
 
 
 @admin.register(PlanLLMRateModel)
 class PlanLLMRateAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "credit__limit",
-        "credit__time",
+        "credit_limit",
+        "credit_time",
+        "plan__title",
         "created_at"
     )
 
@@ -28,8 +18,9 @@ class PlanLLMRateAdmin(admin.ModelAdmin):
 class PlanTTSRateAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "credit__limit",
-        "credit__time",
+        "credit_limit",
+        "credit_time",
+        "plan__title",
         "created_at"
     )
 
@@ -37,69 +28,77 @@ class PlanTTSRateAdmin(admin.ModelAdmin):
 class PlanSTTRateAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "credit__limit",
-        "credit__time",
+        "credit_limit",
+        "credit_time",
+        "plan__title",
         "created_at"
     )
 
-
-
-@admin.register(PlanLLMCreditRateModel)
-class PlanLLMCreditRateAdmin(admin.ModelAdmin):
+@admin.register(SubLLMRateModel)
+class SubLLMRateAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "limit",
-        "time",
+        "credit_limit",
+        "credit_time",
+        "sub__title",
         "created_at"
     )
 
-@admin.register(PlanTTSCreditRateModel)
-class PlanTTSCreditRateAdmin(admin.ModelAdmin):
+@admin.register(SubTTSRateModel)
+class SubTTSRateAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "limit",
-        "time",
+        "credit_limit",
+        "credit_time",
+        "sub__title",
         "created_at"
     )
 
-@admin.register(PlanSTTCreditRateModel)
-class PlanSTTCreditRateAdmin(admin.ModelAdmin):
+@admin.register(SubSTTRateModel)
+class SubSTTRateAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "limit",
-        "time",
+        "credit_limit",
+        "credit_time",
+        "sub__title",
         "created_at"
     )
 
 
-@admin.register(UserRateModel)
-class UserRateAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "user__email",
-        "created_at"
-    )
 
 
 @admin.register(UserLLMRateModel)
 class UserLLMRateAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "credit__limit",
-        "credit__usage",
-        "credit__time",
-        "credit__reset",
+        "credit_limit",
+        "credit_usage",
+        "credit_time",
+        "credit_reset",
+        "user__email",
         "created_at"
     )
+
+@admin.register(UserLLMContextRateModel)
+class UserLLMContextRateAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "context_limit",
+        "context_usage",
+        "session__title",
+        "created_at"
+    )
+
 
 @admin.register(UserTTSRateModel)
 class UserTTSRateAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "credit__limit",
-        "credit__usage",
-        "credit__time",
-        "credit__reset",
+        "credit_limit",
+        "credit_usage",
+        "credit_time",
+        "credit_reset",
+        "user__email",
         "created_at"
     )
 
@@ -107,66 +106,25 @@ class UserTTSRateAdmin(admin.ModelAdmin):
 class UserSTTRateAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "credit__limit",
-        "credit__usage",
-        "credit__time",
-        "credit__reset",
+        "credit_limit",
+        "credit_usage",
+        "credit_time",
+        "credit_reset",
+        "user__email",
         "created_at"
     )
 
-
-
-@admin.register(UserLLMCreditRateModel)
-class UserLLMCreditRateAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "limit",
-        "usage",
-        "time",
-        "reset",
-        "created_at"
-    )
-
-@admin.register(UserTTSCreditRateModel)
-class UserTTSCreditRateAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "limit",
-        "usage",
-        "time",
-        "reset",
-        "created_at"
-    )
-
-@admin.register(UserSTTCreditRateModel)
-class UserSTTCreditRateAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "limit",
-        "usage",
-        "time",
-        "reset",
-        "created_at"
-    )
-
-
-@admin.register(TokenRateModel)
-class TokenRateAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "token__last_symbols",
-        "created_at"
-    )
 
 
 @admin.register(TokenLLMRateModel)
 class TokenLLMRateAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "credit__limit",
-        "credit__usage",
-        "credit__time",
-        "credit__reset",
+        "credit_limit",
+        "credit_usage",
+        "credit_time",
+        "credit_reset",
+        "token__last_symbols",
         "created_at"
     )
 
@@ -174,10 +132,10 @@ class TokenLLMRateAdmin(admin.ModelAdmin):
 class TokenTTSRateAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "credit__limit",
-        "credit__usage",
-        "credit__time",
-        "credit__reset",
+        "credit_limit",
+        "credit_usage",
+        "credit_time",
+        "credit_reset",
         "created_at"
     )
 
@@ -185,51 +143,20 @@ class TokenTTSRateAdmin(admin.ModelAdmin):
 class TokenSTTRateAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "credit__limit",
-        "credit__usage",
-        "credit__time",
-        "credit__reset",
+        "credit_limit",
+        "credit_usage",
+        "credit_time",
+        "credit_reset",
+        "token__last_symbols",
         "created_at"
     )
 
-
-
-@admin.register(TokenLLMCreditRateModel)
-class TokenLLMCreditRateAdmin(admin.ModelAdmin):
+@admin.register(TokenLLMContextRateModel)
+class TokenLLMContextRateAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "limit",
-        "usage",
-        "time",
-        "reset",
+        "context_limit",
+        "context_usage",
+        "session__title",
         "created_at"
     )
-
-@admin.register(TokenTTSCreditRateModel)
-class TokenTTSCreditRateAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "limit",
-        "usage",
-        "time",
-        "reset",
-        "created_at"
-    )
-
-@admin.register(TokenSTTCreditRateModel)
-class TokenSTTCreditRateAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "limit",
-        "usage",
-        "time",
-        "reset",
-        "created_at"
-    )
-
-
-
-
-
-
-

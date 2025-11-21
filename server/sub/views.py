@@ -141,7 +141,7 @@ class SubManageAPIView(APIView):
     def patch(self, request):
         try:
             serializer = SubManageSerializer(
-                instance=request.user.balance.subscription,
+                instance=request.user.active_sub,
                 data=request.data,
                 partial=True
             )
@@ -149,7 +149,8 @@ class SubManageAPIView(APIView):
             serializer.save()
             return Response(data=serializer.data, status=status.HTTP_200_OK)
 
-        except:
+        except Exception as e:
+            print(e)
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 

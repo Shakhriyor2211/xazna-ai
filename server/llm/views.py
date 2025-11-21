@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from log.models import UserLLMErrorLogModel
+from rate.models import UserLLMContextRateModel
 from shared.utils import generate_title
 from llm.models import LLMSessionModel, LLMMessageModel, LLMModelModel
 from llm.serializers import LLMSessionSerializer, LLMMessageSerializer
@@ -65,23 +66,21 @@ class LLMSessionAPIView(APIView):
             if not mdl:
                 return Response({"message": "Model is required."}, status=status.HTTP_400_BAD_REQUEST)
 
-            subscription = request.user.balance.subscription
-            expense = LLMSessionModel.objects.filter(user=request.user).count()
+            rate = request.user.llm_rate
 
-            if expense == subscription.llm_session:
+            if rate.session_limit == rate.session_usage:
                 return Response(data={"message": "Session limit reached."}, status=status.HTTP_403_FORBIDDEN)
 
             plan = LLMModelModel.objects.get(title=mdl)
             balance = request.user.balance
-            subscription = balance.subscription
-            credit_rate = subscription.rate.llm.credit
+            sub = request.user.active_sub
 
-            if credit_rate.reset is None or credit_rate.reset < timezone.now():
-                credit_rate.reset = timezone.now() + timedelta(minutes=credit_rate.time)
-                credit_rate.usage = 0
+            if rate.credit_reset is None or rate.credit_reset < timezone.now():
+                rate.credit_reset = timezone.now() + timedelta(minutes=rate.credit_time)
+                rate.credit_usage = 0
 
-            credit_avail = subscription.credit - subscription.credit_expense
-            credit_active = min(credit_avail, credit_rate.limit - credit_rate.usage)
+            credit_avail = sub.credit - sub.credit_expense
+            credit_active = min(credit_avail, rate.credit_limit - rate.credit_usage)
             char_length = len(cnt)
 
             if balance.chargeable and char_length > credit_active / plan.credit:
@@ -98,13 +97,13 @@ class LLMSessionAPIView(APIView):
                 if char_length > credit_active / plan.credit:
                     return Response(data={"message": "Request limit exceeded."}, status=status.HTTP_403_FORBIDDEN)
 
-            session = LLMSessionModel.objects.create(user=request.user, title=generate_title(cnt), is_streaming=True,
-                                                     context=subscription.llm_context)
+            session = LLMSessionModel.objects.create(user=request.user, title=generate_title(cnt), is_streaming=True)
+            UserLLMContextRateModel.objects.create(session=session, context_limit=sub.llm_rate.context_limit)
 
             LLMMessageModel.objects.create(content=cnt, role="user", mdl=mdl, session=session)
 
-            subscription.llm_session_expense += 1
-            subscription.save()
+            rate.session_usage += 1
+            rate.save()
 
             return Response(data={"slug": session.id}, status=status.HTTP_201_CREATED)
 
@@ -160,9 +159,9 @@ class LLMSessionItemAPIView(APIView):
 
             session.delete()
 
-            subscription = request.user.balance.subscription
-            subscription.llm_session_expense -= 1
-            subscription.save()
+            rate = request.user.llm_rate
+            rate.session_usage -= 1
+            rate.save()
 
             return Response(data={"message": "Session successfully deleted."}, status=status.HTTP_200_OK)
 

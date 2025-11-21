@@ -36,7 +36,7 @@ base_patterns = [
     path("tts/", include("tts.urls")),
     path("stt/", include("stt.urls")),
     path("finance/", include("finance.urls")),
-    path("subscription/", include("sub.urls")),
+    path("sub/", include("sub.urls")),
     path("plan/", include("plan.urls")),
     path("llm/", include("llm.urls")),
     path("service/", include("service.urls"))

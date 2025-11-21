@@ -4,8 +4,9 @@ from accounts.models import CustomUserModel, PictureModel
 from finance.models import BalanceModel
 from plan.models import PlanModel
 from sub.models import SubModel
-from rate.models import UserRateModel, UserSTTRateModel, UserTTSRateModel, UserLLMRateModel, UserSTTCreditRateModel, \
-    UserTTSCreditRateModel, UserLLMCreditRateModel
+from rate.models import UserSTTRateModel, UserTTSRateModel, UserLLMRateModel, SubLLMRateModel, SubTTSRateModel, \
+    SubSTTRateModel
+
 
 @receiver(post_save, sender=CustomUserModel)
 def create_user(sender, instance, created, **kwargs):
@@ -17,29 +18,22 @@ def create_user(sender, instance, created, **kwargs):
 
         plan = PlanModel.objects.filter(title="Free").first()
 
-        SubModel.objects.create(user=instance, title=plan.title, credit=plan.monthly.credit,
-                                price=plan.monthly.price, discount=plan.monthly.discount,
-                                llm_session=plan.llm_session, llm_context=plan.llm_context)
+        sub = SubModel.objects.create(user=instance, title=plan.title, credit=plan.monthly_credit,
+                                      price=plan.monthly_price, discount=plan.monthly_discount)
 
-        rate = UserRateModel.objects.create(user=instance)
-        stt_rate = UserSTTRateModel.objects.create(rate=rate)
-        tts_rate = UserTTSRateModel.objects.create(rate=rate)
-        llm_rate = UserLLMRateModel.objects.create(rate=rate)
+        SubLLMRateModel.objects.create(sub=sub, credit_limit=plan.llm_rate.credit_limit,
+                                        credit_time=plan.llm_rate.credit_time,
+                                        session_limit=plan.llm_rate.session_limit,
+                                        context_limit=plan.llm_rate.context_limit)
+        SubTTSRateModel.objects.create(sub=sub, credit_limit=plan.tts_rate.credit_limit,
+                                       credit_time=plan.tts_rate.credit_time)
+        SubSTTRateModel.objects.create(sub=sub, credit_limit=plan.stt_rate.credit_limit,
+                                       credit_time=plan.stt_rate.credit_time)
 
-        UserSTTCreditRateModel.objects.create(
-            stt=stt_rate,
-            limit=plan.rate.stt.credit.limit,
-            time=plan.rate.stt.credit.time
-        )
-
-        UserTTSCreditRateModel.objects.create(
-            tts=tts_rate,
-            limit=plan.rate.tts.credit.limit,
-            time=plan.rate.tts.credit.time
-        )
-
-        UserLLMCreditRateModel.objects.create(
-            llm=llm_rate,
-            limit=plan.rate.llm.credit.limit,
-            time=plan.rate.llm.credit.time
-        )
+        UserLLMRateModel.objects.create(user=instance, credit_limit=plan.llm_rate.credit_limit,
+                                        credit_time=plan.llm_rate.credit_time,
+                                        session_limit=plan.llm_rate.session_limit)
+        UserTTSRateModel.objects.create(user=instance, credit_limit=plan.tts_rate.credit_limit,
+                                        credit_time=plan.tts_rate.credit_time)
+        UserSTTRateModel.objects.create(user=instance, credit_limit=plan.stt_rate.credit_limit,
+                                        credit_time=plan.stt_rate.credit_time)

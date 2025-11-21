@@ -8,8 +8,6 @@ class SubAdmin(admin.ModelAdmin):
         "title",
         "credit",
         "credit_expense",
-        "llm_session",
-        "llm_context",
         "status",
         "auto_renew",
         "user",

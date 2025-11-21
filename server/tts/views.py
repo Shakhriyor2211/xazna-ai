@@ -55,9 +55,9 @@ class TTSAPIView(APIView):
             format = serializer.validated_data["format"]
 
             balance = request.user.balance
-            subscription = balance.subscription
-            credit_rate = subscription.rate.tts.credit
-            credit_usage, cash_usage  = tts_transaction(balance, subscription, credit_rate, text, mdl)
+            rate = request.user.tts_rate
+            sub = request.user.active_sub
+            credit_usage, cash_usage  = tts_transaction(balance, sub, rate, text, mdl)
 
             with transaction.atomic():
                 audio_chunks = []
@@ -82,8 +82,8 @@ class TTSAPIView(APIView):
 
                 tts_instance = serializer.save(audio=audio_instance, user=request.user)
 
-                subscription.credit_expense += credit_usage
-                credit_rate.usage += credit_usage
+                sub.credit_expense += credit_usage
+                rate.credit_usage += credit_usage
                 balance.cash -= cash_usage
 
                 ExpenseModel.objects.create(operation="tts", operation_id=tts_instance.id, credit=credit_usage,
@@ -92,8 +92,8 @@ class TTSAPIView(APIView):
                 tts = TTSListSerializer(tts_instance)
 
                 balance.save()
-                subscription.save()
-                credit_rate.save()
+                sub.save()
+                rate.save()
 
                 return Response(data=tts.data, status=status.HTTP_200_OK)
         except CustomException as e:

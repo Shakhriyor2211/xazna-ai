@@ -14,8 +14,6 @@ class LLMSessionModel(BaseModel):
     )
     user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    context = models.PositiveIntegerField(default=0)
-    context_expense = models.PositiveIntegerField(default=0)
     is_streaming = models.BooleanField(default=False)
 
     def __str__(self):

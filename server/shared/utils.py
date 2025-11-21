@@ -110,15 +110,15 @@ def decrypt_token(encrypted_token: str) -> str:
     return fernet.decrypt(encrypted_token.encode()).decode()
 
 
-def tts_transaction(balance, subscription, credit_rate, text, mdl):
+def tts_transaction(balance, sub, rate, text, mdl):
     plan = TTSModelModel.objects.get(title=mdl)
 
-    if credit_rate.reset is None or credit_rate.reset < timezone.now():
-        credit_rate.reset = timezone.now() + timedelta(minutes=credit_rate.time)
-        credit_rate.usage = 0
+    if rate.credit_reset is None or rate.credit_reset < timezone.now():
+        rate.credit_reset = timezone.now() + timedelta(minutes=rate.credit_time)
+        rate.credit_usage = 0
 
-    credit_avail = subscription.credit - subscription.credit_expense
-    credit_active = min(credit_avail, credit_rate.limit - credit_rate.usage)
+    credit_avail = sub.credit - sub.credit_expense
+    credit_active = min(credit_avail, rate.credit_limit - rate.credit_usage)
     char_length = len(text)
     credit_usage = char_length * plan.credit
     cash_usage = 0
@@ -143,15 +143,15 @@ def tts_transaction(balance, subscription, credit_rate, text, mdl):
 
 
 
-def stt_transaction(balance, subscription, credit_rate, audio, mdl):
+def stt_transaction(balance, sub, rate, audio, mdl):
     plan = STTModelModel.objects.get(title=mdl)
 
-    if credit_rate.reset is None or credit_rate.reset < timezone.now():
-        credit_rate.reset = timezone.now() + timedelta(minutes=credit_rate.time)
-        credit_rate.usage = 0
+    if rate.credit_reset is None or rate.credit_reset < timezone.now():
+        rate.credit_reset = timezone.now() + timedelta(minutes=rate.credit_time)
+        rate.credit_usage = 0
 
-    credit_avail = subscription.credit - subscription.credit_expense
-    credit_active = min(credit_avail, credit_rate.limit - credit_rate.usage)
+    credit_avail = sub.credit - sub.credit_expense
+    credit_active = min(credit_avail, rate.credit_limit - rate.credit_usage)
     audio_duration = math.ceil(get_audio_duration(audio))
     credit_usage = audio_duration * plan.credit
     cash_usage = 0
@@ -175,23 +175,23 @@ def stt_transaction(balance, subscription, credit_rate, audio, mdl):
     return credit_usage, cash_usage
 
 
-def llm_transaction(balance, subscription, session, credit_rate, content, mdl):
+def llm_transaction(balance, sub, rate, context_rate, content, mdl):
     plan = LLMModelModel.objects.get(title=mdl)
 
-    if credit_rate.reset is None or credit_rate.reset < timezone.now():
-        credit_rate.reset = timezone.now() + timedelta(minutes=credit_rate.time)
-        credit_rate.usage = 0
+    if rate.credit_reset is None or rate.credit_reset < timezone.now():
+        rate.credit_reset = timezone.now() + timedelta(minutes=rate.credit_time)
+        rate.credit_usage = 0
 
-    credit_avail = subscription.credit - subscription.credit_expense
-    credit_active = min(credit_avail, credit_rate.limit - credit_rate.usage)
+    credit_avail = sub.credit - sub.credit_expense
+    credit_active = min(credit_avail, rate.credit_limit - rate.credit_usage)
     char_length = len(content)
     credit_usage = char_length * plan.credit
     cash_usage = 0
 
-    if session.context_expense + char_length > session.context:
+    if context_rate.context_usage + char_length > context_rate.context_limit:
         raise CustomException("Message limit reached, open new session.", 403)
 
-    session.context_expense += char_length
+    context_rate.context_usage += char_length
 
     if balance.chargeable and char_length > credit_active / plan.credit:
         remainder = char_length - int(credit_active / plan.credit)

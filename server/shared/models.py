@@ -2,7 +2,7 @@ import os
 import uuid
 from django.db import models
 from accounts.models import CustomUserModel
-from xazna.models import BaseModel, CreditSubRateBaseModel
+from xazna.models import BaseModel
 
 
 class AudioModel(BaseModel):

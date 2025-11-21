@@ -29,8 +29,9 @@ class LLMConsumer(AuthWebsocketConsumer):
         super().__init__(*args, **kwargs)
         self.stream_task = None
         self.balance = None
-        self.subscription = None
-        self.credit_rate = None
+        self.sub = None
+        self.rate = None
+        self.context_rate = None
         self.credit_usage = 0
         self.cash_usage = 0
         self.session = None
@@ -95,8 +96,9 @@ class LLMConsumer(AuthWebsocketConsumer):
                 if self.assistant_message.content:
                     self.contents.append({"role": "assistant", "content": self.assistant_message.content})
                     await sync_to_async(self.balance.save)()
-                    await sync_to_async(self.subscription.save)()
-                    await sync_to_async(self.credit_rate.save)()
+                    await sync_to_async(self.sub.save)()
+                    await sync_to_async(self.rate.save)()
+                    await sync_to_async(self.context_rate.save)()
                     await sync_to_async(ExpenseModel.objects.create)(operation="llm", credit=self.credit_usage,
                                                                      cash=self.cash_usage,
                                                                      operation_id=self.user_message.id, user=self.user)
@@ -144,10 +146,11 @@ class LLMConsumer(AuthWebsocketConsumer):
 
     async def _process_transaction(self):
         self.balance = await sync_to_async(lambda: self.user.balance)()
-        self.subscription = await sync_to_async(lambda: self.balance.subscription)()
-        self.credit_rate = await sync_to_async(lambda: self.subscription.rate.llm.credit)()
+        self.rate = await sync_to_async(lambda: self.user.llm_rate)()
+        self.context_rate = await sync_to_async(lambda: self.session.user_context_rate)()
+        self.sub = await sync_to_async(lambda: self.user.active_sub)()
 
-        self.credit_usage, self.cash_usage = await sync_to_async(llm_transaction)(self.balance, self.subscription, self.session, self.credit_rate, self.user_message.content,
+        self.credit_usage, self.cash_usage = await sync_to_async(llm_transaction)(self.balance, self.sub, self.rate, self.context_rate, self.user_message.content,
                             self.user_message.mdl)
 
         self.session.is_streaming = True
@@ -156,8 +159,8 @@ class LLMConsumer(AuthWebsocketConsumer):
 
         self.stream_task = asyncio.create_task(self._stream_llm())
         self.balance.cash -= self.cash_usage
-        self.subscription.credit_expense += self.credit_usage
-        self.credit_rate.usage += self.credit_usage
+        self.sub.credit_expense += self.credit_usage
+        self.rate.credit_usage += self.credit_usage
 
 
     async def _stream_llm(self):
@@ -206,8 +209,9 @@ class LLMConsumer(AuthWebsocketConsumer):
 
             self.contents.append({"role": "assistant", "content": self.assistant_message.content})
             await sync_to_async(self.balance.save)()
-            await sync_to_async(self.subscription.save)()
-            await sync_to_async(self.credit_rate.save)()
+            await sync_to_async(self.sub.save)()
+            await sync_to_async(self.rate.save)()
+            await sync_to_async(self.context_rate.save)()
             await sync_to_async(ExpenseModel.objects.create)(operation="llm", credit=self.credit_usage,
                                                              cash=self.cash_usage,
                                                              operation_id=self.user_message.id, user=self.user)
@@ -238,8 +242,8 @@ class LLMConsumer(AuthWebsocketConsumer):
         if self.stream_task is not None and self.stream_task and not self.stream_task.done():
             if self.assistant_message.content != "":
                 await sync_to_async(self.balance.save)()
-                await sync_to_async(self.subscription.save)()
-                await sync_to_async(self.credit_rate.save)()
+                await sync_to_async(self.sub.save)()
+                await sync_to_async(self.rate.save)()
                 await sync_to_async(ExpenseModel.objects.create)(operation="llm", credit=self.credit_usage,
                                                                  cash=self.cash_usage,
                                                                  operation_id=self.user_message.id, user=self.user)

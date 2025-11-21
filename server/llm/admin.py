@@ -33,9 +33,9 @@ class LLMMessageAdmin(admin.ModelAdmin):
 
 @admin.register(LLMSessionModel)
 class LLMSessionAdmin(admin.ModelAdmin):
-    list_display = ("id", "user", "title", "context", "context_expense", "created_at", "updated_at")
+    list_display = ("id", "user", "title", "created_at", "updated_at")
     list_filter = ("created_at",)
-    search_fields = ("title", "user__email", "user__username")
+    search_fields = ("title", "user__email")
 
 
 
