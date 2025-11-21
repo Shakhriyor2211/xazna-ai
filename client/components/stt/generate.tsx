@@ -71,7 +71,7 @@ export function STTGenerate({
       const form_data = new FormData();
 
       form_data.append("file", file);
-      form_data.append("model", "Base");
+      form_data.append("mdl", "Base");
 
       try {
         const { data } = await postRequest({

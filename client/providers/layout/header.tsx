@@ -12,7 +12,7 @@ import {
 } from "@heroui/dropdown";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import { ThemeSwitch } from "./theme-switch";
 import { Skeleton } from "@heroui/skeleton";
 import { Navbar, NavbarMenu, NavbarMenuToggle } from "@heroui/react";
@@ -21,13 +21,13 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import { useMillify } from "@/hooks/millify";
 import { ChatSessions } from "./chat-session";
 import { useAlertStore } from "../alert";
-import { BalanceProps } from "@/types";
+import { FinanceProps } from "@/types";
 
 export function Header({ title }: { title: string }) {
   const pathname = usePathname();
   const { user } = useUserStore();
   const { setAlert } = useAlertStore();
-  const [balance, setBalance] = useState<BalanceProps | null>(null);
+  const [finance, setFinance] = useState<FinanceProps | null>(null);
   const [progress, setProgress] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -49,18 +49,18 @@ export function Header({ title }: { title: string }) {
     }
   }, []);
 
-  const getBalance = useCallback(async () => {
+  const getFinance = useCallback(async () => {
     try {
-      const { data } = await getRequest({ url: ENDPOINTS.balance_info });
+      const { data } = await getRequest({ url: ENDPOINTS.finance_info });
 
       if (data) {
-        setBalance(data);
-
+        setFinance(data);
         setProgress(
-          100 -
-            (Number(data.subscription.credit_expense) /
-              Number(data.subscription.credit)) *
-              100
+          Number(data.sub.credit) > 0
+            ? 100 -
+                (Number(data.sub.credit_expense) / Number(data.sub.credit)) *
+                  100
+            : 0
         );
       }
     } catch {
@@ -69,13 +69,13 @@ export function Header({ title }: { title: string }) {
         isVisible: true,
         color: "danger",
         title: "",
-        description: "Failed to load balance.",
+        description: "Failed to load finance.",
       }));
     }
   }, []);
 
   useEffect(() => {
-    if (isDropDownOpen) getBalance();
+    if (isDropDownOpen) getFinance();
   }, [isDropDownOpen]);
 
   return (
@@ -114,8 +114,8 @@ export function Header({ title }: { title: string }) {
                 <DropdownMenu className="min-w-60">
                   <DropdownSection showDivider>
                     <DropdownItem
-                      textValue="Balance information"
-                      key="balance"
+                      textValue="finance information"
+                      key="finance"
                       isReadOnly
                       classNames={{
                         base: "bg-default-100 data-[hover=true]:bg-default-100 data-[hover=true]:text-inherit cursor-auto",
@@ -143,7 +143,7 @@ export function Header({ title }: { title: string }) {
                           <span className="text-base font-semibold">Free</span>
                         </div>
                         <Link
-                          href={ROUTES.subscription}
+                          href={ROUTES.sub}
                           className="text-xs bg-primary text-white py-1 px-2 rounded-md"
                         >
                           Upgrade
@@ -155,9 +155,7 @@ export function Header({ title }: { title: string }) {
                             Total
                           </span>
                           <span className="text-xs">
-                            {useMillify(
-                              Number(balance?.subscription.credit ?? 0)
-                            )}
+                            {useMillify(Number(finance?.sub.credit ?? 0))}
                           </span>
                         </div>
                         <div className="flex justify-between items-center space-x-2">
@@ -166,27 +164,23 @@ export function Header({ title }: { title: string }) {
                           </span>
                           <span className="text-xs">
                             {useMillify(
-                              Number(balance?.subscription.credit_expense ?? 0)
+                              Number(finance?.sub.credit_expense ?? 0)
                             )}
                           </span>
                         </div>
                         <div className="flex justify-between items-center space-x-2">
                           <span className="text-xs text-default-500">
-                            Balance
+                            finance
                           </span>
                           <span className="text-xs">
-                            {useMillify(Number(balance?.cash ?? 0))} UZS
+                            {useMillify(Number(finance?.balance.cash ?? 0))} UZS
                           </span>
                         </div>
                       </div>
                     </DropdownItem>
                   </DropdownSection>
                   <DropdownSection showDivider>
-                    <DropdownItem
-                      key="subscription"
-                      as="a"
-                      href={ROUTES.subscription}
-                    >
+                    <DropdownItem key="sub" as="a" href={ROUTES.sub}>
                       Subscription
                     </DropdownItem>
                     <DropdownItem

@@ -12,7 +12,7 @@ import {
 } from "@heroui/react";
 import { Fragment, useCallback, useState } from "react";
 
-export function SubscriptionRestart() {
+export function SubRestart() {
   const [isOpen, setIsOpen] = useState(false);
   const { setUser } = useUserStore();
 
@@ -44,7 +44,7 @@ export function SubscriptionRestart() {
   const handleSubmit = useCallback(async () => {
     try {
       const { data } = await postRequest({
-        url: ENDPOINTS.subsciritpion_restart,
+        url: ENDPOINTS.sub_restart,
       });
       if (data) {
         getUser();

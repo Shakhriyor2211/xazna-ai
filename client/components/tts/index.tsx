@@ -33,7 +33,7 @@ export function TTS() {
   const [settings, setSettings] = useState<TTSConfigProps | null>(null);
   const [settingsList, setSettingsList] = useState<TTSConfigListProps>({
     formats: [],
-    models: [],
+    mdls: [],
     emotions: [],
   });
 
@@ -89,13 +89,15 @@ export function TTS() {
     [history]
   );
   const getSettings = useCallback(async () => {
+    const { data } = await getRequest({ url: ENDPOINTS.tts_settings });
+
     try {
       const { data } = await getRequest({ url: ENDPOINTS.tts_settings });
 
       if (data) {
         setSettingsList(data);
         setSettings({
-          model: data.models[0],
+          mdl: data.mdls[0],
           emotion: data.emotions[0],
           format: data.formats[0],
         });

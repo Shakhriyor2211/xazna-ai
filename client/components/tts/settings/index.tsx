@@ -32,13 +32,13 @@ export function TTSSettings({
         onChange={handleChange}
         isDisabled={isLoading}
         size="sm"
-        name="model"
-        items={settingsList.models.map((m) => ({ key: m, label: m }))}
-        selectedKeys={[settings.model]}
+        name="mdl"
+        items={settingsList.mdls.map((m) => ({ key: m, label: m }))}
+        selectedKeys={[settings.mdl]}
         label="Model"
-        placeholder="Select a model"
+        placeholder="Select a mdl"
       >
-        {(model) => <SelectItem>{model.label}</SelectItem>}
+        {(mdl) => <SelectItem>{mdl.label}</SelectItem>}
       </Select>
       <Select
         variant="underlined"

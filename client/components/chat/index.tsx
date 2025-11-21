@@ -2,13 +2,14 @@
 import { useAlertStore } from "@/providers/alert";
 import { Layout } from "@/providers/layout";
 import { ENDPOINTS, ROUTES } from "@/shared/site";
-import { postRequest } from "@/utils/axios-instance";
+import { getDataError, postRequest } from "@/utils/axios-instance";
 import { Button, Textarea } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { FormEvent, KeyboardEvent, useCallback, useRef, useState } from "react";
 import { RxArrowUp } from "react-icons/rx";
 import { SessionMicrophone } from "./microphone";
 import RecordPlugin from "wavesurfer.js/dist/plugins/record";
+import { AxiosErrorProps } from "@/types";
 
 export function Chat() {
   const { setAlert } = useAlertStore();
@@ -35,17 +36,19 @@ export function Chat() {
     try {
       const { data } = await postRequest({
         url: ENDPOINTS.chat_session_generate,
-        data: { content: value.trim(), model: "Base" },
+        data: { content: value.trim(), mdl: "Base" },
       });
       if (data) {
         replace(`${ROUTES.chat}/${data.slug}`);
       }
-    } catch {
+    } catch (e) {
+      const { message } = getDataError(e as AxiosErrorProps);
+
       setAlert((prev) => ({
         ...prev,
         isVisible: true,
         color: "danger",
-        description: "Failed to send message.",
+        description: message,
       }));
     }
   }, []);

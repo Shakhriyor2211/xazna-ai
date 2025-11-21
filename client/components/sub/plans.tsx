@@ -1,21 +1,21 @@
 import { ENDPOINTS } from "@/shared/site";
-import { BalanceProps, PlansProps } from "@/types";
+import { FinanceProps, PlansProps } from "@/types";
 import { getRequest } from "@/utils/axios-instance";
 import { Button, Skeleton } from "@heroui/react";
 import { Fragment, useCallback, useEffect, useState } from "react";
-import { SubscriptionChange } from "./modal/change";
-import { SubscriptionRestart } from "./modal/restart";
+import { SubChange } from "./modal/change";
+import { SubRestart } from "./modal/restart";
 import { useMillify } from "@/hooks/millify";
 import { useAlertStore } from "@/providers/alert";
 
-interface SubscriptionPlansProps {
+interface SubPlansProps {
   isYearly: boolean;
 }
 
-export function SubscriptionPlans({ isYearly }: SubscriptionPlansProps) {
+export function SubPlans({ isYearly }: SubPlansProps) {
   const [plans, setPlans] = useState<PlansProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [balance, setBalance] = useState<BalanceProps | null>(null);
+  const [finance, setFinance] = useState<FinanceProps | null>(null);
   const { setAlert } = useAlertStore();
 
   const getPlans = useCallback(async () => {
@@ -35,25 +35,25 @@ export function SubscriptionPlans({ isYearly }: SubscriptionPlansProps) {
     }
   }, [plans]);
 
-  const getBalance = useCallback(async () => {
+  const getFinance = useCallback(async () => {
     try {
-      const { data } = await getRequest({ url: ENDPOINTS.balance_info });
+      const { data } = await getRequest({ url: ENDPOINTS.finance_info });
 
-      if (data) setBalance(data);
+      if (data) setFinance(data);
     } catch {
       setAlert((prev) => ({
         ...prev,
         isVisible: true,
         color: "danger",
         title: "",
-        description: "Failed to load balance.",
+        description: "Failed to load finance.",
       }));
     }
   }, []);
 
   useEffect(() => {
     getPlans();
-    getBalance();
+    getFinance();
   }, []);
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 my-8">
@@ -82,8 +82,8 @@ export function SubscriptionPlans({ isYearly }: SubscriptionPlansProps) {
               <div
                 key={plan.id}
                 className={`rounded-xl px-6 pt-6 pb-8 flex flex-col h-90 ${
-                  balance?.subscription.title === plan.title &&
-                  (balance.subscription.period === "annual") === isYearly
+                  finance?.sub.title === plan.title &&
+                  (finance.sub.period === "annual") === isYearly
                     ? "bg-primary/20"
                     : "border border-default-200"
                 }`}
@@ -98,11 +98,11 @@ export function SubscriptionPlans({ isYearly }: SubscriptionPlansProps) {
                   <div className="mt-2">
                     {isYearly ? (
                       <p className="text-sm font-semibold">
-                        {`${useMillify(Number(plan.annual.credit))} credits/year`}
+                        {`${useMillify(Number(plan.annual_credit))} credits/year`}
                       </p>
                     ) : (
                       <p className="text-sm font-semibold">
-                        {`${useMillify(Number(plan.monthly.credit))} credits/month`}
+                        {`${useMillify(Number(plan.monthly_credit))} credits/month`}
                       </p>
                     )}
                   </div>
@@ -113,33 +113,31 @@ export function SubscriptionPlans({ isYearly }: SubscriptionPlansProps) {
                       {isYearly ? (
                         <p className="space-x-2">
                           <span className="text-xl sm:text-2xl">
-                            {useMillify(Number(plan.annual.price))} UZS
+                            {useMillify(Number(plan.annual_price))} UZS
                           </span>
                           <span className="text-default-500">per year</span>
                         </p>
                       ) : (
                         <p className="space-x-2">
                           <span className="text-xl sm:text-2xl">
-                            {useMillify(Number(plan.monthly.price))} UZS
+                            {useMillify(Number(plan.monthly_price))} UZS
                           </span>
                           <span className="text-default-500">per month</span>
                         </p>
                       )}
                       <div
                         className={
-                          balance?.subscription.title === "Free" &&
-                          plan.title === "Free"
+                          finance?.sub.title === "Free" && plan.title === "Free"
                             ? "invisible"
                             : "visible"
                         }
                       >
-                        {balance?.subscription.title === plan.title &&
-                        (balance?.subscription.period === "annual") ===
-                          isYearly &&
+                        {finance?.sub.title === plan.title &&
+                        (finance?.sub.period === "annual") === isYearly &&
                         plan.title !== "Free" ? (
-                          <SubscriptionRestart />
+                          <SubRestart />
                         ) : (
-                          <SubscriptionChange
+                          <SubChange
                             plan={plan.title}
                             period={isYearly ? "annual" : "monthly"}
                           />

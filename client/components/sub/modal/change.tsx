@@ -12,12 +12,12 @@ import {
 } from "@heroui/react";
 import { Fragment, useCallback, useState } from "react";
 
-interface SubscriptionChangeProps {
+interface SubChangeProps {
   plan: string;
   period: "annual" | "monthly";
 }
 
-export function SubscriptionChange({ plan, period }: SubscriptionChangeProps) {
+export function SubChange({ plan, period }: SubChangeProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { setUser } = useUserStore();
 
@@ -49,7 +49,7 @@ export function SubscriptionChange({ plan, period }: SubscriptionChangeProps) {
   const handleSubmit = useCallback(async () => {
     try {
       const { data } = await postRequest({
-        url: ENDPOINTS.subsciritpion_change,
+        url: ENDPOINTS.sub_change,
         data: { plan, period },
       });
       if (data) {

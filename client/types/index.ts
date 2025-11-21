@@ -20,7 +20,7 @@ export interface AlertProps {
   variant: "solid" | "flat" | "faded" | "bordered";
 }
 
-interface SubscritionProps {
+interface SubProps {
   id: number;
   created_at: string;
   updated_at: string;
@@ -29,10 +29,6 @@ interface SubscritionProps {
   credit_expense: string;
   discount: string;
   auto_renew: boolean;
-  rate: number;
-  rate_time: number;
-  rate_usage: string;
-  rate_reset: null;
   price: string;
   status: "active" | "expired" | "canceled";
   period: "monthly" | "annual";
@@ -42,12 +38,18 @@ interface SubscritionProps {
 
 export interface BalanceProps {
   id: number;
-  subscription: SubscritionProps;
   created_at: string;
   updated_at: string;
   cash: number;
   chargeable: boolean;
 }
+
+
+export interface FinanceProps {
+  balance: BalanceProps;
+  sub: SubProps;
+}
+
 export interface UserProps {
   id: number;
   first_name: string;
@@ -64,12 +66,12 @@ export interface UserProps {
 
 export interface TTSConfigProps {
   format: string;
-  model: string;
+  mdl: string;
   emotion: string;
 }
 export interface TTSConfigListProps {
   formats: string[];
-  models: string[];
+  mdls: string[];
   emotions: string[];
 }
 
@@ -182,40 +184,24 @@ export interface PlansProps {
   id: number;
   title: string;
   description: string;
-  rate: {
-    stt: {
-      credit: {
-        limit: string;
-        time: number;
-      };
-    };
-    tts: {
-      credit: {
-        limit: string;
-        time: number;
-      };
-    };
-    chat: {
-      max_sessions: number;
-      credit: {
-        limit: string;
-        time: number;
-      };
-      session: {
-        limit: string;
-      };
-    };
+  llm_rate: {
+    credit_limit: string;
+    credit_time: number;
   };
-  monthly: {
-    credit: string;
-    price: string;
-    discount: string;
+  tts_rate: {
+    credit_limit: string;
+    credit_time: number;
   };
-  annual: {
-    credit: string;
-    price: string;
-    discount: string;
+  stt_rate: {
+    credit_limit: string;
+    credit_time: number;
   };
+  monthly_credit: string;
+  monthly_price: string;
+  monthly_discount: string;
+  annual_credit: string;
+  annual_price: string;
+  annual_discount: string;
 }
 
 export interface ChatMessageProps {

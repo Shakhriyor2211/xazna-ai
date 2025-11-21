@@ -16,7 +16,7 @@ export const ROUTES = {
   tts: "/tts",
   stt: "/stt",
   chat: "/chat",
-  subscription: "/subscription",
+  sub: "/sub",
   transactions: "/transactions",
 };
 
@@ -52,18 +52,18 @@ export const ENDPOINTS = {
   stt_search: "stt/search",
   tts_settings: "tts/settings",
   plans: "plan/list",
-  subsciritpion_manage: "subscription/manage",
-  subsciritpion_change: "subscription/change",
-  subsciritpion_restart: "subscription/restart",
-  balance_info: "finance/balance/info",
+  sub_manage: "sub/manage",
+  sub_change: "sub/change",
+  sub_restart: "sub/restart",
+  finance_info: "finance/info",
   balance_manage: "finance/balance/manage",
   transaction_list: "finance/transaction/list",
   monitorting_list: "finance/expense/list",
-  chat_session_generate: "chat/session/generate",
-  chat_session_list: "chat/session/list",
-  chat_session: "chat/session",
-  chat_message: "chat/message",
-  chat_message_list: "chat/session/message",
+  chat_session_generate: "llm/session/generate",
+  llm_session_list: "llm/session/list",
+  llm_session: "llm/session",
+  llm_message: "llm/message",
+  llm_message_list: "llm/session/message",
 };
 
 export const WS_SERVER_URL = process.env.NEXT_PUBLIC_WS_SERVER_URL;

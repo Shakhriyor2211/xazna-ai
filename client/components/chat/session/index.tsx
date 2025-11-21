@@ -64,7 +64,7 @@ export function ChatSession() {
   const getMessages = useCallback(async () => {
     try {
       const { data } = await getRequest({
-        url: `${ENDPOINTS.chat_message_list}/${sessionId}`,
+        url: `${ENDPOINTS.llm_message_list}/${sessionId}`,
       });
 
       if (data) {
@@ -84,9 +84,12 @@ export function ChatSession() {
   const handleWsConnect = useCallback(() => {
     if (ws.current !== null) ws.current.close();
 
-    ws.current = new WebSocket(
-      `${ENDPOINTS.ws_client_base}/${ENDPOINTS.chat_message}/${sessionId}`
-    );
+    const url =
+      process.env.NEXT_PUBLIC_NODE_ENV === "dev"
+        ? `http://localhost:8000${ENDPOINTS.ws_client_base}/${ENDPOINTS.llm_message}/${sessionId}`
+        : `${ENDPOINTS.ws_client_base}/${ENDPOINTS.llm_message}/${sessionId}`;
+
+    ws.current = new WebSocket(url);
 
     ws.current.onmessage = async (event) => {
       const { status, token, message } = JSON.parse(event.data);

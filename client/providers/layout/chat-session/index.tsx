@@ -21,7 +21,7 @@ export function ChatSessions({ pathname }: { pathname: string }) {
 
   const getSessions = useCallback(async () => {
     try {
-      const { data } = await getRequest({ url: ENDPOINTS.chat_session_list });
+      const { data } = await getRequest({ url: ENDPOINTS.llm_session_list });
       if (data) setSessions(data);
     } catch {
       setAlert((prev) => ({
