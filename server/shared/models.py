@@ -1,7 +1,6 @@
 import os
 import uuid
 from django.db import models
-from accounts.models import CustomUserModel
 from xazna.models import BaseModel
 
 
@@ -13,7 +12,7 @@ class AudioModel(BaseModel):
         editable=False,
         unique=True
     )
-    user = models.ForeignKey(CustomUserModel, on_delete=models.CASCADE)
+    user = models.ForeignKey("accounts.CustomUserModel", null=True, blank=True, on_delete=models.SET_NULL)
     file = models.FileField(upload_to="audio/")
     name = models.CharField()
 

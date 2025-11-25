@@ -42,7 +42,8 @@ class UserLLMConsumer(AuthWebsocketConsumer):
     async def on_connect(self):
         self.session = await database_sync_to_async(UserLLMSessionModel.objects.get)(
             id=self.scope["url_route"]["kwargs"]["session_id"],
-            user=self.user
+            user=self.user,
+            is_deleted=False
         )
         self.contents = await database_sync_to_async(lambda: UserLLMMessageSerializer(
             self.session.messages
@@ -272,7 +273,8 @@ class TokenLLMConsumer(TokenWebsocketConsumer):
     async def on_connect(self):
         self.session = await database_sync_to_async(TokenLLMSessionModel.objects.get)(
             id=self.scope["url_route"]["kwargs"]["session_id"],
-            token=self.token
+            token=self.token,
+            is_deleted=False
         )
         self.contents = await database_sync_to_async(lambda: TokenLLMMessageSerializer(
             self.session.messages

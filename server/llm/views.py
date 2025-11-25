@@ -21,7 +21,7 @@ class UserLLMSessionListAPIView(APIView):
         tags=["LLM"]
     )
     def get(self, request):
-        sessions = UserLLMSessionModel.objects.filter(user=request.user).order_by("-created_at")
+        sessions = UserLLMSessionModel.objects.filter(user=request.user, is_deleted=False).order_by("-created_at")
         serializer = UserLLMSessionSerializer(sessions, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
@@ -37,13 +37,13 @@ class TokenLLMSessionListAPIView(APIView):
                 in_=openapi.IN_QUERY,
                 description="Service API token",
                 type=openapi.TYPE_STRING,
-                required=False,
+                required=True,
             )
         ],
         tags=["LLM"]
     )
     def get(self, request):
-        sessions = TokenLLMSessionModel.objects.filter(token=request.token).order_by("-created_at")
+        sessions = TokenLLMSessionModel.objects.filter(token=request.token, is_deleted=False).order_by("-created_at")
         serializer = TokenLLMSessionSerializer(sessions, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
@@ -56,7 +56,7 @@ class UserLLMMessageListAPIView(APIView):
         tags=["LLM"]
     )
     def get(self, request, session_id):
-        session = UserLLMSessionModel.objects.filter(id=session_id, user=request.user).first()
+        session = UserLLMSessionModel.objects.filter(id=session_id, user=request.user, is_deleted=False).first()
         messages = session.messages.order_by("created_at")
         serializer = UserLLMMessageSerializer(messages, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
@@ -72,13 +72,13 @@ class TokenLLMMessageListAPIView(APIView):
                 in_=openapi.IN_QUERY,
                 description="Service API token",
                 type=openapi.TYPE_STRING,
-                required=False,
+                required=True,
             )
         ],
         tags=["LLM"]
     )
     def get(self, request, session_id):
-        session = TokenLLMSessionModel.objects.filter(id=session_id, user=request.user).first()
+        session = TokenLLMSessionModel.objects.filter(id=session_id, token=request.token, is_deleted=False).first()
         messages = session.messages.order_by("created_at")
         serializer = UserLLMMessageSerializer(messages, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
@@ -176,7 +176,7 @@ class TokenLLMSessionAPIView(APIView):
                 in_=openapi.IN_QUERY,
                 description="Service API token",
                 type=openapi.TYPE_STRING,
-                required=False,
+                required=True,
             )
         ],
         tags=["LLM"]
@@ -260,16 +260,13 @@ class UserLLMSessionItemAPIView(APIView):
             if title is None:
                 return Response(data={"message": "Title is required."}, status=status.HTTP_400_BAD_REQUEST)
 
-            session = UserLLMSessionModel.objects.filter(user=request.user, id=session_id).first()
-
-            if session is None:
-                return Response(data={"message": "Session not found."}, status=status.HTTP_404_NOT_FOUND)
-
+            session = UserLLMSessionModel.objects.get(user=request.user, id=session_id, is_deleted=False)
             session.title = generate_title(title)
             session.save()
 
             return Response(data={"title": session.title}, status=status.HTTP_200_OK)
-
+        except UserLLMSessionModel.DoesNotExist:
+            return Response(data={"message": "Session not found."}, status=status.HTTP_404_NOT_FOUND)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -279,19 +276,17 @@ class UserLLMSessionItemAPIView(APIView):
     )
     def delete(self, request, session_id):
         try:
-            session = UserLLMSessionModel.objects.filter(user=request.user, id=session_id).first()
-
-            if session is None:
-                return Response(data={"message": "Session not found."}, status=status.HTTP_404_NOT_FOUND)
-
-            session.delete()
+            session = UserLLMSessionModel.objects.get(user=request.user, id=session_id, is_deleted=False)
+            session.is_deleted = True
 
             rate = request.user.llm_rate
             rate.session_usage -= 1
             rate.save()
+            session.save()
 
             return Response(data={"message": "Session successfully deleted."}, status=status.HTTP_200_OK)
-
+        except UserLLMSessionModel.DoesNotExist:
+            return Response(data={"message": "Session not found."}, status=status.HTTP_404_NOT_FOUND)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -308,6 +303,15 @@ class TokenLLMSessionItemAPIView(APIView):
             },
             required=["title"],
         ),
+        manual_parameters=[
+            openapi.Parameter(
+                name="token",
+                in_=openapi.IN_QUERY,
+                description="Service API token",
+                type=openapi.TYPE_STRING,
+                required=True,
+            )
+        ],
         tags=["LLM"]
     )
     def put(self, request, session_id):
@@ -317,37 +321,43 @@ class TokenLLMSessionItemAPIView(APIView):
             if title is None:
                 return Response(data={"message": "Title is required."}, status=status.HTTP_400_BAD_REQUEST)
 
-            session = TokenLLMSessionModel.objects.filter(user=request.user, id=session_id).first()
-
-            if session is None:
-                return Response(data={"message": "Session not found."}, status=status.HTTP_404_NOT_FOUND)
+            session = TokenLLMSessionModel.objects.get(token=request.token, id=session_id, is_deleted=False)
 
             session.title = generate_title(title)
             session.save()
 
             return Response(data={"title": session.title}, status=status.HTTP_200_OK)
-
+        except TokenLLMSessionModel.DoesNotExist:
+            return Response(data={"message": "Session not found."}, status=status.HTTP_404_NOT_FOUND)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     @swagger_auto_schema(
         operation_description="Delete session...",
+        manual_parameters=[
+            openapi.Parameter(
+                name="token",
+                in_=openapi.IN_QUERY,
+                description="Service API token",
+                type=openapi.TYPE_STRING,
+                required=True,
+            )
+        ],
         tags=["LLM"]
     )
     def delete(self, request, session_id):
         try:
-            session = TokenLLMSessionModel.objects.filter(user=request.user, id=session_id).first()
+            session = TokenLLMSessionModel.objects.get(token=request.token, id=session_id, is_deleted=False)
 
-            if session is None:
-                return Response(data={"message": "Session not found."}, status=status.HTTP_404_NOT_FOUND)
+            session.is_deleted = True
 
-            session.delete()
-
-            rate = request.user.llm_rate
+            rate = request.token.llm_rate
             rate.session_usage -= 1
             rate.save()
+            session.save()
 
             return Response(data={"message": "Session successfully deleted."}, status=status.HTTP_200_OK)
-
+        except TokenLLMSessionModel.DoesNotExist:
+            return Response(data={"message": "Session not found."}, status=status.HTTP_404_NOT_FOUND)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)

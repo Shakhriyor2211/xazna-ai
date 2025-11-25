@@ -8,10 +8,11 @@ from rest_framework.response import Response
 from finance.models import UserExpenseModel, TokenExpenseModel
 from shared.models import AudioModel
 from log.models import UserSTTErrorLogModel, TokenSTTErrorLogModel
-from shared.utils import  text_decode, convert_to_wav, stt_transaction
+from shared.utils import text_decode, convert_to_wav, stt_transaction
 from shared.views import CustomPagination
 from stt.models import UserSTTModel, TokenSTTModel
-from stt.serializers import UserSTTListSerializer, UserSTTChangeSerializer, STTSerializer, TokenSTTListSerializer
+from stt.serializers import UserSTTListSerializer, UserSTTChangeSerializer, STTSerializer, TokenSTTListSerializer, \
+    TokenSTTChangeSerializer
 from xazna import settings
 from django.db import transaction
 from openai import OpenAI
@@ -68,7 +69,7 @@ class UserSTTAPIView(APIView):
                 balance.cash -= cash_usage
 
                 UserExpenseModel.objects.create(operation="stt", operation_id=stt_instance.id, credit=credit_usage,
-                                            cash=cash_usage, user=request.user)
+                                                cash=cash_usage, user=request.user)
 
                 stt = UserSTTListSerializer(stt_instance)
 
@@ -88,7 +89,15 @@ class TokenSTTAPIView(APIView):
     parser_classes = [MultiPartParser]
     token_required = True
 
-    @swagger_auto_schema(operation_description='STT generate...', request_body=STTSerializer, tags=["STT"])
+    @swagger_auto_schema(operation_description='STT generate...', request_body=STTSerializer, manual_parameters=[
+        openapi.Parameter(
+            name="token",
+            in_=openapi.IN_QUERY,
+            description="Service API token",
+            type=openapi.TYPE_STRING,
+            required=True,
+        )
+    ], tags=["STT"])
     def post(self, request):
         audio_instance = None
         try:
@@ -125,14 +134,15 @@ class TokenSTTAPIView(APIView):
 
                 text = re.sub(r"(Ğ|ğ|Õ|õ|Ş|ş|Ç|ç)", text_decode, text)
 
-                stt_instance = TokenSTTModel.objects.create(text=text, user=request.user, mdl=mdl, audio=audio_instance)
+                stt_instance = TokenSTTModel.objects.create(text=text, token=request.token, mdl=mdl,
+                                                            audio=audio_instance)
 
                 sub.credit_expense += credit_usage
                 rate.credit_usage += credit_usage
                 balance.cash -= cash_usage
 
                 TokenExpenseModel.objects.create(operation="stt", operation_id=stt_instance.id, credit=credit_usage,
-                                            cash=cash_usage, token=request.token)
+                                                 cash=cash_usage, token=request.token)
 
                 stt = TokenSTTListSerializer(stt_instance)
 
@@ -147,7 +157,8 @@ class TokenSTTAPIView(APIView):
             TokenSTTErrorLogModel.objects.create(message=str(e), audio=audio_instance, token=self.request.token)
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-class STTListAPIView(APIView):
+
+class UserSTTListAPIView(APIView):
     auth_required = True
 
     @swagger_auto_schema(operation_description='STT list...', manual_parameters=[
@@ -167,7 +178,7 @@ class STTListAPIView(APIView):
     def get(self, request):
         ordering = request.query_params.get('ordering', '-created_at')
 
-        queryset = UserSTTModel.objects.filter(user=request.user).order_by(ordering)
+        queryset = UserSTTModel.objects.filter(user=request.user, is_deleted=False).order_by(ordering)
 
         paginator = CustomPagination()
         paginated_qs = paginator.paginate_queryset(queryset, request)
@@ -177,7 +188,44 @@ class STTListAPIView(APIView):
         return paginator.get_paginated_response(serializer.data)
 
 
-class STTChangeAPIView(APIView):
+class TokenSTTListAPIView(APIView):
+    token_required = True
+
+    @swagger_auto_schema(operation_description='STT list...', manual_parameters=[
+        openapi.Parameter(
+            'page', openapi.IN_QUERY, description="Page number", type=openapi.TYPE_INTEGER
+        ),
+        openapi.Parameter(
+            'page_size', openapi.IN_QUERY, description="Items per page (max 100)", type=openapi.TYPE_INTEGER
+        ),
+        openapi.Parameter(
+            'ordering', openapi.IN_QUERY, description="Comma-separated fields (e.g. `created_at,text`)",
+            type=openapi.TYPE_STRING
+        ),
+        openapi.Parameter(
+            name="token",
+            in_=openapi.IN_QUERY,
+            description="Service API token",
+            type=openapi.TYPE_STRING,
+            required=True,
+        )
+    ],
+    tags=["STT"])
+
+    def get(self, request):
+        ordering = request.query_params.get('ordering', '-created_at')
+
+        queryset = TokenSTTModel.objects.filter(token=request.token, is_deleted=False).order_by(ordering)
+
+        paginator = CustomPagination()
+        paginated_qs = paginator.paginate_queryset(queryset, request)
+
+        serializer = TokenSTTListSerializer(paginated_qs, many=True)
+
+        return paginator.get_paginated_response(serializer.data)
+
+
+class UserSTTItemAPIView(APIView):
     auth_required = True
 
     @swagger_auto_schema(
@@ -186,47 +234,106 @@ class STTChangeAPIView(APIView):
         tags=["STT"]
     )
     def put(self, request, stt_id):
-        stt_instance = UserSTTModel.objects.get(id=stt_id, user=request.user)
+        try:
+            stt_instance = UserSTTModel.objects.get(id=stt_id, user=request.user, is_deleted=False)
 
-        serializer = UserSTTChangeSerializer(
-            instance=stt_instance,
-            data=request.data,
-        )
-        serializer.is_valid(raise_exception=True)
+            serializer = UserSTTChangeSerializer(
+                instance=stt_instance,
+                data=request.data,
+            )
+            serializer.is_valid(raise_exception=True)
 
-        serializer.save()
-
-        return Response(data={"message": "Data successfully changed."}, status=status.HTTP_200_OK)
+            serializer.save()
 
 
-class STTDeleteAPIView(APIView):
-    auth_required = True
+            return Response(data={"message": "Data successfully changed."}, status=status.HTTP_200_OK)
+        except TokenSTTModel.DoesNotExist:
+            return Response(data={"message": "Data not found."}, status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
     @swagger_auto_schema(
-        request_body=openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                'items': openapi.Schema(
-                    type=openapi.TYPE_ARRAY,
-                    items=openapi.Items(type=openapi.TYPE_STRING),
-                    description="List of STTModel IDs to delete"
-                )
-            },
-        ),
+        operation_description="Delete session...",
         tags=["STT"]
     )
-    def post(self, request):
+    def delete(self, request, stt_id):
         try:
-            items = request.data.get('items')
-            for item in items:
-                UserSTTModel.objects.get(id=item, user=request.user).delete()
+            stt = UserSTTModel.objects.get(user=request.user, id=stt_id, is_deleted=False)
+            stt.is_deleted = True
+            stt.save()
 
-            return Response(data={'message': 'Items are successfully deleted.'}, status=status.HTTP_200_OK)
+            return Response(data={'message': 'Data successfully deleted.'}, status=status.HTTP_200_OK)
+        except UserSTTModel.DoesNotExist:
+            return Response(data={"message": "Data not found."}, status=status.HTTP_404_NOT_FOUND)
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-class STTSearchAPIView(APIView):
+
+class TokenSTTItemAPIView(APIView):
+    token_required = True
+
+    @swagger_auto_schema(
+        operation_description="STT change...",
+        request_body=UserSTTChangeSerializer,
+        manual_parameters=[
+            openapi.Parameter(
+                name="token",
+                in_=openapi.IN_QUERY,
+                description="Service API token",
+                type=openapi.TYPE_STRING,
+                required=True
+            )
+        ],
+        tags=["STT"]
+    )
+    def put(self, request, stt_id):
+        try:
+            stt_instance = TokenSTTModel.objects.get(id=stt_id, token=request.token, is_deleted=False)
+
+            serializer = TokenSTTChangeSerializer(
+                instance=stt_instance,
+                data=request.data,
+            )
+            serializer.is_valid(raise_exception=True)
+
+            serializer.save()
+
+            return Response(data={"message": "Data successfully changed."}, status=status.HTTP_200_OK)
+        except TokenSTTModel.DoesNotExist:
+            return Response(data={"message": "Data not found."}, status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+    @swagger_auto_schema(
+        operation_description="Delete session...",
+        manual_parameters=[
+            openapi.Parameter(
+                name="token",
+                in_=openapi.IN_QUERY,
+                description="Service API token",
+                type=openapi.TYPE_STRING,
+                required=True
+            )
+        ],
+        tags=["STT"]
+    )
+    def delete(self, request, stt_id):
+        try:
+            stt = TokenSTTModel.objects.get(token=request.token, id=stt_id, is_deleted=False)
+            stt.is_deleted = True
+            stt.save()
+
+            return Response(data={'message': 'Data successfully deleted.'}, status=status.HTTP_200_OK)
+        except TokenSTTModel.DoesNotExist:
+            return Response(data={"message": "Data not found."}, status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class UserSTTSearchAPIView(APIView):
     auth_required = True
 
     @swagger_auto_schema(
@@ -242,7 +349,35 @@ class STTSearchAPIView(APIView):
     )
     def get(self, request):
         q = request.GET['q'].strip()
-        items = UserSTTModel.objects.filter(audio__name__icontains=q, user=request.user).order_by('-created_at')
+        items = UserSTTModel.objects.filter(audio__name__icontains=q, user=request.user, is_deleted=False).order_by('-created_at')
         serializer = UserSTTListSerializer(items, many=True)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+class TokenSTTSearchAPIView(APIView):
+    token_required = True
+
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter(
+                'q', openapi.IN_QUERY,
+                description="Search by name",
+                type=openapi.TYPE_STRING,
+                required=True
+            ),
+            openapi.Parameter(
+                name="token",
+                in_=openapi.IN_QUERY,
+                description="Service API token",
+                type=openapi.TYPE_STRING,
+                required=True
+            )
+        ],
+        tags=["STT"]
+    )
+    def get(self, request):
+        q = request.GET['q'].strip()
+        items = TokenSTTModel.objects.filter(audio__name__icontains=q, token=request.token, is_deleted=False).order_by('-created_at')
+        serializer = TokenSTTListSerializer(items, many=True)
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)

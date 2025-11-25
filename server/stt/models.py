@@ -14,9 +14,10 @@ class UserSTTModel(BaseModel):
         unique=True
     )
     text = models.CharField(null=True, blank=True)
-    user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE)
+    user = models.ForeignKey("accounts.CustomUserModel", null=True, blank=True, on_delete=models.SET_NULL)
     audio = models.OneToOneField("shared.AudioModel", null=True, blank=True, on_delete=models.SET_NULL)
     mdl = models.CharField(max_length=50)
+    is_deleted = models.BooleanField(default=False)
 
 
     class Meta:
@@ -33,15 +34,16 @@ class TokenSTTModel(BaseModel):
         unique=True
     )
     text = models.CharField(null=True, blank=True)
-    token = models.ForeignKey("service.ServiceTokenModel", on_delete=models.CASCADE)
+    token = models.ForeignKey("service.ServiceTokenModel", null=True, blank=True, on_delete=models.SET_NULL)
     audio = models.OneToOneField("shared.AudioModel", null=True, blank=True, on_delete=models.SET_NULL)
     mdl = models.CharField(max_length=50)
+    is_deleted = models.BooleanField(default=False)
 
 
     class Meta:
         verbose_name = "Token list"
         verbose_name_plural = "Token list"
-        db_table = "user_stt"
+        db_table = "token_stt"
 
 
 class STTModelModel(BaseModel):

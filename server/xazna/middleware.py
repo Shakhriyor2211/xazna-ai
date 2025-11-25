@@ -98,4 +98,4 @@ class TokenViewMiddleware(MiddlewareMixin):
             request.token = token
 
         except ServiceTokenModel.DoesNotExist:
-            return JsonResponse({"message": "User not found.", "code": "not_found"}, status=404)
+            return JsonResponse({"message": "Token not found.", "code": "not_found"}, status=404)

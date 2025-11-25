@@ -12,9 +12,10 @@ class UserLLMSessionModel(BaseModel):
         editable=False,
         unique=True
     )
-    user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE)
+    user = models.ForeignKey("accounts.CustomUserModel", null=True, blank=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=255)
     is_streaming = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -33,9 +34,10 @@ class TokenLLMSessionModel(BaseModel):
         editable=False,
         unique=True
     )
-    token = models.ForeignKey("service.ServiceTokenModel", on_delete=models.CASCADE)
+    token = models.ForeignKey("service.ServiceTokenModel", null=True, blank=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=255)
     is_streaming = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -55,10 +57,11 @@ class UserLLMMessageModel(BaseModel):
         editable=False,
         unique=True
     )
-    session = models.ForeignKey("UserLLMSessionModel", on_delete=models.CASCADE, related_name="messages")
+    session = models.ForeignKey("UserLLMSessionModel", null=True, blank=True, on_delete=models.SET_NULL, related_name="messages")
     role = models.CharField(max_length=20, choices=[("user", "user"), ("assistant", "assistant")])
     content = models.TextField(default="")
     mdl = models.CharField(max_length=50)
+    is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.content
@@ -77,10 +80,11 @@ class TokenLLMMessageModel(BaseModel):
         editable=False,
         unique=True
     )
-    session = models.ForeignKey("TokenLLMSessionModel", on_delete=models.CASCADE, related_name="messages")
+    session = models.ForeignKey("TokenLLMSessionModel", null=True, blank=True, on_delete=models.SET_NULL, related_name="messages")
     role = models.CharField(max_length=20, choices=[("user", "user"), ("assistant", "assistant")])
     content = models.TextField(default="")
     mdl = models.CharField(max_length=50)
+    is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.content

@@ -5,7 +5,7 @@ from shared.models import AudioModel
 from xazna.models import BaseModel
 
 
-class TTSModel(BaseModel):
+class UserTTSModel(BaseModel):
     id = models.UUIDField(
         max_length=36,
         primary_key=True,
@@ -14,16 +14,39 @@ class TTSModel(BaseModel):
         unique=True
     )
     text = models.CharField()
-    user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE)
+    user = models.ForeignKey("accounts.CustomUserModel", null=True, blank=True, on_delete=models.SET_NULL)
     audio = models.OneToOneField("shared.AudioModel", null=True, blank=True, on_delete=models.SET_NULL)
     emotion = models.CharField(max_length=50)
     mdl = models.CharField(max_length=50)
     format = models.CharField(max_length=50)
+    is_deleted = models.BooleanField(default=False)
 
     class Meta:
-        verbose_name = "List"
-        verbose_name_plural = "List"
-        db_table = "tts"
+        verbose_name = "User list"
+        verbose_name_plural = "User list"
+        db_table = "user_tts"
+
+
+class TokenTTSModel(BaseModel):
+    id = models.UUIDField(
+        max_length=36,
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+        unique=True
+    )
+    text = models.CharField()
+    token = models.ForeignKey("service.ServiceTokenModel", null=True, blank=True, on_delete=models.SET_NULL)
+    audio = models.OneToOneField("shared.AudioModel", null=True, blank=True, on_delete=models.SET_NULL)
+    emotion = models.CharField(max_length=50)
+    mdl = models.CharField(max_length=50)
+    format = models.CharField(max_length=50)
+    is_deleted = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "Token list"
+        verbose_name_plural = "Token list"
+        db_table = "token_tts"
 
 
 class TTSEmotionModel(BaseModel):

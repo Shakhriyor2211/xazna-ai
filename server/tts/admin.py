@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from tts.models import TTSModel, TTSEmotionModel, TTSAudioFormatModel, TTSModelModel
+from tts.models import UserTTSModel, TTSEmotionModel, TTSAudioFormatModel, TTSModelModel, TokenTTSModel
 
-@admin.register(TTSModel)
-class TTSAdmin(admin.ModelAdmin):
+
+@admin.register(UserTTSModel)
+class UserTTSAdmin(admin.ModelAdmin):
     list_display = (
         "short_text",
         "audio_link",
@@ -24,6 +25,33 @@ class TTSAdmin(admin.ModelAdmin):
         return "-"
 
     audio_link.short_description = "Audio"
+
+
+
+@admin.register(TokenTTSModel)
+class TokenTTSAdmin(admin.ModelAdmin):
+    list_display = (
+        "short_text",
+        "audio_link",
+        "token",
+        "created_at"
+    )
+    ordering = ("-created_at",)
+
+    def short_text(self, obj):
+        return (obj.text[:50] + "...") if obj.text and len(obj.text) > 50 else obj.text
+    short_text.short_description = "Text"
+
+    def audio_link(self, obj):
+        if obj.audio and obj.audio.file:
+            return  format_html(
+                f"""<a href="{obj.audio.file.url}" target="_blank">{obj.audio.id}</a>"""
+            )
+        return "-"
+
+    audio_link.short_description = "Audio"
+
+
 
 @admin.register(TTSModelModel)
 class TTSModelAdmin(admin.ModelAdmin):
