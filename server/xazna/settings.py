@@ -48,6 +48,7 @@ TTS_TRITON_SERVER = os.getenv("TTS_TRITON_SERVER")
 STT_SERVER_API_KEY = os.getenv("STT_SERVER_API_KEY")
 STT_SERVER = os.getenv("STT_SERVER")
 LLM_SERVER = os.getenv("LLM_SERVER")
+LLM_SERVER_API_KEY = os.getenv("LLM_SERVER_API_KEY")
 
 CELERY_BROKER_URL = f"""redis://{os.getenv("REDIS_HOST")}:{os.getenv("REDIS_PORT")}/0"""
 CELERY_RESULT_BACKEND = f"""redis://{os.getenv("REDIS_HOST")}:{os.getenv("REDIS_PORT")}/0"""
@@ -59,7 +60,6 @@ CELERY_WORKER_MAX_MEMORY = 1024 * 1024 * 4  # 4 GB
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
-FERNET_SECRET_KEY = os.getenv("FERNET_SECRET_KEY")
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")
 DEBUG = os.getenv("DEBUG") == "dev"
 BASE_URL = os.getenv("BASE_URL")

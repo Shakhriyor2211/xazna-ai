@@ -5,7 +5,7 @@ from shared.models import AudioModel
 from xazna.models import BaseModel
 
 
-class STTModel(BaseModel):
+class UserSTTModel(BaseModel):
     id = models.UUIDField(
         max_length=36,
         primary_key=True,
@@ -20,9 +20,28 @@ class STTModel(BaseModel):
 
 
     class Meta:
-        verbose_name = "List"
-        verbose_name_plural = "List"
-        db_table = "stt"
+        verbose_name = "User list"
+        verbose_name_plural = "User list"
+        db_table = "user_stt"
+
+class TokenSTTModel(BaseModel):
+    id = models.UUIDField(
+        max_length=36,
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+        unique=True
+    )
+    text = models.CharField(null=True, blank=True)
+    token = models.ForeignKey("service.ServiceTokenModel", on_delete=models.CASCADE)
+    audio = models.OneToOneField("shared.AudioModel", null=True, blank=True, on_delete=models.SET_NULL)
+    mdl = models.CharField(max_length=50)
+
+
+    class Meta:
+        verbose_name = "Token list"
+        verbose_name_plural = "Token list"
+        db_table = "user_stt"
 
 
 class STTModelModel(BaseModel):

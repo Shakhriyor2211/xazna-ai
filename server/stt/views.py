@@ -5,13 +5,13 @@ from rest_framework import status
 from rest_framework.parsers import MultiPartParser
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from finance.models import ExpenseModel
+from finance.models import UserExpenseModel, TokenExpenseModel
 from shared.models import AudioModel
-from log.models import UserSTTErrorLogModel
+from log.models import UserSTTErrorLogModel, TokenSTTErrorLogModel
 from shared.utils import  text_decode, convert_to_wav, stt_transaction
 from shared.views import CustomPagination
-from stt.models import STTModel
-from stt.serializers import STTListSerializer, STTChangeSerializer, STTSerializer
+from stt.models import UserSTTModel, TokenSTTModel
+from stt.serializers import UserSTTListSerializer, UserSTTChangeSerializer, STTSerializer, TokenSTTListSerializer
 from xazna import settings
 from django.db import transaction
 from openai import OpenAI
@@ -20,7 +20,7 @@ from xazna.exceptions import CustomException
 client = OpenAI(base_url=settings.STT_SERVER, api_key=settings.STT_SERVER_API_KEY)
 
 
-class STTAPIView(APIView):
+class UserSTTAPIView(APIView):
     parser_classes = [MultiPartParser]
     auth_required = True
 
@@ -61,16 +61,16 @@ class STTAPIView(APIView):
 
                 text = re.sub(r"(Ğ|ğ|Õ|õ|Ş|ş|Ç|ç)", text_decode, text)
 
-                stt_instance = STTModel.objects.create(text=text, user=request.user, mdl=mdl, audio=audio_instance)
+                stt_instance = UserSTTModel.objects.create(text=text, user=request.user, mdl=mdl, audio=audio_instance)
 
                 sub.credit_expense += credit_usage
                 rate.credit_usage += credit_usage
                 balance.cash -= cash_usage
 
-                ExpenseModel.objects.create(operation="stt", operation_id=stt_instance.id, credit=credit_usage,
+                UserExpenseModel.objects.create(operation="stt", operation_id=stt_instance.id, credit=credit_usage,
                                             cash=cash_usage, user=request.user)
 
-                stt = STTListSerializer(stt_instance)
+                stt = UserSTTListSerializer(stt_instance)
 
                 balance.save()
                 sub.save()
@@ -83,6 +83,69 @@ class STTAPIView(APIView):
             UserSTTErrorLogModel.objects.create(message=str(e), audio=audio_instance, user=self.request.user)
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+class TokenSTTAPIView(APIView):
+    parser_classes = [MultiPartParser]
+    token_required = True
+
+    @swagger_auto_schema(operation_description='STT generate...', request_body=STTSerializer, tags=["STT"])
+    def post(self, request):
+        audio_instance = None
+        try:
+            serializer = STTSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+
+            mdl = serializer.validated_data["mdl"]
+
+            audio_instance = AudioModel.objects.create(user=request.user, file=serializer.validated_data["file"])
+
+            balance = request.user.balance
+            sub = request.user.active_sub
+            rate = request.token.stt_rate
+            credit_usage, cash_usage = stt_transaction(balance, sub, rate, audio_instance.file, mdl)
+
+            with transaction.atomic():
+                audio = convert_to_wav(audio_instance.file)
+
+                m = client.models.list().data[0].id
+
+                transcript = client.audio.transcriptions.create(
+                    model=m,
+                    file=audio,
+                    language="en",
+                    stream=True,
+                    response_format="text"
+                )
+
+                text = ""
+
+                for event in transcript:
+                    chunk = event.choices[0]["delta"]["content"]
+                    text += chunk
+
+                text = re.sub(r"(Ğ|ğ|Õ|õ|Ş|ş|Ç|ç)", text_decode, text)
+
+                stt_instance = TokenSTTModel.objects.create(text=text, user=request.user, mdl=mdl, audio=audio_instance)
+
+                sub.credit_expense += credit_usage
+                rate.credit_usage += credit_usage
+                balance.cash -= cash_usage
+
+                TokenExpenseModel.objects.create(operation="stt", operation_id=stt_instance.id, credit=credit_usage,
+                                            cash=cash_usage, token=request.token)
+
+                stt = TokenSTTListSerializer(stt_instance)
+
+                balance.save()
+                sub.save()
+                rate.save()
+
+                return Response(data=stt.data, status=status.HTTP_200_OK)
+        except CustomException as e:
+            return Response(data={"message": str(e)}, status=e.status)
+        except Exception as e:
+            TokenSTTErrorLogModel.objects.create(message=str(e), audio=audio_instance, token=self.request.token)
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class STTListAPIView(APIView):
     auth_required = True
@@ -104,12 +167,12 @@ class STTListAPIView(APIView):
     def get(self, request):
         ordering = request.query_params.get('ordering', '-created_at')
 
-        queryset = STTModel.objects.filter(user=request.user).order_by(ordering)
+        queryset = UserSTTModel.objects.filter(user=request.user).order_by(ordering)
 
         paginator = CustomPagination()
         paginated_qs = paginator.paginate_queryset(queryset, request)
 
-        serializer = STTListSerializer(paginated_qs, many=True)
+        serializer = UserSTTListSerializer(paginated_qs, many=True)
 
         return paginator.get_paginated_response(serializer.data)
 
@@ -119,13 +182,13 @@ class STTChangeAPIView(APIView):
 
     @swagger_auto_schema(
         operation_description="STT change...",
-        request_body=STTChangeSerializer,
+        request_body=UserSTTChangeSerializer,
         tags=["STT"]
     )
     def put(self, request, stt_id):
-        stt_instance = STTModel.objects.get(id=stt_id, user=request.user)
+        stt_instance = UserSTTModel.objects.get(id=stt_id, user=request.user)
 
-        serializer = STTChangeSerializer(
+        serializer = UserSTTChangeSerializer(
             instance=stt_instance,
             data=request.data,
         )
@@ -156,7 +219,7 @@ class STTDeleteAPIView(APIView):
         try:
             items = request.data.get('items')
             for item in items:
-                STTModel.objects.get(id=item, user=request.user).delete()
+                UserSTTModel.objects.get(id=item, user=request.user).delete()
 
             return Response(data={'message': 'Items are successfully deleted.'}, status=status.HTTP_200_OK)
         except:
@@ -179,7 +242,7 @@ class STTSearchAPIView(APIView):
     )
     def get(self, request):
         q = request.GET['q'].strip()
-        items = STTModel.objects.filter(audio__name__icontains=q, user=request.user).order_by('-created_at')
-        serializer = STTListSerializer(items, many=True)
+        items = UserSTTModel.objects.filter(audio__name__icontains=q, user=request.user).order_by('-created_at')
+        serializer = UserSTTListSerializer(items, many=True)
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)

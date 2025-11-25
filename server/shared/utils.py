@@ -7,12 +7,10 @@ from django.utils import timezone
 import httpx
 from django.core.files import File
 from pydub import AudioSegment
-
 from llm.models import LLMModelModel
 from stt.models import STTModelModel
 from tts.models import TTSModelModel
 from xazna import settings
-from cryptography.fernet import Fernet
 from django.conf import settings
 
 from xazna.exceptions import CustomException
@@ -101,17 +99,12 @@ def convert_to_wav(audio_file):
 
 
 
-fernet = Fernet(settings.FERNET_SECRET_KEY)
-
-def encrypt_token(raw_token: str) -> str:
-    return fernet.encrypt(raw_token.encode()).decode()
-
-def decrypt_token(encrypted_token: str) -> str:
-    return fernet.decrypt(encrypted_token.encode()).decode()
-
 
 def tts_transaction(balance, sub, rate, text, mdl):
-    plan = TTSModelModel.objects.get(title=mdl)
+    plan = TTSModelModel.objects.filter(title=mdl).first()
+
+    if plan is None:
+        raise CustomException("Model not found.", 400)
 
     if rate.credit_reset is None or rate.credit_reset < timezone.now():
         rate.credit_reset = timezone.now() + timedelta(minutes=rate.credit_time)
@@ -144,7 +137,10 @@ def tts_transaction(balance, sub, rate, text, mdl):
 
 
 def stt_transaction(balance, sub, rate, audio, mdl):
-    plan = STTModelModel.objects.get(title=mdl)
+    plan = STTModelModel.objects.filter(title=mdl).first()
+
+    if plan is None:
+        raise CustomException("Model not found.", 400)
 
     if rate.credit_reset is None or rate.credit_reset < timezone.now():
         rate.credit_reset = timezone.now() + timedelta(minutes=rate.credit_time)
@@ -176,7 +172,10 @@ def stt_transaction(balance, sub, rate, audio, mdl):
 
 
 def llm_transaction(balance, sub, rate, context_rate, content, mdl):
-    plan = LLMModelModel.objects.get(title=mdl)
+    plan = LLMModelModel.objects.filter(title=mdl).first()
+
+    if plan is None:
+        raise CustomException("Model not found.", 400)
 
     if rate.credit_reset is None or rate.credit_reset < timezone.now():
         rate.credit_reset = timezone.now() + timedelta(minutes=rate.credit_time)

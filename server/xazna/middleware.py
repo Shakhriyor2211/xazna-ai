@@ -11,7 +11,11 @@ from xazna import settings
 class AuthViewMiddleware(MiddlewareMixin):
     def process_view(self, request, view_func, view_args, view_kwargs):
         view_class = getattr(view_func, "view_class", None)
+        token_required = getattr(view_class, "token_required", False) or getattr(view_func, "token_required", False)
         auth_required = getattr(view_class, "auth_required", False) or getattr(view_func, "auth_required", False)
+
+        if token_required:
+            return None
 
         if not auth_required:
             request._user = AnonymousUser()
@@ -60,6 +64,10 @@ class TokenViewMiddleware(MiddlewareMixin):
     def process_view(self, request, view_func, view_args, view_kwargs):
         view_class = getattr(view_func, "view_class", None)
         token_required = getattr(view_class, "token_required", False) or getattr(view_func, "token_required", False)
+        auth_required = getattr(view_class, "auth_required", False) or getattr(view_func, "auth_required", False)
+
+        if auth_required:
+            return None
 
         if not token_required:
             request._user = AnonymousUser()
@@ -72,7 +80,7 @@ class TokenViewMiddleware(MiddlewareMixin):
             return JsonResponse({"message": "Token was not provided.", "code": "token_required"}, status=401)
 
         try:
-            token = ServiceTokenModel.objects.filter(key=t).first()
+            token = ServiceTokenModel.objects.get(key=t)
 
             if token.is_blocked:
                 return JsonResponse({"message": "Token is blocked.", "code": "token_blocked"}, status=403)
@@ -89,9 +97,5 @@ class TokenViewMiddleware(MiddlewareMixin):
             request._user = token.user
             request.token = token
 
-        except ExpiredSignatureError:
-            return JsonResponse({"message": "Token has expired.", "code": "expired_token"}, status=401)
-        except InvalidTokenError:
-            return JsonResponse({"message": "Invalid token.", "code": "invalid_token"}, status=400)
-        except CustomUserModel.DoesNotExist:
+        except ServiceTokenModel.DoesNotExist:
             return JsonResponse({"message": "User not found.", "code": "not_found"}, status=404)

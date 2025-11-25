@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from drf_yasg import openapi
-from finance.models import ExpenseModel
+from finance.models import UserExpenseModel
 from shared.clean.split import split
 from shared.models import AudioModel
 from log.models import UserTTSErrorLogModel
@@ -18,7 +18,6 @@ import tritonclient.grpc as triton_grpc
 from xazna.exceptions import CustomException
 
 client = triton_grpc.InferenceServerClient(url=settings.TTS_TRITON_SERVER, verbose=False)
-
 
 class TTSSettingsAPIView(APIView):
     auth_required = True
@@ -86,7 +85,7 @@ class TTSAPIView(APIView):
                 rate.credit_usage += credit_usage
                 balance.cash -= cash_usage
 
-                ExpenseModel.objects.create(operation="tts", operation_id=tts_instance.id, credit=credit_usage,
+                UserExpenseModel.objects.create(operation="tts", operation_id=tts_instance.id, credit=credit_usage,
                                             cash=cash_usage, user=request.user)
 
                 tts = TTSListSerializer(tts_instance)

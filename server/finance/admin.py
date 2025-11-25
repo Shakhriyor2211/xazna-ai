@@ -1,14 +1,26 @@
 from django.contrib import admin
-from finance.models import BalanceModel, TransactionModel, ExpenseModel
+from finance.models import BalanceModel, TransactionModel, UserExpenseModel, TokenExpenseModel
 
-@admin.register(ExpenseModel)
-class ExpenseAdmin(admin.ModelAdmin):
+
+@admin.register(UserExpenseModel)
+class UserExpenseAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "operation",
         "cash",
         "credit",
         "user",
+        "created_at"
+    )
+
+@admin.register(TokenExpenseModel)
+class TokenExpenseAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "operation",
+        "cash",
+        "credit",
+        "token",
         "created_at"
     )
 

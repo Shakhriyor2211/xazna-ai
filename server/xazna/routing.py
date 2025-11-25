@@ -1,11 +1,9 @@
 from django.urls import path
 from llm.routing import llm_ws_urlpatterns
 from channels.routing import URLRouter
-from service.routing import service_ws_urlpatterns
 
 ws_base_patterns = [
-    path("llm/", URLRouter(llm_ws_urlpatterns)),
-    path("service/", URLRouter(service_ws_urlpatterns))
+    path("llm/", URLRouter(llm_ws_urlpatterns))
 ]
 
 

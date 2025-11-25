@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from drf_yasg.utils import swagger_auto_schema
-from finance.models import TransactionModel, ExpenseModel, BalanceModel
-from finance.serializers import BalanceManageSerializer, TransactionSerializer, ExpenseListSerializer, BalanceSerializer
+from finance.models import TransactionModel, UserExpenseModel, TokenExpenseModel
+from finance.serializers import BalanceManageSerializer, TransactionSerializer, UserExpenseListSerializer, BalanceSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from shared.views import CustomPagination
@@ -11,19 +11,36 @@ from sub.models import SubModel
 from sub.serializers import SubSerializer
 
 
-class ExpenseListAPIView(APIView):
+class UserExpenseListAPIView(APIView):
     auth_required = True
 
     @swagger_auto_schema(operation_description='Expense list...', tags=["Finance"])
     def get(self, request):
         ordering = request.query_params.get('ordering', '-created_at')
 
-        queryset = ExpenseModel.objects.filter(user=request.user, consumer="user").order_by(ordering)
+        queryset = UserExpenseModel.objects.filter(user=request.user).order_by(ordering)
 
         paginator = CustomPagination()
         paginated_qs = paginator.paginate_queryset(queryset, request)
 
-        serializer = ExpenseListSerializer(paginated_qs, many=True)
+        serializer = UserExpenseListSerializer(paginated_qs, many=True)
+
+        return paginator.get_paginated_response(serializer.data)
+
+
+class TokenExpenseListAPIView(APIView):
+    auth_required = True
+
+    @swagger_auto_schema(operation_description='Expense list...', tags=["Finance"])
+    def get(self, request, token_id):
+        ordering = request.query_params.get('ordering', '-created_at')
+
+        queryset = TokenExpenseModel.objects.filter(token=token_id).order_by(ordering)
+
+        paginator = CustomPagination()
+        paginated_qs = paginator.paginate_queryset(queryset, request)
+
+        serializer = UserExpenseListSerializer(paginated_qs, many=True)
 
         return paginator.get_paginated_response(serializer.data)
 

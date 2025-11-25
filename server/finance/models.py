@@ -43,7 +43,7 @@ class TransactionModel(BaseModel):
         db_table = "transaction"
 
 
-class ExpenseModel(BaseModel):
+class UserExpenseModel(BaseModel):
     id = models.UUIDField(
         max_length=36,
         primary_key=True,
@@ -59,7 +59,6 @@ class ExpenseModel(BaseModel):
     )
     credit = models.DecimalField(max_digits=16, decimal_places=4, validators=[MinValueValidator(0)], default=0)
     cash = models.DecimalField(max_digits=16, decimal_places=4, validators=[MinValueValidator(0)], default=0)
-
     user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE)
     consumer = models.CharField(choices=[("service", "service"), ("user", "user")], default="user")
 
@@ -67,12 +66,43 @@ class ExpenseModel(BaseModel):
         constraints = [
             models.UniqueConstraint(
                 fields=["operation", "operation_id"],
-                name="unique_operation_and_id"
+                name="unique_user_expense_operation"
             )
         ]
-        verbose_name = "Expense"
-        verbose_name_plural = "Expenses"
+        verbose_name = "User Expense"
+        verbose_name_plural = "User Expenses"
         ordering = ["-created_at"]
-        db_table = "expense"
+        db_table = "user_expense"
+
+class TokenExpenseModel(BaseModel):
+    id = models.UUIDField(
+        max_length=36,
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+        unique=True
+    )
+    operation = models.CharField(choices=[("tts", "tts"), ("stt", "stt"), ("llm", "llm")])
+    operation_id = models.UUIDField(
+        max_length=36,
+        default=uuid.uuid4,
+        editable=False,
+    )
+    credit = models.DecimalField(max_digits=16, decimal_places=4, validators=[MinValueValidator(0)], default=0)
+    cash = models.DecimalField(max_digits=16, decimal_places=4, validators=[MinValueValidator(0)], default=0)
+    token = models.ForeignKey("service.ServiceTokenModel", on_delete=models.CASCADE)
+    consumer = models.CharField(choices=[("service", "service"), ("user", "user")], default="user")
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["operation", "operation_id"],
+                name="unique_token_expense_operation"
+            )
+        ]
+        verbose_name = "Token Expense"
+        verbose_name_plural = "Token Expenses"
+        ordering = ["-created_at"]
+        db_table = "token_expense"
 
 

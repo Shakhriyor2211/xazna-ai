@@ -1,9 +1,8 @@
 from django.urls import path
 
-from service.views import ServiceLLMSessionAPIView, ServiceSTTAPIView, ServiceTTSAPIView
+from service.views import  ServiceTokenAPIView, ServiceTokenListAPIView
 
 urlpatterns = [
-    path("session", ServiceLLMSessionAPIView.as_view(), name="service_llm_session"),
-    path("stt", ServiceSTTAPIView.as_view(), name="service_stt"),
-    path("tts", ServiceTTSAPIView.as_view(), name="service_tts")
+    path("token/list", ServiceTokenListAPIView.as_view(), name="service_token_list"),
+    path("token/<int:token_id>", ServiceTokenAPIView.as_view(), name="service_token_list"),
 ]

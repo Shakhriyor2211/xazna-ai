@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from shared.serializers import AudioSerializer
-from stt.models import STTModel
-
+from stt.models import UserSTTModel, TokenSTTModel
 
 
 class STTSerializer(serializers.Serializer):
@@ -9,19 +8,33 @@ class STTSerializer(serializers.Serializer):
     mdl = serializers.CharField(max_length=50)
 
 
-class STTListSerializer(serializers.ModelSerializer):
+class UserSTTListSerializer(serializers.ModelSerializer):
     audio = AudioSerializer()
     class Meta:
-        model = STTModel
+        model = UserSTTModel
         fields = ["id", "text", "audio", "created_at"]
         read_only_fields = ["id"]
 
 
-class STTChangeSerializer(serializers.ModelSerializer):
+class UserSTTChangeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = STTModel
+        model = UserSTTModel
         fields = [
             "text",
         ]
 
 
+class TokenSTTListSerializer(serializers.ModelSerializer):
+    audio = AudioSerializer()
+    class Meta:
+        model = TokenSTTModel
+        fields = ["id", "text", "audio", "created_at"]
+        read_only_fields = ["id"]
+
+
+class TokenSTTChangeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TokenSTTModel
+        fields = [
+            "text",
+        ]

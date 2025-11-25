@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from log.models import UserLLMErrorLogModel, ServiceLLMErrorLogModel, ServiceSTTErrorLogModel, UserSTTErrorLogModel, \
-    ServiceTTSErrorLogModel, UserTTSErrorLogModel
+from log.models import UserLLMErrorLogModel, TokenLLMErrorLogModel, TokenSTTErrorLogModel, UserSTTErrorLogModel, \
+    TokenTTSErrorLogModel, UserTTSErrorLogModel
 
 
 @admin.register(UserLLMErrorLogModel)
@@ -66,8 +66,8 @@ class UserTTSErrorLogAdmin(admin.ModelAdmin):
         return (obj.text[:50] + "...") if obj.text is not None and obj.text and len(obj.text) > 50 else obj.text
     short_text.short_description = "Text"
 
-@admin.register(ServiceLLMErrorLogModel)
-class ServiceLLMErrorLogAdmin(admin.ModelAdmin):
+@admin.register(TokenLLMErrorLogModel)
+class TokenLLMErrorLogAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "short_message",
@@ -85,8 +85,8 @@ class ServiceLLMErrorLogAdmin(admin.ModelAdmin):
     short_content.short_description = "Content"
 
 
-@admin.register(ServiceSTTErrorLogModel)
-class ServiceSTTLogAdmin(admin.ModelAdmin):
+@admin.register(TokenSTTErrorLogModel)
+class TokenSTTLogAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "short_message",
@@ -109,8 +109,8 @@ class ServiceSTTLogAdmin(admin.ModelAdmin):
 
 
 
-@admin.register(ServiceTTSErrorLogModel)
-class ServiceTTSErrorLogAdmin(admin.ModelAdmin):
+@admin.register(TokenTTSErrorLogModel)
+class TokenTTSErrorLogAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "short_message",

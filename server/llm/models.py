@@ -4,7 +4,7 @@ from django.db import models
 from xazna.models import BaseModel
 
 
-class LLMSessionModel(BaseModel):
+class UserLLMSessionModel(BaseModel):
     id = models.UUIDField(
         max_length=36,
         primary_key=True,
@@ -20,13 +20,12 @@ class LLMSessionModel(BaseModel):
         return self.title
 
     class Meta:
-        verbose_name = "Session"
-        verbose_name_plural = "Sessions"
-        db_table = "llm_session"
+        verbose_name = "User session"
+        verbose_name_plural = "User sessions"
+        db_table = "user_llm_session"
         ordering = ["-created_at"]
 
-
-class LLMMessageModel(BaseModel):
+class TokenLLMSessionModel(BaseModel):
     id = models.UUIDField(
         max_length=36,
         primary_key=True,
@@ -34,7 +33,29 @@ class LLMMessageModel(BaseModel):
         editable=False,
         unique=True
     )
-    session = models.ForeignKey("LLMSessionModel", on_delete=models.CASCADE, related_name="messages")
+    token = models.ForeignKey("service.ServiceTokenModel", on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    is_streaming = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Token session"
+        verbose_name_plural = "Token sessions"
+        db_table = "token_llm_session"
+        ordering = ["-created_at"]
+
+
+class UserLLMMessageModel(BaseModel):
+    id = models.UUIDField(
+        max_length=36,
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+        unique=True
+    )
+    session = models.ForeignKey("UserLLMSessionModel", on_delete=models.CASCADE, related_name="messages")
     role = models.CharField(max_length=20, choices=[("user", "user"), ("assistant", "assistant")])
     content = models.TextField(default="")
     mdl = models.CharField(max_length=50)
@@ -43,10 +64,31 @@ class LLMMessageModel(BaseModel):
         return self.content
 
     class Meta:
-        verbose_name = "Message"
-        verbose_name_plural = "Messages"
-        db_table = "llm_message"
+        verbose_name = "User message"
+        verbose_name_plural = "User messages"
+        db_table = "user_llm_message"
 
+
+class TokenLLMMessageModel(BaseModel):
+    id = models.UUIDField(
+        max_length=36,
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+        unique=True
+    )
+    session = models.ForeignKey("TokenLLMSessionModel", on_delete=models.CASCADE, related_name="messages")
+    role = models.CharField(max_length=20, choices=[("user", "user"), ("assistant", "assistant")])
+    content = models.TextField(default="")
+    mdl = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.content
+
+    class Meta:
+        verbose_name = "Token message"
+        verbose_name_plural = "Token messages"
+        db_table = "token_llm_message"
 
 
 class LLMModelModel(BaseModel):

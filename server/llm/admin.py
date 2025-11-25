@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import LLMSessionModel, LLMMessageModel, LLMModelModel
+from .models import UserLLMSessionModel, UserLLMMessageModel, LLMModelModel, TokenLLMMessageModel, TokenLLMSessionModel
 
 
 @admin.register(LLMModelModel)
@@ -19,8 +19,8 @@ class LLMModelAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
-@admin.register(LLMMessageModel)
-class LLMMessageAdmin(admin.ModelAdmin):
+@admin.register(UserLLMMessageModel)
+class UserLLMMessageAdmin(admin.ModelAdmin):
     list_display = ("id", "session", "role", "short_content", "mdl", "created_at")
     list_filter = ("role", "created_at")
     search_fields = ("content", "session__title", "session__user__email")
@@ -31,11 +31,30 @@ class LLMMessageAdmin(admin.ModelAdmin):
 
 
 
-@admin.register(LLMSessionModel)
-class LLMSessionAdmin(admin.ModelAdmin):
+@admin.register(UserLLMSessionModel)
+class UserLLMSessionAdmin(admin.ModelAdmin):
     list_display = ("id", "user", "title", "created_at", "updated_at")
     list_filter = ("created_at",)
     search_fields = ("title", "user__email")
 
 
+
+
+@admin.register(TokenLLMMessageModel)
+class TokenLLMMessageAdmin(admin.ModelAdmin):
+    list_display = ("id", "session", "role", "short_content", "mdl", "created_at")
+    list_filter = ("role", "created_at")
+    search_fields = ("content", "session__title", "session__token__last_symbols")
+
+    def short_content(self, obj):
+        return (obj.content[:50] + "...") if obj.content and len(obj.content) > 50 else obj.content
+    short_content.short_description = "Content"
+
+
+
+@admin.register(TokenLLMSessionModel)
+class TokenLLMSessionAdmin(admin.ModelAdmin):
+    list_display = ("id", "token", "title", "created_at", "updated_at")
+    list_filter = ("created_at",)
+    search_fields = ("title", "token__last_symbols")
 

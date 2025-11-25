@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from finance.models import BalanceModel, TransactionModel, ExpenseModel
+from finance.models import BalanceModel, TransactionModel, UserExpenseModel, TokenExpenseModel
 
 
 class TransactionSerializer(serializers.ModelSerializer):
@@ -23,7 +23,13 @@ class BalanceSerializer(serializers.ModelSerializer):
         exclude = ["user", "created_at", "updated_at"]
 
 
-class ExpenseListSerializer(serializers.ModelSerializer):
+class UserExpenseListSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ExpenseModel
+        model = UserExpenseModel
         exclude = ["user"]
+
+
+class TokenExpenseListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TokenExpenseModel
+        exclude = ["token"]

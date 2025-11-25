@@ -84,7 +84,7 @@ class UserLLMRateModel(BaseRateModel):
 
 
 class UserLLMContextRateModel(BaseModel):
-    session = models.OneToOneField("llm.LLMSessionModel", on_delete=models.CASCADE, related_name="user_context_rate")
+    session = models.OneToOneField("llm.UserLLMSessionModel", on_delete=models.CASCADE, related_name="user_context_rate")
     context_limit = models.SmallIntegerField(default=0)
     context_usage = models.SmallIntegerField(default=0)
 
@@ -129,7 +129,7 @@ class TokenLLMRateModel(BaseRateModel):
         db_table = "token_llm_rate"
 
 class TokenLLMContextRateModel(BaseModel):
-    session = models.OneToOneField("llm.LLMSessionModel", on_delete=models.CASCADE, related_name="token_context_rate")
+    session = models.OneToOneField("llm.TokenLLMSessionModel", on_delete=models.CASCADE, related_name="token_context_rate")
     context_limit = models.SmallIntegerField(default=0)
     context_usage = models.SmallIntegerField(default=0)
 
