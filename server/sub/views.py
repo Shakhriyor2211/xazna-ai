@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from drf_yasg.utils import swagger_auto_schema
 from finance.models import BalanceModel
 from plan.models import PlanModel
+from rate.models import SubLLMRateModel, SubTTSRateModel, SubSTTRateModel
 from sub.models import SubModel
 from sub.serializers import SubChangeSerializer, SubListSerializer, \
     SubManageSerializer
@@ -17,52 +18,53 @@ from django.db import transaction
 class SubRestartAPIView(APIView):
     auth_required = True
 
-    @swagger_auto_schema(operation_description="Restart sub...", tags=["Sub"])
+    @swagger_auto_schema(operation_description="Restart subscription...", tags=["Sub"])
     def post(self, request):
         try:
             with transaction.atomic():
                 balance = request.user.balance
-                old_sub = request.user.active_sub
-                plan = PlanModel.objects.get(title=old_sub.title)
+                active_sub = request.user.active_sub
+                plan = PlanModel.objects.get(title=active_sub.title)
 
-                if old_sub.period == "monthly":
-                    plan = {
-                        "title": plan.title,
-                        "price": plan.monthly_price,
-                        "credit": plan.monthly_credit,
-                        "discount": plan.monthly_discount,
-                        "rate": plan.rate,
-                        "rate_time": plan.rate_time,
-                    }
+                if active_sub.period == "monthly":
+                    credit = plan.monthly_credit
+                    discount = plan.monthly_discount
+                    price = plan.monthly_price * (Decimal(100 - discount) / Decimal(100))
+
                 else:
-                    plan = {
-                        "title": plan.title,
-                        "price": plan.annual_price,
-                        "credit": plan.annual_credit,
-                        "discount": plan.annual_discount,
-                        "rate": plan.rate,
-                        "rate_time": plan.rate_time,
-                    }
+                    credit = plan.annual_credit
+                    discount = plan.annual_discount
+                    price = plan.annual_price * (Decimal(100 - discount) / Decimal(100))
 
-                if plan["title"] == "Enterprise" or plan["title"] == "Free":
-                    return Response(status=status.HTTP_400_BAD_REQUEST)
-
-                price = plan["price"] * (Decimal(100 - plan["discount"]) / Decimal(100))
+                if plan.title == "Free":
+                    return Response(data={"message": "This plan can't be restarted."},
+                                    status=status.HTTP_400_BAD_REQUEST)
 
                 if price > balance.cash:
                     return Response(data={"message": "Not enough funds, please top up your balance."},
                                     status=status.HTTP_400_BAD_REQUEST)
 
-                SubModel.objects.create(user=request.user, period=old_sub.period, **plan)
+                sub = SubModel.objects.create(user=request.user, title=plan.title, period=active_sub.period,
+                                              price=price,
+                                              credit=credit, discount=discount)
+                SubLLMRateModel.objects.create(sub=sub, credit_limit=plan.llm_rate.credit_limit,
+                                               credit_time=plan.llm_rate.credit_time,
+                                               session_limit=plan.llm_rate.session_limit,
+                                               context_limit=plan.llm_rate.context_limit)
+                SubTTSRateModel.objects.create(sub=sub, credit_limit=plan.tts_rate.credit_limit,
+                                               credit_time=plan.tts_rate.credit_time)
+                SubSTTRateModel.objects.create(sub=sub, credit_limit=plan.stt_rate.credit_limit,
+                                               credit_time=plan.stt_rate.credit_time)
+
                 balance.cash -= price
 
-                old_sub.status = "canceled"
-
-                old_sub.save()
+                active_sub.status = "canceled"
+                active_sub.save()
                 balance.save()
 
-                return Response(data={"message": "Sub changed successfully."}, status=status.HTTP_200_OK)
-
+                return Response(data={"message": "Subscription restarted successfully."}, status=status.HTTP_200_OK)
+        except PlanModel.DoesNotExist:
+            return Response(data={"message": "Plan not found."}, status=status.HTTP_404_NOT_FOUND)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -70,7 +72,7 @@ class SubRestartAPIView(APIView):
 class SubChangeAPIView(APIView):
     auth_required = True
 
-    @swagger_auto_schema(operation_description='Change sub...', request_body=SubChangeSerializer, tags=["Sub"])
+    @swagger_auto_schema(operation_description='Change subscription...', request_body=SubChangeSerializer, tags=["Sub"])
     def post(self, request):
         try:
             with transaction.atomic():
@@ -80,59 +82,78 @@ class SubChangeAPIView(APIView):
                 period = serializer.validated_data["period"]
                 plan = PlanModel.objects.get(title=serializer.validated_data["plan"])
 
-                balance = request.user.balance
-                sub = request.user.active_sub
+                active_sub = request.user.active_sub
 
-                if plan.title == "Enterprise" or plan.title == "Free" and period == "annual" or plan.title == sub.title and sub.period == period:
-                    return Response(status=status.HTTP_400_BAD_REQUEST)
-
-                if period == "monthly":
-                    price = plan.monthly.price * (Decimal(100 - plan.monthly.discount) / Decimal(100))
-                else:
-                    price = plan.monthly.price * (Decimal(100 - plan.monthly.discount) / Decimal(100))
+                if plan.title == "Enterprise" or plan.title == "Free" and period == "annual" or plan.title == active_sub.title and active_sub.period == period:
+                    return Response(data={"message": "Failed to change subscription."},
+                                    status=status.HTTP_400_BAD_REQUEST)
 
                 if plan.title == "Free":
-                    old_sub = SubModel.objects.filter(title="Free", user=request.user).order_by("-start_date").first()
-                    if old_sub is not None and old_sub.end_date >= timezone.now():
-                        old_sub.status = "active"
-                        old_sub.save()
+                    sub = SubModel.objects.filter(title="Free", user=request.user).order_by("-start_date").first()
+                    if sub is not None and sub.end_date >= timezone.now():
+                        sub.status = "active"
+                        sub.save()
                     else:
-                        sub = SubModel.objects.create(user=request.user, title=plan.title,
-                                                                                credit=plan.monthly.credit,
-                                                                                period=period, price=plan.monthly.price,
-                                                                               discount=plan.monthly.discount)
-                        sub.create_relations(plan)
-
+                        sub = SubModel.objects.create(user=request.user, title=plan.title, credit=plan.monthly_credit,
+                                                      period=period, price=plan.monthly_price,
+                                                      discount=plan.monthly_discount)
+                        SubLLMRateModel.objects.create(sub=sub, credit_limit=plan.llm_rate.credit_limit,
+                                                       credit_time=plan.llm_rate.credit_time,
+                                                       session_limit=plan.llm_rate.session_limit,
+                                                       context_limit=plan.llm_rate.context_limit)
+                        SubTTSRateModel.objects.create(sub=sub, credit_limit=plan.tts_rate.credit_limit,
+                                                       credit_time=plan.tts_rate.credit_time)
+                        SubSTTRateModel.objects.create(sub=sub, credit_limit=plan.stt_rate.credit_limit,
+                                                       credit_time=plan.stt_rate.credit_time)
 
                 else:
+                    if period == "monthly":
+                        credit = plan.monthly_credit
+                        discount = plan.monthly_discount
+                        price = plan.monthly_price * (Decimal(100 - discount) / Decimal(100))
+
+                    else:
+                        credit = plan.annual_credit
+                        discount = plan.annual_discount
+                        price = plan.annual_price * (Decimal(100 - discount) / Decimal(100))
+
+                    balance = request.user.balance
+
                     if price > balance.cash:
                         return Response(data={"message": "Not enough funds, please top up your balance."},
                                         status=status.HTTP_400_BAD_REQUEST)
 
-                    sub = SubModel.objects.create(user=request.user, title=plan.title,
-                                                           credit=plan.monthly.credit,
-                                                           period=period, price=price,
-                                                           discount=plan.monthly.discount)
+                    sub = SubModel.objects.create(user=request.user, title=plan.title, credit=credit,
+                                                  period=period, price=price,
+                                                  discount=discount)
 
-                    sub.create_relations(plan)
-                    balance.sub = sub
+                    SubLLMRateModel.objects.create(sub=sub, credit_limit=plan.llm_rate.credit_limit,
+                                                   credit_time=plan.llm_rate.credit_time,
+                                                   session_limit=plan.llm_rate.session_limit,
+                                                   context_limit=plan.llm_rate.context_limit)
+                    SubTTSRateModel.objects.create(sub=sub, credit_limit=plan.tts_rate.credit_limit,
+                                                   credit_time=plan.tts_rate.credit_time)
+                    SubSTTRateModel.objects.create(sub=sub, credit_limit=plan.stt_rate.credit_limit,
+                                                   credit_time=plan.stt_rate.credit_time)
+
                     balance.cash -= price
+                    balance.save()
 
-                sub.status = "canceled"
-                sub.save()
-                balance.save()
+                active_sub.status = "canceled"
+                active_sub.save()
 
-                return Response(data={"message": "Sub changed successfully."}, status=status.HTTP_200_OK)
+                return Response(data={"message": "Subscription changed successfully."}, status=status.HTTP_200_OK)
 
-        except Exception as error:
-            print(error)
+        except PlanModel.DoesNotExist:
+            return Response(data={"message": "Plan not found."}, status=status.HTTP_404_NOT_FOUND)
+        except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class SubManageAPIView(APIView):
     auth_required = True
 
-    @swagger_auto_schema(operation_description='Manage sub...', request_body=SubManageSerializer, tags=["Sub"])
+    @swagger_auto_schema(operation_description='Manage subscription...', request_body=SubManageSerializer, tags=["Sub"])
     def patch(self, request):
         try:
             serializer = SubManageSerializer(
@@ -152,7 +173,7 @@ class SubManageAPIView(APIView):
 class SubListAPIView(APIView):
     auth_required = True
 
-    @swagger_auto_schema(operation_description='STT list...', manual_parameters=[
+    @swagger_auto_schema(operation_description='Subscription list...', manual_parameters=[
         openapi.Parameter(
             'page', openapi.IN_QUERY, description="Page number", type=openapi.TYPE_INTEGER
         ),
@@ -164,8 +185,7 @@ class SubListAPIView(APIView):
             type=openapi.TYPE_STRING
         ),
     ],
-    tags=["Sub"]
-    )
+                         tags=["Sub"])
     def get(self, request):
         ordering = request.query_params.get('ordering', '-created_at')
 
@@ -183,8 +203,7 @@ class SubCheckAPIView(APIView):
     auth_required = True
     admin_required = True
 
-    @swagger_auto_schema(operation_description='Sub check...', tags=["Sub"])
-
+    @swagger_auto_schema(operation_description="Subscription check...", tags=["Sub"])
     def get(self, request):
         with transaction.atomic():
             subs = SubModel.objects.filter(status="active", end_date__lt=timezone.now())
@@ -197,40 +216,39 @@ class SubCheckAPIView(APIView):
                 midnight = local_now.replace(hour=0, minute=0, second=0, microsecond=0)
                 balance = BalanceModel.objects.get(user=sub.user)
 
-                current_plan = PlanModel.objects.get(title=sub.title)
+                plan = PlanModel.objects.get(title=sub.title)
 
-                plan = {
-                    "title": current_plan.title,
-                    "price": current_plan.monthly.price,
-                    "credit": current_plan.monthly.credit,
-                    "discount": current_plan.monthly.discount,
-                    "rate": current_plan.rate,
-                }
+                if sub.period == "monthly":
+                    credit = plan.monthly_credit
+                    discount = plan.monthly_discount
+                    price = plan.monthly_price * (Decimal(100 - discount) / Decimal(100))
 
-                if sub.period == "annual":
-                    plan = {
-                        "title": current_plan.title,
-                        "price": current_plan.annual.price,
-                        "credit": current_plan.annual.credit,
-                        "discount": current_plan.annual.discount,
-                        "rate": current_plan.rate,
-                    }
-
-                if sub.auto_renew and balance.cash >= plan["price"]:
-                    balance.cash -= sub.price
-                    balance.sub = SubModel.objects.create(user=sub.user,
-                                                                            period=sub.period,
-                                                                            start_date=midnight, **plan)
                 else:
-                    free_plan = PlanModel.objects.get(title="Free")
-                    balance.sub = SubModel.objects.create(user=sub.user,
-                                                                            period="monthly",
-                                                                            title="Free", price=free_plan.monthly.price,
-                                                                            credit=free_plan.monthly.credit,
-                                                                            discount=free_plan.monthly.discount,
-                                                                            rate=free_plan.rate,
-                                                                            start_date=midnight)
-                balance.save()
+                    credit = plan.annual_credit
+                    discount = plan.annual_discount
+                    price = plan.annual_price * (Decimal(100 - discount) / Decimal(100))
 
+                if sub.auto_renew and balance.cash >= price:
+                    sub = SubModel.objects.create(user=sub.user, title=plan.title, credit=credit,
+                                                  period=sub.period, start_date=midnight, price=price,
+                                                  discount=discount, auto_renew=sub.auto_renew)
+                    balance.cash -= sub.price
+                    balance.save()
+
+
+                else:
+                    plan = PlanModel.objects.get(title="Free")
+                    sub = SubModel.objects.create(user=sub.user, title="Free", credit=plan.monthly_credit,
+                                                  period="monthly", start_date=midnight, price=plan.monthly_price,
+                                                  discount=plan.monthly_discount)
+
+                SubLLMRateModel.objects.create(sub=sub, credit_limit=plan.llm_rate.credit_limit,
+                                               credit_time=plan.llm_rate.credit_time,
+                                               session_limit=plan.llm_rate.session_limit,
+                                               context_limit=plan.llm_rate.context_limit)
+                SubTTSRateModel.objects.create(sub=sub, credit_limit=plan.tts_rate.credit_limit,
+                                               credit_time=plan.tts_rate.credit_time)
+                SubSTTRateModel.objects.create(sub=sub, credit_limit=plan.stt_rate.credit_limit,
+                                               credit_time=plan.stt_rate.credit_time)
 
             return Response(status=status.HTTP_200_OK)

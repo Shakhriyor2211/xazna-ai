@@ -52,39 +52,39 @@ class CustomUserAdmin(UserAdmin):
 
     fieldsets = (
         (
-            'Status',
+            "Status",
             {
-                'fields': (
-                    'role',
-                    'is_active',
-                    'is_blocked',
+                "fields": (
+                    "role",
+                    "is_active",
+                    "is_blocked",
                 ),
             },
         ),
         (
-            'Auth method',
+            "Auth method",
             {
-                'fields': (
-                    'regular_auth',
-                    'google_auth',
-                    'facebook_auth',
+                "fields": (
+                    "regular_auth",
+                    "google_auth",
+                    "facebook_auth",
                 ),
             },
         ),
         (
-            'Permissions',
+            "Permissions",
             {
-                'fields': (
-                    'user_permissions',
-                    'groups'
+                "fields": (
+                    "user_permissions",
+                    "groups"
                 ),
             },
         ),
         (
-            'Important dates',
+            "Important dates",
             {
-                'fields': (
-                    'last_login',
+                "fields": (
+                    "last_used_at",
                 )
             }
         )

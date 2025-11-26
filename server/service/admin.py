@@ -1,6 +1,5 @@
 import secrets
 from django.contrib import admin
-from django.utils.html import format_html
 from service.models import ServiceTokenModel, ServiceTokenPermissionModel
 
 @admin.register(ServiceTokenModel)
@@ -20,6 +19,6 @@ class ServiceTokenAdmin(admin.ModelAdmin):
 
 @admin.register(ServiceTokenPermissionModel)
 class ServiceTokenPermissionAdmin(admin.ModelAdmin):
-    list_display = ("tts", "stt", "llm")
+    list_display = ("token__last_symbols", "tts", "stt", "llm", "history", "monitoring")
 
 

@@ -1,9 +1,20 @@
 from rest_framework import serializers
-
 from service.models import ServiceTokenModel
 
 
-class ServiceTokenSerializer(serializers.ModelSerializer):
+
+class ServiceTokenSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=100)
+    llm = serializers.ChoiceField(choices=[("enable", "enable"), ("disable", "disable")], default="disable")
+    tts = serializers.ChoiceField(choices=[("enable", "enable"), ("disable", "disable")], default="disable")
+    stt = serializers.ChoiceField(choices=[("enable", "enable"), ("disable", "disable")], default="disable")
+    history = serializers.ChoiceField(choices=[("read", "read"), ("write", "write"), ("disable", "disable")],
+                               default="disable")
+    monitoring = serializers.ChoiceField(choices=[("read", "read"), ("write", "write"), ("disable", "disable")],
+                                  default="disable")
+
+
+class ServiceTokenListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ServiceTokenModel

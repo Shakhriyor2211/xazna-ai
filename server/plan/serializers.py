@@ -8,7 +8,7 @@ class PlanLLMRateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PlanLLMRateModel
-        fields = ["credit_limit", "credit_time"]
+        fields = ["credit_limit", "credit_time", "session_limit", "context_limit"]
 
 
 class PlanTTSRateSerializer(serializers.ModelSerializer):
@@ -37,8 +37,6 @@ class PlanSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "description",
-            "llm_session",
-            "llm_context",
             "monthly_credit",
             "monthly_price",
             "monthly_discount",

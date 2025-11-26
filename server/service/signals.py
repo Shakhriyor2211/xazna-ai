@@ -9,10 +9,7 @@ from sub.models import SubModel
 @receiver(post_save, sender=ServiceTokenModel)
 def create_token(sender, instance, created, **kwargs):
     if created:
-        ServiceTokenPermissionModel.objects.create(token=instance)
-
         sub = SubModel.objects.filter(user=instance.user, status="active").first()
-
 
         TokenLLMRateModel.objects.create(token=instance, credit_limit=sub.llm_rate.credit_limit,
                                         credit_time=sub.llm_rate.credit_time,

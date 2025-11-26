@@ -154,7 +154,7 @@ class SignInView(APIView):
 
             user = UserSerializer(user_instance)
 
-            user_instance.last_login = timezone.now()
+            user_instance.last_used_at = timezone.now()
             user_instance.save()
 
             response = Response(data=user.data, status=status.HTTP_200_OK)
@@ -432,7 +432,7 @@ class GoogleOAuthView(APIView):
                 user.google_auth = True
                 user.save()
             else:
-                user.last_login = timezone.now()
+                user.last_used_at = timezone.now()
                 user.save()
 
             if not user.picture.portrait:
@@ -530,7 +530,7 @@ class GoogleOAuthView(APIView):
                 user.google_auth = True
                 user.save()
             else:
-                user.last_login = timezone.now()
+                user.last_used_at = timezone.now()
                 user.save()
 
             if not user.picture.portrait:

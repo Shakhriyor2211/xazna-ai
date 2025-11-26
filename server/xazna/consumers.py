@@ -1,4 +1,5 @@
 import json
+from django.utils import timezone
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.contrib.auth.models import AnonymousUser
@@ -42,6 +43,8 @@ class AuthWebsocketConsumer(AsyncWebsocketConsumer):
 
             user_id = payload.get("user_id") or payload.get("sub")
             user = await database_sync_to_async(CustomUserModel.objects.get)(id=user_id)
+            user.last_used_at = timezone.now()
+            await database_sync_to_async(user.save)()
 
             if user.is_blocked:
                 await self.send(json.dumps({
@@ -137,6 +140,8 @@ class TokenWebsocketConsumer(AsyncWebsocketConsumer):
         try:
             token = await database_sync_to_async(ServiceTokenModel.objects.get)(key=t)
             user = await sync_to_async(lambda: token.user)()
+            token.last_used_at = timezone.now()
+            await database_sync_to_async(token.save)()
 
             if token.is_blocked:
                 await self.send(json.dumps({

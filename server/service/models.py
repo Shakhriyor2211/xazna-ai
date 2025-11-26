@@ -1,4 +1,4 @@
-import uuid
+from django.utils import timezone
 from django.db import models
 from xazna.models import BaseModel
 
@@ -10,8 +10,7 @@ class ServiceTokenModel(BaseModel):
     last_symbols = models.CharField(max_length=4, unique=True)
     is_active = models.BooleanField(default=True)
     is_blocked = models.BooleanField(default=False)
-    last_used_at = models.DateTimeField(null=True, blank=True)
-
+    last_used_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.last_symbols
@@ -20,13 +19,15 @@ class ServiceTokenModel(BaseModel):
         verbose_name = "Token"
         verbose_name_plural = "Tokens"
         db_table = "service_token"
-        
+
 
 class ServiceTokenPermissionModel(BaseModel):
     token = models.OneToOneField("service.ServiceTokenModel", on_delete=models.CASCADE, related_name="permission")
-    tts = models.BooleanField(default=False)
-    stt = models.BooleanField(default=False)
-    llm = models.BooleanField(default=False)
+    llm = models.CharField(choices=[("enable", "enable"), ("disable", "disable")], default="disable")
+    tts = models.CharField(choices=[("enable", "enable"), ("disable", "disable")], default="disable")
+    stt = models.CharField(choices=[("enable", "enable"), ("disable", "disable")], default="disable")
+    history = models.CharField(choices=[("read", "read"), ("write", "write"), ("disable", "disable")], default="disable")
+    monitoring = models.CharField(choices=[("read", "read"), ("write", "write"), ("disable", "disable")], default="disable")
 
     def __str__(self):
         return f"""{self.id}"""
@@ -35,4 +36,3 @@ class ServiceTokenPermissionModel(BaseModel):
         verbose_name = "Permission"
         verbose_name_plural = "Permissions"
         db_table = "service_token_permission"
-

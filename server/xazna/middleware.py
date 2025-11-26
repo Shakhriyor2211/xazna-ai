@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.contrib.auth.models import AnonymousUser
 from django.http import JsonResponse
 from django.utils.deprecation import MiddlewareMixin
@@ -37,6 +38,8 @@ class AuthViewMiddleware(MiddlewareMixin):
 
             user_id = payload.get("user_id") or payload.get("sub")
             user = CustomUserModel.objects.get(id=user_id)
+            user.last_used_at = timezone.now()
+            user.save()
 
             if user.is_blocked:
                 return JsonResponse({"message": "Account is blocked.", "code": "account_blocked"}, status=403)
@@ -81,6 +84,8 @@ class TokenViewMiddleware(MiddlewareMixin):
 
         try:
             token = ServiceTokenModel.objects.get(key=t)
+            token.last_used_at = timezone.now()
+            token.save()
 
             if token.is_blocked:
                 return JsonResponse({"message": "Token is blocked.", "code": "token_blocked"}, status=403)
