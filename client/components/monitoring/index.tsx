@@ -5,9 +5,9 @@ import { MonitoringTable } from "./table";
 export function Monitoring() {
   return (
     <Layout title="Monitoring">
-      <div className="p-8 w-svw lg:w-full">
+      <section className="p-8 w-screen lg:w-full">
         <MonitoringTable />
-      </div>
+      </section>
     </Layout>
   );
 }

@@ -92,8 +92,10 @@ export function RegularSignIn() {
         errorMessage={error.email}
         size="sm"
         classNames={{
+          base: "relative",
           inputWrapper: "dark:bg-neutral-900 border-1 border-default-300",
           label: "text-default-500",
+          helperWrapper: "absolute top-full left-0 -mt-0.5",
         }}
         color="primary"
         variant="bordered"
@@ -107,9 +109,10 @@ export function RegularSignIn() {
         errorMessage={Boolean(error.password) ? error.password : error.general}
         size="sm"
         classNames={{
-          base: "mt-4",
+          base: "relative mt-6",
           inputWrapper: "dark:bg-neutral-900 border-1 border-default-300",
           label: "text-default-500",
+          helperWrapper: "absolute top-full left-0 -mt-0.5",
         }}
         color="primary"
         variant="bordered"
@@ -135,7 +138,7 @@ export function RegularSignIn() {
           </div>
         }
       />
-      <div className="mt-2 flex justify-end">
+      <div className="mt-4 flex justify-end">
         <Link href={ROUTES.password_reset} className="text-sm text-blue-600">
           Parolni unutdingizmi?
         </Link>

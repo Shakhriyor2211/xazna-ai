@@ -1,7 +1,7 @@
 import { useAlertStore } from "@/providers/alert";
 import { ENDPOINTS } from "@/shared/site";
 import { ContentHistoryProps } from "@/types";
-import { postRequest } from "@/utils/axios-instance";
+import { deleteRequest } from "@/utils/axios-instance";
 import {
   Button,
   Modal,
@@ -26,12 +26,11 @@ export function TTSDelete({ id, history, getHistory }: TTSDeleteProps) {
 
   const handleDelete = useCallback(async () => {
     try {
-      const _ = await postRequest({
-        url: ENDPOINTS.tts_delete,
-        data: { items: [id] },
+      const { data } = await deleteRequest({
+        url: `${ENDPOINTS.tts_item}/${id}`,
       });
-      if (history.results.length > 1)
-        getHistory(history.results.length, false);
+
+      if (data) getHistory(history.results.length, false);
     } catch {
       setAlert((prev) => ({
         ...prev,

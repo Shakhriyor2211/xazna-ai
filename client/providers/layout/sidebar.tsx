@@ -47,8 +47,19 @@ export function Sidebar() {
             <LuScanText className="h-5 w-5" />
             <span>Text to speech</span>
           </Link>
+          <Link
+            className={
+              pathname === ROUTES.monitoring
+                ? "flex items-center space-x-2 p-2 text-sm bg-primary/20 rounded-md text-green-700 font-medium"
+                : "flex items-center space-x-2 p-2 text-sm rounded-md hover:bg-default-100 text-default-700 font-medium"
+            }
+            href={ROUTES.monitoring}
+          >
+            <PiPresentationChart className="h-5 w-5" />
+            <span>Monitoring</span>
+          </Link>
         </div>
-        <h3 className="text-sm text-default-500 mb-2 mx-2 mt-6">Manage</h3>
+        <h3 className="text-sm text-default-500 mb-2 mx-2 mt-6">Development</h3>
         <div className="space-y-2">
           <Link
             className={
@@ -70,18 +81,7 @@ export function Sidebar() {
             href={"#"}
           >
             <PiKey className="h-5 w-5" />
-            <span>API keys</span>
-          </Link>
-          <Link
-            className={
-              pathname === ROUTES.monitoring
-                ? "flex items-center space-x-2 p-2 text-sm bg-primary/20 rounded-md text-green-700 font-medium"
-                : "flex items-center space-x-2 p-2 text-sm rounded-md hover:bg-default-100 text-default-700 font-medium"
-            }
-            href={ROUTES.monitoring}
-          >
-            <PiPresentationChart className="h-5 w-5" />
-            <span>Monitoring</span>
+            <span>Keys</span>
           </Link>
         </div>
       </div>

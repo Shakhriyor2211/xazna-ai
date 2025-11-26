@@ -46,7 +46,7 @@ export function SessionRename({
           return;
 
         const { data } = await putRequest({
-          url: `${ENDPOINTS.llm_session}/${session.id}`,
+          url: `${ENDPOINTS.llm_session_item}/${session.id}`,
           data: {
             title: title.trim(),
           },

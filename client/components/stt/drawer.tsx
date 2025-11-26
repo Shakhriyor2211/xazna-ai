@@ -51,7 +51,7 @@ export function STTDrawer({
       event.preventDefault();
       try {
         const _ = await putRequest({
-          url: `${ENDPOINTS.stt_change}/${sttData.id}`,
+          url: `${ENDPOINTS.stt_item}/${sttData.id}`,
           data: { text: newText },
         });
         setSttData((prev) => ({ ...prev, text: newText }));

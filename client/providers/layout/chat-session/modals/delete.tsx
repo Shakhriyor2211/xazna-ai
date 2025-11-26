@@ -38,7 +38,7 @@ export function SessionDelete({
   const handleSubmit = useCallback(async () => {
     try {
       const { data } = await deleteRequest({
-        url: `${ENDPOINTS.llm_session}/${session.id}`,
+        url: `${ENDPOINTS.llm_session_item}/${session.id}`,
       });
 
       if (data) {

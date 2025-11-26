@@ -1,7 +1,7 @@
 import { useAlertStore } from "@/providers/alert";
 import { ENDPOINTS } from "@/shared/site";
 import { ContentHistoryProps } from "@/types";
-import { postRequest } from "@/utils/axios-instance";
+import { deleteRequest } from "@/utils/axios-instance";
 import {
   Button,
   Modal,
@@ -26,11 +26,10 @@ export function STTDelete({ id, history, getHistory }: STTDeleteProps) {
 
   const handleDelete = useCallback(async () => {
     try {
-      const _ = await postRequest({
-        url: ENDPOINTS.stt_delete,
-        data: { items: [id] },
+      const { data } = await deleteRequest({
+        url: `${ENDPOINTS.stt_item}/${id}`,
       });
-      if (history.results.length > 1) getHistory(history.range);
+      if (data) getHistory(history.range);
       else {
         if (history.range - 1 > 0) {
           getHistory(history.range - 1);

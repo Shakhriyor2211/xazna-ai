@@ -128,7 +128,7 @@ export const SignUp = () => {
       }
     >
       <div className="h-svh flex items-center justify-center bg-white dark:bg-none dark:bg-black sm:dark:bg-neutral-900 sm:bg-gradient-to-b from-black to-primary">
-        <div className="container sm:w-[450px] sm:bg-white sm:dark:bg-black p-4 sm:p-8 sm:rounded-lg sm:shadow-md">
+        <div className="container sm:w-[500px] sm:bg-white sm:dark:bg-black p-4 sm:p-8 sm:rounded-lg sm:shadow-md">
           <div className="hidden sm:flex justify-end space-x-2 items-center">
             <LogoIcon height={32} />
             <span className="uppercase font-semibold">xazna ai</span>
@@ -137,7 +137,7 @@ export const SignUp = () => {
             Tizimga kirish
           </h1>
           <form noValidate onSubmit={handleSubmit}>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-y-6 gap-x-4">
               <Input
                 value={values.first_name}
                 onChange={handleChange}
@@ -145,9 +145,11 @@ export const SignUp = () => {
                 color="primary"
                 variant="bordered"
                 classNames={{
+                  base: "relative",
                   inputWrapper:
                     "dark:bg-neutral-900 border-1 border-default-300",
                   label: "text-default-500",
+                  helperWrapper: "absolute top-full left-0 -mt-0.5",
                 }}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
@@ -164,9 +166,11 @@ export const SignUp = () => {
                 color="primary"
                 variant="bordered"
                 classNames={{
+                  base: "relative",
                   inputWrapper:
                     "dark:bg-neutral-900 border-1 border-default-300",
                   label: "text-default-500",
+                  helperWrapper: "absolute top-full left-0 -mt-0.5",
                 }}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
@@ -183,9 +187,11 @@ export const SignUp = () => {
                 color="primary"
                 variant="bordered"
                 classNames={{
+                  base: "relative",
                   inputWrapper:
                     "dark:bg-neutral-900 border-1 border-default-300",
                   label: "text-default-500",
+                  helperWrapper: "absolute top-full left-0 -mt-0.5",
                 }}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
@@ -204,9 +210,11 @@ export const SignUp = () => {
                 color="primary"
                 variant="bordered"
                 classNames={{
+                  base: "relative",
                   inputWrapper:
                     "dark:bg-neutral-900 border-1 border-default-300",
                   label: "text-default-500",
+                  helperWrapper: "absolute top-full left-0 -mt-0.5",
                 }}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
@@ -224,9 +232,11 @@ export const SignUp = () => {
                 color="primary"
                 variant="bordered"
                 classNames={{
+                  base: "relative",
                   inputWrapper:
                     "dark:bg-neutral-900 border-1 border-default-300",
                   label: "text-default-500",
+                  helperWrapper: "absolute top-full left-0 -mt-0.5",
                 }}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
