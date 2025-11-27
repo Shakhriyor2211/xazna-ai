@@ -61,6 +61,8 @@ class UserExpenseModel(BaseModel):
     cash = models.DecimalField(max_digits=16, decimal_places=4, validators=[MinValueValidator(0)], default=0)
     user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE)
     consumer = models.CharField(choices=[("service", "service"), ("user", "user")], default="user")
+    is_deleted = models.BooleanField(default=False)
+
 
     class Meta:
         constraints = [
@@ -92,6 +94,7 @@ class TokenExpenseModel(BaseModel):
     cash = models.DecimalField(max_digits=16, decimal_places=4, validators=[MinValueValidator(0)], default=0)
     token = models.ForeignKey("service.ServiceTokenModel", on_delete=models.CASCADE)
     consumer = models.CharField(choices=[("service", "service"), ("user", "user")], default="user")
+    is_deleted = models.BooleanField(default=False)
 
     class Meta:
         constraints = [

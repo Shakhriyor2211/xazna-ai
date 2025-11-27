@@ -15,7 +15,7 @@ from shared.views import CustomPagination
 from django.db import transaction
 
 
-class SubRestartAPIView(APIView):
+class SubRestartView(APIView):
     auth_required = True
 
     @swagger_auto_schema(operation_description="Restart subscription...", tags=["Sub"])
@@ -69,7 +69,7 @@ class SubRestartAPIView(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class SubChangeAPIView(APIView):
+class SubChangeView(APIView):
     auth_required = True
 
     @swagger_auto_schema(operation_description='Change subscription...', request_body=SubChangeSerializer, tags=["Sub"])
@@ -150,7 +150,7 @@ class SubChangeAPIView(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class SubManageAPIView(APIView):
+class SubManageView(APIView):
     auth_required = True
 
     @swagger_auto_schema(operation_description='Manage subscription...', request_body=SubManageSerializer, tags=["Sub"])
@@ -170,7 +170,7 @@ class SubManageAPIView(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class SubListAPIView(APIView):
+class SubListView(APIView):
     auth_required = True
 
     @swagger_auto_schema(operation_description='Subscription list...', manual_parameters=[
@@ -199,7 +199,7 @@ class SubListAPIView(APIView):
         return paginator.get_paginated_response(serializer.data)
 
 
-class SubCheckAPIView(APIView):
+class SubCheckView(APIView):
     auth_required = True
     admin_required = True
 

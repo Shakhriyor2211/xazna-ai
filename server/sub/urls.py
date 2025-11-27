@@ -1,11 +1,11 @@
 from django.urls import path
-from sub.views import SubChangeAPIView, SubListAPIView, SubCheckAPIView, \
-    SubRestartAPIView, SubManageAPIView
+from sub.views import SubChangeView, SubListView, SubCheckView, \
+    SubRestartView, SubManageView
 
 urlpatterns = [
-    path("manage", SubManageAPIView.as_view(), name="subscription_manage"),
-    path("change", SubChangeAPIView.as_view(), name="subscription_change"),
-    path("restart", SubRestartAPIView.as_view(), name="subscription_restart"),
-    path("list", SubListAPIView.as_view(), name="subscription_list"),
-    path("check", SubCheckAPIView.as_view(), name="subscription_check"),
+    path("manage", SubManageView.as_view(), name="subscription_manage"),
+    path("change", SubChangeView.as_view(), name="subscription_change"),
+    path("restart", SubRestartView.as_view(), name="subscription_restart"),
+    path("list", SubListView.as_view(), name="subscription_list"),
+    path("check", SubCheckView.as_view(), name="subscription_check"),
 ]

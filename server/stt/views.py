@@ -21,7 +21,7 @@ from xazna.exceptions import CustomException
 client = OpenAI(base_url=settings.STT_SERVER, api_key=settings.STT_SERVER_API_KEY)
 
 
-class UserSTTAPIView(APIView):
+class UserSTTView(APIView):
     parser_classes = [MultiPartParser]
     auth_required = True
 
@@ -85,7 +85,7 @@ class UserSTTAPIView(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class TokenSTTAPIView(APIView):
+class TokenSTTView(APIView):
     parser_classes = [MultiPartParser]
     token_required = True
 
@@ -101,6 +101,10 @@ class TokenSTTAPIView(APIView):
     def post(self, request):
         audio_instance = None
         try:
+            permission = request.token.permission
+            if permission.stt == "disable":
+                return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+
             serializer = STTSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
 
@@ -158,7 +162,7 @@ class TokenSTTAPIView(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class UserSTTListAPIView(APIView):
+class UserSTTListView(APIView):
     auth_required = True
 
     @swagger_auto_schema(operation_description='STT list...', manual_parameters=[
@@ -188,7 +192,7 @@ class UserSTTListAPIView(APIView):
         return paginator.get_paginated_response(serializer.data)
 
 
-class TokenSTTListAPIView(APIView):
+class TokenSTTListView(APIView):
     token_required = True
 
     @swagger_auto_schema(operation_description='STT list...', manual_parameters=[
@@ -213,6 +217,10 @@ class TokenSTTListAPIView(APIView):
     tags=["STT"])
 
     def get(self, request):
+        permission = request.token.permission
+        if permission.history != "all" and permission.history != "read":
+            return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+
         ordering = request.query_params.get('ordering', '-created_at')
 
         queryset = TokenSTTModel.objects.filter(token=request.token, is_deleted=False).order_by(ordering)
@@ -225,7 +233,7 @@ class TokenSTTListAPIView(APIView):
         return paginator.get_paginated_response(serializer.data)
 
 
-class UserSTTItemAPIView(APIView):
+class UserSTTItemView(APIView):
     auth_required = True
 
     @swagger_auto_schema(
@@ -271,12 +279,12 @@ class UserSTTItemAPIView(APIView):
 
 
 
-class TokenSTTItemAPIView(APIView):
+class TokenSTTItemView(APIView):
     token_required = True
 
     @swagger_auto_schema(
         operation_description="STT change...",
-        request_body=UserSTTChangeSerializer,
+        request_body=TokenSTTChangeSerializer,
         manual_parameters=[
             openapi.Parameter(
                 name="token",
@@ -290,6 +298,10 @@ class TokenSTTItemAPIView(APIView):
     )
     def put(self, request, stt_id):
         try:
+            permission = request.token.permission
+            if permission.history != "all" and permission.history != "write":
+                return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+
             stt_instance = TokenSTTModel.objects.get(id=stt_id, token=request.token, is_deleted=False)
 
             serializer = TokenSTTChangeSerializer(
@@ -322,6 +334,10 @@ class TokenSTTItemAPIView(APIView):
     )
     def delete(self, request, stt_id):
         try:
+            permission = request.token.permission
+            if permission.history != "all" and permission.history != "write":
+                return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+
             stt = TokenSTTModel.objects.get(token=request.token, id=stt_id, is_deleted=False)
             stt.is_deleted = True
             stt.save()
@@ -333,7 +349,7 @@ class TokenSTTItemAPIView(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class UserSTTSearchAPIView(APIView):
+class UserSTTSearchView(APIView):
     auth_required = True
 
     @swagger_auto_schema(
@@ -354,7 +370,7 @@ class UserSTTSearchAPIView(APIView):
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
-class TokenSTTSearchAPIView(APIView):
+class TokenSTTSearchView(APIView):
     token_required = True
 
     @swagger_auto_schema(
@@ -376,6 +392,10 @@ class TokenSTTSearchAPIView(APIView):
         tags=["STT"]
     )
     def get(self, request):
+        permission = request.token.permission
+        if permission.history != "all" and permission.history != "read":
+            return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+
         q = request.GET['q'].strip()
         items = TokenSTTModel.objects.filter(audio__name__icontains=q, token=request.token, is_deleted=False).order_by('-created_at')
         serializer = TokenSTTListSerializer(items, many=True)

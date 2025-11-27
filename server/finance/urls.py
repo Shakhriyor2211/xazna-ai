@@ -1,13 +1,23 @@
 from django.urls import path
-from finance.views import BalanceManageAPIView, BalanceTopUpAPIView, TransactionListAPIView, \
-    BalanceAPIView, UserExpenseListAPIView, TokenExpenseListAPIView
+from django.urls.conf import include
+from finance.views import BalanceManageView, BalanceTopUpView, TransactionListView, \
+    BalanceView, UserExpenseListView, TokenExpenseListView, UserExpenseItemView, TokenExpenseItemView
 
+
+user_patterns = [
+    path("expense/list", UserExpenseListView.as_view(), name="user_expense_list"),
+    path("item/<uuid:expense_id>", UserExpenseItemView.as_view(), name="user_expense_item")
+]
+
+token_patterns = [
+    path("expense/list", TokenExpenseListView.as_view(), name="token_expense_list"),
+    path("item/<uuid:expense_id>", TokenExpenseItemView.as_view(), name="token_expense_item")
+]
 urlpatterns = [
-    path("info", BalanceAPIView.as_view(), name="balance_info"),
-    path("balance/manage", BalanceManageAPIView.as_view(), name="balance_manage"),
-    path("balance/top-up", BalanceTopUpAPIView.as_view(), name="balance_top_up"),
-    path("transaction/list", TransactionListAPIView.as_view(), name="transaction_list"),
-    path("user/expense/list", UserExpenseListAPIView.as_view(), name="user_expense_list"),
-    path("token/expense/list", TokenExpenseListAPIView.as_view(), name="token_expense_list"),
-
+    path("info", BalanceView.as_view(), name="balance_info"),
+    path("balance/manage", BalanceManageView.as_view(), name="balance_manage"),
+    path("balance/top-up", BalanceTopUpView.as_view(), name="balance_top_up"),
+    path("transaction/list", TransactionListView.as_view(), name="transaction_list"),
+    path("user/", include(user_patterns)),
+    path("token/", include(token_patterns))
 ]

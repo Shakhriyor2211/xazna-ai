@@ -19,7 +19,7 @@ from xazna.exceptions import CustomException
 
 client = triton_grpc.InferenceServerClient(url=settings.TTS_TRITON_SERVER, verbose=False)
 
-class TTSSettingsAPIView(APIView):
+class TTSSettingsView(APIView):
     auth_required = True
 
     @swagger_auto_schema(operation_description="TTS settings...", tags=["TTS"])
@@ -35,7 +35,7 @@ class TTSSettingsAPIView(APIView):
         }, status=status.HTTP_200_OK)
 
 
-class UserTTSAPIView(APIView):
+class UserTTSView(APIView):
     auth_required = True
 
     @swagger_auto_schema(
@@ -102,7 +102,7 @@ class UserTTSAPIView(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class TokenTTSAPIView(APIView):
+class TokenTTSView(APIView):
     token_required = True
 
     @swagger_auto_schema(
@@ -122,6 +122,10 @@ class TokenTTSAPIView(APIView):
     def post(self, request):
         text = None
         try:
+            permission = request.token.permission
+            if permission.tts == "disable":
+                return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+
             serializer = TokenTTSSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
 
@@ -176,7 +180,7 @@ class TokenTTSAPIView(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class UserTTSListAPIView(APIView):
+class UserTTSListView(APIView):
     auth_required = True
 
     @swagger_auto_schema(operation_description='TTS list...', manual_parameters=[
@@ -206,7 +210,7 @@ class UserTTSListAPIView(APIView):
         return paginator.get_paginated_response(serializer.data)
 
 
-class TokenTTSListAPIView(APIView):
+class TokenTTSListView(APIView):
     token_required = True
 
     @swagger_auto_schema(operation_description='TTS list...', manual_parameters=[
@@ -231,6 +235,10 @@ class TokenTTSListAPIView(APIView):
         tags=["TTS"]
     )
     def get(self, request):
+        permission = request.token.permission
+        if permission.history != "all" and permission.history != "read":
+            return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+
         ordering = request.query_params.get('ordering', '-created_at')
 
         queryset = TokenTTSModel.objects.filter(token=request.token, is_deleted=False).order_by(ordering)
@@ -243,7 +251,7 @@ class TokenTTSListAPIView(APIView):
         return paginator.get_paginated_response(serializer.data)
 
 
-class UserTTSSearchAPIView(APIView):
+class UserTTSSearchView(APIView):
     auth_required = True
 
     @swagger_auto_schema(
@@ -265,7 +273,7 @@ class UserTTSSearchAPIView(APIView):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
-class TokenTTSSearchAPIView(APIView):
+class TokenTTSSearchView(APIView):
     token_required = True
 
     @swagger_auto_schema(
@@ -287,13 +295,17 @@ class TokenTTSSearchAPIView(APIView):
         tags=["TTS"]
     )
     def get(self, request):
+        permission = request.token.permission
+        if permission.history != "all" and permission.history != "read":
+            return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+
         q = request.GET['q'].strip()
         items = TokenTTSModel.objects.filter(text__icontains=q, token=request.token, is_deleted=False).order_by('-created_at')
         serializer = TokenTTSListSerializer(items, many=True)
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
-class UserTTSItemAPIView(APIView):
+class UserTTSItemView(APIView):
     auth_required = True
 
     @swagger_auto_schema(
@@ -313,7 +325,7 @@ class UserTTSItemAPIView(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class TokenTTSItemAPIView(APIView):
+class TokenTTSItemView(APIView):
     token_required = True
 
     @swagger_auto_schema(
@@ -331,6 +343,10 @@ class TokenTTSItemAPIView(APIView):
     )
     def delete(self, request, tts_id):
         try:
+            permission = request.token.permission
+            if permission.history != "all" and permission.history != "write":
+                return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+
             tts = TokenTTSModel.objects.get(token=request.token, id=tts_id, is_deleted=False)
             tts.is_deleted = True
             tts.save()

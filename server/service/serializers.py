@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from service.models import ServiceTokenModel
-
+from service.models import ServiceTokenModel, ServiceTokenPermissionModel
 
 
 class ServiceTokenSerializer(serializers.Serializer):
@@ -14,11 +13,18 @@ class ServiceTokenSerializer(serializers.Serializer):
                                   default="disable")
 
 
+class ServiceTokenPermissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServiceTokenPermissionModel
+        fields = ["llm", "tts", "stt", "history", "monitoring"]
+
+
 class ServiceTokenListSerializer(serializers.ModelSerializer):
+    permission = ServiceTokenPermissionSerializer()
 
     class Meta:
         model = ServiceTokenModel
-        fields = ["id", "name", "last_symbols", "last_used_at", "created_at", "updated_at"]
+        fields = ["id", "name", "last_symbols", "permission", "is_active", "last_used_at", "created_at", "updated_at"]
         extra_kwargs = {
             "last_used_at": {"read_only": True},
             "last_symbols": {"read_only": True},

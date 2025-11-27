@@ -26,8 +26,8 @@ class ServiceTokenPermissionModel(BaseModel):
     llm = models.CharField(choices=[("enable", "enable"), ("disable", "disable")], default="disable")
     tts = models.CharField(choices=[("enable", "enable"), ("disable", "disable")], default="disable")
     stt = models.CharField(choices=[("enable", "enable"), ("disable", "disable")], default="disable")
-    history = models.CharField(choices=[("read", "read"), ("write", "write"), ("disable", "disable")], default="disable")
-    monitoring = models.CharField(choices=[("read", "read"), ("write", "write"), ("disable", "disable")], default="disable")
+    history = models.CharField(choices=[("read", "read"), ("write", "write"), ("all", "all"), ("disable", "disable")], default="disable")
+    monitoring = models.CharField(choices=[("read", "read"), ("write", "write"), ("all", "all"), ("disable", "disable")], default="disable")
 
     def __str__(self):
         return f"""{self.id}"""

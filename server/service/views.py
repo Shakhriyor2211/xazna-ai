@@ -8,6 +8,7 @@ from drf_yasg.utils import swagger_auto_schema
 from service.models import ServiceTokenModel, ServiceTokenPermissionModel
 
 from service.serializers import ServiceTokenListSerializer, ServiceTokenSerializer
+from shared.views import CustomPagination
 from xazna import settings
 from openai import OpenAI
 
@@ -15,7 +16,7 @@ tts_client = triton_grpc.InferenceServerClient(url=settings.TTS_TRITON_SERVER, v
 stt_client = OpenAI(base_url=settings.STT_SERVER, api_key=settings.STT_SERVER_API_KEY)
 
 
-class ServiceTokenAPIView(APIView):
+class ServiceTokenView(APIView):
     auth_required = True
 
     @swagger_auto_schema(operation_description='Token generate...', request_body=ServiceTokenSerializer,
@@ -43,7 +44,7 @@ class ServiceTokenAPIView(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class ServiceTokenItemAPIView(APIView):
+class ServiceTokenItemView(APIView):
     auth_required = True
 
     @swagger_auto_schema(operation_description='Token item...', tags=["Service"])
@@ -57,12 +58,28 @@ class ServiceTokenItemAPIView(APIView):
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    @swagger_auto_schema(operation_description="Delete session...", tags=["Service"])
+    def delete(self, request, token_id):
+        try:
+            token = ServiceTokenModel.objects.get(user=request.user, id=token_id)
+            token.delete()
 
-class ServiceTokenListAPIView(APIView):
+            return Response(data={'message': 'Data successfully deleted.'}, status=status.HTTP_200_OK)
+        except ServiceTokenModel.DoesNotExist:
+            return Response(data={"message": "Data not found."}, status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class ServiceTokenListView(APIView):
     auth_required = True
 
     @swagger_auto_schema(operation_description='Token list...', tags=["Service"])
     def get(self, request):
-        tokens = ServiceTokenModel.objects.filter(user=request.user).order_by("-created_at")
-        serializer = ServiceTokenListSerializer(tokens, many=True)
-        return Response(data=serializer.data, status=status.HTTP_200_OK)
+        ordering = request.query_params.get('ordering', '-created_at')
+        queryset = ServiceTokenModel.objects.filter(user=request.user).order_by(ordering)
+        paginator = CustomPagination()
+        paginated_qs = paginator.paginate_queryset(queryset, request)
+        serializer = ServiceTokenListSerializer(paginated_qs, many=True)
+
+        return paginator.get_paginated_response(serializer.data)

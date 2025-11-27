@@ -68,6 +68,7 @@ class TokenViewMiddleware(MiddlewareMixin):
         view_class = getattr(view_func, "view_class", None)
         token_required = getattr(view_class, "token_required", False) or getattr(view_func, "token_required", False)
         auth_required = getattr(view_class, "auth_required", False) or getattr(view_func, "auth_required", False)
+        required_rights = getattr(view_class, "required_rights", []) or getattr(view_func, "required_rights", [])
 
         if auth_required:
             return None
@@ -98,6 +99,10 @@ class TokenViewMiddleware(MiddlewareMixin):
 
             if not token.user.is_active:
                 return JsonResponse({"message": "Account is inactive.", "code": "account_inactive"}, status=403)
+
+            for right in required_rights:
+                if token.permission.history != "all" and token.permission.history != "read":
+                    return JsonResponse({"message": "Permission denied."}, status=403)
 
             request._user = token.user
             request.token = token

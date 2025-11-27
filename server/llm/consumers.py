@@ -136,7 +136,7 @@ class UserLLMConsumer(AuthWebsocketConsumer):
             await self.send(json.dumps({
                 "status": 500,
                 "type": "error",
-                "message": "Internal server error"
+                "message": "Internal server error."
             }))
             self.contents.append({"role": "assistant", "content": ""})
             await sync_to_async(UserLLMErrorLogModel.objects.create)(message=str(e), content=self.user_message.content,
@@ -319,6 +319,15 @@ class TokenLLMConsumer(TokenWebsocketConsumer):
                 await database_sync_to_async(self.session.save)()
 
     async def on_receive(self, request):
+        permission = await sync_to_async(lambda: self.token.permission)()
+        if permission.llm == "disable":
+            await self.send(json.dumps({
+                "status": 403,
+                "type": "error",
+                "message": "Permission denied."
+            }))
+            return
+
         data = json.loads(request)
         action = data.get("action")
 

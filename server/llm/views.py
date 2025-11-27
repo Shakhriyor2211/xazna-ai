@@ -13,7 +13,7 @@ from drf_yasg.utils import swagger_auto_schema
 from django.utils import timezone
 
 
-class UserLLMSessionListAPIView(APIView):
+class UserLLMSessionListView(APIView):
     auth_required = True
 
     @swagger_auto_schema(
@@ -26,7 +26,7 @@ class UserLLMSessionListAPIView(APIView):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
-class TokenLLMSessionListAPIView(APIView):
+class TokenLLMSessionListView(APIView):
     token_required = True
 
     @swagger_auto_schema(
@@ -43,12 +43,16 @@ class TokenLLMSessionListAPIView(APIView):
         tags=["LLM"]
     )
     def get(self, request):
+        permission = request.token.permission
+        if permission.history != "all" and permission.history != "read":
+            return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+
         sessions = TokenLLMSessionModel.objects.filter(token=request.token, is_deleted=False).order_by("-created_at")
         serializer = TokenLLMSessionSerializer(sessions, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
-class UserLLMMessageListAPIView(APIView):
+class UserLLMMessageListView(APIView):
     auth_required = True
 
     @swagger_auto_schema(
@@ -61,7 +65,7 @@ class UserLLMMessageListAPIView(APIView):
         serializer = UserLLMMessageSerializer(messages, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
-class TokenLLMMessageListAPIView(APIView):
+class TokenLLMMessageListView(APIView):
     token_required = True
 
     @swagger_auto_schema(
@@ -78,13 +82,17 @@ class TokenLLMMessageListAPIView(APIView):
         tags=["LLM"]
     )
     def get(self, request, session_id):
+        permission = request.token.permission
+        if permission.history != "all" and permission.history != "read":
+            return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+
         session = TokenLLMSessionModel.objects.filter(id=session_id, token=request.token, is_deleted=False).first()
         messages = session.messages.order_by("created_at")
         serializer = UserLLMMessageSerializer(messages, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
-class UserLLMSessionAPIView(APIView):
+class UserLLMSessionView(APIView):
     auth_required = True
 
     @swagger_auto_schema(
@@ -157,7 +165,7 @@ class UserLLMSessionAPIView(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class TokenLLMSessionAPIView(APIView):
+class TokenLLMSessionView(APIView):
     token_required = True
 
     @swagger_auto_schema(
@@ -184,6 +192,10 @@ class TokenLLMSessionAPIView(APIView):
     def post(self, request):
         cnt = None
         try:
+            permission = request.token.permission
+            if permission.llm == "disable":
+                return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+
             cnt = request.data.get("content")
             mdl = request.data.get("mdl")
 
@@ -239,7 +251,7 @@ class TokenLLMSessionAPIView(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class UserLLMSessionItemAPIView(APIView):
+class UserLLMSessionItemView(APIView):
     auth_required = True
 
     @swagger_auto_schema(
@@ -291,7 +303,7 @@ class UserLLMSessionItemAPIView(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class TokenLLMSessionItemAPIView(APIView):
+class TokenLLMSessionItemView(APIView):
     token_required = True
 
     @swagger_auto_schema(
@@ -316,6 +328,10 @@ class TokenLLMSessionItemAPIView(APIView):
     )
     def put(self, request, session_id):
         try:
+            permission = request.token.permission
+            if permission.history != "all" and permission.history != "write":
+                return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+
             title = request.data.get("title")
 
             if title is None:
@@ -347,6 +363,10 @@ class TokenLLMSessionItemAPIView(APIView):
     )
     def delete(self, request, session_id):
         try:
+            permission = request.token.permission
+            if permission.history != "all" and permission.history != "write":
+                return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+
             session = TokenLLMSessionModel.objects.get(token=request.token, id=session_id, is_deleted=False)
 
             session.is_deleted = True

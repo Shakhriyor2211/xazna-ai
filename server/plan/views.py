@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from drf_yasg.utils import swagger_auto_schema
 
 
-class PlanListAPIView(APIView):
+class PlanListView(APIView):
     @swagger_auto_schema(
         operation_description="Plan list..",
         tags=["Plan"]
