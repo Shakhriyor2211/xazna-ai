@@ -241,6 +241,17 @@ export function Header({ title }: { title: string }) {
         >
           Text to speech
         </Link>
+
+        <Link
+          className={
+            pathname === ROUTES.monitoring
+              ? "flex items-center space-x-2 p-2 text-sm bg-primary/20 rounded-md text-green-700 font-medium"
+              : "flex items-center space-x-2 p-2 text-sm rounded-md hover:bg-default-100 text-default-700 font-medium"
+          }
+          href={ROUTES.monitoring}
+        >
+          Monitoring
+        </Link>
         <Divider />
         <Link
           className={
@@ -252,16 +263,15 @@ export function Header({ title }: { title: string }) {
         >
           Docs
         </Link>
-
         <Link
           className={
-            pathname === ROUTES.monitoring
+            pathname === ROUTES.keys
               ? "flex items-center space-x-2 p-2 text-sm bg-primary/20 rounded-md text-green-700 font-medium"
               : "flex items-center space-x-2 p-2 text-sm rounded-md hover:bg-default-100 text-default-700 font-medium"
           }
-          href={ROUTES.monitoring}
+          href={ROUTES.keys}
         >
-          Monitoring
+          Keys
         </Link>
       </NavbarMenu>
     </Navbar>

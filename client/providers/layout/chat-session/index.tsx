@@ -6,7 +6,6 @@ import { MdArrowBackIos } from "react-icons/md";
 import { RiChatSmileAiLine } from "react-icons/ri";
 import { useAlertStore } from "../../alert";
 import { ChatSessionProps } from "@/types";
-
 import { PiPlus } from "react-icons/pi";
 import { Divider } from "@heroui/react";
 import { SessionDropdown } from "./drop-down";

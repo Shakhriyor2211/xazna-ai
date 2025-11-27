@@ -10,23 +10,15 @@ import {
   TableRow,
 } from "@heroui/table";
 import { Spinner } from "@heroui/spinner";
-
-import { ChipVariantProps } from "@heroui/theme";
-import { SortDescriptor } from "@react-types/shared";
+import { Key } from "@react-types/shared";
 
 import useDate from "@/hooks/date";
 import { useAlertStore } from "@/providers/alert";
 import { getRequest } from "@/utils/axios-instance";
 import { ENDPOINTS } from "@/shared/site";
 import { useMillify } from "@/hooks/millify";
-import { Toolbar } from "./toolbar";
+import { MonitoringTableToolbar } from "./toolbar";
 import { ExpenseProps } from "@/types";
-
-const statusColorMap: Record<string, ChipVariantProps["color"]> = {
-  pending: "warning",
-  completed: "success",
-  failed: "danger",
-};
 
 export function MonitoringTable() {
   const { longDate } = useDate();
@@ -37,50 +29,34 @@ export function MonitoringTable() {
     page_size: "4",
     page: 1,
     total: 0,
-    order: undefined,
+    order: {
+      column: "created_at",
+      direction: "descending",
+    },
     loading: true,
   });
 
-  const handleOrderChange = useCallback(
-    async ({ column, direction }: SortDescriptor) => {
-      setHistory((prev) => ({
-        ...prev,
-        order: { column, direction },
-      }));
-      try {
-        const { data } = await getRequest({
-          url: `${ENDPOINTS.monitorting_list}?page=${history.page}&page_size=${
-            history.page_size
-          }&ordering=${direction === "ascending" ? column : `-${column}`}`,
-        });
-        if (data && data.results.length > 0) {
-          setHistory((prev) => ({ ...prev, data: data.results }));
-        }
-      } finally {
-        setHistory((prev) => ({
-          ...prev,
-          loading: false,
-        }));
-      }
-    },
-    [history]
-  );
-
   const getHistory = useCallback(
-    async (page: number, page_size: string) => {
+    async (
+      page: number,
+      page_size: string,
+      column: Key,
+      direction: "ascending" | "descending"
+    ) => {
       try {
         const { data } = await getRequest({
-          url: `${ENDPOINTS.monitorting_list}?page=${page ?? history.page}&page_size=${
+          url: `${ENDPOINTS.monitorting_list}?page=${page}&page_size=${
             page_size
-          }`,
+          }&ordering=${direction === "ascending" ? column : `-${column}`}`,
         });
 
         if (data && data.results.length > 0) {
           setHistory((prev) => ({
             ...prev,
-            data: data.results,
             page,
             page_size,
+            order: { column, direction },
+            data: data.results,
             total: data.count,
           }));
         }
@@ -103,7 +79,12 @@ export function MonitoringTable() {
   );
 
   useEffect(() => {
-    getHistory(history.page, history.page_size);
+    getHistory(
+      history.page,
+      history.page_size,
+      history.order.column,
+      history.order.direction
+    );
   }, []);
 
   return (
@@ -121,7 +102,14 @@ export function MonitoringTable() {
           td: "text-xs sm:text-sm first:group-data-[first=true]/tr:before:rounded-none last:group-data-[first=true]/tr:before:rounded-none group-data-[middle=true]/tr:before:rounded-none group-data-[middle=true]/tr:before:rounded-none last:group-data-[last=true]/tr:before:rounded-none",
         }}
         sortDescriptor={history.order}
-        onSortChange={handleOrderChange}
+        onSortChange={(value) =>
+          getHistory(
+            history.page,
+            history.page_size,
+            value.column,
+            value.direction
+          )
+        }
       >
         <TableHeader>
           <TableColumn key={"counter"} align="start" allowsSorting>
@@ -167,7 +155,7 @@ export function MonitoringTable() {
       </Table>
 
       {history.total > 0 && !history.loading ? (
-        <Toolbar history={history} getHistory={getHistory} />
+        <MonitoringTableToolbar history={history} getHistory={getHistory} />
       ) : null}
     </div>
   );

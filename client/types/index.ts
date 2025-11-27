@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, SVGProps } from "react";
 import { AxiosError } from "axios";
 import { SortDescriptor } from "@heroui/react";
+import { Key } from "@react-types/shared";
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
@@ -143,41 +144,69 @@ interface TransactionResultsProps {
   updated_at: string;
 }
 
-export interface TransactionHistoryProps {
-  data: TransactionResultsProps[];
+
+export interface TableProps {
   page_size: string;
   page: number;
   total: number;
-  order: undefined | SortDescriptor;
+  order: SortDescriptor;
   loading: boolean;
-}
-
-export interface TransactionToolbarProps {
-  history: TransactionHistoryProps;
-  getHistory: (page: number, page_size: string) => void;
 }
 
 interface ExpenseResultsProps {
   id: number;
-  operation: "stt" | "tts";
+  operation: "stt" | "tts" | "llm";
   credit: string;
   cash: string;
   created_at: string;
   updated_at: string;
 }
 
-export interface ExpenseProps {
-  data: ExpenseResultsProps[];
-  page_size: string;
-  page: number;
-  total: number;
-  order: undefined | SortDescriptor;
-  loading: boolean;
+interface KeyResultsProps {
+  id: number;
+  name: string;
+  last_symbols: string;
+  is_active: boolean;
+  created_at: string;
 }
 
-export interface ExpenseToolbarProps {
+
+export interface ExpenseProps extends TableProps {
+  data: ExpenseResultsProps[];
+}
+
+
+export interface KeyProps extends TableProps {
+  data: KeyResultsProps[];
+}
+
+
+export interface TransactionProps extends TableProps {
+  data: TransactionResultsProps[];
+}
+
+export interface ExpenseTableProps {
   history: ExpenseProps;
-  getHistory: (page: number, page_size: string) => void;
+  getHistory: (page: number,
+    page_size: string,
+    column: Key,
+    direction: "ascending" | "descending") => void;
+}
+
+export interface KeyTableProps {
+  history: KeyProps;
+  getHistory: (page: number,
+    page_size: string,
+    column: Key,
+    direction: "ascending" | "descending") => void;
+}
+
+export interface TransactionTableProps {
+  history: TransactionProps;
+  getHistory: (page: number,
+    page_size: string,
+    column: Key,
+    direction: "ascending" | "descending") => void;
 }
 
 export interface PlansProps {

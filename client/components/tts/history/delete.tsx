@@ -64,7 +64,7 @@ export function TTSDelete({ id, history, getHistory }: TTSDeleteProps) {
               </ModalBody>
               <ModalFooter>
                 <Button variant="light" onPress={onClose}>
-                  Close
+                  Cancel
                 </Button>
                 <Button
                   color="danger"

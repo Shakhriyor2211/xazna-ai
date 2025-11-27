@@ -78,7 +78,7 @@ export function Sidebar() {
                 ? "flex items-center space-x-2 p-2 text-sm bg-primary/20 rounded-md text-green-700 font-medium"
                 : "flex items-center space-x-2 p-2 text-sm rounded-md hover:bg-default-100 text-default-700 font-medium"
             }
-            href={"#"}
+            href={ROUTES.keys}
           >
             <PiKey className="h-5 w-5" />
             <span>Keys</span>

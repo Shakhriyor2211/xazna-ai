@@ -68,7 +68,7 @@ export function STTDelete({ id, history, getHistory }: STTDeleteProps) {
               </ModalBody>
               <ModalFooter>
                 <Button variant="light" onPress={onClose}>
-                  Close
+                  Cancel
                 </Button>
                 <Button
                   color="danger"

@@ -1,25 +1,22 @@
-import { ExpenseToolbarProps } from "@/types";
+import { ExpenseTableProps } from "@/types";
 import { Pagination } from "@heroui/pagination";
 import { Select, SelectItem } from "@heroui/react";
 import { ChangeEvent, useCallback } from "react";
 
-export const Toolbar = ({ history, getHistory }: ExpenseToolbarProps) => {
+export const MonitoringTableToolbar = ({
+  history,
+  getHistory,
+}: ExpenseTableProps) => {
   const handleRowChange = useCallback(
     (event: ChangeEvent<HTMLSelectElement>) => {
       const value = event.target.value;
       if (value === history.page_size) return;
 
-      getHistory(1, value);
+      getHistory(1, value, history.order.column, history.order.direction);
     },
     [history]
   );
 
-  const handlePageChange = useCallback(
-    (page: number) => {
-      getHistory(page, history.page_size);
-    },
-    [history]
-  );
   return (
     <div className="py-2 px-2 flex flex-col lg:flex-row justify-between items-center mt-12 gap-4">
       <Pagination
@@ -29,7 +26,14 @@ export const Toolbar = ({ history, getHistory }: ExpenseToolbarProps) => {
         isDisabled={Math.ceil(history.total / Number(history.page_size)) === 1}
         page={history.page ?? 1}
         total={Math.ceil(history.total / Number(history.page_size))}
-        onChange={handlePageChange}
+        onChange={(page) =>
+          getHistory(
+            page,
+            history.page_size,
+            history.order.column,
+            history.order.direction
+          )
+        }
         color="primary"
       />
       <Select

@@ -1,6 +1,6 @@
 "use client";
 import { Layout } from "@/providers/layout";
-import { TransactionsHistory } from "./history";
+import { TransactionsTable } from "./table";
 import { TopUp } from "./modal/top-up";
 
 export function Transactions() {
@@ -10,7 +10,7 @@ export function Transactions() {
         <div className="flex justify-end">
           <TopUp />
         </div>
-        <TransactionsHistory />
+        <TransactionsTable />
       </div>
     </Layout>
   );

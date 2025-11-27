@@ -18,6 +18,7 @@ export const ROUTES = {
   chat: "/chat",
   sub: "/sub",
   transactions: "/transactions",
+  keys: "/keys",
 };
 
 export const ENDPOINTS = {
@@ -58,11 +59,14 @@ export const ENDPOINTS = {
   balance_manage: "finance/balance/manage",
   transaction_list: "finance/transaction/list",
   monitorting_list: "finance/user/expense/list",
+  key_list: "service/token/list",
   chat_session_generate: "llm/user/session/generate",
   llm_session_list: "llm/user/session/list",
   llm_session_item: "llm/user/session/item",
   llm_message: "llm/user/message",
   llm_message_list: "llm/user/session/message",
+  key_generate: "service/token/generate",
+  key_item: "service/token/item",
 };
 
 export const WS_SERVER_URL = process.env.NEXT_PUBLIC_WS_SERVER_URL;

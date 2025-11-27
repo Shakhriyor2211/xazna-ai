@@ -11,7 +11,7 @@ import {
   useCallback,
   useState,
 } from "react";
-import { PiDotsThreeBold, PiNotePencil, PiTrash } from "react-icons/pi";
+import { PiDotsThreeBold, PiPencilSimple, PiTrashSimple } from "react-icons/pi";
 import { ChatSessionProps } from "@/types";
 import { SessionRename } from "./modals/rename";
 import { SessionDelete } from "./modals/delete";
@@ -60,21 +60,21 @@ export function SessionDropdown({
             key="edit"
             variant="flat"
           >
-            <div className="flex space-x-2 text-default-700">
-              <PiNotePencil className="w-5 h-5" />
-              <span>Rename</span>
+            <div className="flex items-center space-x-2 text-default-700">
+              <PiPencilSimple className="w-4 h-4" />
+              <span>Edit</span>
             </div>
           </DropdownItem>
           <DropdownItem
             onPress={handleIsDeleteOpen}
             as="button"
             key="delete"
-            className="text-danger mt-1"
+            className="text-danger"
             variant="flat"
             color="danger"
           >
-            <div className="flex space-x-2 text-danger-500">
-              <PiTrash className="w-5 h-5" />
+            <div className="flex items-center space-x-2 text-danger-500">
+              <PiTrashSimple className="w-4 h-4" />
               <span>Delete</span>
             </div>
           </DropdownItem>
