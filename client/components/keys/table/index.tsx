@@ -9,9 +9,9 @@ import {
 import { Spinner } from "@heroui/spinner";
 import useDate from "@/hooks/date";
 import { KeyTableToolbar } from "./toolbar";
-import { Switch } from "@heroui/react";
 import { KeyTableProps } from "@/types";
 import { KeyDropdown } from "./drop-down";
+import { KeyManage } from "./manage";
 
 export function KeyTable({ history, getHistory }: KeyTableProps) {
   const { longDate } = useDate();
@@ -75,15 +75,11 @@ export function KeyTable({ history, getHistory }: KeyTableProps) {
                 <TableCell>{`***${item.last_symbols}`}</TableCell>
                 <TableCell>{longDate(item.created_at)}</TableCell>
                 <TableCell>
-                  <Switch
-                    size="sm"
-                    defaultSelected={item.is_active}
-                    aria-label="Enable status"
-                  />
+                  <KeyManage item={item} />
                 </TableCell>
                 <TableCell>
                   <KeyDropdown
-                    id={item.id}
+                    item={item}
                     history={history}
                     getHistory={getHistory}
                   />

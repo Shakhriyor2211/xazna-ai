@@ -1,6 +1,6 @@
 import { useAlertStore } from "@/providers/alert";
 import { ENDPOINTS } from "@/shared/site";
-import { deleteRequest, getRequest } from "@/utils/axios-instance";
+import { getRequest } from "@/utils/axios-instance";
 import {
   Button,
   Dropdown,
@@ -15,14 +15,15 @@ import {
   PiPencilSimple,
   PiTrashSimple,
 } from "react-icons/pi";
-import { KeyDelete } from "./delete";
-import { KeyTableProps } from "@/types";
+import { KeyResultsProps, KeyTableProps } from "@/types";
+import { DeleteKey } from "./delete";
+import { EditKey } from "../edit-key";
 
 interface KeyDropdownProps extends KeyTableProps {
-  id: number;
+  item: KeyResultsProps;
 }
 
-export function KeyDropdown({ id, history, getHistory }: KeyDropdownProps) {
+export function KeyDropdown({ item, history, getHistory }: KeyDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -32,7 +33,7 @@ export function KeyDropdown({ id, history, getHistory }: KeyDropdownProps) {
   const handleCopy = useCallback(async () => {
     try {
       const { data } = await getRequest({
-        url: `${ENDPOINTS.key_item}/${id}`,
+        url: `${ENDPOINTS.token_key}/${item.id}`,
       });
       if (data) {
         navigator.clipboard.writeText(data.key);
@@ -80,6 +81,7 @@ export function KeyDropdown({ id, history, getHistory }: KeyDropdownProps) {
         </DropdownTrigger>
         <DropdownMenu aria-label="menu action">
           <DropdownItem
+            textValue={"copy"}
             onPress={handleCopy}
             as="button"
             key="copy"
@@ -91,7 +93,8 @@ export function KeyDropdown({ id, history, getHistory }: KeyDropdownProps) {
             </div>
           </DropdownItem>
           <DropdownItem
-            // onPress={handleIsEditOpen}
+            textValue={"edit"}
+            onPress={handleIsEditOpen}
             as="button"
             key="edit"
             variant="flat"
@@ -102,6 +105,7 @@ export function KeyDropdown({ id, history, getHistory }: KeyDropdownProps) {
             </div>
           </DropdownItem>
           <DropdownItem
+            textValue={"delete"}
             onPress={handleIsDeleteOpen}
             as="button"
             key="delete"
@@ -116,12 +120,19 @@ export function KeyDropdown({ id, history, getHistory }: KeyDropdownProps) {
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
-      <KeyDelete
-        id={id}
+      <DeleteKey
+        id={item.id}
         history={history}
         getHistory={getHistory}
         setIsOpen={setIsDeleteOpen}
         isOpen={isDeleteOpen}
+      />
+      <EditKey
+        item={item}
+        history={history}
+        getHistory={getHistory}
+        setIsOpen={setIsEditOpen}
+        isOpen={isEditOpen}
       />
     </Fragment>
   );

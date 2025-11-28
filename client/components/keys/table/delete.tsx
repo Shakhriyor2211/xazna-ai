@@ -12,25 +12,25 @@ import {
 } from "@heroui/react";
 import { Dispatch, Fragment, SetStateAction, useCallback } from "react";
 
-interface KeyDeleteProps extends KeyTableProps {
+interface DeleteKeyProps extends KeyTableProps {
   id: number;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export function KeyDelete({
+export function DeleteKey({
   id,
   isOpen,
   setIsOpen,
   history,
   getHistory,
-}: KeyDeleteProps) {
+}: DeleteKeyProps) {
   const { setAlert } = useAlertStore();
 
   const handleDelete = useCallback(async () => {
     try {
       const { data } = await deleteRequest({
-        url: `${ENDPOINTS.key_item}/${id}`,
+        url: `${ENDPOINTS.token_item}/${id}`,
       });
 
       if (data) {

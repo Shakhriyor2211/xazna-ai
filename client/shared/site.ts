@@ -65,8 +65,10 @@ export const ENDPOINTS = {
   llm_session_item: "llm/user/session/item",
   llm_message: "llm/user/message",
   llm_message_list: "llm/user/session/message",
-  key_generate: "service/token/generate",
-  key_item: "service/token/item",
+  token_generate: "service/token/generate",
+  token_item: "service/token/item",
+  token_key: "service/token/key",
+  token_manage: "service/token/manage",
 };
 
 export const WS_SERVER_URL = process.env.NEXT_PUBLIC_WS_SERVER_URL;

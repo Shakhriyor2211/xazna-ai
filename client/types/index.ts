@@ -162,11 +162,18 @@ interface ExpenseResultsProps {
   updated_at: string;
 }
 
-interface KeyResultsProps {
+export interface KeyResultsProps {
   id: number;
   name: string;
   last_symbols: string;
   is_active: boolean;
+  permission: {
+    llm: "disable" | "enable",
+    tts: "disable" | "enable",
+    stt: "disable" | "enable",
+    history: "disable" | "write" | "read" | "all",
+    monitoring: "disable" | "write" | "read" | "all"
+  },
   created_at: string;
 }
 

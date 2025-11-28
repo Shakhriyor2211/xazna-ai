@@ -33,7 +33,7 @@ export function CreateKey({ history, getHistory }: KeyTableProps) {
 
   const handlePermissionChange = useCallback(
     (key: Key) => {
-      const [name, value] = JSON.stringify(key).split("-");
+      const [name, value] = (key as string).split("-");
       setPermissions((prev) => ({ ...prev, [name]: value }));
     },
     [permissions]
@@ -48,13 +48,20 @@ export function CreateKey({ history, getHistory }: KeyTableProps) {
       setError("This field is required.");
       return;
     }
-
     try {
       const { data } = await postRequest({
-        url: ENDPOINTS.key_generate,
+        url: ENDPOINTS.token_generate,
         data: { name, ...permissions },
       });
       if (data) {
+        setName("");
+        setPermissions({
+          llm: "disable",
+          tts: "disable",
+          stt: "disable",
+          history: "disable",
+          monitoring: "disable",
+        });
         onOpenChange();
         getHistory(
           history.page,
@@ -71,15 +78,6 @@ export function CreateKey({ history, getHistory }: KeyTableProps) {
         description: "Failed to create key.",
         isVisible: true,
       }));
-    } finally {
-      setName("");
-      setPermissions({
-        llm: "disable",
-        tts: "disable",
-        stt: "disable",
-        history: "disable",
-        monitoring: "disable",
-      });
     }
   }, [permissions, name]);
 

@@ -9,6 +9,8 @@ import { useAlertStore } from "@/providers/alert";
 import { SessionMessage } from "./message";
 import { ChatMessageProps } from "@/types";
 
+const HTTP_SERVER_URL = process.env.NEXT_PUBLIC_HTTP_SERVER_URL;
+
 export function ChatSession() {
   const { sessionId } = useParams();
   const { setAlert } = useAlertStore();
@@ -86,7 +88,7 @@ export function ChatSession() {
 
     const url =
       process.env.NEXT_PUBLIC_NODE_ENV === "dev"
-        ? `http://localhost:8000${ENDPOINTS.ws_client_base}/${ENDPOINTS.llm_message}/${sessionId}`
+        ? `${HTTP_SERVER_URL}${ENDPOINTS.ws_client_base}/${ENDPOINTS.llm_message}/${sessionId}`
         : `${ENDPOINTS.ws_client_base}/${ENDPOINTS.llm_message}/${sessionId}`;
 
     ws.current = new WebSocket(url);
