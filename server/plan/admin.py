@@ -9,6 +9,8 @@ class PlanAdmin(admin.ModelAdmin):
         "title",
         "monthly_credit",
         "annual_credit",
+        "monthly_price",
+        "annual_price",
         "user",
         "created_at"
     )
