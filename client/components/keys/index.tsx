@@ -76,8 +76,8 @@ export function Keys() {
   }, []);
   return (
     <Layout title="Key management">
-      <section className="p-8 w-screen lg:w-full space-y-4">
-        <div className="flex justify-end">
+      <section className="p-8 w-screen lg:w-full">
+        <div className="flex justify-end mb-4">
           <CreateKey history={history} getHistory={getHistory} />
         </div>
         <KeyTable history={history} getHistory={getHistory} />

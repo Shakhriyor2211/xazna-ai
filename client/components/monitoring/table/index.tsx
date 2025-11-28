@@ -91,14 +91,12 @@ export function MonitoringTable() {
     <div>
       <Table
         isCompact
-        removeWrapper
         aria-label="Monitoring Table"
         isHeaderSticky
         classNames={{
-          base: "max-h-[680px] w-full text-xs sm:text-sm overflow-x-auto",
-          table: "w-full overflow-x-auto",
+          base: "max-h-[512px] w-full text-xs sm:text-sm",
+          table: "w-full h-full overflow-auto",
           thead: "[&>tr]:first:rounded-none [&>tr]:first:shadow-none",
-          th: "bg-transparent text-default-500 border-b border-divider shadow-none first:rounded-none last:rounded-none",
           td: "text-xs sm:text-sm first:group-data-[first=true]/tr:before:rounded-none last:group-data-[first=true]/tr:before:rounded-none group-data-[middle=true]/tr:before:rounded-none group-data-[middle=true]/tr:before:rounded-none last:group-data-[last=true]/tr:before:rounded-none",
         }}
         sortDescriptor={history.order}
@@ -115,9 +113,7 @@ export function MonitoringTable() {
           <TableColumn key={"counter"} align="start" allowsSorting>
             #
           </TableColumn>
-          <TableColumn key={"id"} align="start" allowsSorting>
-            ID
-          </TableColumn>
+
           <TableColumn key={"operation"} align="start" allowsSorting>
             OPERATION
           </TableColumn>
@@ -139,15 +135,21 @@ export function MonitoringTable() {
         >
           {history.data.map((item, i) => {
             return (
-              <TableRow key={item.id}>
+              <TableRow
+                className="not-last:border-b border-b-divider"
+                key={item.id}
+              >
                 <TableCell>{i + 1}</TableCell>
-                <TableCell className="max-w-40 truncate">{item.id}</TableCell>
-                <TableCell className="uppercase">{item.operation}</TableCell>
-                <TableCell className="uppercase">{item.credit}</TableCell>
-                <TableCell className="uppercase">
+                <TableCell className="uppercase py-2">
+                  {item.operation}
+                </TableCell>
+                <TableCell className="uppercase py-2">{item.credit}</TableCell>
+                <TableCell className="uppercase py-2">
                   {`${useMillify(Number(item.cash))} UZS`}
                 </TableCell>
-                <TableCell>{longDate(item.created_at)}</TableCell>
+                <TableCell className="py-2">
+                  {longDate(item.created_at)}
+                </TableCell>
               </TableRow>
             );
           })}

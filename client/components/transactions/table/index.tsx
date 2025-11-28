@@ -96,14 +96,12 @@ export function TransactionsTable() {
     <div>
       <Table
         isCompact
-        removeWrapper
         aria-label="Transaction Table"
         isHeaderSticky
         classNames={{
-          base: "max-h-[680px] w-full text-xs sm:text-sm overflow-x-auto",
-          table: "w-full overflow-x-auto",
+          base: "max-h-[512px] w-full text-xs sm:text-sm",
+          table: "w-full h-full overflow-auto",
           thead: "[&>tr]:first:rounded-none [&>tr]:first:shadow-none",
-          th: "bg-transparent text-default-500 border-b border-divider shadow-none first:rounded-none last:rounded-none",
           td: "text-xs sm:text-sm first:group-data-[first=true]/tr:before:rounded-none last:group-data-[first=true]/tr:before:rounded-none group-data-[middle=true]/tr:before:rounded-none group-data-[middle=true]/tr:before:rounded-none last:group-data-[last=true]/tr:before:rounded-none",
         }}
         sortDescriptor={history.order}
@@ -141,18 +139,23 @@ export function TransactionsTable() {
         >
           {history.data.map((item, i) => {
             return (
-              <TableRow key={item.id}>
-                <TableCell>
+              <TableRow
+                className="not-last:border-b border-b-divider"
+                key={item.id}
+              >
+                <TableCell className="py-2">
                   {history.order.direction === "descending"
                     ? i + 1
                     : history.data.length - i}
                 </TableCell>
-                <TableCell className="uppercase">
+                <TableCell className="uppercase py-2">
                   {`${useMillify(Number(item.amount))} ${item.currency}`}
                 </TableCell>
-                <TableCell className="uppercase">{item.provider}</TableCell>
+                <TableCell className="uppercase py-2">
+                  {item.provider}
+                </TableCell>
 
-                <TableCell>
+                <TableCell className="py-2">
                   <Chip
                     classNames={{
                       content: "w-24 uppercase",
@@ -164,7 +167,9 @@ export function TransactionsTable() {
                     {item.status}
                   </Chip>
                 </TableCell>
-                <TableCell>{longDate(item.created_at)}</TableCell>
+                <TableCell className="py-2">
+                  {longDate(item.created_at)}
+                </TableCell>
               </TableRow>
             );
           })}

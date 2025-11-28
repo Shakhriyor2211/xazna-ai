@@ -28,9 +28,17 @@ export function KeyManage({ item }: { item: KeyResultsProps }) {
   return (
     <Switch
       size="sm"
-      onValueChange={handleSettings}
       defaultSelected={item.is_active}
-      aria-label="Enable status"
+      onValueChange={handleSettings}
+      classNames={{
+        wrapper: "p-0 h-3 overflow-visible",
+        thumb: [
+          "w-5 h-5 border-2 shadow-lg border-default-300",
+          "group-data-[selected=true]:ms-6 group-data-[selected=true]:border-primary",
+          "group-data-[pressed=true]:w-7",
+          "group-data-pressed:group-data-selected:ms-4",
+        ],
+      }}
     />
   );
 }

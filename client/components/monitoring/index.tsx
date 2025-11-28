@@ -5,7 +5,7 @@ import { MonitoringTable } from "./table";
 export function Monitoring() {
   return (
     <Layout title="Monitoring">
-      <section className="p-8 w-screen lg:w-full">
+      <section className="p-8 w-screen lg:w-full space-y-4">
         <MonitoringTable />
       </section>
     </Layout>

@@ -86,7 +86,7 @@ export function CreateKey({ history, getHistory }: KeyTableProps) {
       <Button
         onPress={onOpen}
         color="primary"
-        startContent={<PiPlus className="w-4 h-4" />}
+        startContent={<PiPlus className="w-4 h-4 shrink-0" />}
       >
         Create key
       </Button>

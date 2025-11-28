@@ -20,14 +20,12 @@ export function KeyTable({ history, getHistory }: KeyTableProps) {
     <div>
       <Table
         isCompact
-        removeWrapper
         aria-label="Monitoring Table"
         isHeaderSticky
         classNames={{
-          base: "max-h-[680px] w-full text-xs sm:text-sm overflow-x-auto",
-          table: "w-full overflow-x-auto",
+          base: "max-h-[512px] w-full text-xs sm:text-sm",
+          table: "w-full h-full overflow-auto",
           thead: "[&>tr]:first:rounded-none [&>tr]:first:shadow-none",
-          th: "bg-transparent text-default-500 border-b border-divider shadow-none first:rounded-none last:rounded-none",
           td: "text-xs sm:text-sm first:group-data-[first=true]/tr:before:rounded-none last:group-data-[first=true]/tr:before:rounded-none group-data-[middle=true]/tr:before:rounded-none group-data-[middle=true]/tr:before:rounded-none last:group-data-[last=true]/tr:before:rounded-none",
         }}
         sortDescriptor={history.order}
@@ -65,19 +63,26 @@ export function KeyTable({ history, getHistory }: KeyTableProps) {
         >
           {history.data.map((item, i) => {
             return (
-              <TableRow key={item.id}>
-                <TableCell>
+              <TableRow
+                className="not-last:border-b border-b-divider"
+                key={item.id}
+              >
+                <TableCell className="py-2">
                   {history.order.direction === "descending"
                     ? i + 1
                     : history.data.length - i}
                 </TableCell>
-                <TableCell className="max-w-40 truncate">{item.name}</TableCell>
-                <TableCell>{`***${item.last_symbols}`}</TableCell>
-                <TableCell>{longDate(item.created_at)}</TableCell>
-                <TableCell>
+                <TableCell className="max-w-40 truncate py-2">
+                  {item.name}
+                </TableCell>
+                <TableCell className="py-2">{`***${item.last_symbols}`}</TableCell>
+                <TableCell className="py-2">
+                  {longDate(item.created_at)}
+                </TableCell>
+                <TableCell className="py-2">
                   <KeyManage item={item} />
                 </TableCell>
-                <TableCell>
+                <TableCell className="py-2">
                   <KeyDropdown
                     item={item}
                     history={history}
