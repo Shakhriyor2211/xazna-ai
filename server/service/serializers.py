@@ -7,11 +7,14 @@ class ServiceTokenSerializer(serializers.Serializer):
     llm = serializers.ChoiceField(choices=[("enable", "enable"), ("disable", "disable")], default="disable")
     tts = serializers.ChoiceField(choices=[("enable", "enable"), ("disable", "disable")], default="disable")
     stt = serializers.ChoiceField(choices=[("enable", "enable"), ("disable", "disable")], default="disable")
-    history = serializers.ChoiceField(choices=[("read", "read"), ("write", "write"), ("disable", "disable")],
+    history = serializers.ChoiceField(choices=[("read", "read"), ("write", "write"), ("all", "all"), ("disable", "disable")],
                                default="disable")
-    monitoring = serializers.ChoiceField(choices=[("read", "read"), ("write", "write"), ("disable", "disable")],
+    monitoring = serializers.ChoiceField(choices=[("read", "read"), ("write", "write"), ("all", "all"), ("disable", "disable")],
                                   default="disable")
 
+
+class ServiceTokenManageSerializer(serializers.Serializer):
+    is_active = serializers.BooleanField()
 
 class ServiceTokenPermissionSerializer(serializers.ModelSerializer):
     class Meta:

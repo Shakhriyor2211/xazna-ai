@@ -6,8 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 from service.models import ServiceTokenModel, ServiceTokenPermissionModel
-
-from service.serializers import ServiceTokenListSerializer, ServiceTokenSerializer
+from service.serializers import ServiceTokenListSerializer, ServiceTokenSerializer, ServiceTokenManageSerializer
 from shared.views import CustomPagination
 from xazna import settings
 from openai import OpenAI
@@ -44,10 +43,10 @@ class ServiceTokenView(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class ServiceTokenItemView(APIView):
+class ServiceTokenKeyView(APIView):
     auth_required = True
 
-    @swagger_auto_schema(operation_description='Token item...', tags=["Service"])
+    @swagger_auto_schema(operation_description='Token key...', tags=["Service"])
     def get(self, request, token_id):
         try:
             token = ServiceTokenModel.objects.get(user=request.user, id=token_id)
@@ -58,7 +57,43 @@ class ServiceTokenItemView(APIView):
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    @swagger_auto_schema(operation_description="Delete session...", tags=["Service"])
+
+class ServiceTokenItemView(APIView):
+    auth_required = True
+
+    @swagger_auto_schema(
+        operation_description="Edit token permissions...",
+        request_body=ServiceTokenSerializer,
+        tags=["Service"]
+    )
+    def put(self, request, token_id):
+        try:
+            serializer = ServiceTokenSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+
+            token = ServiceTokenModel.objects.get(id=token_id, user=request.user)
+            permission = token.permission
+
+            token.name = serializer.validated_data["name"]
+            permission.llm = serializer.validated_data["llm"]
+            permission.tts = serializer.validated_data["tts"]
+            permission.stt = serializer.validated_data["stt"]
+            permission.history = serializer.validated_data["history"]
+            permission.monitoring = serializer.validated_data["monitoring"]
+
+            token.save()
+            permission.save()
+
+            return Response(data={'message': 'Data successfully edited.'}, status=status.HTTP_200_OK)
+        except ServiceTokenModel.DoesNotExist:
+            return Response(data={"message": "Data not found."}, status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    @swagger_auto_schema(
+        operation_description="Delete token...",
+        tags=["Service"]
+    )
     def delete(self, request, token_id):
         try:
             token = ServiceTokenModel.objects.get(user=request.user, id=token_id)
@@ -67,6 +102,27 @@ class ServiceTokenItemView(APIView):
             return Response(data={'message': 'Data successfully deleted.'}, status=status.HTTP_200_OK)
         except ServiceTokenModel.DoesNotExist:
             return Response(data={"message": "Data not found."}, status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+class ServiceTokenManageView(APIView):
+    auth_required = True
+
+    @swagger_auto_schema(operation_description='Token list...', tags=["Service"])
+    def put(self, request, token_id):
+        try:
+            serializer = ServiceTokenManageSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+
+            token = ServiceTokenModel.objects.get(user=request.user, id=token_id)
+            token.is_active = serializer.validated_data["is_active"]
+            token.save()
+
+            return Response(data={"message": "Token settings changed successfully."}, status=status.HTTP_200_OK)
+        except ServiceTokenModel.DoesNotExist:
+            return Response(data={"message": "Token not found."}, status=status.HTTP_404_NOT_FOUND)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

@@ -153,7 +153,7 @@ class BalanceManageView(APIView):
             )
             serializer.is_valid(raise_exception=True)
             serializer.save()
-            return Response(data=serializer.data, status=status.HTTP_200_OK)
+            return Response(data={"message": "Balance settings changed successfully."}, status=status.HTTP_200_OK)
 
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
