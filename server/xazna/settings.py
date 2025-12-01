@@ -35,7 +35,7 @@ CELERY_BEAT_SCHEDULE = {
         }
     },
     "check-subscriptions-daily": {
-        "task": "finance.tasks.check_subscriptions",
+        "task": "finance.tasks.check_subs",
         "schedule": crontab(hour=0, minute=0),  # every day at 00:00 server time
         "options": {
             "queue": "check",
