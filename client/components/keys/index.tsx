@@ -38,7 +38,7 @@ export function Keys() {
           }&ordering=${direction === "ascending" ? column : `-${column}`}`,
         });
 
-        if (data && data.results.length > 0) {
+        if (data) {
           setHistory((prev) => ({
             ...prev,
             page,

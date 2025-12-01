@@ -34,6 +34,8 @@ export function DeleteKey({
       });
 
       if (data) {
+        console.log(data);
+
         setAlert((prev) => ({
           ...prev,
           title: "",
