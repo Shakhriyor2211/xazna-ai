@@ -20,7 +20,7 @@ import { useMillify } from "@/hooks/millify";
 import { MonitoringTableToolbar } from "./toolbar";
 import { ExpenseProps } from "@/types";
 
-export function MonitoringTable() {
+export function KeyMonitoringTable({ id }: { id: string }) {
   const { longDate } = useDate();
   const { setAlert } = useAlertStore();
 
@@ -45,7 +45,7 @@ export function MonitoringTable() {
     ) => {
       try {
         const { data } = await getRequest({
-          url: `${ENDPOINTS.monitorting_list}?page=${page}&page_size=${
+          url: `${ENDPOINTS.key_monitorting_list}/${id}?page=${page}&page_size=${
             page_size
           }&ordering=${direction === "ascending" ? column : `-${column}`}`,
         });
@@ -64,7 +64,7 @@ export function MonitoringTable() {
         setAlert((prev) => ({
           ...prev,
           color: "danger",
-          title: "Task load error",
+          title: "",
           description: "Failed to load history.",
           isVisible: true,
         }));

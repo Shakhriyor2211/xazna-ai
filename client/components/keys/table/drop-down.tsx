@@ -1,5 +1,5 @@
 import { useAlertStore } from "@/providers/alert";
-import { ENDPOINTS } from "@/shared/site";
+import { ENDPOINTS, ROUTES } from "@/shared/site";
 import { getRequest } from "@/utils/axios-instance";
 import {
   Button,
@@ -13,6 +13,7 @@ import {
   PiCopySimple,
   PiDotsThreeBold,
   PiPencilSimple,
+  PiPresentationChart,
   PiTrashSimple,
 } from "react-icons/pi";
 import { KeyResultsProps, KeyTableProps } from "@/types";
@@ -80,6 +81,18 @@ export function KeyDropdown({ item, history, getHistory }: KeyDropdownProps) {
           </Button>
         </DropdownTrigger>
         <DropdownMenu aria-label="menu action">
+          <DropdownItem
+            textValue={"copy"}
+            href={`${ROUTES.keys}/${item.id}${ROUTES.key_monitoring}`}
+            as="a"
+            key="monitoring"
+            variant="flat"
+          >
+            <div className="flex items-center space-x-2 text-default-700">
+              <PiPresentationChart className="w-4 h-4" />
+              <span>Monitoring</span>
+            </div>
+          </DropdownItem>
           <DropdownItem
             textValue={"copy"}
             onPress={handleCopy}

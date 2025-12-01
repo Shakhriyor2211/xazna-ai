@@ -1,12 +1,12 @@
 "use client";
 import { Layout } from "@/providers/layout";
-import { MonitoringTable } from "./table";
+import { UserMonitoringTable } from "./table";
 
-export function Monitoring() {
+export function UserMonitoring() {
   return (
     <Layout title="Monitoring">
       <section className="p-8 w-screen lg:w-full space-y-4">
-        <MonitoringTable />
+        <UserMonitoringTable />
       </section>
     </Layout>
   );

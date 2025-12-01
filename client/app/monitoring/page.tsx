@@ -1,1 +1,1 @@
-export { Monitoring as default } from "@/components/monitoring";
+export { UserMonitoring as default } from "@/components/user-monitoring";
