@@ -1,9 +1,18 @@
+import uuid
+
 from django.utils import timezone
 from django.db import models
 from xazna.models import BaseModel
 
 
 class ServiceTokenModel(BaseModel):
+    id = models.UUIDField(
+        max_length=36,
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+        unique=True
+    )
     name = models.CharField(max_length=100)
     user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE, related_name="token")
     key = models.TextField(unique=True)

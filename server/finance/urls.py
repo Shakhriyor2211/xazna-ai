@@ -1,11 +1,12 @@
 from django.urls import path
 from django.urls.conf import include
 from finance.views import BalanceManageView, BalanceTopUpView, TransactionListView, \
-    BalanceView, UserExpenseListView, TokenExpenseListView, UserExpenseItemView, TokenExpenseItemView
-
+    BalanceView, UserExpenseListView, TokenExpenseListView, UserExpenseItemView, TokenExpenseItemView, \
+    UserTokenExpenseListView
 
 user_patterns = [
     path("expense/list", UserExpenseListView.as_view(), name="user_expense_list"),
+    path("token/expense/list/<uuid:token_id>", UserTokenExpenseListView.as_view(), name="user_token_expense_list"),
     path("item/<uuid:expense_id>", UserExpenseItemView.as_view(), name="user_expense_item")
 ]
 

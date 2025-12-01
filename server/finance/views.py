@@ -3,7 +3,7 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from finance.models import TransactionModel, UserExpenseModel, TokenExpenseModel
 from finance.serializers import BalanceManageSerializer, TransactionSerializer, UserExpenseListSerializer, \
-    BalanceSerializer
+    BalanceSerializer, TokenExpenseListSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from shared.views import CustomPagination
@@ -28,6 +28,25 @@ class UserExpenseListView(APIView):
 
         return paginator.get_paginated_response(serializer.data)
 
+
+class UserTokenExpenseListView(APIView):
+    auth_required = True
+
+    @swagger_auto_schema(
+        operation_description='Expense list...',
+        tags=["Finance"])
+    def get(self, request, token_id):
+        ordering = request.query_params.get('ordering', '-created_at')
+
+        queryset = TokenExpenseModel.objects.filter(token=token_id, token__user=request.user, is_deleted=False).order_by(ordering)
+
+        paginator = CustomPagination()
+        paginated_qs = paginator.paginate_queryset(queryset, request)
+
+        serializer = TokenExpenseListSerializer(paginated_qs, many=True)
+
+
+        return paginator.get_paginated_response(serializer.data)
 
 class TokenExpenseListView(APIView):
     token_required = True
@@ -56,9 +75,10 @@ class TokenExpenseListView(APIView):
         paginator = CustomPagination()
         paginated_qs = paginator.paginate_queryset(queryset, request)
 
-        serializer = UserExpenseListSerializer(paginated_qs, many=True)
+        serializer = TokenExpenseListSerializer(paginated_qs, many=True)
 
         return paginator.get_paginated_response(serializer.data)
+
 
 
 class UserExpenseItemView(APIView):
