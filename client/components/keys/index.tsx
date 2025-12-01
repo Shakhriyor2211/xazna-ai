@@ -52,7 +52,7 @@ export function Keys() {
         setAlert((prev) => ({
           ...prev,
           color: "danger",
-          title: "Task load error",
+          title: "",
           description: "Failed to load history.",
           isVisible: true,
         }));
