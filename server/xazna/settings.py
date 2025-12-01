@@ -34,12 +34,12 @@ CELERY_BEAT_SCHEDULE = {
             "routing_key": "clean.tokens"
         }
     },
-    "check-subscriptions-daily": {
+    "check-subs-daily": {
         "task": "finance.tasks.check_subs",
         "schedule": crontab(hour=0, minute=0),  # every day at 00:00 server time
         "options": {
             "queue": "check",
-            "routing_key": "check.subscriptions"
+            "routing_key": "check.subs"
         }
     }
 }
