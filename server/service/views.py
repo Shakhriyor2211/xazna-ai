@@ -49,7 +49,6 @@ class ServiceTokenKeyView(APIView):
     @swagger_auto_schema(operation_description='Token key...', tags=["Service"])
     def get(self, request, token_id):
         try:
-            print(token_id)
             token = ServiceTokenModel.objects.get(user=request.user, id=token_id)
 
             return Response(data={"key": token.key}, status=status.HTTP_200_OK)
