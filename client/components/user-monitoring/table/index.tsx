@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -88,7 +88,7 @@ export function UserMonitoringTable() {
   }, []);
 
   return (
-    <div>
+    <Fragment>
       <Table
         isCompact
         aria-label="Monitoring Table"
@@ -159,6 +159,6 @@ export function UserMonitoringTable() {
       {history.total > 0 && !history.loading ? (
         <MonitoringTableToolbar history={history} getHistory={getHistory} />
       ) : null}
-    </div>
+    </Fragment>
   );
 }

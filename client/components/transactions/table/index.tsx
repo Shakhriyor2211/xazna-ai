@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -93,7 +93,7 @@ export function TransactionsTable() {
   }, []);
 
   return (
-    <div>
+    <Fragment>
       <Table
         isCompact
         aria-label="Transaction Table"
@@ -178,6 +178,6 @@ export function TransactionsTable() {
       {history.total > 0 && !history.loading ? (
         <TransactionTableToolbar history={history} getHistory={getHistory} />
       ) : null}
-    </div>
+    </Fragment>
   );
 }

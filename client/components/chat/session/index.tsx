@@ -8,6 +8,8 @@ import { ENDPOINTS, ROUTES } from "@/shared/site";
 import { useAlertStore } from "@/providers/alert";
 import { SessionMessage } from "./message";
 import { ChatMessageProps } from "@/types";
+import { Header } from "@/components/navigation/header";
+import { Sidebar } from "@/components/navigation/sidebar";
 
 const HTTP_SERVER_URL = process.env.NEXT_PUBLIC_HTTP_SERVER_URL;
 
@@ -177,20 +179,25 @@ export function ChatSession() {
   }, []);
 
   return (
-    <Layout title="Chatbot">
-      <div className="py-4 sm:py-8 space-y-8 flex flex-col justify-center h-full">
-        <SessionMessage
-          messages={messages}
-          setAutoScrollEnabled={setAutoScrollEnabled}
-          autoScrollEnabled={autoScrollEnabled}
-        />
-        <SessionForm
-          ws={ws}
-          handleSenMessage={handleSenMessage}
-          setIsStreaming={setIsStreaming}
-          isStreaming={isStreaming}
-        />
+    <main className="flex h-screen">
+      <Sidebar />
+      <div className="flex-1">
+        <Header title="Chatbot" />
+
+        <div className="h-[calc(100svh-65px)] bg-white dark:bg-black overflow-y-auto py-4 sm:py-8 space-y-8 flex flex-col justify-center">
+          <SessionMessage
+            messages={messages}
+            setAutoScrollEnabled={setAutoScrollEnabled}
+            autoScrollEnabled={autoScrollEnabled}
+          />
+          <SessionForm
+            ws={ws}
+            handleSenMessage={handleSenMessage}
+            setIsStreaming={setIsStreaming}
+            isStreaming={isStreaming}
+          />
+        </div>
       </div>
-    </Layout>
+    </main>
   );
 }

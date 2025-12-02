@@ -1,6 +1,5 @@
 "use client";
 import { useAlertStore } from "@/providers/alert";
-import { Layout } from "@/providers/layout";
 import { ENDPOINTS, ROUTES } from "@/shared/site";
 import { getDataError, postRequest } from "@/utils/axios-instance";
 import { Button, Textarea } from "@heroui/react";
@@ -10,6 +9,8 @@ import { RxArrowUp } from "react-icons/rx";
 import { SessionMicrophone } from "./microphone";
 import RecordPlugin from "wavesurfer.js/dist/plugins/record";
 import { AxiosErrorProps } from "@/types";
+import { Header } from "@/components/navigation/header";
+import { Sidebar } from "@/components/navigation/sidebar";
 
 export function Chat() {
   const { setAlert } = useAlertStore();
@@ -112,49 +113,53 @@ export function Chat() {
   }, []);
 
   return (
-    <Layout title="Chatbot">
-      <div className="p-4 sm:p-8 space-y-8 flex flex-col justify-center h-full">
-        <h1 className="text-center text-2xl">What’s on your mind today?</h1>
-        <form
-          ref={formRef}
-          className="w-full mx-auto"
-          onSubmit={isRecording ? handleSTTSubmit : handleSessionSubmit}
-        >
-          <div className="relative max-w-4xl mx-auto">
-            <Textarea
-              fullWidth
-              color="primary"
-              variant="bordered"
-              size="lg"
-              name="chat"
-              radius="full"
-              value={isRecording ? "" : content}
-              onValueChange={setContent}
-              placeholder={isRecording ? "" : "Ask anything ..."}
-              minRows={1}
-              onKeyDown={handleKeyDown}
-              classNames={{
-                inputWrapper: "h-14 min-h-14 border-1 border-default-300",
-                input: "h-6 min-h-6 resize-none overflow-hidden px-8",
-              }}
-            />
-            <SessionMicrophone
-              recordPluginRef={recordPluginRef}
-              setIsRecording={setIsRecording}
-              isRecording={isRecording}
-            />
-            <Button
-              isLoading={isLoading}
-              className="absolute right-2 bottom-2"
-              type="submit"
-              radius="full"
-              isIconOnly
-            >
-              <RxArrowUp className="w-5 h-5" />
-            </Button>
-          </div>
-        </form>
+    <main className="flex h-screen">
+      <Sidebar />
+      <div className="flex-1">
+        <Header title="Chatbot" />
+        <div className="h-[calc(100svh-65px)] bg-white dark:bg-black overflow-y-auto p-4 sm:p-8 space-y-8 flex flex-col justify-center">
+          <h1 className="text-center text-2xl">What’s on your mind today?</h1>
+          <form
+            ref={formRef}
+            className="w-full mx-auto"
+            onSubmit={isRecording ? handleSTTSubmit : handleSessionSubmit}
+          >
+            <div className="relative max-w-4xl mx-auto">
+              <Textarea
+                fullWidth
+                color="primary"
+                variant="bordered"
+                size="lg"
+                name="chat"
+                radius="full"
+                value={isRecording ? "" : content}
+                onValueChange={setContent}
+                placeholder={isRecording ? "" : "Ask anything ..."}
+                minRows={1}
+                onKeyDown={handleKeyDown}
+                classNames={{
+                  inputWrapper: "h-14 min-h-14 border-1 border-default-300",
+                  input: "h-6 min-h-6 resize-none overflow-hidden px-8",
+                }}
+              />
+              <SessionMicrophone
+                recordPluginRef={recordPluginRef}
+                setIsRecording={setIsRecording}
+                isRecording={isRecording}
+              />
+              <Button
+                isLoading={isLoading}
+                className="absolute right-2 bottom-2"
+                type="submit"
+                radius="full"
+                isIconOnly
+              >
+                <RxArrowUp className="w-5 h-5" />
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
-    </Layout>
+    </main>
   );
 }

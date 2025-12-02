@@ -12,12 +12,13 @@ import { KeyTableToolbar } from "./toolbar";
 import { KeyTableProps } from "@/types";
 import { KeyDropdown } from "./drop-down";
 import { KeyManage } from "./manage";
+import { Fragment } from "react";
 
 export function KeyTable({ history, getHistory }: KeyTableProps) {
   const { longDate } = useDate();
 
   return (
-    <div>
+    <Fragment>
       <Table
         isCompact
         aria-label="Monitoring Table"
@@ -98,6 +99,6 @@ export function KeyTable({ history, getHistory }: KeyTableProps) {
       {history.total > 0 && !history.loading ? (
         <KeyTableToolbar history={history} getHistory={getHistory} />
       ) : null}
-    </div>
+    </Fragment>
   );
 }

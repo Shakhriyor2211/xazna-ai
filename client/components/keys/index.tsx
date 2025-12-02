@@ -1,5 +1,4 @@
 "use client";
-import { Layout } from "@/providers/layout";
 import { KeyTable } from "./table";
 import { CreateKey } from "./create-key";
 import { useCallback, useEffect, useState } from "react";
@@ -8,6 +7,8 @@ import { KeyProps } from "@/types";
 import { useAlertStore } from "@/providers/alert";
 import { getRequest } from "@/utils/axios-instance";
 import { ENDPOINTS } from "@/shared/site";
+import { Sidebar } from "../navigation/sidebar";
+import { Header } from "../navigation/header";
 
 export function Keys() {
   const { setAlert } = useAlertStore();
@@ -75,13 +76,17 @@ export function Keys() {
     );
   }, []);
   return (
-    <Layout title="Key management">
-      <section className="p-8 w-screen lg:w-full">
-        <div className="flex justify-end mb-4">
-          <CreateKey history={history} getHistory={getHistory} />
+    <main className="flex h-screen">
+      <Sidebar />
+      <div className="flex-1">
+        <Header title="Key management" />
+        <div className="h-[calc(100svh-65px)] bg-white dark:bg-black overflow-y-auto p-8 w-screen lg:w-full">
+          <div className="flex justify-end mb-4">
+            <CreateKey history={history} getHistory={getHistory} />
+          </div>
+          <KeyTable history={history} getHistory={getHistory} />
         </div>
-        <KeyTable history={history} getHistory={getHistory} />
-      </section>
-    </Layout>
+      </div>
+    </main>
   );
 }

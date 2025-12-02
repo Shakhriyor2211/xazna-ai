@@ -1,6 +1,5 @@
 "use client";
 
-import { Layout } from "@/providers/layout";
 import { STTHistory } from "./history";
 import { STTGenerate } from "./generate";
 import { ContentDataProps, ContentHistoryProps } from "@/types";
@@ -8,6 +7,8 @@ import { useCallback, useEffect, useState } from "react";
 import { useAlertStore } from "@/providers/alert";
 import { getRequest } from "@/utils/axios-instance";
 import { ENDPOINTS, STT_CONFIGS } from "@/shared/site";
+import { Sidebar } from "../navigation/sidebar";
+import { Header } from "../navigation/header";
 
 export function STT() {
   const [sttData, setSttData] = useState<ContentDataProps>({
@@ -66,9 +67,11 @@ export function STT() {
     getHistory();
   }, []);
   return (
-    <Layout title="Speech to text">
-      <div className="h-full">
-        <div className="max-w-2xl mx-auto space-y-6">
+    <main className="flex h-screen">
+      <Sidebar />
+      <div className="flex-1">
+        <Header title="Speech to text" />
+        <div className="h-[calc(100svh-65px)] bg-white dark:bg-black overflow-y-auto max-w-2xl mx-auto space-y-6">
           <STTGenerate
             sttData={sttData}
             setSttData={setSttData}
@@ -83,6 +86,6 @@ export function STT() {
           />
         </div>
       </div>
-    </Layout>
+    </main>
   );
 }
