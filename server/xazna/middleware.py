@@ -78,7 +78,7 @@ class TokenViewMiddleware(MiddlewareMixin):
             request.token = None
             return None
 
-        t = request.COOKIES.get("token") or request.GET.get("token")
+        t = request.headers.get("X-Access-Token") or request.GET.get("token")
 
         if not t:
             return JsonResponse({"message": "Token was not provided.", "code": "token_required"}, status=401)
