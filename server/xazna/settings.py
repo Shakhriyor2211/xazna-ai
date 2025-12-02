@@ -4,6 +4,8 @@ from pathlib import Path
 from kombu import Queue
 from celery.schedules import crontab
 from dotenv import load_dotenv
+from corsheaders.defaults import default_headers
+
 
 load_dotenv()
 
@@ -99,8 +101,12 @@ INSTALLED_APPS = [
     "rate"
 ]
 
-CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = False
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "X-Access-Token",
+]
 
 
 MIDDLEWARE = [
