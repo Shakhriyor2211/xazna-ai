@@ -105,7 +105,6 @@ class UserTTSView(APIView):
 
 class TokenTTSView(APIView):
     token_required = True
-    authentication_classes = []
 
     @swagger_auto_schema(
         operation_description="TTS generate...",
