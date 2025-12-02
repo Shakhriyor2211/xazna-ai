@@ -35,8 +35,10 @@ export function Header({ title }: { title: string }) {
         <div className="flex-1 flex items-center justify-end space-x-4">
           {user !== null ? (
             <Fragment>
-              <ThemeSwitch />
-              <LanguageSwitch />
+              <div className="flex items-center space-x-2">
+                <ThemeSwitch />
+                <LanguageSwitch />
+              </div>
               <UserMenu />
             </Fragment>
           ) : (
