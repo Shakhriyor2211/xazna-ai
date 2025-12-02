@@ -25,6 +25,7 @@ daphne==4.2.1
 distro==1.9.0
 Django==5.2.7
 django-celery-beat==2.8.1
+django-cors-headers==4.9.0
 django-timezone-field==7.1
 djangorestframework==3.16.1
 djangorestframework_simplejwt==5.5.1
@@ -43,10 +44,13 @@ idna==3.11
 incremental==24.7.2
 inflection==0.5.1
 jiter==0.11.0
+jsonschema==4.25.1
+jsonschema-specifications==2025.9.1
 kombu==5.5.4
 msgpack==1.1.2
 numpy==2.2.6
 openai==2.3.0
+openapi==2.0.0
 packaging==25.0
 perf_analyzer==0.1.0
 pillow==11.3.0
@@ -69,7 +73,9 @@ python-rapidjson==1.22
 pytz==2025.2
 PyYAML==6.0.3
 redis==5.2.1
+referencing==0.37.0
 requests==2.32.5
+rpds-py==0.29.0
 rsa==4.9.1
 service-identity==24.2.0
 six==1.17.0

@@ -117,14 +117,11 @@ class TokenWebsocketConsumer(AsyncWebsocketConsumer):
             return True
 
         t = None
-        cookies = {}
 
         for name, value in self.scope.get("headers", []):
-            if name == b"cookie":
-                cookies = parse_cookie(value.decode("latin1"))
+            if name == b"x-access-token":
+                t = value.decode("latin1")
                 break
-
-        t = cookies.get("token")
 
         if not t:
             raw = self.scope.get("query_string", b"").decode()
