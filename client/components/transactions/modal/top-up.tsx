@@ -48,7 +48,7 @@ export function TopUp() {
                   >
                     <img
                       className="w-full"
-                      src="/media/images/xazna.svg"
+                      src="/assets/media/images/xazna.svg"
                       alt="xazna"
                     />
                   </div>
@@ -59,7 +59,7 @@ export function TopUp() {
                   >
                     <img
                       className="w-full"
-                      src="/media/images/click.svg"
+                      src="/assets/media/images/click.svg"
                       alt="click"
                     />
                   </div>
@@ -70,7 +70,7 @@ export function TopUp() {
                   >
                     <img
                       className="w-full"
-                      src="/media/images/payme.svg"
+                      src="/assets/media/images/payme.svg"
                       alt="payme"
                     />
                   </div>
