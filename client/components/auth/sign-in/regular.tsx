@@ -3,12 +3,14 @@ import { ENDPOINTS, ROUTES } from "@/shared/site";
 import { AxiosErrorProps } from "@/types";
 import { getDataError, postRequest } from "@/utils/axios-instance";
 import { Button, Input } from "@heroui/react";
+import { useIntlayer } from "next-intlayer";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FocusEvent, FormEvent, useCallback, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export function RegularSignIn() {
+  const content = useIntlayer("signin-content");
   const [isHidden, setIsHidden] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState({ email: "", password: "", general: "" });
@@ -47,14 +49,14 @@ export function RegularSignIn() {
       if (email === "") {
         setError((prev) => ({
           ...prev,
-          email: "Ushbu qator to'ldirilishi shart.",
+          email: content.regular.form.email.errors.required.value,
         }));
         is_valid = false;
       }
       if (password === "") {
         setError((prev) => ({
           ...prev,
-          password: "Ushbu qator to'ldirilishi shart.",
+          password: content.regular.form.password.errors.required.value,
         }));
         is_valid = false;
       }
@@ -99,7 +101,7 @@ export function RegularSignIn() {
         }}
         color="primary"
         variant="bordered"
-        label="Email"
+        label={content.regular.form.email.label}
         type="text"
         name="email"
       />
@@ -117,7 +119,7 @@ export function RegularSignIn() {
         color="primary"
         variant="bordered"
         isDisabled={isLoading}
-        label="Parol"
+        label={content.regular.form.password.label}
         name="password"
         type={isHidden ? "password" : "text"}
         endContent={
@@ -140,7 +142,7 @@ export function RegularSignIn() {
       />
       <div className="mt-4 flex justify-end">
         <Link href={ROUTES.password_reset} className="text-sm text-blue-600">
-          Parolni unutdingizmi?
+          {content.regular.forgot_password}
         </Link>
       </div>
       <Button
@@ -150,7 +152,7 @@ export function RegularSignIn() {
         isLoading={isLoading}
         type="submit"
       >
-        {isLoading ? null : "Kirish"}
+        {isLoading ? null : content.regular.form.submit}
       </Button>
     </form>
   );

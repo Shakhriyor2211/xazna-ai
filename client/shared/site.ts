@@ -16,7 +16,7 @@ export const ROUTES = {
   docs: "/docs",
   tts: "/tts",
   stt: "/stt",
-  chat: "/chat",
+  chatbot: "/chatbot",
   sub: "/sub",
   transactions: "/transactions",
   keys: "/keys",

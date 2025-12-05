@@ -1,0 +1,26 @@
+{
+  "key": "navigation-content",
+  "content": {
+    "sidebar": {
+      "playground": {
+        "title": "Playground",
+        "chatbot": {
+          "title": "Chatbot",
+          "new_session": "New chat"
+        },
+        "stt": "Speech to Text",
+        "tts": "Text to Speech",
+        "monitoring": "Monitoring"
+      },
+      "development": {
+        "title": "Development",
+        "docs": "Documentation",
+        "keys": "API Keys"
+      }
+    }
+  },
+  "localIds": [
+    "navigation-content::local::intlayer/navigation.content.ts"
+  ],
+  "locale": "en"
+}

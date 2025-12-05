@@ -1,0 +1,73 @@
+{
+  "key": "signin-content",
+  "content": {
+    "title": "Kirish",
+    "or": "YOKI",
+    "regular": {
+      "forgot_password": "Parolni unutdingizmi?",
+      "form": {
+        "email": {
+          "label": "Email",
+          "errors": {
+            "required": "Ushbu qator to'ldirilishi shart."
+          }
+        },
+        "password": {
+          "label": "Parol",
+          "errors": {
+            "required": "Ushbu qator to'ldirilishi shart."
+          }
+        },
+        "submit": "Kirish"
+      }
+    },
+    "signup": {
+      "title": "Ro'yxatdan o'tish",
+      "description": "Hali akkauntingiz yo'qmi?"
+    },
+    "metadata": {
+      "title": "AI Xazna | Kirish",
+      "description": "AI Xazna platformasiga kirish va shaxsiy hisobingizni boshqarish uchun tizimga kiring.",
+      "keywords": "AI Xazna, kirish, login, sun’iy intellekt, hisob",
+      "authors": [
+        {
+          "name": "AI Xazna"
+        }
+      ],
+      "openGraph": {
+        "title": "AI Xazna | Kirish",
+        "description": "AI Xazna hisobingizga kirish va sun’iy intellekt xizmatlaridan foydalanish.",
+        "url": "https://ai.xazna.uz/sign-in",
+        "siteName": "AI Xazna",
+        "images": [
+          {
+            "url": "https://ai.xazna.uz/sign-in-og-image.png",
+            "width": 1200,
+            "height": 630,
+            "alt": "Kirish sahifasi — AI Xazna"
+          }
+        ],
+        "type": "website",
+        "locale": "uz_UZ"
+      },
+      "twitter": {
+        "card": "summary_large_image",
+        "title": "AI Xazna | Kirish",
+        "description": "AI Xazna hisobingizga kirish va xizmatlardan foydalanish.",
+        "images": [
+          "https://ai.xazna.uz/sign-in-og-image.png"
+        ],
+        "site": "@xazna_ai",
+        "creator": "@xazna_ai"
+      },
+      "robots": {
+        "index": true,
+        "follow": true
+      }
+    }
+  },
+  "localIds": [
+    "signin-content::local::intlayer/sign-in.content.ts"
+  ],
+  "locale": "uz"
+}

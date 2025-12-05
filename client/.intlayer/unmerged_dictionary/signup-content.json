@@ -1,0 +1,297 @@
+[
+  {
+    "key": "signup-content",
+    "live": true,
+    "content": {
+      "title": {
+        "nodeType": "translation",
+        "translation": {
+          "uz": "Ro'yxatdan o'tish",
+          "en": "Sign Up",
+          "ru": "Регистрация"
+        }
+      },
+      "or": {
+        "nodeType": "translation",
+        "translation": {
+          "uz": "YOKI",
+          "ru": "ИЛИ",
+          "en": "OR"
+        }
+      },
+      "form": {
+        "email": {
+          "label": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Email",
+              "ru": "Электронная почта",
+              "en": "Email"
+            }
+          },
+          "errors": {
+            "required": {
+              "nodeType": "translation",
+              "translation": {
+                "uz": "Ushbu qator to'ldirilishi shart.",
+                "ru": "Это поле обязательно для заполнения.",
+                "en": "This field is required."
+              }
+            },
+            "invalid": {
+              "nodeType": "translation",
+              "translation": {
+                "uz": "Email manzili noto‘g‘ri formatda.",
+                "ru": "Неверный формат электронной почты.",
+                "en": "Invalid email format."
+              }
+            }
+          }
+        },
+        "first_name": {
+          "label": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Ism",
+              "ru": "Имя",
+              "en": "First name"
+            }
+          },
+          "errors": {
+            "required": {
+              "nodeType": "translation",
+              "translation": {
+                "uz": "Ushbu qator to'ldirilishi shart.",
+                "ru": "Это поле обязательно для заполнения.",
+                "en": "This field is required."
+              }
+            }
+          }
+        },
+        "last_name": {
+          "label": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Familiya",
+              "ru": "Фамилия",
+              "en": "Last name"
+            }
+          },
+          "errors": {
+            "required": {
+              "nodeType": "translation",
+              "translation": {
+                "uz": "Ushbu qator to'ldirilishi shart.",
+                "ru": "Это поле обязательно для заполнения.",
+                "en": "This field is required."
+              }
+            }
+          }
+        },
+        "password": {
+          "label": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Parol",
+              "ru": "Пароль",
+              "en": "Password"
+            }
+          },
+          "errors": {
+            "required": {
+              "nodeType": "translation",
+              "translation": {
+                "uz": "Ushbu qator to'ldirilishi shart.",
+                "ru": "Это поле обязательно для заполнения.",
+                "en": "This field is required."
+              }
+            },
+            "rule": {
+              "nodeType": "translation",
+              "translation": {
+                "uz": "Parol 8–16 belgidan iborat bo‘lishi, harflar va raqamlarni o‘z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin.",
+                "ru": "Пароль должен содержать 8–16 символов, включать буквы и цифры, и может содержать @#$%^&*.,!.",
+                "en": "Password must be 8–16 characters, include letters and digits, and can contain @#$%^&*.,!"
+              }
+            },
+            "match": {
+              "nodeType": "translation",
+              "translation": {
+                "uz": "Parollar mos kelmadi.",
+                "ru": "Пароли не совпадают.",
+                "en": "Passwords did not match."
+              }
+            }
+          }
+        },
+        "confirm_password": {
+          "label": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Parolni tasdiqlang",
+              "ru": "Подтвердите пароль",
+              "en": "Confirm password"
+            }
+          },
+          "errors": {
+            "required": {
+              "nodeType": "translation",
+              "translation": {
+                "uz": "Ushbu qator to'ldirilishi shart.",
+                "ru": "Это поле обязательно для заполнения.",
+                "en": "This field is required."
+              }
+            },
+            "rule": {
+              "nodeType": "translation",
+              "translation": {
+                "uz": "Parol 8–16 belgidan iborat bo‘lishi, harflar va raqamlarni o‘z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin.",
+                "ru": "Пароль должен содержать 8–16 символов, включать буквы и цифры, и может содержать @#$%^&*.,!.",
+                "en": "Password must be 8–16 characters, include letters and digits, and can contain @#$%^&*.,!"
+              }
+            }
+          }
+        },
+        "submit": {
+          "nodeType": "translation",
+          "translation": {
+            "uz": "Ro‘yxatdan o‘tish",
+            "ru": "Регистрация",
+            "en": "Sign up"
+          }
+        }
+      },
+      "sigin": {
+        "title": {
+          "nodeType": "translation",
+          "translation": {
+            "uz": "Kirish",
+            "ru": "Вход",
+            "en": "Sign in"
+          }
+        },
+        "description": {
+          "nodeType": "translation",
+          "translation": {
+            "uz": "Akkauntingiz bormi?",
+            "ru": "У вас уже есть аккаунт?",
+            "en": "Already have an account?"
+          }
+        }
+      },
+      "metadata": {
+        "title": {
+          "nodeType": "translation",
+          "translation": {
+            "uz": "AI Xazna | Ro'yxatdan o'tish",
+            "en": "AI Xazna | Sign Up",
+            "ru": "AI Xazna | Регистрация"
+          }
+        },
+        "description": {
+          "nodeType": "translation",
+          "translation": {
+            "uz": "AI Xazna platformasiga yangi hisob yaratish va sun'iy intellekt xizmatlaridan foydalanish uchun ro'yxatdan o'ting.",
+            "en": "Create a new AI Xazna account to access AI services and personalized features.",
+            "ru": "Создайте новый аккаунт AI Xazna для доступа к сервисам искусственного интеллекта и персонализированным функциям."
+          }
+        },
+        "keywords": {
+          "nodeType": "translation",
+          "translation": {
+            "uz": "AI Xazna, ro'yxatdan o'tish, sign up, sun'iy intellekt, hisob",
+            "en": "AI Xazna, sign up, register, artificial intelligence, account",
+            "ru": "AI Xazna, регистрация, sign up, искусственный интеллект, аккаунт"
+          }
+        },
+        "authors": [
+          {
+            "name": "AI Xazna"
+          }
+        ],
+        "openGraph": {
+          "title": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "AI Xazna | Ro'yxatdan o'tish",
+              "en": "AI Xazna | Sign Up",
+              "ru": "AI Xazna | Регистрация"
+            }
+          },
+          "description": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Yangi hisob yaratish va AI Xazna sun'iy intellekt xizmatlaridan foydalanish.",
+              "en": "Create a new account and start using AI Xazna AI services.",
+              "ru": "Создайте новый аккаунт и начните пользоваться сервисами AI Xazna."
+            }
+          },
+          "url": "https://ai.xazna.uz/sign-up",
+          "siteName": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "AI Xazna",
+              "en": "AI Xazna",
+              "ru": "AI Xazna"
+            }
+          },
+          "images": [
+            {
+              "url": "https://ai.xazna.uz/sign-up-og-image.png",
+              "width": 1200,
+              "height": 630,
+              "alt": {
+                "nodeType": "translation",
+                "translation": {
+                  "uz": "Ro'yxatdan o'tish — AI Xazna",
+                  "en": "Sign Up Page — AI Xazna",
+                  "ru": "Страница регистрации — AI Xazna"
+                }
+              }
+            }
+          ],
+          "type": "website",
+          "locale": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "uz_UZ",
+              "en": "en_US",
+              "ru": "ru_RU"
+            }
+          }
+        },
+        "twitter": {
+          "card": "summary_large_image",
+          "title": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "AI Xazna | Ro'yxatdan o'tish",
+              "en": "AI Xazna | Sign Up",
+              "ru": "AI Xazna | Регистрация"
+            }
+          },
+          "description": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Yangi hisob yaratish va AI Xazna xizmatlaridan foydalanish.",
+              "en": "Create a new account and access AI Xazna services.",
+              "ru": "Создайте новый аккаунт и используйте сервисы AI Xazna."
+            }
+          },
+          "images": [
+            "https://ai.xazna.uz/sign-up-og-image.png"
+          ],
+          "site": "@xazna_ai",
+          "creator": "@xazna_ai"
+        },
+        "robots": {
+          "index": true,
+          "follow": true
+        }
+      }
+    },
+    "localId": "signup-content::local::intlayer/sign-up.content.ts",
+    "location": "local",
+    "filePath": "intlayer/sign-up.content.ts"
+  }
+]

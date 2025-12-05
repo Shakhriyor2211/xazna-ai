@@ -1,0 +1,91 @@
+[
+  {
+    "key": "navigation-content",
+    "live": true,
+    "content": {
+      "sidebar": {
+        "playground": {
+          "title": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "O'yin maydonchasi",
+              "en": "Playground",
+              "ru": "Игровое поле"
+            }
+          },
+          "chatbot": {
+            "title": {
+              "nodeType": "translation",
+              "translation": {
+                "uz": "Chatbot",
+                "en": "Chatbot",
+                "ru": "Чат-бот"
+              }
+            },
+            "new_session": {
+              "nodeType": "translation",
+              "translation": {
+                "uz": "Yangi chat",
+                "en": "New chat",
+                "ru": "Новый чат"
+              }
+            }
+          },
+          "stt": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Nutqdan matnga",
+              "en": "Speech to Text",
+              "ru": "Речь в текст"
+            }
+          },
+          "tts": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Matndan nutqqa",
+              "en": "Text to Speech",
+              "ru": "Текст в речь"
+            }
+          },
+          "monitoring": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Monitoring",
+              "en": "Monitoring",
+              "ru": "Мониторинг"
+            }
+          }
+        },
+        "development": {
+          "title": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Rivojlantirish",
+              "en": "Development",
+              "ru": "Разработка"
+            }
+          },
+          "docs": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Hujjatlar",
+              "en": "Documentation",
+              "ru": "Документация"
+            }
+          },
+          "keys": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "API kalitlari",
+              "en": "API Keys",
+              "ru": "API ключи"
+            }
+          }
+        }
+      }
+    },
+    "localId": "navigation-content::local::intlayer/navigation.content.ts",
+    "location": "local",
+    "filePath": "intlayer/navigation.content.ts"
+  }
+]

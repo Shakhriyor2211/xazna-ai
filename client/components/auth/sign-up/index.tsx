@@ -19,6 +19,8 @@ import { GoogleSignIn } from "../sign-in/google";
 import { LogoIcon } from "@/utils/icons";
 import { useUserStore } from "@/hooks/user";
 import { Button, Input, Spinner } from "@heroui/react";
+import { useIntlayer } from "next-intlayer";
+import { LocaleSwitcher } from "@/components/navigation/header/locale-switcher";
 
 interface ErrorProps {
   first_name: string;
@@ -29,6 +31,7 @@ interface ErrorProps {
 }
 
 export const SignUp = () => {
+  const contnent = useIntlayer("signup-content");
   const { setUser } = useUserStore();
   const { push } = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -110,8 +113,12 @@ export const SignUp = () => {
           }
         }
       } catch (e) {
-        const { message } = getValidationError(e as AxiosErrorProps);
-        setError((prev) => ({ ...prev, ...message }));
+        const { data } = getValidationError(e as AxiosErrorProps);
+
+        setError((prev) => ({
+          ...prev,
+          [data?.code as keyof ErrorProps]: data?.message,
+        }));
       } finally {
         setIsLoading(() => false);
       }
@@ -127,14 +134,17 @@ export const SignUp = () => {
         </div>
       }
     >
-      <div className="h-svh flex items-center justify-center bg-white dark:bg-none dark:bg-black sm:dark:bg-neutral-900 sm:bg-gradient-to-b from-black to-primary">
+      <div className="h-screen flex items-center justify-center bg-white dark:bg-none dark:bg-black sm:dark:bg-neutral-900 sm:bg-gradient-to-b from-black to-primary">
+        <div className="absolute right-4 top-4">
+          <LocaleSwitcher />
+        </div>
         <div className="container sm:w-[500px] sm:bg-white sm:dark:bg-black p-4 sm:p-8 sm:rounded-lg sm:shadow-md">
           <div className="hidden sm:flex justify-end space-x-2 items-center">
             <LogoIcon height={32} />
             <span className="uppercase font-semibold">xazna ai</span>
           </div>
           <h1 className="text-2xl font-semibold mb-6 sm:mb-8 sm:mt-8 text-center">
-            Tizimga kirish
+            {contnent.title}
           </h1>
           <form noValidate onSubmit={handleSubmit}>
             <div className="grid grid-cols-2 gap-y-6 gap-x-4">
@@ -154,7 +164,7 @@ export const SignUp = () => {
                 onBlur={handleBlur}
                 onFocus={handleFocus}
                 type="text"
-                label="Ism"
+                label={contnent.form.first_name.label}
                 name="first_name"
                 errorMessage={error.first_name}
                 isInvalid={Boolean(error.first_name)}
@@ -175,7 +185,7 @@ export const SignUp = () => {
                 onBlur={handleBlur}
                 onFocus={handleFocus}
                 type="text"
-                label="Familiya"
+                label={contnent.form.last_name.label}
                 name="last_name"
                 errorMessage={error.last_name}
                 isInvalid={Boolean(error.last_name)}
@@ -197,7 +207,7 @@ export const SignUp = () => {
                 onFocus={handleFocus}
                 className="col-span-2"
                 type="text"
-                label="Email"
+                label={contnent.form.email.label}
                 name="email"
                 autoComplete="email"
                 errorMessage={error.email}
@@ -219,7 +229,7 @@ export const SignUp = () => {
                 onBlur={handleBlur}
                 onFocus={handleFocus}
                 type="password"
-                label="Parol"
+                label={contnent.form.password.label}
                 name="password"
                 autoComplete="off"
                 errorMessage={error.password}
@@ -241,7 +251,7 @@ export const SignUp = () => {
                 onBlur={handleBlur}
                 onFocus={handleFocus}
                 type="password"
-                label="Parolni tasdiqlash"
+                label={contnent.form.confirm_password.label}
                 name="confirm_password"
                 autoComplete="off"
                 errorMessage={error.confirm_password}
@@ -250,26 +260,28 @@ export const SignUp = () => {
             </div>
             <Button
               fullWidth
-              className="mt-8"
+              className="mt-16"
               color="primary"
               isLoading={isLoading}
               type="submit"
             >
-              {isLoading ? null : "Akkaunt yaratish"}
+              {isLoading ? null : contnent.form.submit}
             </Button>
           </form>
           <div className="flex items-center space-x-2 my-6">
             <span className="flex-1 border-t border-default-300" />
-            <span className="uppercase text-sm text-default-500">yoki</span>
+            <span className="uppercase text-sm text-default-500">
+              {contnent.or}
+            </span>
             <hr className="flex-1 border-t border-default-300" />
           </div>
           <GoogleSignIn />
           <p className="text-center space-x-1 mt-4">
             <span className="text-sm text-default-500">
-              Akkauntingiz bormi?
+              {contnent.sigin.description}
             </span>
             <Link href={ROUTES.sign_in} className="text-sm text-blue-600">
-              Tizimga kirish
+              {contnent.sigin.title}
             </Link>
           </p>
         </div>

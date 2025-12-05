@@ -107,8 +107,11 @@ export const ResetPasswordConfirm = () => {
           push(ROUTES.sign_in);
         }
       } catch (err) {
-        const { message } = getValidationError(err as AxiosErrorProps);
-        setError((prev) => ({ ...prev, ...message }));
+        const { data } = getValidationError(err as AxiosErrorProps);
+        setError((prev) => ({
+          ...prev,
+          [data?.code as keyof ErrorProps]: data?.message,
+        }));
       } finally {
         setIsLoading(() => false);
       }

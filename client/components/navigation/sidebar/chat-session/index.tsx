@@ -1,6 +1,5 @@
 import { ENDPOINTS, ROUTES } from "@/shared/site";
 import { getRequest } from "@/utils/axios-instance";
-import Link from "next/link";
 import { Fragment, useCallback, useEffect, useState } from "react";
 import { MdArrowBackIos } from "react-icons/md";
 import { RiChatSmileAiLine } from "react-icons/ri";
@@ -9,8 +8,19 @@ import { PiPlus } from "react-icons/pi";
 import { Divider } from "@heroui/react";
 import { SessionDropdown } from "./drop-down";
 import { useAlertStore } from "@/providers/alert";
+import { Link } from "@/utils/link";
 
-export function ChatSessions({ pathname }: { pathname: string }) {
+interface ChatSessionsProps {
+  pathname: string;
+  title: string;
+  new_session: string;
+}
+
+export function ChatSessions({
+  pathname,
+  title,
+  new_session,
+}: ChatSessionsProps) {
   const [isVisible, setIsVisible] = useState(false);
   const { setAlert } = useAlertStore();
   const [sessions, setSessions] = useState<ChatSessionProps[]>([]);
@@ -40,7 +50,7 @@ export function ChatSessions({ pathname }: { pathname: string }) {
     <Fragment>
       <div
         className={
-          pathname.includes(ROUTES.chat)
+          pathname.includes(ROUTES.chatbot)
             ? "flex items-center justify-between space-x-2 p-2 text-sm bg-primary/20 rounded-md text-green-700 font-medium"
             : "flex items-center justify-between space-x-2 p-2 text-sm rounded-md hover:bg-default-100 text-default-700 font-medium"
         }
@@ -48,7 +58,7 @@ export function ChatSessions({ pathname }: { pathname: string }) {
       >
         <div className="flex items-center lg:space-x-2 cursor-pointer">
           <RiChatSmileAiLine className="hidden lg:inline h-5 w-5" />
-          <span>Chat bot</span>
+          <span>{title}</span>
         </div>
         <MdArrowBackIos
           className={`h-3 w-3 transition-all duration-300 ${isVisible ? "-rotate-90" : "rotate-0"}`}
@@ -58,9 +68,10 @@ export function ChatSessions({ pathname }: { pathname: string }) {
         <div className="space-y-2">
           <Link
             className="hover:bg-default-100 rounded-md flex items-center justify-between space-x-1 px-2 py-2 text-sm text-default-700"
-            href={ROUTES.chat}
+            href={ROUTES.chatbot}
+            label="new session"
           >
-            <span>New chat</span>
+            <span>{new_session}</span>
             <PiPlus />
           </Link>
           <Divider />
@@ -69,7 +80,8 @@ export function ChatSessions({ pathname }: { pathname: string }) {
               <Link
                 key={session.id}
                 className="group hover:bg-default-100 rounded-md flex items-center justify-between space-x-1 px-4 py-2 text-sm text-gray-500"
-                href={`${ROUTES.chat}/${session.id}`}
+                href={`${ROUTES.chatbot}/${session.id}`}
+                label={session.title}
               >
                 <span>{session.title}</span>
                 <SessionDropdown session={session} setSessions={setSessions} />

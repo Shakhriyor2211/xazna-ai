@@ -1,0 +1,92 @@
+{
+  "key": "signup-content",
+  "content": {
+    "title": "Регистрация",
+    "or": "ИЛИ",
+    "form": {
+      "email": {
+        "label": "Электронная почта",
+        "errors": {
+          "required": "Это поле обязательно для заполнения.",
+          "invalid": "Неверный формат электронной почты."
+        }
+      },
+      "first_name": {
+        "label": "Имя",
+        "errors": {
+          "required": "Это поле обязательно для заполнения."
+        }
+      },
+      "last_name": {
+        "label": "Фамилия",
+        "errors": {
+          "required": "Это поле обязательно для заполнения."
+        }
+      },
+      "password": {
+        "label": "Пароль",
+        "errors": {
+          "required": "Это поле обязательно для заполнения.",
+          "rule": "Пароль должен содержать 8–16 символов, включать буквы и цифры, и может содержать @#$%^&*.,!.",
+          "match": "Пароли не совпадают."
+        }
+      },
+      "confirm_password": {
+        "label": "Подтвердите пароль",
+        "errors": {
+          "required": "Это поле обязательно для заполнения.",
+          "rule": "Пароль должен содержать 8–16 символов, включать буквы и цифры, и может содержать @#$%^&*.,!."
+        }
+      },
+      "submit": "Регистрация"
+    },
+    "sigin": {
+      "title": "Вход",
+      "description": "У вас уже есть аккаунт?"
+    },
+    "metadata": {
+      "title": "AI Xazna | Регистрация",
+      "description": "Создайте новый аккаунт AI Xazna для доступа к сервисам искусственного интеллекта и персонализированным функциям.",
+      "keywords": "AI Xazna, регистрация, sign up, искусственный интеллект, аккаунт",
+      "authors": [
+        {
+          "name": "AI Xazna"
+        }
+      ],
+      "openGraph": {
+        "title": "AI Xazna | Регистрация",
+        "description": "Создайте новый аккаунт и начните пользоваться сервисами AI Xazna.",
+        "url": "https://ai.xazna.uz/sign-up",
+        "siteName": "AI Xazna",
+        "images": [
+          {
+            "url": "https://ai.xazna.uz/sign-up-og-image.png",
+            "width": 1200,
+            "height": 630,
+            "alt": "Страница регистрации — AI Xazna"
+          }
+        ],
+        "type": "website",
+        "locale": "ru_RU"
+      },
+      "twitter": {
+        "card": "summary_large_image",
+        "title": "AI Xazna | Регистрация",
+        "description": "Создайте новый аккаунт и используйте сервисы AI Xazna.",
+        "images": [
+          "https://ai.xazna.uz/sign-up-og-image.png"
+        ],
+        "site": "@xazna_ai",
+        "creator": "@xazna_ai"
+      },
+      "robots": {
+        "index": true,
+        "follow": true
+      }
+    }
+  },
+  "localIds": [
+    "signup-content::local::intlayer/sign-up.content.ts"
+  ],
+  "locale": "ru"
+}

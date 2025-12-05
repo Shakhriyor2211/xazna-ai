@@ -102,7 +102,7 @@ export interface UserStoreProps {
   setUser: Dispatch<SetStateAction<UserProps | null>>;
 }
 
-export type AxiosErrorProps = AxiosError<{ message?: string }>;
+export type AxiosErrorProps = AxiosError<{ message?: string, code?: string }>;
 
 interface ContentResultsProps {
   id: string;

@@ -1,0 +1,73 @@
+{
+  "key": "signin-content",
+  "content": {
+    "title": "Вход",
+    "or": "ИЛИ",
+    "regular": {
+      "forgot_password": "Забыли пароль?",
+      "form": {
+        "email": {
+          "label": "Электронная почта",
+          "errors": {
+            "required": "Это поле обязательно для заполнения."
+          }
+        },
+        "password": {
+          "label": "Пароль",
+          "errors": {
+            "required": "Это поле обязательно для заполнения."
+          }
+        },
+        "submit": "Вход"
+      }
+    },
+    "signup": {
+      "title": "Зарегистрироваться",
+      "description": "У вас ещё нет аккаунта?"
+    },
+    "metadata": {
+      "title": "AI Xazna | Вход",
+      "description": "Войдите в свой аккаунт AI Xazna, чтобы получить доступ к персонализированным функциям и управлять своим профилем.",
+      "keywords": "AI Xazna, вход, логин, искусственный интеллект, аккаунт",
+      "authors": [
+        {
+          "name": "AI Xazna"
+        }
+      ],
+      "openGraph": {
+        "title": "AI Xazna | Вход",
+        "description": "Доступ к вашему аккаунту AI Xazna и использование сервисов искусственного интеллекта.",
+        "url": "https://ai.xazna.uz/sign-in",
+        "siteName": "AI Xazna",
+        "images": [
+          {
+            "url": "https://ai.xazna.uz/sign-in-og-image.png",
+            "width": 1200,
+            "height": 630,
+            "alt": "Страница входа — AI Xazna"
+          }
+        ],
+        "type": "website",
+        "locale": "ru_RU"
+      },
+      "twitter": {
+        "card": "summary_large_image",
+        "title": "AI Xazna | Вход",
+        "description": "Войдите в свой аккаунт AI Xazna и используйте сервисы платформы.",
+        "images": [
+          "https://ai.xazna.uz/sign-in-og-image.png"
+        ],
+        "site": "@xazna_ai",
+        "creator": "@xazna_ai"
+      },
+      "robots": {
+        "index": true,
+        "follow": true
+      }
+    }
+  },
+  "localIds": [
+    "signin-content::local::intlayer/sign-in.content.ts"
+  ],
+  "locale": "ru"
+}

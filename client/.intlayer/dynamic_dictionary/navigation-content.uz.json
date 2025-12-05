@@ -1,0 +1,26 @@
+{
+  "key": "navigation-content",
+  "content": {
+    "sidebar": {
+      "playground": {
+        "title": "O'yin maydonchasi",
+        "chatbot": {
+          "title": "Chatbot",
+          "new_session": "Yangi chat"
+        },
+        "stt": "Nutqdan matnga",
+        "tts": "Matndan nutqqa",
+        "monitoring": "Monitoring"
+      },
+      "development": {
+        "title": "Rivojlantirish",
+        "docs": "Hujjatlar",
+        "keys": "API kalitlari"
+      }
+    }
+  },
+  "localIds": [
+    "navigation-content::local::intlayer/navigation.content.ts"
+  ],
+  "locale": "uz"
+}

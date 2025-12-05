@@ -1,0 +1,26 @@
+{
+  "key": "navigation-content",
+  "content": {
+    "sidebar": {
+      "playground": {
+        "title": "Игровое поле",
+        "chatbot": {
+          "title": "Чат-бот",
+          "new_session": "Новый чат"
+        },
+        "stt": "Речь в текст",
+        "tts": "Текст в речь",
+        "monitoring": "Мониторинг"
+      },
+      "development": {
+        "title": "Разработка",
+        "docs": "Документация",
+        "keys": "API ключи"
+      }
+    }
+  },
+  "localIds": [
+    "navigation-content::local::intlayer/navigation.content.ts"
+  ],
+  "locale": "ru"
+}

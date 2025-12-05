@@ -2,6 +2,9 @@ import { ENDPOINTS, ROUTES } from "@/shared/site";
 import { AxiosErrorProps } from "@/types";
 import axios from "axios";
 import { AxiosRequestConfig } from "axios";
+import { useLocale } from "next-intlayer";
+
+
 
 interface RetryQueueItem {
   resolve: (value?: any) => void;
@@ -57,6 +60,7 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
 const customRequest = async ({
   method = "get",
   url,
@@ -64,8 +68,9 @@ const customRequest = async ({
   data = {},
   withCredentials = true,
   baseURL = ENDPOINTS.http_client_base,
-}: AxiosProps) =>
-  await axiosInstance({ method, url: url.endsWith("/") ? url.slice(0, -1) : url, data, headers, withCredentials, baseURL });
+}: AxiosProps) => {
+  return await axiosInstance({ method, url: url.endsWith("/") ? url.slice(0, -1) : url, data, headers, withCredentials, baseURL });
+}
 
 
 export const getRequest = async (params: AxiosProps) =>
@@ -87,7 +92,7 @@ export const getDataError = (error: AxiosErrorProps) => {
 
 export const getValidationError = (error: AxiosErrorProps) => {
   return {
-    message: error.response?.data,
+    data: error.response?.data,
     status: error.response?.status,
   };
 };

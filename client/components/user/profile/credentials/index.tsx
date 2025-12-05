@@ -107,8 +107,11 @@ export function ProfileCredentials({ user, setUser }: UserStoreProps) {
 
         setIsOpen(false);
       } catch (err) {
-        const { message } = getValidationError(err as AxiosErrorProps);
-        setError((prev) => ({ ...prev, ...message }));
+        const { data } = getValidationError(err as AxiosErrorProps);
+        setError((prev) => ({
+          ...prev,
+          [data?.code as keyof typeof error]: data?.message,
+        }));
       }
     },
     [values, open, error]
