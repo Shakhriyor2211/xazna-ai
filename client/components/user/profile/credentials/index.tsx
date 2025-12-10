@@ -11,7 +11,7 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { AxiosErrorProps, FormProps, UserStoreProps } from "@/types";
 import useDate from "@/hooks/date";
 import { validate } from "./lib/validate";
-import { getValidationError, putRequest } from "@/utils/axios-instance";
+import { getError, putRequest } from "@/utils/axios-instance";
 import { ENDPOINTS } from "@/shared/site";
 import {
   Button,
@@ -107,7 +107,7 @@ export function ProfileCredentials({ user, setUser }: UserStoreProps) {
 
         setIsOpen(false);
       } catch (err) {
-        const { data } = getValidationError(err as AxiosErrorProps);
+        const { data } = getError(err as AxiosErrorProps);
         setError((prev) => ({
           ...prev,
           [data?.code as keyof typeof error]: data?.message,

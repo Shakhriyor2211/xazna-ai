@@ -11,10 +11,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { getHTMLTextDir } from "intlayer";
 
 export const metadata: Metadata = {
-  title: {
-    default: META.name,
-    template: `%s - ${META.name}`,
-  },
+  title: META.name,
   description: META.description,
   icons: {
     icon: "/assets/favicon.ico",

@@ -2,11 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { ROUTES } from "./shared/site";
 import { intlayerProxy, multipleProxies } from "next-intlayer/proxy";
-import { getLocaleFromPath, getPathWithoutLocale, localeDetector } from "intlayer";
+import { getLocaleFromPath, getPathWithoutLocale } from "intlayer";
 
-
-const AUTH_ROUTES = ["/auth/sign-in", "/auth/sign-up"];
-const EMAIL_VERIFY_PREFIX = "/verify/email";
 
 
 function appMiddleware(request: NextRequest) {
@@ -14,8 +11,7 @@ function appMiddleware(request: NextRequest) {
   const locale = getLocaleFromPath(request.nextUrl.pathname);
   const path = getPathWithoutLocale(request.nextUrl.pathname);
 
-  const is_auth_route =
-    AUTH_ROUTES.includes(path) || path.startsWith(EMAIL_VERIFY_PREFIX);
+  const is_auth_route = path.startsWith("/auth")
 
   if (token && is_auth_route) {
     return NextResponse.redirect(new URL(`/${locale}${ROUTES.main}`, request.url));
@@ -30,11 +26,9 @@ function appMiddleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/user/:path*",
     "/",
-    "/auth/sign-in",
-    "/auth/sign-up",
-    "/verify/email/:path*",
+    "/user/:path*",
+    "/auth/:path*",
     "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)"
   ],
 };

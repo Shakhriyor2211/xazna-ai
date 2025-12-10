@@ -1,13 +1,29 @@
+import _QJVafm7BTRuA0uG4Usmi from '../dictionary/chatbot-content.json' with { type: 'json' };
+import _LYBSQsOj72OZlqeEK0c8 from '../dictionary/key-monitoring-content.json' with { type: 'json' };
+import _Rfl8JGz2q8vASNzT93Bv from '../dictionary/keys-content.json' with { type: 'json' };
 import _mTAFtZkCT8iRJRxXeiN1 from '../dictionary/main-content.json' with { type: 'json' };
 import _Nbi0difA3bOj8ZMwsf1D from '../dictionary/navigation-content.json' with { type: 'json' };
-import _Qb4VyHPc6THQESxK9BIg from '../dictionary/signin-content.json' with { type: 'json' };
-import _Mb4Qr7M6vdarM7uRg3Ei from '../dictionary/signup-content.json' with { type: 'json' };
+import _v8gE26cYh0WWFhtOxxjv from '../dictionary/reset-password-content.json' with { type: 'json' };
+import _Yia9W5P18RVONZieXRwN from '../dictionary/sign-in-content.json' with { type: 'json' };
+import _QfNmTcOyAXhiaHz446Gw from '../dictionary/sign-up-content.json' with { type: 'json' };
+import _4YqbHyHIP1411q1Iq6wf from '../dictionary/stt-content.json' with { type: 'json' };
+import _mugudsmhI1aPshO5zBPG from '../dictionary/tts-content.json' with { type: 'json' };
+import _kYIUe3W0EhrwEOzUBtfD from '../dictionary/user-monitoring-content.json' with { type: 'json' };
+import _dggUlSvEDkHzh5bjRVPP from '../dictionary/verify-email-content.json' with { type: 'json' };
 
 const dictionaries = {
+  "chatbot-content": _QJVafm7BTRuA0uG4Usmi,
+  "key-monitoring-content": _LYBSQsOj72OZlqeEK0c8,
+  "keys-content": _Rfl8JGz2q8vASNzT93Bv,
   "main-content": _mTAFtZkCT8iRJRxXeiN1,
   "navigation-content": _Nbi0difA3bOj8ZMwsf1D,
-  "signin-content": _Qb4VyHPc6THQESxK9BIg,
-  "signup-content": _Mb4Qr7M6vdarM7uRg3Ei
+  "reset-password-content": _v8gE26cYh0WWFhtOxxjv,
+  "sign-in-content": _Yia9W5P18RVONZieXRwN,
+  "sign-up-content": _QfNmTcOyAXhiaHz446Gw,
+  "stt-content": _4YqbHyHIP1411q1Iq6wf,
+  "tts-content": _mugudsmhI1aPshO5zBPG,
+  "user-monitoring-content": _kYIUe3W0EhrwEOzUBtfD,
+  "verify-email-content": _dggUlSvEDkHzh5bjRVPP
 };
 const getDictionaries = () => dictionaries;
 

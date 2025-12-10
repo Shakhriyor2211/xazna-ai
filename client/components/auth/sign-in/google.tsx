@@ -1,18 +1,20 @@
 import { ENDPOINTS, ROUTES } from "@/shared/site";
 import { useUserStore } from "@/hooks/user";
-import { getDataError, postRequest } from "@/utils/axios-instance";
+import { getError, postRequest } from "@/utils/axios-instance";
 import { GoogleIcon } from "@/utils/icons";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { useAlertStore } from "@/providers/alert";
-import { AxiosErrorProps } from "@/types";
 import { Button, Spinner } from "@heroui/react";
+import { useIntlayer } from "next-intlayer";
+import { AxiosErrorProps } from "@/types";
 
 const TARGET_URL = process.env.NEXT_PUBLIC_GOOGLE_TARGET_URL;
 const REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
 
 export function GoogleSignIn() {
+  const content = useIntlayer("sign-in-content");
   const { setAlert } = useAlertStore();
   const { setUser } = useUserStore();
   const { push } = useRouter();
@@ -32,15 +34,23 @@ export function GoogleSignIn() {
         setUser(user);
         push(next != null && next !== "/" ? next : ROUTES.main);
       }
-    } catch (err) {
-      const { message } = getDataError(err as AxiosErrorProps);
-      setAlert((prev) => ({
-        ...prev,
-        isVisible: true,
-        color: "danger",
-        title: "",
-        description: message,
-      }));
+    } catch (e) {
+      const { data, status } = getError(e as AxiosErrorProps);
+      if (status === 500) {
+        setAlert((prev) => ({
+          ...prev,
+          isVisible: true,
+          color: "danger",
+          description: content.errors.server.value,
+        }));
+      } else {
+        setAlert((prev) => ({
+          ...prev,
+          isVisible: true,
+          color: "danger",
+          description: data?.message,
+        }));
+      }
     }
   }, []);
 
@@ -49,8 +59,7 @@ export function GoogleSignIn() {
       ...prev,
       isVisible: true,
       color: "danger",
-      title: "",
-      description: "Failed authenticate via Google account.",
+      description: content.errors.google.auth.value,
     }));
   }, []);
 

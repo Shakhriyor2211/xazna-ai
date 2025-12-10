@@ -13,11 +13,11 @@ export function CreateKeyPermissions({
   handleChange,
 }: CreateKeyPermissionsProps) {
   return (
-    <div className="flex items-center justify-between space-x-4">
+    <div className="sm:flex items-center justify-between space-y-2 sm:space-x-4">
       <h3 className="text-sm">{title}</h3>
       <Tabs onSelectionChange={handleChange} size="sm" aria-label="Options">
         {tabs.map((tab) => (
-          <Tab className="uppercase" key={tab.key} title={tab.title}></Tab>
+          <Tab className="uppercase" key={tab.key} title={tab.title} />
         ))}
       </Tabs>
     </div>

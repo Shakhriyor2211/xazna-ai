@@ -7,17 +7,17 @@ export default {
       "uz": {
         "title": "Bosh sahifa",
         "metadata": {
-          "title": "AI Xazna | Sun’iy Intellekt Platformasi",
-          "description": "AI Xazna — matndan ovoz yaratish, nutqni matnga aylantirish, katta til modellari asosidagi tizimlar va suhbatlashuvchi intellektual yordamchilarni taqdim etuvchi sun’iy intellekt platformasi.",
-          "keywords": "AI Xazna, sun’iy intellekt, matndan ovoz yaratish, nutqni matnga aylantirish, katta til modellari, intellektual yordamchi, chatbot, ovoz texnologiyalari, nutq texnologiyalari",
+          "title": "AI Xazna | Sun'iy Intellekt Platformasi",
+          "description": "AI Xazna — matndan ovoz yaratish, nutqni matnga aylantirish, katta til modellari asosidagi tizimlar va suhbatlashuvchi intellektual yordamchilarni taqdim etuvchi sun'iy intellekt platformasi.",
+          "keywords": "AI Xazna, sun'iy intellekt, matndan ovoz yaratish, nutqni matnga aylantirish, katta til modellari, intellektual yordamchi, chatbot, ovoz texnologiyalari, nutq texnologiyalari",
           "authors": [
             {
               "name": "AI Xazna"
             }
           ],
           "openGraph": {
-            "title": "AI Xazna | Sun’iy Intellekt Xizmatlari",
-            "description": "Matndan ovoz yaratish, nutqni matnga aylantirish, katta til modellari va suhbatlashuvchi intellektual yordamchi texnologiyalariga ega sun’iy intellekt platformasi.",
+            "title": "AI Xazna | Sun'iy Intellekt Xizmatlari",
+            "description": "Matndan ovoz yaratish, nutqni matnga aylantirish, katta til modellari va suhbatlashuvchi intellektual yordamchi texnologiyalariga ega sun'iy intellekt platformasi.",
             "url": "https://ai.xazna.uz",
             "siteName": "AI Xazna",
             "images": [
@@ -25,7 +25,7 @@ export default {
                 "url": "https://ai.xazna.uz/og-image.png",
                 "width": 1200,
                 "height": 630,
-                "alt": "AI Xazna — Sun’iy Intellekt Platformasi"
+                "alt": "AI Xazna — Sun'iy Intellekt Platformasi"
               }
             ],
             "type": "website",
@@ -33,8 +33,8 @@ export default {
           },
           "twitter": {
             "card": "summary_large_image",
-            "title": "AI Xazna | Sun’iy Intellekt Platformasi",
-            "description": "Matndan ovoz yaratish, nutqni matnga aylantirish, katta til modellari va suhbatlashuvchi intellektual yordamchi xizmatlariga ega sun’iy intellekt platformasi.",
+            "title": "AI Xazna | Sun'iy Intellekt Platformasi",
+            "description": "Matndan ovoz yaratish, nutqni matnga aylantirish, katta til modellari va suhbatlashuvchi intellektual yordamchi xizmatlariga ega sun'iy intellekt platformasi.",
             "images": [
               "https://ai.xazna.uz/og-image.png"
             ],

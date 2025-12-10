@@ -1,7 +1,7 @@
 import { type Dictionary, t } from "intlayer";
 
 const signinContent = {
-    key: "signin-content",
+    key: "sign-in-content",
     live: true,
     content: {
         title: t({
@@ -26,35 +26,23 @@ const signinContent = {
                         uz: "Email",
                         ru: "Электронная почта",
                         en: "Email",
-                    }),
-                    errors: {
-                        required: t({
-                            uz: "Ushbu qator to'ldirilishi shart.",
-                            ru: "Это поле обязательно для заполнения.",
-                            en: "This field is required.",
-                        }),
-                    },
+                    })
                 },
                 password: {
                     label: t({
                         uz: "Parol",
                         ru: "Пароль",
                         en: "Password",
-                    }),
-                    errors: {
-                        required: t({
-                            uz: "Ushbu qator to'ldirilishi shart.",
-                            ru: "Это поле обязательно для заполнения.",
-                            en: "This field is required.",
-                        }),
-                    },
+                    })
                 },
-                submit: t({
-                    uz: "Kirish",
-                    ru: "Вход",
-                    en: "Sign In",
-                })
-            },
+                buttons: {
+                    submit: t({
+                        uz: "Kirish",
+                        ru: "Вход",
+                        en: "Sign In",
+                    })
+                }
+            }
         },
 
         signup: {
@@ -69,7 +57,39 @@ const signinContent = {
                 en: "Don't have an account yet?",
             })
         },
+        errors: {
+            regular: {
+                form: {
+                    email: {
+                        required: t({
+                            uz: "Ushbu qator to'ldirilishi shart.",
+                            ru: "Это поле обязательно для заполнения.",
+                            en: "This field is required.",
+                        }),
+                    },
+                    password: {
+                        required: t({
+                            uz: "Ushbu qator to'ldirilishi shart.",
+                            ru: "Это поле обязательно для заполнения.",
+                            en: "This field is required.",
+                        }),
+                    },
+                },
+            },
+            google: {
+                auth: t({
+                    uz: "Google hisobiga kirishda xatolik yuz berdi.",
+                    ru: "Не удалось выполнить вход через аккаунт Google.",
+                    en: "Failed to authenticate via Google account."
+                }),
+            },
+            server: t({
+                uz: "Serverda ichki xato yuz berdi.",
+                ru: "Внутренняя ошибка сервера.",
+                en: "Internal server error."
 
+            })
+        },
         metadata: {
             title: t({
                 uz: "AI Xazna | Kirish",
@@ -86,55 +106,6 @@ const signinContent = {
                 en: "AI Xazna, sign in, login, artificial intelligence, account",
                 ru: "AI Xazna, вход, логин, искусственный интеллект, аккаунт",
             }),
-            authors: [{ name: "AI Xazna" }],
-            openGraph: {
-                title: t({
-                    uz: "AI Xazna | Kirish",
-                    en: "AI Xazna | Sign In",
-                    ru: "AI Xazna | Вход",
-                }),
-                description: t({
-                    uz: "AI Xazna hisobingizga kirish va sun’iy intellekt xizmatlaridan foydalanish.",
-                    en: "Access your AI Xazna account and enjoy the AI services.",
-                    ru: "Доступ к вашему аккаунту AI Xazna и использование сервисов искусственного интеллекта.",
-                }),
-                url: "https://ai.xazna.uz/sign-in",
-                siteName: t({ uz: "AI Xazna", en: "AI Xazna", ru: "AI Xazna" }),
-                images: [
-                    {
-                        url: "https://ai.xazna.uz/sign-in-og-image.png",
-                        width: 1200,
-                        height: 630,
-                        alt: t({
-                            uz: "Kirish sahifasi — AI Xazna",
-                            en: "Sign In Page — AI Xazna",
-                            ru: "Страница входа — AI Xazna",
-                        }),
-                    },
-                ],
-                type: "website",
-                locale: t({
-                    uz: "uz_UZ",
-                    en: "en_US",
-                    ru: "ru_RU",
-                }),
-            },
-            twitter: {
-                card: "summary_large_image",
-                title: t({
-                    uz: "AI Xazna | Kirish",
-                    en: "AI Xazna | Sign In",
-                    ru: "AI Xazna | Вход",
-                }),
-                description: t({
-                    uz: "AI Xazna hisobingizga kirish va xizmatlardan foydalanish.",
-                    en: "Sign in to your AI Xazna account and access the AI services.",
-                    ru: "Войдите в свой аккаунт AI Xazna и используйте сервисы платформы.",
-                }),
-                images: ["https://ai.xazna.uz/sign-in-og-image.png"],
-                site: "@xazna_ai",
-                creator: "@xazna_ai",
-            },
             robots: {
                 index: true,
                 follow: true,

@@ -1,12 +1,14 @@
 import { ExpenseTableProps } from "@/types";
 import { Pagination } from "@heroui/pagination";
 import { Select, SelectItem } from "@heroui/react";
+import { useIntlayer } from "next-intlayer";
 import { ChangeEvent, useCallback } from "react";
 
 export const MonitoringTableToolbar = ({
   history,
   getHistory,
 }: ExpenseTableProps) => {
+  const content = useIntlayer("user-monitoring-content");
   const handleRowChange = useCallback(
     (event: ChangeEvent<HTMLSelectElement>) => {
       const value = event.target.value;
@@ -43,7 +45,7 @@ export const MonitoringTableToolbar = ({
           base: "max-w-40",
           trigger: "border border-default-300 cursor-pointer",
         }}
-        label="Rows per page"
+        label={content.table.rows}
         labelPlacement="outside-left"
         selectedKeys={[history.page_size]}
         onChange={handleRowChange}

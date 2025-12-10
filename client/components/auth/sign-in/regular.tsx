@@ -1,7 +1,8 @@
 import { useUserStore } from "@/hooks/user";
+import { useAlertStore } from "@/providers/alert";
 import { ENDPOINTS, ROUTES } from "@/shared/site";
 import { AxiosErrorProps } from "@/types";
-import { getDataError, postRequest } from "@/utils/axios-instance";
+import { getError, postRequest } from "@/utils/axios-instance";
 import { Button, Input } from "@heroui/react";
 import { useIntlayer } from "next-intlayer";
 import Link from "next/link";
@@ -10,7 +11,8 @@ import { FocusEvent, FormEvent, useCallback, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export function RegularSignIn() {
-  const content = useIntlayer("signin-content");
+  const content = useIntlayer("sign-in-content");
+  const { setAlert } = useAlertStore();
   const [isHidden, setIsHidden] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState({ email: "", password: "", general: "" });
@@ -49,14 +51,14 @@ export function RegularSignIn() {
       if (email === "") {
         setError((prev) => ({
           ...prev,
-          email: content.regular.form.email.errors.required.value,
+          email: content.errors.regular.form.email.required.value,
         }));
         is_valid = false;
       }
       if (password === "") {
         setError((prev) => ({
           ...prev,
-          password: content.regular.form.password.errors.required.value,
+          password: content.errors.regular.form.password.required.value,
         }));
         is_valid = false;
       }
@@ -75,11 +77,20 @@ export function RegularSignIn() {
           push(next != null && next !== "/" ? next : ROUTES.main);
         }
       } catch (err) {
-        const { message } = getDataError(err as AxiosErrorProps);
-        setError((prev) => ({
-          ...prev,
-          general: message,
-        }));
+        const { data, status } = getError(err as AxiosErrorProps);
+        if (status === 500) {
+          setAlert((prev) => ({
+            ...prev,
+            isVisible: true,
+            color: "danger",
+            description: content.errors.server.value,
+          }));
+        } else {
+          setError((prev) => ({
+            ...prev,
+            general: data?.message,
+          }));
+        }
         setIsLoading(false);
       }
     },
@@ -94,10 +105,9 @@ export function RegularSignIn() {
         errorMessage={error.email}
         size="sm"
         classNames={{
-          base: "relative",
+          base: Boolean(error.email) ? "mb-0" : "mb-6",
           inputWrapper: "dark:bg-neutral-900 border-1 border-default-300",
           label: "text-default-500",
-          helperWrapper: "absolute top-full left-0 -mt-0.5",
         }}
         color="primary"
         variant="bordered"
@@ -111,10 +121,9 @@ export function RegularSignIn() {
         errorMessage={Boolean(error.password) ? error.password : error.general}
         size="sm"
         classNames={{
-          base: "relative mt-6",
+          base: Boolean(error.password) ? "mb-0" : "mb-2",
           inputWrapper: "dark:bg-neutral-900 border-1 border-default-300",
           label: "text-default-500",
-          helperWrapper: "absolute top-full left-0 -mt-0.5",
         }}
         color="primary"
         variant="bordered"
@@ -140,8 +149,8 @@ export function RegularSignIn() {
           </div>
         }
       />
-      <div className="mt-4 flex justify-end">
-        <Link href={ROUTES.password_reset} className="text-sm text-blue-600">
+      <div className="flex justify-end">
+        <Link href={ROUTES.password_reset} className="text-xs text-blue-600">
           {content.regular.forgot_password}
         </Link>
       </div>
@@ -152,7 +161,7 @@ export function RegularSignIn() {
         isLoading={isLoading}
         type="submit"
       >
-        {isLoading ? null : content.regular.form.submit}
+        {isLoading ? null : content.regular.form.buttons.submit}
       </Button>
     </form>
   );

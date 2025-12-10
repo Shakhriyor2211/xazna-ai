@@ -1,11 +1,7 @@
 import { useAlertStore } from "@/providers/alert";
 import { ENDPOINTS } from "@/shared/site";
 import { AxiosErrorProps, UserProps, UserStoreProps } from "@/types";
-import {
-  deleteRequest,
-  getDataError,
-  postRequest,
-} from "@/utils/axios-instance";
+import { deleteRequest, getError, postRequest } from "@/utils/axios-instance";
 import {
   Avatar,
   Button,
@@ -68,7 +64,7 @@ export function ProfileImage({ user, setUser }: UserStoreProps) {
         );
       }
     } catch (error) {
-      const { message } = getDataError(error as AxiosErrorProps);
+      const { message } = getError(error as AxiosErrorProps);
       setAlert((prev) => ({
         ...prev,
         isVisible: true,
@@ -94,7 +90,7 @@ export function ProfileImage({ user, setUser }: UserStoreProps) {
         );
       }
     } catch (error) {
-      const { message } = getDataError(error as AxiosErrorProps);
+      const { message } = getError(error as AxiosErrorProps);
       setAlert((prev) => ({
         ...prev,
         isVisible: true,

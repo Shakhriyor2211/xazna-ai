@@ -14,15 +14,17 @@ import { Key } from "@react-types/shared";
 
 import useDate from "@/hooks/date";
 import { useAlertStore } from "@/providers/alert";
-import { getRequest } from "@/utils/axios-instance";
+import { getError, getRequest } from "@/utils/axios-instance";
 import { ENDPOINTS } from "@/shared/site";
 import { useMillify } from "@/hooks/millify";
 import { MonitoringTableToolbar } from "./toolbar";
-import { ExpenseProps } from "@/types";
+import { AxiosErrorProps, ExpenseProps } from "@/types";
+import { useIntlayer } from "next-intlayer";
 
 export function UserMonitoringTable() {
   const { longDate } = useDate();
   const { setAlert } = useAlertStore();
+  const content = useIntlayer("user-monitoring-content");
 
   const [history, setHistory] = useState<ExpenseProps>({
     data: [],
@@ -60,14 +62,22 @@ export function UserMonitoringTable() {
             total: data.count,
           }));
         }
-      } catch {
-        setAlert((prev) => ({
-          ...prev,
-          color: "danger",
-          title: "",
-          description: "Failed to load history.",
-          isVisible: true,
-        }));
+      } catch (e) {
+        const { data, status } = getError(e as AxiosErrorProps);
+        if (status === 500)
+          setAlert((prev) => ({
+            ...prev,
+            color: "danger",
+            description: content.errors.server.value,
+            isVisible: true,
+          }));
+        else
+          setAlert((prev) => ({
+            ...prev,
+            color: "danger",
+            description: data.message,
+            isVisible: true,
+          }));
       } finally {
         setHistory((prev) => ({
           ...prev,
@@ -114,24 +124,28 @@ export function UserMonitoringTable() {
             #
           </TableColumn>
 
-          <TableColumn key={"operation"} align="start" allowsSorting>
-            OPERATION
+          <TableColumn
+            className="uppercase"
+            key={"operation"}
+            align="start"
+            allowsSorting
+          >
+            {content.table.head.operation}
           </TableColumn>
-          <TableColumn key={"credit"} align="start">
-            CREDIT
+          <TableColumn className="uppercase" key={"credit"} align="start">
+            {content.table.head.credit}
           </TableColumn>
-          <TableColumn key={"cash"} align="start">
-            CASH
+          <TableColumn className="uppercase" key={"cash"} align="start">
+            {content.table.head.cash}
           </TableColumn>
-
-          <TableColumn allowsSorting align="start">
-            CREATED AT
+          <TableColumn className="uppercase" allowsSorting align="start">
+            {content.table.head.created_at}
           </TableColumn>
         </TableHeader>
         <TableBody
           isLoading={history.loading}
           loadingContent={<Spinner variant="dots" />}
-          emptyContent={"No data found"}
+          emptyContent={content.table.empty}
         >
           {history.data.map((item, i) => {
             return (

@@ -1,0 +1,32 @@
+{
+  "key": "stt-content",
+  "content": {
+    "title": "Nutqdan matnga",
+    "form": {
+      "file": {
+        "button": "",
+        "description": ""
+      }
+    },
+    "history": {
+      "title": "",
+      "empty": "Hozircha hech qanday maʼlumot yoʻq."
+    },
+    "errors": {
+      "server": "Serverda ichki xato yuz berdi."
+    },
+    "metadata": {
+      "title": "AI Xazna | Matndan nutqqa",
+      "description": "AI Xazna TTS — matnni tez va aniq tabiiy nutqqa aylantiruvchi sun'iy intellekt xizmati.",
+      "keywords": "AI Xazna, TTS, matndan nutqqa, ovoz yaratish, sun'iy intellekt",
+      "robots": {
+        "index": false,
+        "follow": false
+      }
+    }
+  },
+  "localIds": [
+    "stt-content::local::intlayer/stt.content.ts"
+  ],
+  "locale": "uz"
+}

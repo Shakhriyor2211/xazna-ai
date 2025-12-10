@@ -1,0 +1,87 @@
+/* eslint-disable */
+export default {
+  "key": "stt-content",
+  "content": {
+    "nodeType": "translation",
+    "translation": {
+      "uz": {
+        "title": "Nutqdan matnga",
+        "form": {
+          "file": {
+            "button": "",
+            "description": ""
+          }
+        },
+        "history": {
+          "title": "",
+          "empty": "Hozircha hech qanday maʼlumot yoʻq."
+        },
+        "errors": {
+          "server": "Serverda ichki xato yuz berdi."
+        },
+        "metadata": {
+          "title": "AI Xazna | Matndan nutqqa",
+          "description": "AI Xazna TTS — matnni tez va aniq tabiiy nutqqa aylantiruvchi sun'iy intellekt xizmati.",
+          "keywords": "AI Xazna, TTS, matndan nutqqa, ovoz yaratish, sun'iy intellekt",
+          "robots": {
+            "index": false,
+            "follow": false
+          }
+        }
+      },
+      "en": {
+        "title": "Speech to text",
+        "form": {
+          "file": {
+            "button": "Browse file",
+            "description": "MP3 or WAV, maximum file size 50 MB"
+          }
+        },
+        "history": {
+          "title": "History",
+          "empty": "There is no data yet."
+        },
+        "errors": {
+          "server": "Internal server error."
+        },
+        "metadata": {
+          "title": "AI Xazna | Text-to-Speech",
+          "description": "AI Xazna TTS converts your text into clear, natural-sounding speech instantly.",
+          "keywords": "AI Xazna, TTS, text to speech, voice synthesis, artificial intelligence",
+          "robots": {
+            "index": false,
+            "follow": false
+          }
+        }
+      },
+      "ru": {
+        "title": "Речь в текст",
+        "form": {
+          "file": {
+            "button": "",
+            "description": ""
+          }
+        },
+        "history": {
+          "title": "",
+          "empty": "Данных пока нет."
+        },
+        "errors": {
+          "server": "Внутренняя ошибка сервера."
+        },
+        "metadata": {
+          "title": "AI Xazna | Преобразование текста в речь",
+          "description": "AI Xazna TTS — сервис, который мгновенно преобразует текст в естественную речь.",
+          "keywords": "AI Xazna, TTS, текст в речь, синтез голоса, искусственный интеллект",
+          "robots": {
+            "index": false,
+            "follow": false
+          }
+        }
+      }
+    }
+  },
+  "localIds": [
+    "stt-content::local::intlayer/stt.content.ts"
+  ]
+} as const;

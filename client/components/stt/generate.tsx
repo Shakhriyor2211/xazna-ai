@@ -1,5 +1,5 @@
 import { ENDPOINTS } from "@/shared/site";
-import { getDataError, postRequest } from "@/utils/axios-instance";
+import { getError, postRequest } from "@/utils/axios-instance";
 import { Button, Spinner } from "@heroui/react";
 import { filesize } from "filesize";
 import {
@@ -20,6 +20,7 @@ import {
   ContentHistoryProps,
 } from "@/types";
 import { useAlertStore } from "@/providers/alert";
+import { useIntlayer } from "next-intlayer";
 
 interface STTGenerateProps {
   history: ContentHistoryProps;
@@ -34,6 +35,7 @@ export function STTGenerate({
   getHistory,
   setSttData,
 }: STTGenerateProps) {
+  const content = useIntlayer("stt-content");
   const [file, setFile] = useState<File | null>(null);
   const { setAlert } = useAlertStore();
   const [isLoading, setIsLoading] = useState(false);
@@ -90,15 +92,22 @@ export function STTGenerate({
           });
           getHistory(history.range);
         }
-      } catch (err) {
-        const { message } = getDataError(err as AxiosErrorProps);
-
-        setAlert((prev) => ({
-          ...prev,
-          isVisible: true,
-          description: message,
-          color: "danger",
-        }));
+      } catch (e) {
+        const { data, status } = getError(e as AxiosErrorProps);
+        if (status === 500)
+          setAlert((prev) => ({
+            ...prev,
+            color: "danger",
+            description: content.errors.server.value,
+            isVisible: true,
+          }));
+        else
+          setAlert((prev) => ({
+            ...prev,
+            color: "danger",
+            description: data.message,
+            isVisible: true,
+          }));
       } finally {
         setIsLoading(false);
       }

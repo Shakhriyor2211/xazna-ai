@@ -1,5 +1,4 @@
 import { useAlertStore } from "@/providers/alert";
-import { ChatMessageProps } from "@/types";
 import { Button, Textarea } from "@heroui/react";
 import {
   Dispatch,
@@ -20,6 +19,7 @@ import { postRequest } from "@/utils/axios-instance";
 
 interface SessionFormProps {
   isStreaming: boolean;
+  content: any;
   setIsStreaming: Dispatch<SetStateAction<boolean>>;
   ws: MutableRefObject<WebSocket | null>;
   handleSenMessage: (value: string) => void;
@@ -27,6 +27,7 @@ interface SessionFormProps {
 
 export function SessionForm({
   ws,
+  content,
   isStreaming,
   handleSenMessage,
   setIsStreaming,
@@ -35,7 +36,7 @@ export function SessionForm({
   const formRef = useRef<HTMLFormElement>(null);
   const recordPluginRef = useRef<RecordPlugin | null>(null);
   const [isRecording, setIsRecording] = useState(false);
-  const [content, setContent] = useState("");
+  const [message, setMesssage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleKeyDown = useCallback(
@@ -58,7 +59,7 @@ export function SessionForm({
         ...prev,
         isVisible: true,
         color: "danger",
-        description: "Failed to cancel process.",
+        description: content.session.error.server.value,
       }));
     }
   }, [ws]);
@@ -66,10 +67,10 @@ export function SessionForm({
   const handleLLMSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      handleSenMessage(content);
-      setContent("");
+      handleSenMessage(message);
+      setMesssage("");
     },
-    [content]
+    [message]
   );
   const handleSTTSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
@@ -103,7 +104,7 @@ export function SessionForm({
         url: ENDPOINTS.stt_generate,
         data: form_data,
         headers: {
-          "Content-Type": "multipart/form-data",
+          "message-Type": "multipart/form-data",
         },
       });
       if (data) {
@@ -115,7 +116,7 @@ export function SessionForm({
       setAlert((prev) => ({
         ...prev,
         isVisible: true,
-        description: "Failed to send audio file.",
+        description: content.session.error.server.value,
         color: "danger",
       }));
     }
@@ -135,10 +136,12 @@ export function SessionForm({
           size="lg"
           radius="full"
           name="chat"
-          value={isRecording ? "" : content}
-          onValueChange={setContent}
+          value={isRecording ? "" : message}
+          onValueChange={setMesssage}
           isDisabled={isRecording}
-          placeholder={isRecording ? "" : "Ask anything ..."}
+          placeholder={
+            isRecording ? "" : content.session.form.message.label.value
+          }
           minRows={1}
           onKeyDown={handleKeyDown}
           classNames={{

@@ -1,0 +1,32 @@
+{
+  "key": "key-monitoring-content",
+  "content": {
+    "title": "Мониторинг ключа",
+    "table": {
+      "empty": "Данных пока нет.",
+      "head": {
+        "operation": "Операция",
+        "credit": "Кредит",
+        "cash": "Наличные",
+        "created_at": "Создано"
+      },
+      "rows": "Строки"
+    },
+    "errors": {
+      "server": "Внутренняя ошибка сервера."
+    },
+    "metadata": {
+      "title": "AI Xazna | Мониторинг ключа",
+      "description": "Используйте эту страницу для отслеживания и мониторинга использования вашего ключа AI Xazna. Все запросы фиксируются для контроля.",
+      "keywords": "AI Xazna, ключ, мониторинг, использование, TTS, STT, LLM",
+      "robots": {
+        "index": false,
+        "follow": false
+      }
+    }
+  },
+  "localIds": [
+    "key-monitoring-content::local::intlayer/key-monitoring.content.ts"
+  ],
+  "locale": "ru"
+}

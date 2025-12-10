@@ -10,7 +10,7 @@ import {
   TTSConfigListProps,
   TTSConfigProps,
 } from "@/types";
-import { getDataError, getRequest, postRequest } from "@/utils/axios-instance";
+import { getError, getRequest, postRequest } from "@/utils/axios-instance";
 import { Spinner, Button, Tabs, Tab } from "@heroui/react";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { TTSTextArea } from "./text-area";
@@ -144,7 +144,7 @@ export function TTS() {
           getHistory(history.range, false);
         }
       } catch (err) {
-        const { message } = getDataError(err as AxiosErrorProps);
+        const { message } = getError(err as AxiosErrorProps);
         setAlert((prev) => ({
           ...prev,
           isVisible: true,

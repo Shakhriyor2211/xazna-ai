@@ -7,7 +7,7 @@ import { PiKey, PiPresentationChart } from "react-icons/pi";
 
 import { LogoIcon } from "@/utils/icons";
 
-import { ChatSessions } from "./chat-session";
+import { ChatSessionList } from "../../chatbot/session/list";
 import { useIntlayer } from "next-intlayer";
 import { Link } from "@/utils/link";
 
@@ -32,7 +32,7 @@ export function Sidebar() {
           {content.sidebar.playground.title}
         </h3>
         <div className="space-y-2">
-          <ChatSessions
+          <ChatSessionList
             pathname={pathname}
             title={content.sidebar.playground.chatbot.title.value}
             new_session={content.sidebar.playground.chatbot.new_session.value}

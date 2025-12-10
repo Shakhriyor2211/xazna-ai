@@ -2,7 +2,7 @@ import { ENDPOINTS, ROUTES } from "@/shared/site";
 import { AxiosErrorProps } from "@/types";
 import axios from "axios";
 import { AxiosRequestConfig } from "axios";
-import { useLocale } from "next-intlayer";
+import { getLocaleName } from "intlayer";
 
 
 
@@ -83,16 +83,11 @@ export const patchRequest = async (params: AxiosProps) =>
   await customRequest({ ...params, method: "patch" });
 export const deleteRequest = async (params: AxiosProps) =>
   await customRequest({ ...params, method: "delete" });
-export const getDataError = (error: AxiosErrorProps) => {
-  return {
-    message: error.response?.data?.message || "An unknown error occurred.",
-    status: error.response?.status,
-  };
-};
 
-export const getValidationError = (error: AxiosErrorProps) => {
+
+export const getError = (error: AxiosErrorProps) => {
   return {
-    data: error.response?.data,
+    data: error.response?.data as any,
     status: error.response?.status,
   };
 };

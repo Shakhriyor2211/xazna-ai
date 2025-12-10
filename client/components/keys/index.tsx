@@ -3,16 +3,17 @@ import { KeyTable } from "./table";
 import { CreateKey } from "./create-key";
 import { useCallback, useEffect, useState } from "react";
 import { Key } from "@react-types/shared";
-import { KeyProps } from "@/types";
+import { AxiosErrorProps, KeyProps } from "@/types";
 import { useAlertStore } from "@/providers/alert";
-import { getRequest } from "@/utils/axios-instance";
+import { getError, getRequest } from "@/utils/axios-instance";
 import { ENDPOINTS } from "@/shared/site";
 import { Sidebar } from "../navigation/sidebar";
 import { Header } from "../navigation/header";
+import { useIntlayer } from "next-intlayer";
 
 export function Keys() {
   const { setAlert } = useAlertStore();
-
+  const content = useIntlayer("keys-content");
   const [history, setHistory] = useState<KeyProps>({
     data: [],
     page_size: "4",
@@ -49,14 +50,22 @@ export function Keys() {
             total: data.count,
           }));
         }
-      } catch {
-        setAlert((prev) => ({
-          ...prev,
-          color: "danger",
-          title: "",
-          description: "Failed to load history.",
-          isVisible: true,
-        }));
+      } catch (e) {
+        const { data, status } = getError(e as AxiosErrorProps);
+        if (status === 500)
+          setAlert((prev) => ({
+            ...prev,
+            color: "danger",
+            description: content.errors.server.value,
+            isVisible: true,
+          }));
+        else
+          setAlert((prev) => ({
+            ...prev,
+            color: "danger",
+            description: data.message,
+            isVisible: true,
+          }));
       } finally {
         setHistory((prev) => ({
           ...prev,
@@ -79,7 +88,7 @@ export function Keys() {
     <main className="flex h-screen">
       <Sidebar />
       <div className="flex-1">
-        <Header title="Key management" />
+        <Header title={content.title.value} />
         <div className="h-[calc(100svh-65px)] bg-white dark:bg-black overflow-y-auto p-8 w-screen lg:w-full">
           <div className="flex justify-end mb-4">
             <CreateKey history={history} getHistory={getHistory} />

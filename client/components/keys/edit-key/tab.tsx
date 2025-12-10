@@ -15,7 +15,7 @@ export function EditKeyPermissions({
   handleChange,
 }: EditKeyPermissionsProps) {
   return (
-    <div className="flex items-center justify-between space-x-4">
+    <div className="sm:flex items-center justify-between space-y-2 sm:space-x-4">
       <h3 className="text-sm">{title}</h3>
       <Tabs
         defaultSelectedKey={defaultKey}

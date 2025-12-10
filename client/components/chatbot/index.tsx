@@ -1,7 +1,7 @@
 "use client";
 import { useAlertStore } from "@/providers/alert";
 import { ENDPOINTS, ROUTES } from "@/shared/site";
-import { getDataError, postRequest } from "@/utils/axios-instance";
+import { getError, postRequest } from "@/utils/axios-instance";
 import { Button, Textarea } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { FormEvent, KeyboardEvent, useCallback, useRef, useState } from "react";
@@ -11,11 +11,13 @@ import RecordPlugin from "wavesurfer.js/dist/plugins/record";
 import { AxiosErrorProps } from "@/types";
 import { Header } from "@/components/navigation/header";
 import { Sidebar } from "@/components/navigation/sidebar";
+import { useIntlayer } from "next-intlayer";
 
 export function Chatbot() {
+  const content = useIntlayer("chatbot-content");
   const { setAlert } = useAlertStore();
   const { replace } = useRouter();
-  const [content, setContent] = useState("");
+  const [message, setMessage] = useState("");
   const [isRecording, setIsRecording] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const recordPluginRef = useRef<RecordPlugin | null>(null);
@@ -43,23 +45,31 @@ export function Chatbot() {
         replace(`${ROUTES.chatbot}/${data.slug}`);
       }
     } catch (e) {
-      const { message } = getDataError(e as AxiosErrorProps);
+      const { data, status } = getError(e as AxiosErrorProps);
 
-      setAlert((prev) => ({
-        ...prev,
-        isVisible: true,
-        color: "danger",
-        description: message,
-      }));
+      if (status === 500)
+        setAlert((prev) => ({
+          ...prev,
+          isVisible: true,
+          color: "danger",
+          description: content.errors.session.server.value,
+        }));
+      else
+        setAlert((prev) => ({
+          ...prev,
+          isVisible: true,
+          color: "danger",
+          description: data.message,
+        }));
     }
   }, []);
   const handleSessionSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      handleCreateSession(content);
-      setContent("");
+      handleCreateSession(message);
+      setMessage("");
     },
-    [content]
+    [message]
   );
 
   const handleSTTSubmit = useCallback(
@@ -98,17 +108,27 @@ export function Chatbot() {
         },
       });
       if (data) {
-        setIsLoading(false);
-
         handleCreateSession(data.text);
       }
-    } catch (err) {
-      setAlert((prev) => ({
-        ...prev,
-        isVisible: true,
-        description: "Failed to send audio file.",
-        color: "danger",
-      }));
+    } catch (e) {
+      const { data, status } = getError(e as AxiosErrorProps);
+
+      if (status === 500)
+        setAlert((prev) => ({
+          ...prev,
+          isVisible: true,
+          color: "danger",
+          description: content.errors.session.server.value,
+        }));
+      else
+        setAlert((prev) => ({
+          ...prev,
+          isVisible: true,
+          color: "danger",
+          description: data.message,
+        }));
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -118,7 +138,7 @@ export function Chatbot() {
       <div className="flex-1">
         <Header title="Chatbot" />
         <div className="h-[calc(100svh-65px)] bg-white dark:bg-black overflow-y-auto p-4 sm:p-8 space-y-8 flex flex-col justify-center">
-          <h1 className="text-center text-2xl">What’s on your mind today?</h1>
+          <h1 className="text-center text-2xl">{content.new_chat.greeting}</h1>
           <form
             ref={formRef}
             className="w-full mx-auto"
@@ -132,9 +152,11 @@ export function Chatbot() {
                 size="lg"
                 name="chat"
                 radius="full"
-                value={isRecording ? "" : content}
-                onValueChange={setContent}
-                placeholder={isRecording ? "" : "Ask anything ..."}
+                value={isRecording ? "" : message}
+                onValueChange={setMessage}
+                placeholder={
+                  isRecording ? "" : content.new_chat.form.message.label.value
+                }
                 minRows={1}
                 onKeyDown={handleKeyDown}
                 classNames={{

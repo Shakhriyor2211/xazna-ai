@@ -2,17 +2,19 @@
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { SessionForm } from "./form";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { getRequest, postRequest } from "@/utils/axios-instance";
+import { getError, getRequest, postRequest } from "@/utils/axios-instance";
 import { ENDPOINTS, ROUTES } from "@/shared/site";
 import { useAlertStore } from "@/providers/alert";
 import { SessionMessage } from "./message";
-import { ChatMessageProps } from "@/types";
+import { AxiosErrorProps, ChatMessageProps } from "@/types";
 import { Header } from "@/components/navigation/header";
 import { Sidebar } from "@/components/navigation/sidebar";
+import { useIntlayer } from "next-intlayer";
 
 const HTTP_SERVER_URL = process.env.NEXT_PUBLIC_HTTP_SERVER_URL;
 
 export function ChatbotSession() {
+  const content = useIntlayer("chatbot-content");
   const { sessionId } = useParams();
   const { setAlert } = useAlertStore();
   const [isStreaming, setIsStreaming] = useState(false);
@@ -43,13 +45,22 @@ export function ChatbotSession() {
         ws.current?.send(
           JSON.stringify({ content: v, action: "message", model: "Base" })
         );
-      } catch (err) {
-        setAlert((prev) => ({
-          ...prev,
-          isVisible: true,
-          color: "danger",
-          description: "Failed to send message.",
-        }));
+      } catch (e) {
+        const { data, status } = getError(e as AxiosErrorProps);
+        if (status === 500)
+          setAlert((prev) => ({
+            ...prev,
+            isVisible: true,
+            color: "danger",
+            description: content.errors.session.server.value,
+          }));
+        else
+          setAlert((prev) => ({
+            ...prev,
+            isVisible: true,
+            color: "danger",
+            description: data.message,
+          }));
       }
     },
     [ws, messagesRef]
@@ -74,13 +85,22 @@ export function ChatbotSession() {
         messagesRef.current = data;
         setMessages(data);
       }
-    } catch (err) {
-      setAlert((prev) => ({
-        ...prev,
-        isVisible: true,
-        color: "danger",
-        description: "Failed to load session messages.",
-      }));
+    } catch (e) {
+      const { data, status } = getError(e as AxiosErrorProps);
+      if (status === 500)
+        setAlert((prev) => ({
+          ...prev,
+          isVisible: true,
+          color: "danger",
+          description: content.errors.session.server.value,
+        }));
+      else
+        setAlert((prev) => ({
+          ...prev,
+          isVisible: true,
+          color: "danger",
+          description: data.message,
+        }));
     }
   }, [sessionId]);
 
@@ -123,7 +143,6 @@ export function ChatbotSession() {
           ...prev,
           isVisible: true,
           color: "danger",
-          title: "",
           description: message,
         }));
       } else {
@@ -131,8 +150,7 @@ export function ChatbotSession() {
           ...prev,
           isVisible: true,
           color: "danger",
-          title: "",
-          description: "Failed to receive message.",
+          description: content.errors.session.server.value,
         }));
       }
     };
@@ -144,7 +162,7 @@ export function ChatbotSession() {
         ...prev,
         isVisible: true,
         color: "danger",
-        description: "Failed to establish connection.",
+        description: content.errors.session.server.value,
       }));
     };
 
@@ -182,7 +200,7 @@ export function ChatbotSession() {
     <main className="flex h-screen">
       <Sidebar />
       <div className="flex-1">
-        <Header title="Chatbot" />
+        <Header title={content.session.title.value} />
 
         <div className="h-[calc(100svh-65px)] bg-white dark:bg-black overflow-y-auto py-4 sm:py-8 space-y-8 flex flex-col justify-center">
           <SessionMessage
@@ -192,6 +210,7 @@ export function ChatbotSession() {
           />
           <SessionForm
             ws={ws}
+            content={content}
             handleSenMessage={handleSenMessage}
             setIsStreaming={setIsStreaming}
             isStreaming={isStreaming}

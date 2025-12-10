@@ -1,0 +1,71 @@
+{
+  "key": "chatbot-content",
+  "content": {
+    "new_chat": {
+      "title": "Chatbot",
+      "greeting": "Bugun nimani o'ylayapsiz?",
+      "form": {
+        "message": {
+          "label": "Biror narsa so'rang ..."
+        }
+      }
+    },
+    "session": {
+      "title": "Chatbot",
+      "form": {
+        "message": {
+          "label": "Biror narsa so'rang ..."
+        }
+      },
+      "dropdown": {
+        "edit": {
+          "title": "Tahrirlash",
+          "modal": {
+            "title": "Sessiyani qayta nomlash",
+            "form": {
+              "title": {
+                "label": "Sarlavha"
+              },
+              "buttons": {
+                "submit": "Davom etish",
+                "cancel": "Bekor qilish"
+              }
+            }
+          }
+        },
+        "delete": {
+          "title": "O'chirish",
+          "modal": {
+            "title": "Sessiyani o'chirish",
+            "description": "Ishni davom ettirmoqchimisiz? Bu amal maʼlumotlarni doimiy o'chiradi.",
+            "buttons": {
+              "submit": "Davom etish",
+              "cancel": "Bekor qilish"
+            }
+          }
+        }
+      }
+    },
+    "errors": {
+      "session": {
+        "server": "Serverda ichki xato yuz berdi."
+      },
+      "new_chat": {
+        "server": "Serverda ichki xato yuz berdi."
+      }
+    },
+    "metadata": {
+      "title": "AI Xazna | Chatbot",
+      "description": "AI Xazna chatbot — tabiiy tilni tushunishga asoslangan, savollarga javob beruvchi va foydalanuvchilarga yordam beruvchi sun’iy intellekt yordamchisi.",
+      "keywords": "AI Xazna, chatbot, AI yordamchi, sun’iy intellekt, til modeli, suhbatlashuvchi yordamchi",
+      "robots": {
+        "index": false,
+        "follow": false
+      }
+    }
+  },
+  "localIds": [
+    "chatbot-content::local::intlayer/chatbot.content.ts"
+  ],
+  "locale": "uz"
+}

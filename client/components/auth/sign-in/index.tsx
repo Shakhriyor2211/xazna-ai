@@ -10,7 +10,7 @@ import { useIntlayer } from "next-intlayer";
 import { LocaleSwitcher } from "@/components/navigation/header/locale-switcher";
 
 export function SignIn() {
-  const content = useIntlayer("signin-content");
+  const content = useIntlayer("sign-in-content");
 
   return (
     <Suspense

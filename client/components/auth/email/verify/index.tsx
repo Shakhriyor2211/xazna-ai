@@ -4,10 +4,12 @@ import { notFound, useParams, useRouter } from "next/navigation";
 import { MouseEvent, useCallback, useEffect, useState } from "react";
 import { useAlertStore } from "@/providers/alert";
 import { useUserStore } from "@/hooks/user";
-import { postRequest } from "@/utils/axios-instance";
+import { getError, postRequest } from "@/utils/axios-instance";
 import { ENDPOINTS, ROUTES } from "@/shared/site";
-import { FetchErrorProps } from "@/types";
+import { AxiosErrorProps } from "@/types";
 import { Button, InputOtp } from "@heroui/react";
+import { useIntlayer } from "next-intlayer";
+import { LocaleSwitcher } from "@/components/navigation/header/locale-switcher";
 
 const timerFormat = (seconds: number) => {
   return `0${Math.floor(seconds / 60)}:${
@@ -16,19 +18,15 @@ const timerFormat = (seconds: number) => {
 };
 
 export const VerifyEmail = () => {
+  const content = useIntlayer("verify-email-content");
   const { slug } = useParams();
   const [secondsLeft, setSecondsLeft] = useState(120);
-
   const { setAlert } = useAlertStore();
   const { setUser } = useUserStore();
   const { push } = useRouter();
+  const [error, setError] = useState("");
 
-  const {
-    control,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: {
       otp: "",
     },
@@ -36,6 +34,8 @@ export const VerifyEmail = () => {
 
   const onSubmit = useCallback(async ({ otp }: { otp: string }) => {
     try {
+      console.log(otp);
+
       const { data } = await postRequest({
         url: ENDPOINTS.verify_email_code,
         data: { otp_id: slug, code: otp },
@@ -45,25 +45,22 @@ export const VerifyEmail = () => {
         push(ROUTES.main);
       }
     } catch (e) {
-      const err = e as FetchErrorProps;
-      if (err.response?.status == 400) {
-        setError("otp", {
-          type: "manual",
-          message:
-            err?.response?.data?.message ?? "An unexpected error occurred.",
-        });
-      } else {
-        setError("otp", {
-          type: "manual",
-          message: "",
-        });
+      const { data, status } = getError(e as AxiosErrorProps);
+      if (status === 500) {
+        setError("");
         setAlert((prev) => ({
           ...prev,
           isVisible: true,
-          title: "Verification error",
-          description:
-            err?.response?.data?.message ?? "An unexpected error occurred.",
           color: "danger",
+          description: content.errors.server.value,
+        }));
+      } else {
+        setError(data.message);
+        setAlert((prev) => ({
+          ...prev,
+          isVisible: true,
+          color: "danger",
+          description: data.message,
         }));
       }
     }
@@ -73,25 +70,28 @@ export const VerifyEmail = () => {
     event.preventDefault();
     try {
       setSecondsLeft(120);
+      setError("");
       const _ = await postRequest({
         url: ENDPOINTS.resend_email_code,
         data: { otp_id: slug },
       });
     } catch (e) {
-      const err = e as FetchErrorProps;
-
-      setError("otp", {
-        type: "manual",
-        message: "",
-      });
-      setAlert((prev) => ({
-        ...prev,
-        isVisible: true,
-        title: "Verification error",
-        description:
-          err?.response?.data?.message ?? "An unexpected error occurred.",
-        color: "danger",
-      }));
+      const { data, status } = getError(e as AxiosErrorProps);
+      if (status === 500) {
+        setAlert((prev) => ({
+          ...prev,
+          isVisible: true,
+          color: "danger",
+          description: content.errors.server.value,
+        }));
+      } else {
+        setAlert((prev) => ({
+          ...prev,
+          isVisible: true,
+          color: "danger",
+          description: data.message,
+        }));
+      }
     }
   }, []);
 
@@ -114,13 +114,16 @@ export const VerifyEmail = () => {
 
   return (
     <div className="bg-white sm:bg-gradient-to-b from-black to-primary h-svh flex items-center justify-center font-light">
+      <div className="absolute right-4 top-4">
+        <LocaleSwitcher />
+      </div>
       <form
         className="container flex flex-col sm:bg-white p-4 sm:p-8 sm:rounded-lg sm:shadow-md max-w-[360px] text-center"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h2 className="text-2xl font-semibold">Tasdiqlovchi kodni kiriting</h2>
+        <h2 className="text-2xl font-semibold">{content.title}</h2>
         <div className="flex flex-col items-center space-y-2 mt-4 mb-8">
-          <div>
+          <div className="flex flex-col items-center">
             <Controller
               control={control}
               name="otp"
@@ -131,20 +134,13 @@ export const VerifyEmail = () => {
                     errorMessage: "hidden mt-0",
                     helperWrapper: "mt-0",
                   }}
-                  isInvalid={!!errors.otp}
+                  isInvalid={Boolean(error)}
                   length={6}
                 />
               )}
-              rules={{
-                required: "OTP is required",
-                minLength: {
-                  value: 6,
-                  message: "Please enter a valid OTP",
-                },
-              }}
             />
             <span className="text-foreground-400 text-xs font-extralight">
-              Enter the 6 digit code sent to your email
+              {content.description}
             </span>
           </div>
           <div className="space-x-2 text-sm text-foreground-500">
@@ -154,10 +150,10 @@ export const VerifyEmail = () => {
               className={`${
                 secondsLeft > 0
                   ? "pointer-events-none text-foreground-400"
-                  : "text-primary "
+                  : "text-primary"
               }`}
             >
-              Resend code
+              {content.buttons.resend}
             </button>
             <span className="text-xs inline-block w-16">
               {timerFormat(secondsLeft)}
@@ -166,7 +162,7 @@ export const VerifyEmail = () => {
         </div>
 
         <Button radius="sm" color="primary" type="submit">
-          Verify
+          {content.buttons.submit}
         </Button>
       </form>
     </div>

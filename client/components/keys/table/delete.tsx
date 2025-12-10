@@ -1,7 +1,7 @@
 import { useAlertStore } from "@/providers/alert";
 import { ENDPOINTS } from "@/shared/site";
-import { KeyTableProps } from "@/types";
-import { deleteRequest } from "@/utils/axios-instance";
+import { AxiosErrorProps, KeyTableProps } from "@/types";
+import { deleteRequest, getError } from "@/utils/axios-instance";
 import {
   Button,
   Modal,
@@ -10,6 +10,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@heroui/react";
+import { useIntlayer } from "next-intlayer";
 import { Dispatch, Fragment, SetStateAction, useCallback } from "react";
 
 interface DeleteKeyProps extends KeyTableProps {
@@ -26,7 +27,7 @@ export function DeleteKey({
   getHistory,
 }: DeleteKeyProps) {
   const { setAlert } = useAlertStore();
-
+  const content = useIntlayer("keys-content");
   const handleDelete = useCallback(async () => {
     try {
       const { data } = await deleteRequest({
@@ -34,12 +35,9 @@ export function DeleteKey({
       });
 
       if (data) {
-        console.log(data);
-
         setAlert((prev) => ({
           ...prev,
-          title: "",
-          description: "Key successfully deleted.",
+          description: content.info.delete.value,
           isVisible: true,
         }));
         getHistory(
@@ -49,14 +47,22 @@ export function DeleteKey({
           history.order.direction
         );
       }
-    } catch {
-      setAlert((prev) => ({
-        ...prev,
-        color: "danger",
-        title: "",
-        description: "Failed to delete key.",
-        isVisible: true,
-      }));
+    } catch (e) {
+      const { data, status } = getError(e as AxiosErrorProps);
+      if (status === 500)
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: content.errors.server.value,
+          isVisible: true,
+        }));
+      else
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: data.message,
+          isVisible: true,
+        }));
     }
   }, [history]);
 
@@ -65,15 +71,17 @@ export function DeleteKey({
       <ModalContent>
         {(onClose) => (
           <Fragment>
-            <ModalHeader className="flex flex-col gap-1">Delete</ModalHeader>
+            <ModalHeader className="flex flex-col gap-1">
+              {content.table.dropdown.delete.modal.title}
+            </ModalHeader>
             <ModalBody>
               <p className="text-sm text-default-500">
-                Are you sure you'd like to delete the key?
+                {content.table.dropdown.delete.modal.description}
               </p>
             </ModalBody>
             <ModalFooter>
               <Button variant="light" onPress={onClose}>
-                Cancel
+                {content.table.dropdown.delete.modal.buttons.cancel}
               </Button>
               <Button
                 color="danger"
@@ -83,7 +91,7 @@ export function DeleteKey({
                   onClose();
                 }}
               >
-                Delete
+                {content.table.dropdown.delete.modal.buttons.submit}
               </Button>
             </ModalFooter>
           </Fragment>

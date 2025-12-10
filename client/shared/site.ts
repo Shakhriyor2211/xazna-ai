@@ -7,7 +7,7 @@ export const ROUTES = {
   main: "/",
   sign_in: "/auth/sign-in",
   sign_up: "/auth/sign-up",
-  verify_email: "/verify/email",
+  verify_email: "/auth/verify/email",
   password_reset: "/auth/reset-password",
   password_reset_confirm: "/auth/reset-password/confirm",
   user_profile: "/user/profile",

@@ -1,0 +1,87 @@
+{
+  "key": "sign-up-content",
+  "content": {
+    "title": "Ro'yxatdan o'tish",
+    "or": "YOKI",
+    "form": {
+      "email": {
+        "label": "Email",
+        "errors": {
+          "required": "Ushbu qator to'ldirilishi shart.",
+          "invalid": "Email manzili noto‘g‘ri formatda."
+        }
+      },
+      "first_name": {
+        "label": "Ism",
+        "errors": {
+          "required": "Ushbu qator to'ldirilishi shart."
+        }
+      },
+      "last_name": {
+        "label": "Familiya",
+        "errors": {
+          "required": "Ushbu qator to'ldirilishi shart."
+        }
+      },
+      "password": {
+        "label": "Parol",
+        "errors": {
+          "required": "Ushbu qator to'ldirilishi shart.",
+          "rule": "Parol 8–16 belgidan iborat bo‘lishi, harflar va raqamlarni o‘z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin.",
+          "match": "Parollar mos kelmadi."
+        }
+      },
+      "confirm_password": {
+        "label": "Parolni tasdiqlang",
+        "errors": {
+          "required": "Ushbu qator to'ldirilishi shart.",
+          "match": "Parollar mos kelmadi."
+        }
+      },
+      "buttons": {
+        "submit": "Ro‘yxatdan o‘tish"
+      }
+    },
+    "errors": {
+      "form": {
+        "email": {
+          "required": "Ushbu qator to'ldirilishi shart.",
+          "invalid": "Email manzili noto‘g‘ri formatda."
+        },
+        "first_name": {
+          "required": "Ushbu qator to'ldirilishi shart."
+        },
+        "last_name": {
+          "required": "Ushbu qator to'ldirilishi shart."
+        },
+        "password": {
+          "required": "Ushbu qator to'ldirilishi shart.",
+          "rule": "Parol 8–16 belgidan iborat bo‘lishi, harflar va raqamlarni o‘z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin.",
+          "match": "Parollar mos kelmadi."
+        },
+        "confirm_password": {
+          "required": "Ushbu qator to'ldirilishi shart.",
+          "match": "Parollar mos kelmadi."
+        }
+      },
+      "server": "Serverda ichki xato yuz berdi."
+    },
+    "sigin": {
+      "title": "Kirish",
+      "description": "Akkauntingiz bormi?"
+    },
+    "metadata": {
+      "title": "AI Xazna | Ro'yxatdan o'tish",
+      "description": "AI Xazna platformasiga yangi hisob yaratish va sun'iy intellekt xizmatlaridan foydalanish uchun ro'yxatdan o'ting.",
+      "keywords": "AI Xazna, ro'yxatdan o'tish, sign up, sun'iy intellekt, hisob",
+      "robots": {
+        "index": true,
+        "follow": true
+      }
+    }
+  },
+  "localIds": [
+    "sign-up-content::local::intlayer/sign-up.content.ts"
+  ],
+  "locale": "uz"
+}

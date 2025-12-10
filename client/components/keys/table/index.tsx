@@ -13,10 +13,11 @@ import { KeyTableProps } from "@/types";
 import { KeyDropdown } from "./drop-down";
 import { KeyManage } from "./manage";
 import { Fragment } from "react";
+import { useIntlayer } from "next-intlayer";
 
 export function KeyTable({ history, getHistory }: KeyTableProps) {
   const { longDate } = useDate();
-
+  const content = useIntlayer("keys-content");
   return (
     <Fragment>
       <Table
@@ -43,24 +44,41 @@ export function KeyTable({ history, getHistory }: KeyTableProps) {
           <TableColumn key={"id"} align="start" allowsSorting>
             #
           </TableColumn>
-          <TableColumn key={"name"} align="start" allowsSorting>
-            NAME
+          <TableColumn
+            className="uppercase"
+            key={"name"}
+            align="start"
+            allowsSorting
+          >
+            {content.table.head.name}
           </TableColumn>
-          <TableColumn key={"key"} align="start" allowsSorting>
-            KEY
+          <TableColumn
+            className="uppercase"
+            key={"key"}
+            align="start"
+            allowsSorting
+          >
+            {content.table.head.key}
           </TableColumn>
-          <TableColumn key={"created_at"} align="start" allowsSorting>
-            CREATED AT
+          <TableColumn
+            className="uppercase"
+            key={"created_at"}
+            align="start"
+            allowsSorting
+          >
+            {content.table.head.created_at}
           </TableColumn>
-          <TableColumn key={"enabled"} align="start">
-            ENABLED
+          <TableColumn className="uppercase" key={"enabled"} align="start">
+            {content.table.head.active}
           </TableColumn>
-          <TableColumn align="end">ACTIONS</TableColumn>
+          <TableColumn className="uppercase" align="end">
+            {content.table.head.action}
+          </TableColumn>
         </TableHeader>
         <TableBody
           isLoading={history.loading}
           loadingContent={<Spinner variant="dots" />}
-          emptyContent={"No data found"}
+          emptyContent={content.table.empty}
         >
           {history.data.map((item, i) => {
             return (

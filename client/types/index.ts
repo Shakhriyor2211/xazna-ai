@@ -15,7 +15,7 @@ export interface FileProps {
 
 export interface AlertProps {
   isVisible: boolean;
-  title: string;
+  title?: string;
   description: string;
   color: "default" | "primary" | "secondary" | "success" | "warning" | "danger";
   variant: "solid" | "flat" | "faded" | "bordered";

@@ -1,6 +1,6 @@
 import { useAlertStore } from "@/providers/alert";
 import { ENDPOINTS, ROUTES } from "@/shared/site";
-import { getRequest } from "@/utils/axios-instance";
+import { getError, getRequest } from "@/utils/axios-instance";
 import {
   Button,
   Dropdown,
@@ -16,15 +16,17 @@ import {
   PiPresentationChart,
   PiTrashSimple,
 } from "react-icons/pi";
-import { KeyResultsProps, KeyTableProps } from "@/types";
+import { AxiosErrorProps, KeyResultsProps, KeyTableProps } from "@/types";
 import { DeleteKey } from "./delete";
 import { EditKey } from "../edit-key";
+import { useIntlayer } from "next-intlayer";
 
 interface KeyDropdownProps extends KeyTableProps {
   item: KeyResultsProps;
 }
 
 export function KeyDropdown({ item, history, getHistory }: KeyDropdownProps) {
+  const content = useIntlayer("keys-content");
   const [isOpen, setIsOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -41,19 +43,26 @@ export function KeyDropdown({ item, history, getHistory }: KeyDropdownProps) {
         setAlert((prev) => ({
           ...prev,
           color: "default",
-          title: "",
-          description: "Key copied to clipboard.",
+          description: content.info.copy.value,
           isVisible: true,
         }));
       }
-    } catch {
-      setAlert((prev) => ({
-        ...prev,
-        color: "danger",
-        title: "",
-        description: "Failed to copy key.",
-        isVisible: true,
-      }));
+    } catch (e) {
+      const { data, status } = getError(e as AxiosErrorProps);
+      if (status === 500)
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: content.errors.server.value,
+          isVisible: true,
+        }));
+      else
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: data.message,
+          isVisible: true,
+        }));
     }
   }, []);
 
@@ -64,6 +73,7 @@ export function KeyDropdown({ item, history, getHistory }: KeyDropdownProps) {
   const handleIsDeleteOpen = useCallback(() => {
     setIsDeleteOpen(true);
   }, []);
+
   return (
     <Fragment>
       <Dropdown
@@ -90,7 +100,7 @@ export function KeyDropdown({ item, history, getHistory }: KeyDropdownProps) {
           >
             <div className="flex items-center space-x-2 text-default-700">
               <PiPresentationChart className="w-4 h-4" />
-              <span>Monitoring</span>
+              <span>{content.table.dropdown.monitoring.title}</span>
             </div>
           </DropdownItem>
           <DropdownItem
@@ -102,7 +112,7 @@ export function KeyDropdown({ item, history, getHistory }: KeyDropdownProps) {
           >
             <div className="flex items-center space-x-2 text-default-700">
               <PiCopySimple className="w-4 h-4" />
-              <span>Copy</span>
+              <span>{content.table.dropdown.copy.title}</span>
             </div>
           </DropdownItem>
           <DropdownItem
@@ -114,7 +124,7 @@ export function KeyDropdown({ item, history, getHistory }: KeyDropdownProps) {
           >
             <div className="flex items-center space-x-2 text-default-700">
               <PiPencilSimple className="w-4 h-4" />
-              <span>Edit</span>
+              <span>{content.table.dropdown.edit.title}</span>
             </div>
           </DropdownItem>
           <DropdownItem
@@ -128,7 +138,7 @@ export function KeyDropdown({ item, history, getHistory }: KeyDropdownProps) {
           >
             <div className="flex items-center space-x-2 text-danger-500">
               <PiTrashSimple className="w-4 h-4" />
-              <span>Delete</span>
+              <span>{content.table.dropdown.delete.title}</span>
             </div>
           </DropdownItem>
         </DropdownMenu>

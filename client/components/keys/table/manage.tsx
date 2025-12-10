@@ -1,12 +1,14 @@
 import { useAlertStore } from "@/providers/alert";
 import { ENDPOINTS } from "@/shared/site";
-import { KeyResultsProps } from "@/types";
-import { putRequest } from "@/utils/axios-instance";
+import { AxiosErrorProps, KeyResultsProps } from "@/types";
+import { getError, putRequest } from "@/utils/axios-instance";
 import { Switch } from "@heroui/react";
+import { useIntlayer } from "next-intlayer";
 import { useCallback } from "react";
 
 export function KeyManage({ item }: { item: KeyResultsProps }) {
   const { setAlert } = useAlertStore();
+  const content = useIntlayer("keys-content");
   const handleSettings = useCallback(async (is_active: Boolean) => {
     try {
       const _ = await putRequest({
@@ -15,14 +17,22 @@ export function KeyManage({ item }: { item: KeyResultsProps }) {
           is_active,
         },
       });
-    } catch {
-      setAlert((prev) => ({
-        ...prev,
-        color: "danger",
-        title: "",
-        description: "Failed to change settings.",
-        isVisible: true,
-      }));
+    } catch (e) {
+      const { data, status } = getError(e as AxiosErrorProps);
+      if (status === 500)
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: content.errors.server.value,
+          isVisible: true,
+        }));
+      else
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: data.message,
+          isVisible: true,
+        }));
     }
   }, []);
   return (

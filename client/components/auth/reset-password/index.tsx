@@ -1,9 +1,12 @@
 "use client";
+import { LocaleSwitcher } from "@/components/navigation/header/locale-switcher";
+import { useAlertStore } from "@/providers/alert";
 import { ENDPOINTS, ROUTES } from "@/shared/site";
 import { AxiosErrorProps } from "@/types";
-import { getDataError, postRequest } from "@/utils/axios-instance";
+import { getError, postRequest } from "@/utils/axios-instance";
 import { Button, Input } from "@heroui/react";
 import { Spinner } from "@heroui/spinner";
+import { useIntlayer } from "next-intlayer";
 import { FormEvent, useCallback, useState } from "react";
 import { IoFileTrayFullOutline } from "react-icons/io5";
 import { MdArrowBack } from "react-icons/md";
@@ -11,6 +14,8 @@ import { MdArrowBack } from "react-icons/md";
 const TARGET_URL = process.env.NEXT_PUBLIC_GOOGLE_TARGET_URL;
 
 export const ResetPassword = () => {
+  const content = useIntlayer("reset-password-content");
+  const { setAlert } = useAlertStore();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -27,14 +32,14 @@ export const ResetPassword = () => {
       const email = (formData.get("email") as string) ?? "";
 
       if (email.trim() === "") {
-        setError("This field is required.");
+        setError(content.errors.main.form.email.required.value);
         setIsLoading(false);
         return;
       } else if (
         !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)
       ) {
         setIsLoading(false);
-        setError("Invalid email format.");
+        setError(content.errors.main.form.email.invalid.value);
         return;
       }
 
@@ -50,8 +55,15 @@ export const ResetPassword = () => {
           setIsSuccess(true);
         }
       } catch (e) {
-        const { message } = getDataError(e as AxiosErrorProps);
-        setError(message);
+        const { data, status } = getError(e as AxiosErrorProps);
+        if (status === 500) setError(data.message);
+        else
+          setAlert((prev) => ({
+            ...prev,
+            isVisible: true,
+            color: "danger",
+            description: content.errors.server.value,
+          }));
       } finally {
         setIsLoading(false);
       }
@@ -60,13 +72,16 @@ export const ResetPassword = () => {
   );
 
   return (
-    <div className="h-svh flex items-center justify-center bg-white sm:bg-gradient-to-b from-black to-primary">
+    <div className="h-screen flex items-center justify-center bg-white sm:bg-gradient-to-b from-black to-primary">
+      <div className="absolute right-4 top-4">
+        <LocaleSwitcher />
+      </div>
       {isSuccess ? (
         <div className="container sm:w-[420px] sm:bg-white p-4 sm:p-8 sm:rounded-lg sm:shadow-md space-y-8">
           <div className="space-y-2">
             <IoFileTrayFullOutline className="w-24 h-24 text-primary mx-auto" />
             <p className="text-center text-sm text-foreground-500">
-              Message was sent to your email address
+              {content.main.success.description}
             </p>
           </div>
           <Button
@@ -78,7 +93,7 @@ export const ResetPassword = () => {
             spinner={<Spinner size="md" variant="dots" color="white" />}
             color="primary"
           >
-            Back to Sign In
+            {content.main.success.buttons.back}
           </Button>
         </div>
       ) : (
@@ -88,7 +103,7 @@ export const ResetPassword = () => {
           className="container sm:w-[420px] sm:bg-white p-4 sm:p-8 sm:rounded-lg sm:shadow-md space-y-8"
         >
           <h1 className="text-center text-2xl font-semibold">
-            Emailingizni kiriting
+            {content.title}
           </h1>
           <Input
             size="sm"
@@ -100,7 +115,7 @@ export const ResetPassword = () => {
             variant="bordered"
             isDisabled={isLoading}
             onFocus={handleFocus}
-            label="Email"
+            label={content.main.form.email.label}
             type="text"
             name="email"
             isInvalid={Boolean(error)}
@@ -113,7 +128,7 @@ export const ResetPassword = () => {
             fullWidth
             color="primary"
           >
-            {!isLoading ? "Continue" : null}
+            {!isLoading ? content.main.form.buttons.submit : null}
           </Button>
         </form>
       )}

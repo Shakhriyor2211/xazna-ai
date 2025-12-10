@@ -1,0 +1,33 @@
+{
+  "key": "tts-content",
+  "content": {
+    "page": {
+      "title": "Преобразование текста в речь",
+      "description": "Преобразуйте текст в естественную речь с помощью искусственного интеллекта."
+    },
+    "form": {
+      "text_label": "Введите текст...",
+      "voice_label": "Выберите голос",
+      "submit": "Создать речь",
+      "download": "Скачать"
+    },
+    "messages": {
+      "empty_text": "Пожалуйста, введите текст.",
+      "generating": "Создание речи...",
+      "error": "Произошла ошибка. Попробуйте снова."
+    },
+    "metadata": {
+      "title": "AI Xazna | Преобразование текста в речь",
+      "description": "AI Xazna TTS — сервис, который мгновенно преобразует текст в естественную речь.",
+      "keywords": "AI Xazna, TTS, текст в речь, синтез голоса, искусственный интеллект",
+      "robots": {
+        "index": false,
+        "follow": false
+      }
+    }
+  },
+  "localIds": [
+    "tts-content::local::intlayer/tts.content.ts"
+  ],
+  "locale": "ru"
+}

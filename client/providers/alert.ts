@@ -9,7 +9,7 @@ interface AlertStoreProps {
 export const useAlertStore = create<AlertStoreProps>((set) => ({
   alert: {
     isVisible: false,
-    title: "Alert",
+    title: "",
     description: "Alert description",
     color: "success",
     variant: "flat",

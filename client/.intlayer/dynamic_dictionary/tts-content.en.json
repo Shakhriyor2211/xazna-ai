@@ -1,0 +1,33 @@
+{
+  "key": "tts-content",
+  "content": {
+    "page": {
+      "title": "Text-to-Speech",
+      "description": "Convert text into natural-sounding speech using AI."
+    },
+    "form": {
+      "text_label": "Enter text...",
+      "voice_label": "Choose a voice",
+      "submit": "Generate Speech",
+      "download": "Download"
+    },
+    "messages": {
+      "empty_text": "Please enter text.",
+      "generating": "Generating speech...",
+      "error": "An error occurred. Please try again."
+    },
+    "metadata": {
+      "title": "AI Xazna | Text-to-Speech",
+      "description": "AI Xazna TTS converts your text into clear, natural-sounding speech instantly.",
+      "keywords": "AI Xazna, TTS, text to speech, voice synthesis, artificial intelligence",
+      "robots": {
+        "index": false,
+        "follow": false
+      }
+    }
+  },
+  "localIds": [
+    "tts-content::local::intlayer/tts.content.ts"
+  ],
+  "locale": "en"
+}

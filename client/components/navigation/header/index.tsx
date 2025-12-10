@@ -7,7 +7,7 @@ import { ThemeSwitch } from "./theme-switch";
 import { Skeleton } from "@heroui/skeleton";
 import { Navbar, NavbarMenu, NavbarMenuToggle } from "@heroui/react";
 import { Divider } from "@heroui/divider";
-import { ChatSessions } from "../sidebar/chat-session";
+import { ChatSessionList } from "../../chatbot/session/list";
 import { UserMenu } from "./user-menu";
 import { LocaleSwitcher } from "./locale-switcher";
 import { useIntlayer } from "react-intlayer";
@@ -35,24 +35,19 @@ export function Header({ title }: { title: string }) {
       </h1>
       <div className="flex items-center">
         <div className="flex-1 flex items-center justify-end space-x-4">
+          <div className="flex items-center space-x-2">
+            <ThemeSwitch />
+            <LocaleSwitcher />
+          </div>
           {user !== null ? (
-            <Fragment>
-              <div className="flex items-center space-x-2">
-                <ThemeSwitch />
-                <LocaleSwitcher />
-              </div>
-              <UserMenu />
-            </Fragment>
+            <UserMenu />
           ) : (
-            <Fragment>
-              <Skeleton className="w-6 h-6 rounded-full" />
-              <Skeleton className="w-8 h-8 rounded-full" />
-            </Fragment>
+            <Skeleton className="w-8 h-8 rounded-full" />
           )}
         </div>
       </div>
       <NavbarMenu className="py-8">
-        <ChatSessions
+        <ChatSessionList
           pathname={pathname}
           title={content.sidebar.playground.chatbot.title.value}
           new_session={content.sidebar.playground.chatbot.new_session.value}

@@ -1,0 +1,32 @@
+{
+  "key": "stt-content",
+  "content": {
+    "title": "Speech to text",
+    "form": {
+      "file": {
+        "button": "Browse file",
+        "description": "MP3 or WAV, maximum file size 50 MB"
+      }
+    },
+    "history": {
+      "title": "History",
+      "empty": "There is no data yet."
+    },
+    "errors": {
+      "server": "Internal server error."
+    },
+    "metadata": {
+      "title": "AI Xazna | Text-to-Speech",
+      "description": "AI Xazna TTS converts your text into clear, natural-sounding speech instantly.",
+      "keywords": "AI Xazna, TTS, text to speech, voice synthesis, artificial intelligence",
+      "robots": {
+        "index": false,
+        "follow": false
+      }
+    }
+  },
+  "localIds": [
+    "stt-content::local::intlayer/stt.content.ts"
+  ],
+  "locale": "en"
+}
