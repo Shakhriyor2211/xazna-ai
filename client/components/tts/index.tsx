@@ -1,7 +1,6 @@
 "use client";
 
 import { useAlertStore } from "@/providers/alert";
-import { Layout } from "@/providers/layout";
 import { ENDPOINTS, TTS_CONFIGS } from "@/shared/site";
 import {
   AxiosErrorProps,
@@ -23,8 +22,10 @@ import { TTSHistoryMobile } from "./history/mobile";
 import { RiHistoryFill } from "react-icons/ri";
 import { Header } from "../navigation/header";
 import { Sidebar } from "../navigation/sidebar";
+import { useIntlayer } from "next-intlayer";
 
 export function TTS() {
+  const content = useIntlayer("tts-content");
   const [text, setText] = useState("");
   const [ttsData, setTtsData] = useState<ContentDataProps>({
     text: "",
@@ -70,14 +71,22 @@ export function TTS() {
             total: data.count,
             showInput: data.count > 0,
           }));
-      } catch {
-        setAlert((prev) => ({
-          ...prev,
-          color: "danger",
-          isVisible: true,
-          title: "",
-          description: "Failed to load history.",
-        }));
+      } catch (e) {
+        const { data, status } = getError(e as AxiosErrorProps);
+        if (status === 500)
+          setAlert((prev) => ({
+            ...prev,
+            color: "danger",
+            description: content.errors.server.value,
+            isVisible: true,
+          }));
+        else
+          setAlert((prev) => ({
+            ...prev,
+            color: "danger",
+            description: data.message,
+            isVisible: true,
+          }));
       } finally {
         setHistory((prev) => ({
           ...prev,
@@ -104,14 +113,22 @@ export function TTS() {
           format: data.formats[0],
         });
       }
-    } catch {
-      setAlert((prev) => ({
-        ...prev,
-        color: "danger",
-        isVisible: true,
-        title: "",
-        description: "Failed to load settings.",
-      }));
+    } catch (e) {
+      const { data, status } = getError(e as AxiosErrorProps);
+      if (status === 500)
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: content.errors.server.value,
+          isVisible: true,
+        }));
+      else
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: data.message,
+          isVisible: true,
+        }));
     }
   }, []);
 
@@ -143,14 +160,22 @@ export function TTS() {
           });
           getHistory(history.range, false);
         }
-      } catch (err) {
-        const { message } = getError(err as AxiosErrorProps);
-        setAlert((prev) => ({
-          ...prev,
-          isVisible: true,
-          description: message,
-          color: "danger",
-        }));
+      } catch (e) {
+        const { data, status } = getError(e as AxiosErrorProps);
+        if (status === 500)
+          setAlert((prev) => ({
+            ...prev,
+            color: "danger",
+            description: content.errors.server.value,
+            isVisible: true,
+          }));
+        else
+          setAlert((prev) => ({
+            ...prev,
+            color: "danger",
+            description: data.message,
+            isVisible: true,
+          }));
       } finally {
         setIsLoading(false);
       }
@@ -172,10 +197,10 @@ export function TTS() {
   }, []);
 
   return (
-    <main className="flex h-screen">
+    <main className="flex h-svh">
       <Sidebar />
       <div className="flex-1">
-        <Header title="Text to speech" />
+        <Header title={content.title.value} />
         <div className="h-[calc(100svh-65px)] bg-white dark:bg-black overflow-y-auto sm:flex">
           <form className="sm:flex-1 h-full relative" onSubmit={handleSubmit}>
             <TTSTextArea text={text} setText={setText} />
@@ -200,17 +225,25 @@ export function TTS() {
               </div>
               <div className="flex justify-end items-center gap-4">
                 <span className="text-xs text-default-600">
-                  {text.length}&nbsp;/&nbsp;5000 characters
+                  {text.length}&nbsp;/&nbsp;5000
                 </span>
                 <Button
-                  className="w-40"
                   isDisabled={Boolean(!text.trim())}
                   type="submit"
                   isLoading={isLoading}
-                  spinner={<Spinner variant="dots" color="white" size="sm" />}
+                  spinner={
+                    <Spinner
+                      className="absolute"
+                      variant="dots"
+                      color="white"
+                      size="sm"
+                    />
+                  }
                   color="primary"
                 >
-                  {!isLoading ? "Synthesize speech" : ""}
+                  <span className={isLoading ? "invisible" : "visible"}>
+                    {content.form.buttons.submit}
+                  </span>
                 </Button>
               </div>
             </div>
@@ -226,7 +259,7 @@ export function TTS() {
                 tab: "max-w-fit pl-0 pr-6 h-12 relative",
               }}
             >
-              <Tab as="div" title="Settings" key="settings">
+              <Tab as="div" title={content.settings.title} key="settings">
                 <TTSSettings
                   settingsList={settingsList}
                   setSettings={setSettings}
@@ -234,7 +267,7 @@ export function TTS() {
                   isLoading={isLoading}
                 />
               </Tab>
-              <Tab as="div" title="History" key="history">
+              <Tab as="div" title={content.history.title} key="history">
                 <TTSHistory
                   setTtsData={setTtsData}
                   setHistory={setHistory}

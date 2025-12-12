@@ -18,6 +18,7 @@ import { RiSearch2Line } from "react-icons/ri";
 import { useDebounce } from "@/hooks/debounce";
 import { TTSDelete } from "./delete";
 import { ContentDataProps, ContentHistoryProps } from "@/types";
+import { useIntlayer } from "next-intlayer";
 
 interface TTSHistoryDataProps {
   getHistory: (page?: number) => void;
@@ -32,6 +33,7 @@ export function TTSHistory({
   setHistory,
   getHistory,
 }: TTSHistoryDataProps) {
+  const content = useIntlayer("tts-content");
   const [q, setQ] = useState("");
   const historyRef = useRef<HTMLDivElement>(null);
   const debouncedQuery = useDebounce(q, 500);
@@ -111,7 +113,7 @@ export function TTSHistory({
           classNames={{
             inputWrapper: "border border-default-300",
           }}
-          placeholder="Search by text ..."
+          placeholder={content.history.form.search.label.value}
           startContent={<RiSearch2Line className="text-gray-600" />}
           value={q}
           onClear={() => setQ("")}
@@ -163,7 +165,7 @@ export function TTSHistory({
                 getHistory(history.range - TTS_CONFIGS.pagination.load_rows)
               }
             >
-              Show less
+              {content.history.buttons.less}
             </Button>
 
             <Button
@@ -179,13 +181,15 @@ export function TTSHistory({
                 getHistory(history.range + TTS_CONFIGS.pagination.load_rows)
               }
             >
-              Show more
+              {content.history.buttons.more}
             </Button>
           </div>
         </Fragment>
       ) : (
         <h3 className="text-sm text-default-400 py-2">
-          {history.showInput ? "No results found." : "There is no data yet."}
+          {history.showInput
+            ? content.history.empty.search
+            : content.history.empty.load}
         </h3>
       )}
     </form>

@@ -28,7 +28,7 @@ const signupContent = {
                         en: "This field is required.",
                     }),
                     invalid: t({
-                        uz: "Email manzili noto‘g‘ri formatda.",
+                        uz: "Email manzili noto'g'ri formatda.",
                         ru: "Неверный формат электронной почты.",
                         en: "Invalid email format.",
                     }),
@@ -75,7 +75,7 @@ const signupContent = {
                         en: "This field is required.",
                     }),
                     rule: t({
-                        uz: "Parol 8–16 belgidan iborat bo‘lishi, harflar va raqamlarni o‘z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin.",
+                        uz: "Parol 8–16 belgidan iborat bo'lishi, harflar va raqamlarni o'z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin.",
                         ru: "Пароль должен содержать 8–16 символов, включать буквы и цифры, и может содержать @#$%^&*.,!.",
                         en: "Password must be 8–16 characters, include letters and digits, and can contain @#$%^&*.,!",
                     }),
@@ -107,7 +107,7 @@ const signupContent = {
             },
             buttons: {
                 submit: t({
-                    uz: "Ro‘yxatdan o‘tish",
+                    uz: "Ro'yxatdan o'tish",
                     ru: "Регистрация",
                     en: "Sign up",
                 })
@@ -122,7 +122,7 @@ const signupContent = {
                         en: "This field is required.",
                     }),
                     invalid: t({
-                        uz: "Email manzili noto‘g‘ri formatda.",
+                        uz: "Email manzili noto'g'ri formatda.",
                         ru: "Неверный формат электронной почты.",
                         en: "Invalid email format.",
                     }),
@@ -148,7 +148,7 @@ const signupContent = {
                         en: "This field is required.",
                     }),
                     rule: t({
-                        uz: "Parol 8–16 belgidan iborat bo‘lishi, harflar va raqamlarni o‘z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin.",
+                        uz: "Parol 8–16 belgidan iborat bo'lishi, harflar va raqamlarni o'z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin.",
                         ru: "Пароль должен содержать 8–16 символов, включать буквы и цифры, и может содержать @#$%^&*.,!.",
                         en: "Password must be 8–16 characters, include letters and digits, and can contain @#$%^&*.,!",
                     }),

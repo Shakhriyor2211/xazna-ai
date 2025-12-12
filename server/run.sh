@@ -9,6 +9,9 @@ echo ">>> Starting Django migrations..."
 python manage.py makemigrations --noinput
 python manage.py migrate --noinput
 
+echo ">>> Compiling Django messages..."
+python manage.py compilemessages --noinput
+
 
 echo ">>> Collecting  Django static files..."
 python manage.py collectstatic --noinput

@@ -17,7 +17,7 @@ export default {
         "metadata": {
           "title": "AI Xazna | Emailni tasdiqlash",
           "description": "AI Xazna hisobingizni faollashtirish uchun email manzilingizni tasdiqlang. Tasdiqlash havolasi elektron pochtaga yuboriladi.",
-          "keywords": "AI Xazna, email tasdiqlash, hisobni faollashtirish, ro‘yxatdan o‘tish, avtorizatsiya",
+          "keywords": "AI Xazna, email tasdiqlash, hisobni faollashtirish, ro'yxatdan o'tish, avtorizatsiya",
           "robots": {
             "index": false,
             "follow": false

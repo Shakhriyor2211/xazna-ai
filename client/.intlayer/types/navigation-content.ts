@@ -21,6 +21,23 @@ export default {
             "docs": "Hujjatlar",
             "keys": "API kalitlari"
           }
+        },
+        "header": {
+          "dropdown": {
+            "total": "Yangilash",
+            "usage": "Foydalanish",
+            "cash": "Balans",
+            "sub": "Obuna",
+            "transactions": "Tranzaksiyalar",
+            "profile": "Profil",
+            "sign_out": "Chiqish",
+            "buttons": {
+              "upgrade": "Yangilash"
+            }
+          }
+        },
+        "errors": {
+          "server": "Serverda ichki xato yuz berdi."
         }
       },
       "en": {
@@ -40,6 +57,23 @@ export default {
             "docs": "Documentation",
             "keys": "API Keys"
           }
+        },
+        "header": {
+          "dropdown": {
+            "total": "Upgrade",
+            "usage": "Usage",
+            "cash": "Cash",
+            "sub": "Subscription",
+            "transactions": "Transactions",
+            "profile": "Profile",
+            "sign_out": "Sign out",
+            "buttons": {
+              "upgrade": "Upgrade"
+            }
+          }
+        },
+        "errors": {
+          "server": "Internal server error."
         }
       },
       "ru": {
@@ -59,6 +93,23 @@ export default {
             "docs": "Документация",
             "keys": "API ключи"
           }
+        },
+        "header": {
+          "dropdown": {
+            "total": "Обновить",
+            "usage": "Использование",
+            "cash": "Баланс",
+            "sub": "Подписка",
+            "transactions": "Транзакции",
+            "profile": "Профиль",
+            "sign_out": "Выйти",
+            "buttons": {
+              "upgrade": "Обновить"
+            }
+          }
+        },
+        "errors": {
+          "server": "Внутренняя ошибка сервера."
         }
       }
     }

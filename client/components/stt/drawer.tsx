@@ -9,6 +9,7 @@ import {
   DrawerContent,
   Textarea,
 } from "@heroui/react";
+import { useIntlayer } from "next-intlayer";
 import {
   ChangeEvent,
   Dispatch,
@@ -29,6 +30,7 @@ export function STTDrawer({
   setSttData,
   setFile,
 }: ContentDrawerProps) {
+  const content = useIntlayer("stt-content");
   const [newText, setNewText] = useState<string | null>(null);
   const handleClose = useCallback(() => {
     setFile(null);
@@ -81,7 +83,7 @@ export function STTDrawer({
             name="text"
             fullWidth
             radius="sm"
-            placeholder="Enter text"
+            placeholder={content.drawer.form.text.label.value}
             classNames={{
               base: "h-full",
               inputWrapper: "!h-full",
@@ -95,14 +97,14 @@ export function STTDrawer({
               isDisabled={sttData.text === newText || newText === null}
               onPress={handleReset}
             >
-              Reset
+              {content.drawer.buttons.reset}
             </Button>
             <Button
               type="submit"
               isDisabled={sttData.text === newText || Boolean(!newText)}
               color="primary"
             >
-              Update
+              {content.drawer.buttons.submit}
             </Button>
           </div>
           <AudioPlayer

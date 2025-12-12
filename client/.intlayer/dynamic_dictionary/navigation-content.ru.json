@@ -17,6 +17,23 @@
         "docs": "Документация",
         "keys": "API ключи"
       }
+    },
+    "header": {
+      "dropdown": {
+        "total": "Обновить",
+        "usage": "Использование",
+        "cash": "Баланс",
+        "sub": "Подписка",
+        "transactions": "Транзакции",
+        "profile": "Профиль",
+        "sign_out": "Выйти",
+        "buttons": {
+          "upgrade": "Обновить"
+        }
+      }
+    },
+    "errors": {
+      "server": "Внутренняя ошибка сервера."
     }
   },
   "localIds": [

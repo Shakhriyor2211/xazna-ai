@@ -11,23 +11,35 @@ import { Spinner } from "@heroui/spinner";
 import { Chip } from "@heroui/chip";
 import { ChipVariantProps } from "@heroui/theme";
 import { Key } from "@react-types/shared";
+import { TransactionTableToolbar } from "./toolbar";
 import useDate from "@/hooks/date";
 import { useAlertStore } from "@/providers/alert";
-import { getRequest } from "@/utils/axios-instance";
+import { AxiosErrorProps, TransactionProps } from "@/types";
+import { getError, getRequest } from "@/utils/axios-instance";
+import { useIntlayer } from "next-intlayer";
 import { ENDPOINTS } from "@/shared/site";
 import { useMillify } from "@/hooks/millify";
-import { TransactionProps } from "@/types";
-import { TransactionTableToolbar } from "./toolbar";
+import { PiCheck, PiSpinnerGap, PiX } from "react-icons/pi";
 
-const statusColorMap: Record<string, ChipVariantProps["color"]> = {
-  pending: "warning",
-  completed: "success",
-  failed: "danger",
+const statusMap = {
+  pending: {
+    color: "warning",
+    icon: <PiSpinnerGap className="w-5 h-5 text-warning-500" />,
+  },
+  completed: {
+    color: "success",
+    icon: <PiCheck className="w-5 h-5 text-success-500" />,
+  },
+  failed: {
+    color: "danger",
+    icon: <PiX className="w-5 h-5 text-danger-500" />,
+  },
 };
 
 export function TransactionsTable() {
   const { longDate } = useDate();
   const { setAlert } = useAlertStore();
+  const content = useIntlayer("transactions-content");
 
   const [history, setHistory] = useState<TransactionProps>({
     data: [],
@@ -65,14 +77,22 @@ export function TransactionsTable() {
             total: data.count,
           }));
         }
-      } catch {
-        setAlert((prev) => ({
-          ...prev,
-          color: "danger",
-          title: "Task load error",
-          description: "Failed to load history.",
-          isVisible: true,
-        }));
+      } catch (e) {
+        const { data, status } = getError(e as AxiosErrorProps);
+        if (status === 500)
+          setAlert((prev) => ({
+            ...prev,
+            color: "danger",
+            description: content.errors.server.value,
+            isVisible: true,
+          }));
+        else
+          setAlert((prev) => ({
+            ...prev,
+            color: "danger",
+            description: data.message,
+            isVisible: true,
+          }));
       } finally {
         setHistory((prev) => ({
           ...prev,
@@ -118,24 +138,42 @@ export function TransactionsTable() {
           <TableColumn key={"id"} align="start" allowsSorting>
             #
           </TableColumn>
-          <TableColumn key={"amount"} align="start" allowsSorting>
-            AMOUNT
+          <TableColumn
+            className="uppercase"
+            key={"amount"}
+            align="start"
+            allowsSorting
+          >
+            {content.table.head.amount}
           </TableColumn>
-          <TableColumn key={"provider"} align="start" allowsSorting>
-            PROVIDER
+          <TableColumn
+            className="uppercase"
+            key={"provider"}
+            align="start"
+            allowsSorting
+          >
+            {content.table.head.provider}
           </TableColumn>
-          <TableColumn key={"status"} align="center">
-            STATUS
+          <TableColumn
+            className="uppercase text-center"
+            key={"status"}
+            align="center"
+          >
+            {content.table.head.status}
           </TableColumn>
-
-          <TableColumn key={"created_at"} align="center" allowsSorting>
-            CREATED AT
+          <TableColumn
+            className="uppercase"
+            key={"created_at"}
+            align="center"
+            allowsSorting
+          >
+            {content.table.head.created_at}
           </TableColumn>
         </TableHeader>
         <TableBody
           isLoading={history.loading}
           loadingContent={<Spinner variant="dots" />}
-          emptyContent={"No data found"}
+          emptyContent={content.table.empty}
         >
           {history.data.map((item, i) => {
             return (
@@ -155,17 +193,8 @@ export function TransactionsTable() {
                   {item.provider}
                 </TableCell>
 
-                <TableCell className="py-2">
-                  <Chip
-                    classNames={{
-                      content: "w-24 uppercase",
-                    }}
-                    color={statusColorMap[item.status]}
-                    size="sm"
-                    variant="flat"
-                  >
-                    {item.status}
-                  </Chip>
+                <TableCell className="py-2 flex justify-center">
+                  {statusMap[item.status as keyof typeof statusMap].icon}
                 </TableCell>
                 <TableCell className="py-2">
                   {longDate(item.created_at)}

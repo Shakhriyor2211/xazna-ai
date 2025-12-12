@@ -1,5 +1,6 @@
 import { TTS_CONFIGS } from "@/shared/site";
 import { Textarea } from "@heroui/react";
+import { useIntlayer } from "next-intlayer";
 import { ChangeEvent, useCallback } from "react";
 
 interface TTSTextAreaProps {
@@ -8,6 +9,7 @@ interface TTSTextAreaProps {
 }
 
 export function TTSTextArea({ text, setText }: TTSTextAreaProps) {
+  const content = useIntlayer("tts-content");
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const value = event.target.value.slice(0, TTS_CONFIGS.max_length);
@@ -31,7 +33,7 @@ export function TTSTextArea({ text, setText }: TTSTextAreaProps) {
       fullWidth
       variant="bordered"
       radius="none"
-      placeholder="Enter text"
+      placeholder={content.form.text.label.value}
       classNames={{
         base: "h-full",
         inputWrapper: "!h-full border-none shadow-none",

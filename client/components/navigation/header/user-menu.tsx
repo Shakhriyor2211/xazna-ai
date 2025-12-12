@@ -1,6 +1,6 @@
 import { ENDPOINTS, ROUTES } from "@/shared/site";
 import { useUserStore } from "@/hooks/user";
-import { getRequest, postRequest } from "@/utils/axios-instance";
+import { getError, getRequest, postRequest } from "@/utils/axios-instance";
 import { Avatar } from "@heroui/avatar";
 import {
   Dropdown,
@@ -11,14 +11,16 @@ import {
 } from "@heroui/dropdown";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { FinanceProps } from "@/types";
+import { AxiosErrorProps, FinanceProps } from "@/types";
 import { useAlertStore } from "@/providers/alert";
 import { CircularProgressbar } from "react-circular-progressbar";
 import Link from "next/link";
 import { useMillify } from "@/hooks/millify";
+import { useIntlayer } from "next-intlayer";
 
 export function UserMenu() {
-  const { user, setUser } = useUserStore();
+  const { user } = useUserStore();
+  const content = useIntlayer("navigation-content");
   const { push } = useRouter();
   const path = usePathname();
 
@@ -31,14 +33,22 @@ export function UserMenu() {
     try {
       const _ = await postRequest({ url: ENDPOINTS.sign_out });
       push(`${ROUTES.sign_in}?next=${path}`);
-    } catch {
-      setAlert((prev) => ({
-        ...prev,
-        isVisible: true,
-        color: "danger",
-        title: "",
-        description: "Failed to sign out.",
-      }));
+    } catch (e) {
+      const { data, status } = getError(e as AxiosErrorProps);
+      if (status === 500)
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: content.errors.server.value,
+          isVisible: true,
+        }));
+      else
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: data.message,
+          isVisible: true,
+        }));
     }
   }, []);
 
@@ -56,14 +66,22 @@ export function UserMenu() {
             : 0
         );
       }
-    } catch {
-      setAlert((prev) => ({
-        ...prev,
-        isVisible: true,
-        color: "danger",
-        title: "",
-        description: "Failed to load finance.",
-      }));
+    } catch (e) {
+      const { data, status } = getError(e as AxiosErrorProps);
+      if (status === 500)
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: content.errors.server.value,
+          isVisible: true,
+        }));
+      else
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: data.message,
+          isVisible: true,
+        }));
     }
   }, []);
 
@@ -75,11 +93,15 @@ export function UserMenu() {
     <Dropdown showArrow placement="bottom-end" onOpenChange={setIsDropDownOpen}>
       <DropdownTrigger>
         <Avatar
+          className={
+            user?.picture.portrait !== null
+              ? "transition-transform cursor-pointer bg-transparent"
+              : "transition-transform cursor-pointer"
+          }
           color={user?.picture.portrait !== null ? "primary" : "default"}
           isBordered
           src={user?.picture.portrait ?? ""}
           showFallback
-          className="transition-transform cursor-pointer"
           size="sm"
         />
       </DropdownTrigger>
@@ -112,30 +134,38 @@ export function UserMenu() {
                   }}
                   value={progress}
                 />
-                <span className="text-base font-semibold">Free</span>
+                <span className="text-base font-semibold">
+                  {finance?.sub.title}
+                </span>
               </div>
               <Link
                 href={ROUTES.sub}
                 className="text-xs bg-primary text-white py-1 px-2 rounded-md"
               >
-                Upgrade
+                {content.header.dropdown.buttons.upgrade}
               </Link>
             </div>
             <div className="space-y-2 mt-4">
               <div className="flex justify-between items-center space-x-2">
-                <span className="text-xs text-default-500">Total</span>
+                <span className="text-xs text-default-500">
+                  {content.header.dropdown.total}
+                </span>
                 <span className="text-xs">
                   {useMillify(Number(finance?.sub.credit ?? 0))}
                 </span>
               </div>
               <div className="flex justify-between items-center space-x-2">
-                <span className="text-xs text-default-500">Usage</span>
+                <span className="text-xs text-default-500">
+                  {content.header.dropdown.usage}
+                </span>
                 <span className="text-xs">
                   {useMillify(Number(finance?.sub.credit_expense ?? 0))}
                 </span>
               </div>
               <div className="flex justify-between items-center space-x-2">
-                <span className="text-xs text-default-500">finance</span>
+                <span className="text-xs text-default-500">
+                  {content.header.dropdown.cash}
+                </span>
                 <span className="text-xs">
                   {useMillify(Number(finance?.balance.cash ?? 0))} UZS
                 </span>
@@ -145,13 +175,13 @@ export function UserMenu() {
         </DropdownSection>
         <DropdownSection showDivider>
           <DropdownItem key="sub" as="a" href={ROUTES.sub}>
-            Subscription
+            {content.header.dropdown.sub}
           </DropdownItem>
           <DropdownItem key="transactions" as="a" href={ROUTES.transactions}>
-            Transactions
+            {content.header.dropdown.transactions}
           </DropdownItem>
           <DropdownItem as="a" href={ROUTES.user_profile} key="profile">
-            Profile
+            {content.header.dropdown.profile}
           </DropdownItem>
         </DropdownSection>
         <DropdownSection>
@@ -161,7 +191,7 @@ export function UserMenu() {
             variant="flat"
             onClick={signOut}
           >
-            Sign out
+            {content.header.dropdown.sign_out}
           </DropdownItem>
         </DropdownSection>
       </DropdownMenu>

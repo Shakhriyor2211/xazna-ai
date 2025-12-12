@@ -85,7 +85,7 @@ export function Keys() {
     );
   }, []);
   return (
-    <main className="flex h-screen">
+    <main className="flex h-svh">
       <Sidebar />
       <div className="flex-1">
         <Header title={content.title.value} />

@@ -17,6 +17,23 @@
         "docs": "Hujjatlar",
         "keys": "API kalitlari"
       }
+    },
+    "header": {
+      "dropdown": {
+        "total": "Yangilash",
+        "usage": "Foydalanish",
+        "cash": "Balans",
+        "sub": "Obuna",
+        "transactions": "Tranzaksiyalar",
+        "profile": "Profil",
+        "sign_out": "Chiqish",
+        "buttons": {
+          "upgrade": "Yangilash"
+        }
+      }
+    },
+    "errors": {
+      "server": "Serverda ichki xato yuz berdi."
     }
   },
   "localIds": [

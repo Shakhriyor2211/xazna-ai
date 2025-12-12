@@ -1,4 +1,3 @@
-import { PaymentProviderProps } from "@/types";
 import {
   Button,
   Modal,
@@ -9,11 +8,15 @@ import {
   NumberInput,
   useDisclosure,
 } from "@heroui/react";
-import { Fragment, MouseEvent, useCallback, useState } from "react";
+import { FocusEvent, Fragment, MouseEvent, useCallback, useState } from "react";
 import { IoWalletOutline } from "react-icons/io5";
+import { PaymentProviderProps } from "@/types";
+import { useIntlayer } from "next-intlayer";
 
 export function TopUp() {
+  const content = useIntlayer("transactions-content");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [error, setError] = useState("");
   const [provider, setProvider] = useState<null | PaymentProviderProps>(null);
 
   const handleProvider = useCallback(
@@ -24,6 +27,13 @@ export function TopUp() {
     [provider]
   );
 
+  const handleBlur = useCallback((event: FocusEvent<Element>) => {
+    const target = event.target as HTMLInputElement;
+
+    if (target.value === "")
+      setError(content.errors.form.amount.required.value);
+  }, []);
+
   return (
     <Fragment>
       <Button
@@ -32,13 +42,13 @@ export function TopUp() {
         startContent={<IoWalletOutline className="w-5 h-5" />}
         onPress={onOpen}
       >
-        Top up balance
+        {content.top_up.title}
       </Button>
       <Modal size="lg" isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <Fragment>
-              <ModalHeader>Choose provider</ModalHeader>
+              <ModalHeader> {content.top_up.modal.title}</ModalHeader>
               <ModalBody>
                 <div className="grid grid-cols-3 gap-4">
                   <div
@@ -90,7 +100,10 @@ export function TopUp() {
                     minValue={1000}
                     maxValue={1000000000}
                     defaultValue={1000}
-                    label="Amount"
+                    errorMessage={error}
+                    isInvalid={Boolean(error)}
+                    onBlur={handleBlur}
+                    label={content.top_up.modal.form.amount.label}
                     labelPlacement="outside"
                     endContent={
                       <span className="text-default-400 text-sm">UZS</span>
@@ -100,9 +113,12 @@ export function TopUp() {
               </ModalBody>
               <ModalFooter>
                 <Button variant="light" color="danger" onPress={onClose}>
-                  Cancel
+                  {content.top_up.modal.form.buttons.cancel}
                 </Button>
-                <Button color="primary">Contine</Button>
+                <Button color="primary">
+                  {" "}
+                  {content.top_up.modal.form.buttons.submit}
+                </Button>
               </ModalFooter>
             </Fragment>
           )}

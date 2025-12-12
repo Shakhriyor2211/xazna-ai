@@ -30,7 +30,6 @@ export function TTSDrawer({ ttsData, setTtsData }: ContentDrawerProps) {
             name="text"
             fullWidth
             radius="sm"
-            placeholder="Enter text"
             classNames={{
               base: "h-full",
               inputWrapper: "!h-full",

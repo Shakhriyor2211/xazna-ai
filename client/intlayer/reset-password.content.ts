@@ -90,7 +90,7 @@ const resetPasswordContent = {
                             en: "This field is required.",
                         }),
                         invalid: t({
-                            uz: "Email manzili noto‘g‘ri formatda.",
+                            uz: "Email manzili noto'g'ri formatda.",
                             ru: "Неверный формат электронной почты.",
                             en: "Invalid email format.",
                         }),
@@ -106,7 +106,7 @@ const resetPasswordContent = {
                             en: "This field is required.",
                         }),
                         rule: t({
-                            uz: "Parol 8–16 belgidan iborat bo‘lishi, harflar va raqamlarni o‘z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin.",
+                            uz: "Parol 8–16 belgidan iborat bo'lishi, harflar va raqamlarni o'z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin.",
                             ru: "Пароль должен содержать 8–16 символов, включать буквы и цифры, и может содержать @#$%^&*.,!.",
                             en: "Password must be 8–16 characters, include letters and digits, and can contain @#$%^&*.,!",
                         }),
@@ -141,7 +141,7 @@ const resetPasswordContent = {
             }),
 
             description: t({
-                uz: "AI Xazna hisobingiz uchun parolni tiklash sahifasi. Elektron pochta orqali parolni qayta o‘rnating.",
+                uz: "AI Xazna hisobingiz uchun parolni tiklash sahifasi. Elektron pochta orqali parolni qayta o'rnating.",
                 en: "Password reset page for your AI Xazna account. Reset your password via email verification.",
                 ru: "Страница сброса пароля для вашего аккаунта AI Xazna. Сбросьте пароль через подтверждение по электронной почте.",
             }),

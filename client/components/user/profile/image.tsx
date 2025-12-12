@@ -11,11 +11,13 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@heroui/react";
+import { useIntlayer } from "next-intlayer";
 import { ChangeEvent, Fragment, useCallback, useRef, useState } from "react";
 import { MdAdd, MdOutlineEdit } from "react-icons/md";
 import { PiTrash } from "react-icons/pi";
 
 export function ProfileImage({ user, setUser }: UserStoreProps) {
+  const content = useIntlayer("profile-content");
   const [image, setImage] = useState<File | null>(null);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const { setAlert } = useAlertStore();
@@ -63,15 +65,22 @@ export function ProfileImage({ user, setUser }: UserStoreProps) {
             : prev
         );
       }
-    } catch (error) {
-      const { message } = getError(error as AxiosErrorProps);
-      setAlert((prev) => ({
-        ...prev,
-        isVisible: true,
-        color: "danger",
-        title: "",
-        description: message,
-      }));
+    } catch (e) {
+      const { data, status } = getError(e as AxiosErrorProps);
+      if (status === 500)
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: content.errors.server.value,
+          isVisible: true,
+        }));
+      else
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: data.message,
+          isVisible: true,
+        }));
     } finally {
       if (formRef.current) formRef.current.reset();
       setImage(null);
@@ -89,15 +98,22 @@ export function ProfileImage({ user, setUser }: UserStoreProps) {
           prev !== null ? { ...prev, picture: { portrait: null } } : prev
         );
       }
-    } catch (error) {
-      const { message } = getError(error as AxiosErrorProps);
-      setAlert((prev) => ({
-        ...prev,
-        isVisible: true,
-        color: "danger",
-        title: "",
-        description: message,
-      }));
+    } catch (e) {
+      const { data, status } = getError(e as AxiosErrorProps);
+      if (status === 500)
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: content.errors.server.value,
+          isVisible: true,
+        }));
+      else
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: data.message,
+          isVisible: true,
+        }));
     } finally {
       if (formRef.current) formRef.current.reset();
       setDeleteOpen(false);
@@ -108,7 +124,11 @@ export function ProfileImage({ user, setUser }: UserStoreProps) {
     <div className="space-y-2">
       <div className="flex items-center space-x-4">
         <Avatar
-          className="shrink-0"
+          className={
+            user?.picture.portrait !== null
+              ? "shrink-0 bg-transparent"
+              : "shrink-0"
+          }
           color={user?.picture.portrait !== null ? "primary" : "default"}
           isBordered
           src={user?.picture.portrait ?? ""}
@@ -124,7 +144,7 @@ export function ProfileImage({ user, setUser }: UserStoreProps) {
               className="bg-zinc-800 text-white"
               startContent={<MdOutlineEdit className="w-4 h-4" />}
             >
-              Change image
+              {content.infromation.form.image.change}
             </Button>
           ) : (
             <Button
@@ -134,7 +154,7 @@ export function ProfileImage({ user, setUser }: UserStoreProps) {
               className="bg-zinc-800 text-white"
               startContent={<MdAdd className="w-4 h-4" />}
             >
-              Add image
+              {content.infromation.form.image.add}
             </Button>
           )}
           {user?.picture.portrait !== null ? (
@@ -144,7 +164,7 @@ export function ProfileImage({ user, setUser }: UserStoreProps) {
               size="sm"
               startContent={<PiTrash className="w-4 h-4" />}
             >
-              Remove image
+              {content.infromation.form.image.remove.title}
             </Button>
           ) : null}
 
@@ -167,7 +187,7 @@ export function ProfileImage({ user, setUser }: UserStoreProps) {
             {(onClose) => (
               <Fragment>
                 <ModalHeader className="flex flex-col gap-1">
-                  Image preview
+                  {content.infromation.form.image.preview.modal.title}
                 </ModalHeader>
                 <ModalBody>
                   <Avatar
@@ -175,15 +195,21 @@ export function ProfileImage({ user, setUser }: UserStoreProps) {
                     color="primary"
                     src={image ? URL.createObjectURL(image) : ""}
                     alt="Preview"
-                    className="w-32 h-32 rounded-full object-cover mx-auto"
+                    className="w-32 h-32 rounded-full object-cover mx-auto bg-transparent"
                   />
                 </ModalBody>
                 <ModalFooter>
                   <Button color="danger" variant="light" onPress={onClose}>
-                    Cancel
+                    {
+                      content.infromation.form.image.preview.modal.buttons
+                        .cancel
+                    }
                   </Button>
                   <Button onPress={handleImageSubmit} color="primary">
-                    Submit
+                    {
+                      content.infromation.form.image.preview.modal.buttons
+                        .submit
+                    }
                   </Button>
                 </ModalFooter>
               </Fragment>
@@ -195,20 +221,19 @@ export function ProfileImage({ user, setUser }: UserStoreProps) {
             {(onClose) => (
               <Fragment>
                 <ModalHeader className="flex flex-col gap-1">
-                  Delete profile image
+                  {content.infromation.form.image.remove.modal.title}
                 </ModalHeader>
                 <ModalBody>
                   <p className="text-sm">
-                    Are you sure you want to delete your profile image? This
-                    action cannot be undone.
+                    {content.infromation.form.image.remove.modal.description}
                   </p>
                 </ModalBody>
                 <ModalFooter>
                   <Button color="danger" variant="light" onPress={onClose}>
-                    Cancel
+                    {content.infromation.form.image.remove.modal.buttons.cancel}
                   </Button>
                   <Button color="primary" onPress={handleImageDelete}>
-                    Confirm
+                    {content.infromation.form.image.remove.modal.buttons.submit}
                   </Button>
                 </ModalFooter>
               </Fragment>
@@ -217,7 +242,7 @@ export function ProfileImage({ user, setUser }: UserStoreProps) {
         </Modal>
       </div>
       <p className="text-xs text-foreground-500">
-        We support JPG and PNG formats under 5MB.
+        {content.infromation.form.image.description}
       </p>
     </div>
   );

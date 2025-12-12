@@ -1,20 +1,63 @@
 {
   "key": "tts-content",
   "content": {
-    "page": {
-      "title": "Matndan nutqqa",
-      "description": "Matnni sun'iy intellekt yordamida tabiiy nutqqa aylantiring."
-    },
+    "title": "Matndan nutqqa",
     "form": {
-      "text_label": "Matnni kiriting...",
-      "voice_label": "Ovoz turini tanlang",
-      "submit": "Ovoz yaratish",
-      "download": "Yuklab olish"
+      "text": {
+        "label": "Matnni kiriting ..."
+      },
+      "buttons": {
+        "submit": "Yaratish",
+        "cancel": "Bekor qilish"
+      }
     },
-    "messages": {
-      "empty_text": "Iltimos, matn kiriting.",
-      "generating": "Ovoz yaratilmoqda...",
-      "error": "Xatolik yuz berdi. Qayta urinib ko‘ring."
+    "drawer": {
+      "buttons": {
+        "download": "Yuklab olish"
+      }
+    },
+    "settings": {
+      "title": "Sozlamalar",
+      "form": {
+        "select": {
+          "model": {
+            "label": "Model"
+          },
+          "emotion": {
+            "label": "Emotsiya"
+          },
+          "format": {
+            "label": "Audio format"
+          }
+        }
+      }
+    },
+    "history": {
+      "title": "Tarix",
+      "empty": {
+        "load": "Hozircha hech qanday maʼlumot yoʻq.",
+        "search": "Hech narsa topilmadi."
+      },
+      "form": {
+        "search": {
+          "label": "Nom bo'yicha qidirish ..."
+        }
+      },
+      "modal": {
+        "title": "Ma'lumotlarni o'chirish",
+        "description": "Ishni davom ettirmoqchimisiz? Bu amal maʼlumotlarni doimiy o'chiradi.",
+        "buttons": {
+          "submit": "Davom etish",
+          "cancel": "Bekor qilish"
+        }
+      },
+      "buttons": {
+        "more": "Ko'proq",
+        "less": "Kamroq"
+      }
+    },
+    "errors": {
+      "server": "Serverda ichki xato yuz berdi."
     },
     "metadata": {
       "title": "AI Xazna | Matndan nutqqa",

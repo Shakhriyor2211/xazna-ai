@@ -197,7 +197,7 @@ export function ChatbotSession() {
   }, []);
 
   return (
-    <main className="flex h-screen">
+    <main className="flex h-svh">
       <Sidebar />
       <div className="flex-1">
         <Header title={content.session.title.value} />

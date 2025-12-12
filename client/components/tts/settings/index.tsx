@@ -1,5 +1,6 @@
 import { TTSConfigListProps, TTSConfigProps } from "@/types";
 import { Select, SelectItem } from "@heroui/react";
+import { useIntlayer } from "next-intlayer";
 import { ChangeEvent, Dispatch, SetStateAction, useCallback } from "react";
 
 interface TTSSettingsProps {
@@ -15,6 +16,8 @@ export function TTSSettings({
   settingsList,
   isLoading,
 }: TTSSettingsProps) {
+  const content = useIntlayer("tts-content");
+
   const handleChange = useCallback((event: ChangeEvent<HTMLSelectElement>) => {
     const name = event.target.name;
     setSettings((prev) =>
@@ -25,6 +28,7 @@ export function TTSSettings({
   return settings !== null ? (
     <div className="space-y-6 z-50">
       <Select
+        disallowEmptySelection
         variant="underlined"
         classNames={{
           mainWrapper: "border-b border-default-200",
@@ -35,12 +39,12 @@ export function TTSSettings({
         name="mdl"
         items={settingsList.mdls.map((m) => ({ key: m, label: m }))}
         selectedKeys={[settings.mdl]}
-        label="Model"
-        placeholder="Select a mdl"
+        label={content.settings.form.select.model.label}
       >
         {(mdl) => <SelectItem>{mdl.label}</SelectItem>}
       </Select>
       <Select
+        disallowEmptySelection
         variant="underlined"
         classNames={{
           mainWrapper: "border-b border-default-200",
@@ -51,12 +55,12 @@ export function TTSSettings({
         name="emotion"
         items={settingsList.emotions.map((e) => ({ key: e, label: e }))}
         selectedKeys={[settings.emotion]}
-        label="Emotion"
-        placeholder="Select a emotion"
+        label={content.settings.form.select.emotion.label}
       >
         {(emotion) => <SelectItem>{emotion.label}</SelectItem>}
       </Select>
       <Select
+        disallowEmptySelection
         variant="underlined"
         classNames={{
           mainWrapper: "border-b border-default-200",
@@ -67,8 +71,7 @@ export function TTSSettings({
         name="format"
         items={settingsList.formats.map((f) => ({ key: f, label: f }))}
         selectedKeys={[settings.format]}
-        label="Audio format"
-        placeholder="Select an audio format"
+        label={content.settings.form.select.format.label}
       >
         {(format) => <SelectItem>{format.label}</SelectItem>}
       </Select>

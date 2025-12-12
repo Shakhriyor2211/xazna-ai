@@ -4,60 +4,147 @@ const ttsContent = {
     key: "tts-content",
     live: true,
     content: {
-        page: {
-            title: t({
-                uz: "Matndan nutqqa",
-                en: "Text-to-Speech",
-                ru: "Преобразование текста в речь",
-            }),
-            description: t({
-                uz: "Matnni sun'iy intellekt yordamida tabiiy nutqqa aylantiring.",
-                en: "Convert text into natural-sounding speech using AI.",
-                ru: "Преобразуйте текст в естественную речь с помощью искусственного интеллекта.",
-            }),
-        },
-
+        title: t({
+            uz: "Matndan nutqqa",
+            en: "Text to speech",
+            ru: "Текста в речь",
+        }),
         form: {
-            text_label: t({
-                uz: "Matnni kiriting...",
-                en: "Enter text...",
-                ru: "Введите текст...",
-            }),
-            voice_label: t({
-                uz: "Ovoz turini tanlang",
-                en: "Choose a voice",
-                ru: "Выберите голос",
-            }),
-            submit: t({
-                uz: "Ovoz yaratish",
-                en: "Generate Speech",
-                ru: "Создать речь",
-            }),
-            download: t({
-                uz: "Yuklab olish",
-                en: "Download",
-                ru: "Скачать",
-            }),
-        },
+            text: {
+                label: t({
+                    uz: "Matnni kiriting ...",
+                    en: "Enter text ...",
+                    ru: "Введите текст ...",
+                })
+            },
+            buttons: {
+                submit: t({
+                    uz: "Yaratish",
+                    ru: "Сгенерировать",
+                    en: "Generate",
+                }),
+                cancel: t({
+                    uz: "Bekor qilish",
+                    ru: "Отмена",
+                    en: "Cancel",
+                })
+            }
 
-        messages: {
-            empty_text: t({
-                uz: "Iltimos, matn kiriting.",
-                en: "Please enter text.",
-                ru: "Пожалуйста, введите текст.",
-            }),
-            generating: t({
-                uz: "Ovoz yaratilmoqda...",
-                en: "Generating speech...",
-                ru: "Создание речи...",
-            }),
-            error: t({
-                uz: "Xatolik yuz berdi. Qayta urinib ko‘ring.",
-                en: "An error occurred. Please try again.",
-                ru: "Произошла ошибка. Попробуйте снова.",
-            }),
         },
+        drawer: {
+            buttons: {
+                download: t({
+                    uz: "Yuklab olish",
+                    en: "Download",
+                    ru: "Скачать",
+                }),
+            }
+        },
+        settings: {
+            title: t({
+                uz: "Sozlamalar",
+                en: "Settings",
+                ru: "Настройки",
+            }),
+            form: {
+                select: {
+                    model: {
+                        label: t({
+                            uz: "Model",
+                            en: "Model",
+                            ru: "Модель",
+                        }),
+                    },
+                    emotion: {
+                        label: t({
+                            uz: "Emotsiya",
+                            en: "Emotion",
+                            ru: "Эмоция",
+                        }),
+                    },
 
+                    format: {
+                        label: t({
+                            uz: "Audio format",
+                            en: "Audio format",
+                            ru: "Аудио формат",
+                        }),
+                    }
+                }
+            }
+        },
+        history: {
+            title: t({
+                uz: "Tarix",
+                en: "History",
+                ru: "История",
+            }),
+            empty: {
+                load: t({
+                    uz: "Hozircha hech qanday maʼlumot yoʻq.",
+                    en: "There is no data yet.",
+                    ru: "Данных пока нет.",
+                }),
+                search: t({
+                    uz: "Hech narsa topilmadi.",
+                    en: "Nothing found.",
+                    ru: "Ничего не найдено.",
+                })
+            },
+            form: {
+                search: {
+                    label: t({
+                        uz: "Nom bo'yicha qidirish ...",
+                        en: "Search by name ...",
+                        ru: "Поиск по названию ...",
+                    })
+                }
+            },
+            modal: {
+                title: t({
+                    uz: "Ma'lumotlarni o'chirish",
+                    ru: "Удалить данные",
+                    en: "Delete data",
+                }),
+                description: t({
+                    uz: "Ishni davom ettirmoqchimisiz? Bu amal maʼlumotlarni doimiy o'chiradi.",
+                    ru: "Вы уверены, что хотите продолжить? Это действие навсегда удалит данные.",
+                    en: "Are you sure you want to proceed? This action will permanently delete the data.",
+                }),
+                buttons: {
+                    submit: t({
+                        uz: "Davom etish",
+                        ru: "Продолжить",
+                        en: "Continue",
+                    }),
+                    cancel: t({
+                        uz: "Bekor qilish",
+                        ru: "Отмена",
+                        en: "Cancel",
+                    }),
+                },
+            },
+            buttons: {
+                more: t({
+                    uz: "Ko'proq",
+                    en: "More",
+                    ru: "Больше",
+                }),
+                less: t({
+                    uz: "Kamroq",
+                    en: "Less",
+                    ru: "Меньше",
+                }),
+            },
+
+        },
+        errors: {
+            server: t({
+                uz: "Serverda ichki xato yuz berdi.",
+                ru: "Внутренняя ошибка сервера.",
+                en: "Internal server error.",
+            })
+        },
         metadata: {
             title: t({
                 uz: "AI Xazna | Matndan nutqqa",

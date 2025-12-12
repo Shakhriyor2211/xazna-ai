@@ -1,7 +1,7 @@
 import { useAlertStore } from "@/providers/alert";
 import { ENDPOINTS } from "@/shared/site";
-import { ContentHistoryProps } from "@/types";
-import { deleteRequest } from "@/utils/axios-instance";
+import { AxiosErrorProps, ContentHistoryProps } from "@/types";
+import { deleteRequest, getError } from "@/utils/axios-instance";
 import {
   Button,
   Modal,
@@ -11,6 +11,7 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@heroui/react";
+import { useIntlayer } from "next-intlayer";
 import { Fragment, useCallback } from "react";
 import { PiTrash } from "react-icons/pi";
 
@@ -21,6 +22,7 @@ interface STTDeleteProps {
 }
 
 export function STTDelete({ id, history, getHistory }: STTDeleteProps) {
+  const content = useIntlayer("stt-content");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { setAlert } = useAlertStore();
 
@@ -35,13 +37,22 @@ export function STTDelete({ id, history, getHistory }: STTDeleteProps) {
           getHistory(history.range - 1);
         } else getHistory(1);
       }
-    } catch {
-      setAlert((prev) => ({
-        ...prev,
-        color: "danger",
-        title: "",
-        description: "Failed to delete data.",
-      }));
+    } catch (e) {
+      const { data, status } = getError(e as AxiosErrorProps);
+      if (status === 500)
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: content.errors.server.value,
+          isVisible: true,
+        }));
+      else
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: data.message,
+          isVisible: true,
+        }));
     }
   }, [history]);
 
@@ -60,15 +71,17 @@ export function STTDelete({ id, history, getHistory }: STTDeleteProps) {
         <ModalContent>
           {(onClose) => (
             <Fragment>
-              <ModalHeader className="flex flex-col gap-1">Delete</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">
+                {content.history.modal.title}
+              </ModalHeader>
               <ModalBody>
                 <p className="text-sm text-default-500">
-                  Are you sure you'd like to delete the transcription?
+                  {content.history.modal.description}
                 </p>
               </ModalBody>
               <ModalFooter>
                 <Button variant="light" onPress={onClose}>
-                  Cancel
+                  {content.history.modal.buttons.cancel}
                 </Button>
                 <Button
                   color="danger"
@@ -78,7 +91,7 @@ export function STTDelete({ id, history, getHistory }: STTDeleteProps) {
                     onClose();
                   }}
                 >
-                  Delete
+                  {content.history.modal.buttons.submit}
                 </Button>
               </ModalFooter>
             </Fragment>

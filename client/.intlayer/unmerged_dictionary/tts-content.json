@@ -3,81 +3,201 @@
     "key": "tts-content",
     "live": true,
     "content": {
-      "page": {
-        "title": {
-          "nodeType": "translation",
-          "translation": {
-            "uz": "Matndan nutqqa",
-            "en": "Text-to-Speech",
-            "ru": "Преобразование текста в речь"
-          }
-        },
-        "description": {
-          "nodeType": "translation",
-          "translation": {
-            "uz": "Matnni sun'iy intellekt yordamida tabiiy nutqqa aylantiring.",
-            "en": "Convert text into natural-sounding speech using AI.",
-            "ru": "Преобразуйте текст в естественную речь с помощью искусственного интеллекта."
-          }
+      "title": {
+        "nodeType": "translation",
+        "translation": {
+          "uz": "Matndan nutqqa",
+          "en": "Text to speech",
+          "ru": "Текста в речь"
         }
       },
       "form": {
-        "text_label": {
-          "nodeType": "translation",
-          "translation": {
-            "uz": "Matnni kiriting...",
-            "en": "Enter text...",
-            "ru": "Введите текст..."
+        "text": {
+          "label": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Matnni kiriting ...",
+              "en": "Enter text ...",
+              "ru": "Введите текст ..."
+            }
           }
         },
-        "voice_label": {
-          "nodeType": "translation",
-          "translation": {
-            "uz": "Ovoz turini tanlang",
-            "en": "Choose a voice",
-            "ru": "Выберите голос"
-          }
-        },
-        "submit": {
-          "nodeType": "translation",
-          "translation": {
-            "uz": "Ovoz yaratish",
-            "en": "Generate Speech",
-            "ru": "Создать речь"
-          }
-        },
-        "download": {
-          "nodeType": "translation",
-          "translation": {
-            "uz": "Yuklab olish",
-            "en": "Download",
-            "ru": "Скачать"
+        "buttons": {
+          "submit": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Yaratish",
+              "ru": "Сгенерировать",
+              "en": "Generate"
+            }
+          },
+          "cancel": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Bekor qilish",
+              "ru": "Отмена",
+              "en": "Cancel"
+            }
           }
         }
       },
-      "messages": {
-        "empty_text": {
+      "drawer": {
+        "buttons": {
+          "download": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Yuklab olish",
+              "en": "Download",
+              "ru": "Скачать"
+            }
+          }
+        }
+      },
+      "settings": {
+        "title": {
           "nodeType": "translation",
           "translation": {
-            "uz": "Iltimos, matn kiriting.",
-            "en": "Please enter text.",
-            "ru": "Пожалуйста, введите текст."
+            "uz": "Sozlamalar",
+            "en": "Settings",
+            "ru": "Настройки"
           }
         },
-        "generating": {
+        "form": {
+          "select": {
+            "model": {
+              "label": {
+                "nodeType": "translation",
+                "translation": {
+                  "uz": "Model",
+                  "en": "Model",
+                  "ru": "Модель"
+                }
+              }
+            },
+            "emotion": {
+              "label": {
+                "nodeType": "translation",
+                "translation": {
+                  "uz": "Emotsiya",
+                  "en": "Emotion",
+                  "ru": "Эмоция"
+                }
+              }
+            },
+            "format": {
+              "label": {
+                "nodeType": "translation",
+                "translation": {
+                  "uz": "Audio format",
+                  "en": "Audio format",
+                  "ru": "Аудио формат"
+                }
+              }
+            }
+          }
+        }
+      },
+      "history": {
+        "title": {
           "nodeType": "translation",
           "translation": {
-            "uz": "Ovoz yaratilmoqda...",
-            "en": "Generating speech...",
-            "ru": "Создание речи..."
+            "uz": "Tarix",
+            "en": "History",
+            "ru": "История"
           }
         },
-        "error": {
+        "empty": {
+          "load": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Hozircha hech qanday maʼlumot yoʻq.",
+              "en": "There is no data yet.",
+              "ru": "Данных пока нет."
+            }
+          },
+          "search": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Hech narsa topilmadi.",
+              "en": "Nothing found.",
+              "ru": "Ничего не найдено."
+            }
+          }
+        },
+        "form": {
+          "search": {
+            "label": {
+              "nodeType": "translation",
+              "translation": {
+                "uz": "Nom bo'yicha qidirish ...",
+                "en": "Search by name ...",
+                "ru": "Поиск по названию ..."
+              }
+            }
+          }
+        },
+        "modal": {
+          "title": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Ma'lumotlarni o'chirish",
+              "ru": "Удалить данные",
+              "en": "Delete data"
+            }
+          },
+          "description": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Ishni davom ettirmoqchimisiz? Bu amal maʼlumotlarni doimiy o'chiradi.",
+              "ru": "Вы уверены, что хотите продолжить? Это действие навсегда удалит данные.",
+              "en": "Are you sure you want to proceed? This action will permanently delete the data."
+            }
+          },
+          "buttons": {
+            "submit": {
+              "nodeType": "translation",
+              "translation": {
+                "uz": "Davom etish",
+                "ru": "Продолжить",
+                "en": "Continue"
+              }
+            },
+            "cancel": {
+              "nodeType": "translation",
+              "translation": {
+                "uz": "Bekor qilish",
+                "ru": "Отмена",
+                "en": "Cancel"
+              }
+            }
+          }
+        },
+        "buttons": {
+          "more": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Ko'proq",
+              "en": "More",
+              "ru": "Больше"
+            }
+          },
+          "less": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Kamroq",
+              "en": "Less",
+              "ru": "Меньше"
+            }
+          }
+        }
+      },
+      "errors": {
+        "server": {
           "nodeType": "translation",
           "translation": {
-            "uz": "Xatolik yuz berdi. Qayta urinib ko‘ring.",
-            "en": "An error occurred. Please try again.",
-            "ru": "Произошла ошибка. Попробуйте снова."
+            "uz": "Serverda ichki xato yuz berdi.",
+            "ru": "Внутренняя ошибка сервера.",
+            "en": "Internal server error."
           }
         }
       },

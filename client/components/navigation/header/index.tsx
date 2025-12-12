@@ -2,7 +2,7 @@
 import { useUserStore } from "@/hooks/user";
 import { ROUTES } from "@/shared/site";
 import { usePathname } from "next/navigation";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { ThemeSwitch } from "./theme-switch";
 import { Skeleton } from "@heroui/skeleton";
 import { Navbar, NavbarMenu, NavbarMenuToggle } from "@heroui/react";

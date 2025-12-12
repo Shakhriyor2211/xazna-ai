@@ -46,7 +46,7 @@ export default {
             "form": {
               "email": {
                 "required": "Ushbu qator to'ldirilishi shart.",
-                "invalid": "Email manzili noto‘g‘ri formatda."
+                "invalid": "Email manzili noto'g'ri formatda."
               }
             }
           },
@@ -54,7 +54,7 @@ export default {
             "form": {
               "new_password": {
                 "required": "Ushbu qator to'ldirilishi shart.",
-                "rule": "Parol 8–16 belgidan iborat bo‘lishi, harflar va raqamlarni o‘z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin."
+                "rule": "Parol 8–16 belgidan iborat bo'lishi, harflar va raqamlarni o'z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin."
               },
               "confirm_password": {
                 "required": "Ushbu qator to'ldirilishi shart.",
@@ -66,7 +66,7 @@ export default {
         },
         "metadata": {
           "title": "AI Xazna | Parolni tiklash",
-          "description": "AI Xazna hisobingiz uchun parolni tiklash sahifasi. Elektron pochta orqali parolni qayta o‘rnating.",
+          "description": "AI Xazna hisobingiz uchun parolni tiklash sahifasi. Elektron pochta orqali parolni qayta o'rnating.",
           "keywords": "AI Xazna, parolni tiklash, parolni unutdim, xavfsizlik, avtorizatsiya",
           "robots": {
             "index": false,

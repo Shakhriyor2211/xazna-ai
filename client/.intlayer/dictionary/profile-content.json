@@ -1,0 +1,335 @@
+{
+  "key": "profile-content",
+  "content": {
+    "nodeType": "translation",
+    "translation": {
+      "uz": {
+        "title": "Profil",
+        "infromation": {
+          "title": "Ma'lumotlar",
+          "form": {
+            "image": {
+              "add": "Rasm qo'shish",
+              "change": "Rasmni o'zgartirish",
+              "remove": {
+                "title": "Rasmni o'chirish",
+                "modal": {
+                  "title": "Profil rasmini o'chirish",
+                  "description": "Profil rasmingizni o'chirmoqchimisiz? Bu amalni qaytarib bo'lmaydi.",
+                  "buttons": {
+                    "submit": "Davom etish",
+                    "cancel": "Bekor qilish"
+                  }
+                }
+              },
+              "description": "Biz 5MB dan kichik JPG va PNG formatlarini qo'llab-quvvatlaymiz.",
+              "preview": {
+                "modal": {
+                  "title": "Rasmni ko'rish",
+                  "buttons": {
+                    "submit": "Davom etish",
+                    "cancel": "Bekor qilish"
+                  }
+                }
+              }
+            },
+            "first_name": {
+              "label": "Ism"
+            },
+            "last_name": {
+              "label": "Familiya"
+            }
+          }
+        },
+        "security": {
+          "title": "Xavfsizlik",
+          "form": {
+            "email": {
+              "label": "Elektron pochta"
+            }
+          },
+          "join_date": "Ro'yxatdan o'tgan sana:",
+          "last_password_upadte": "Oxirgi parol yangilanishi:",
+          "change_password": {
+            "title": "Parolni o'zgartirish",
+            "modal": {
+              "title": "Parolni o'zgartirish",
+              "form": {
+                "old_password": "Eski parol",
+                "new_password": "Yangi parol",
+                "confirm_password": "Parolni tasdiqlash",
+                "buttons": {
+                  "submit": "Davom etish",
+                  "cancel": "Bekor qilish"
+                }
+              }
+            }
+          }
+        },
+        "errors": {
+          "information": {
+            "form": {
+              "first_name": {
+                "required": "Ushbu qator to'ldirilishi shart."
+              },
+              "last_name": {
+                "required": "Ushbu qator to'ldirilishi shart."
+              }
+            }
+          },
+          "security": {
+            "change_password": {
+              "modal": {
+                "form": {
+                  "old_password": {
+                    "required": "Ushbu qator to'ldirilishi shart.",
+                    "rule": "Parol 8–16 belgidan iborat bo'lishi, harflar va raqamlarni o'z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin."
+                  },
+                  "new_password": {
+                    "required": "Ushbu qator to'ldirilishi shart.",
+                    "old_match": "Yangi parol eski parol bilan bir xil bo'lishi mumkin emas.",
+                    "rule": "Parol 8–16 belgidan iborat bo'lishi, harflar va raqamlarni o'z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin.",
+                    "match": "Parollar mos kelmadi."
+                  },
+                  "confirm_password": {
+                    "required": "Ushbu qator to'ldirilishi shart.",
+                    "match": "Parollar mos kelmadi."
+                  }
+                }
+              }
+            }
+          },
+          "server": "Serverda ichki xato yuz berdi."
+        },
+        "metadata": {
+          "title": "AI Xazna | Profil",
+          "description": "Profilingizni boshqaring — shaxsiy ma'lumotlarni yangilang, xavfsizlik sozlamalarini o'zgartiring va hisobingizni nazorat qiling.",
+          "keywords": "AI Xazna profil, foydalanuvchi ma'lumotlari, xavfsizlik, parol",
+          "robots": {
+            "index": false,
+            "follow": false
+          }
+        }
+      },
+      "en": {
+        "title": "Profile",
+        "infromation": {
+          "title": "Information",
+          "form": {
+            "image": {
+              "add": "Add image",
+              "change": "Change image",
+              "remove": {
+                "title": "Remove image",
+                "modal": {
+                  "title": "Delete profile image",
+                  "description": "Are you sure you want to delete your profile image? This action cannot be undone.",
+                  "buttons": {
+                    "submit": "Continue",
+                    "cancel": "Cancel"
+                  }
+                }
+              },
+              "description": "We support JPG and PNG formats under 5MB.",
+              "preview": {
+                "modal": {
+                  "title": "Image preview",
+                  "buttons": {
+                    "submit": "Continue",
+                    "cancel": "Cancel"
+                  }
+                }
+              }
+            },
+            "first_name": {
+              "label": "First Name"
+            },
+            "last_name": {
+              "label": "Last Name"
+            }
+          }
+        },
+        "security": {
+          "title": "Security",
+          "form": {
+            "email": {
+              "label": "Email"
+            }
+          },
+          "join_date": "Joining date:",
+          "last_password_upadte": "Last password update:",
+          "change_password": {
+            "title": "Change password",
+            "modal": {
+              "title": "Change password",
+              "form": {
+                "old_password": "Old password",
+                "new_password": "New password",
+                "confirm_password": "Confirm password",
+                "buttons": {
+                  "submit": "Continue",
+                  "cancel": "Cancel"
+                }
+              }
+            }
+          }
+        },
+        "errors": {
+          "information": {
+            "form": {
+              "first_name": {
+                "required": "This field is required."
+              },
+              "last_name": {
+                "required": "This field is required."
+              }
+            }
+          },
+          "security": {
+            "change_password": {
+              "modal": {
+                "form": {
+                  "old_password": {
+                    "required": "This field is required.",
+                    "rule": "Password must be 8–16 characters, include letters and digits, and can contain @#$%^&*.,!"
+                  },
+                  "new_password": {
+                    "required": "This field is required.",
+                    "old_match": "New password cannot be the same as the old password.",
+                    "rule": "Password must be 8–16 characters, include letters and digits, and can contain @#$%^&*.,!",
+                    "match": "Passwords did not match."
+                  },
+                  "confirm_password": {
+                    "required": "This field is required.",
+                    "match": "Passwords did not match."
+                  }
+                }
+              }
+            }
+          },
+          "server": "Internal server error."
+        },
+        "metadata": {
+          "title": "AI Xazna | Profile",
+          "description": "Manage your profile — update personal information, adjust security settings, and stay in control of your account.",
+          "keywords": "AI Xazna profile, user information, security, password",
+          "robots": {
+            "index": false,
+            "follow": false
+          }
+        }
+      },
+      "ru": {
+        "title": "Профиль",
+        "infromation": {
+          "title": "Информация",
+          "form": {
+            "image": {
+              "add": "Добавить изображение",
+              "change": "Изменить изображение",
+              "remove": {
+                "title": "Удалить изображение",
+                "modal": {
+                  "title": "Удалить изображение профиля",
+                  "description": "Вы уверены, что хотите удалить изображение профиля? Это действие необратимо.",
+                  "buttons": {
+                    "submit": "Продолжить",
+                    "cancel": "Отмена"
+                  }
+                }
+              },
+              "description": "Мы поддерживаем JPG и PNG форматы размером до 5MB.",
+              "preview": {
+                "modal": {
+                  "title": "Предпросмотр изображения",
+                  "buttons": {
+                    "submit": "Продолжить",
+                    "cancel": "Отмена"
+                  }
+                }
+              }
+            },
+            "first_name": {
+              "label": "Имя"
+            },
+            "last_name": {
+              "label": "Фамилия"
+            }
+          }
+        },
+        "security": {
+          "title": "Безопасность",
+          "form": {
+            "email": {
+              "label": "Электронная почта"
+            }
+          },
+          "join_date": "Дата регистрации:",
+          "last_password_upadte": "Последнее обновление пароля:",
+          "change_password": {
+            "title": "Изменить пароль",
+            "modal": {
+              "title": "Изменить пароль",
+              "form": {
+                "old_password": "Старый пароль",
+                "new_password": "Новый пароль",
+                "confirm_password": "Подтверждение пароля",
+                "buttons": {
+                  "submit": "Продолжить",
+                  "cancel": "Отмена"
+                }
+              }
+            }
+          }
+        },
+        "errors": {
+          "information": {
+            "form": {
+              "first_name": {
+                "required": "Это поле обязательно для заполнения."
+              },
+              "last_name": {
+                "required": "Это поле обязательно для заполнения."
+              }
+            }
+          },
+          "security": {
+            "change_password": {
+              "modal": {
+                "form": {
+                  "old_password": {
+                    "required": "Это поле обязательно для заполнения.",
+                    "rule": "Пароль должен содержать 8–16 символов, включать буквы и цифры и может содержать @#$%^&*.,!."
+                  },
+                  "new_password": {
+                    "required": "Это поле обязательно для заполнения.",
+                    "old_match": "Новый пароль не может совпадать со старым.",
+                    "rule": "Пароль должен содержать 8–16 символов, включать буквы и цифры и может содержать @#$%^&*.,!.",
+                    "match": "Пароли не совпадают."
+                  },
+                  "confirm_password": {
+                    "required": "Это поле обязательно для заполнения.",
+                    "match": "Пароли не совпадают."
+                  }
+                }
+              }
+            }
+          },
+          "server": "Внутренняя ошибка сервера."
+        },
+        "metadata": {
+          "title": "AI Xazna | Профиль",
+          "description": "Управляйте своим профилем — обновляйте личные данные, изменяйте настройки безопасности и контролируйте свой аккаунт.",
+          "keywords": "AI Xazna профиль, пользовательские данные, безопасность, пароль",
+          "robots": {
+            "index": false,
+            "follow": false
+          }
+        }
+      }
+    }
+  },
+  "localIds": [
+    "profile-content::local::intlayer/profile.content.ts"
+  ]
+}

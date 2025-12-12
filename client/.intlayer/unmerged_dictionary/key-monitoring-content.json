@@ -85,7 +85,7 @@
         "description": {
           "nodeType": "translation",
           "translation": {
-            "uz": "AI Xazna kalitingizning ishlatilishini kuzatish va monitoring qilish uchun ushbu sahifadan foydalaning. Har bir so‘rov faoliyati qayd etiladi.",
+            "uz": "AI Xazna kalitingizning ishlatilishini kuzatish va monitoring qilish uchun ushbu sahifadan foydalaning. Har bir so'rov faoliyati qayd etiladi.",
             "en": "Use this page to monitor and track the usage of your AI Xazna key. All requests are logged for monitoring.",
             "ru": "Используйте эту страницу для отслеживания и мониторинга использования вашего ключа AI Xazna. Все запросы фиксируются для контроля."
           }

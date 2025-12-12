@@ -4,20 +4,63 @@
     "nodeType": "translation",
     "translation": {
       "uz": {
-        "page": {
-          "title": "Matndan nutqqa",
-          "description": "Matnni sun'iy intellekt yordamida tabiiy nutqqa aylantiring."
-        },
+        "title": "Matndan nutqqa",
         "form": {
-          "text_label": "Matnni kiriting...",
-          "voice_label": "Ovoz turini tanlang",
-          "submit": "Ovoz yaratish",
-          "download": "Yuklab olish"
+          "text": {
+            "label": "Matnni kiriting ..."
+          },
+          "buttons": {
+            "submit": "Yaratish",
+            "cancel": "Bekor qilish"
+          }
         },
-        "messages": {
-          "empty_text": "Iltimos, matn kiriting.",
-          "generating": "Ovoz yaratilmoqda...",
-          "error": "Xatolik yuz berdi. Qayta urinib ko‘ring."
+        "drawer": {
+          "buttons": {
+            "download": "Yuklab olish"
+          }
+        },
+        "settings": {
+          "title": "Sozlamalar",
+          "form": {
+            "select": {
+              "model": {
+                "label": "Model"
+              },
+              "emotion": {
+                "label": "Emotsiya"
+              },
+              "format": {
+                "label": "Audio format"
+              }
+            }
+          }
+        },
+        "history": {
+          "title": "Tarix",
+          "empty": {
+            "load": "Hozircha hech qanday maʼlumot yoʻq.",
+            "search": "Hech narsa topilmadi."
+          },
+          "form": {
+            "search": {
+              "label": "Nom bo'yicha qidirish ..."
+            }
+          },
+          "modal": {
+            "title": "Ma'lumotlarni o'chirish",
+            "description": "Ishni davom ettirmoqchimisiz? Bu amal maʼlumotlarni doimiy o'chiradi.",
+            "buttons": {
+              "submit": "Davom etish",
+              "cancel": "Bekor qilish"
+            }
+          },
+          "buttons": {
+            "more": "Ko'proq",
+            "less": "Kamroq"
+          }
+        },
+        "errors": {
+          "server": "Serverda ichki xato yuz berdi."
         },
         "metadata": {
           "title": "AI Xazna | Matndan nutqqa",
@@ -30,20 +73,63 @@
         }
       },
       "en": {
-        "page": {
-          "title": "Text-to-Speech",
-          "description": "Convert text into natural-sounding speech using AI."
-        },
+        "title": "Text to speech",
         "form": {
-          "text_label": "Enter text...",
-          "voice_label": "Choose a voice",
-          "submit": "Generate Speech",
-          "download": "Download"
+          "text": {
+            "label": "Enter text ..."
+          },
+          "buttons": {
+            "submit": "Generate",
+            "cancel": "Cancel"
+          }
         },
-        "messages": {
-          "empty_text": "Please enter text.",
-          "generating": "Generating speech...",
-          "error": "An error occurred. Please try again."
+        "drawer": {
+          "buttons": {
+            "download": "Download"
+          }
+        },
+        "settings": {
+          "title": "Settings",
+          "form": {
+            "select": {
+              "model": {
+                "label": "Model"
+              },
+              "emotion": {
+                "label": "Emotion"
+              },
+              "format": {
+                "label": "Audio format"
+              }
+            }
+          }
+        },
+        "history": {
+          "title": "History",
+          "empty": {
+            "load": "There is no data yet.",
+            "search": "Nothing found."
+          },
+          "form": {
+            "search": {
+              "label": "Search by name ..."
+            }
+          },
+          "modal": {
+            "title": "Delete data",
+            "description": "Are you sure you want to proceed? This action will permanently delete the data.",
+            "buttons": {
+              "submit": "Continue",
+              "cancel": "Cancel"
+            }
+          },
+          "buttons": {
+            "more": "More",
+            "less": "Less"
+          }
+        },
+        "errors": {
+          "server": "Internal server error."
         },
         "metadata": {
           "title": "AI Xazna | Text-to-Speech",
@@ -56,20 +142,63 @@
         }
       },
       "ru": {
-        "page": {
-          "title": "Преобразование текста в речь",
-          "description": "Преобразуйте текст в естественную речь с помощью искусственного интеллекта."
-        },
+        "title": "Текста в речь",
         "form": {
-          "text_label": "Введите текст...",
-          "voice_label": "Выберите голос",
-          "submit": "Создать речь",
-          "download": "Скачать"
+          "text": {
+            "label": "Введите текст ..."
+          },
+          "buttons": {
+            "submit": "Сгенерировать",
+            "cancel": "Отмена"
+          }
         },
-        "messages": {
-          "empty_text": "Пожалуйста, введите текст.",
-          "generating": "Создание речи...",
-          "error": "Произошла ошибка. Попробуйте снова."
+        "drawer": {
+          "buttons": {
+            "download": "Скачать"
+          }
+        },
+        "settings": {
+          "title": "Настройки",
+          "form": {
+            "select": {
+              "model": {
+                "label": "Модель"
+              },
+              "emotion": {
+                "label": "Эмоция"
+              },
+              "format": {
+                "label": "Аудио формат"
+              }
+            }
+          }
+        },
+        "history": {
+          "title": "История",
+          "empty": {
+            "load": "Данных пока нет.",
+            "search": "Ничего не найдено."
+          },
+          "form": {
+            "search": {
+              "label": "Поиск по названию ..."
+            }
+          },
+          "modal": {
+            "title": "Удалить данные",
+            "description": "Вы уверены, что хотите продолжить? Это действие навсегда удалит данные.",
+            "buttons": {
+              "submit": "Продолжить",
+              "cancel": "Отмена"
+            }
+          },
+          "buttons": {
+            "more": "Больше",
+            "less": "Меньше"
+          }
+        },
+        "errors": {
+          "server": "Внутренняя ошибка сервера."
         },
         "metadata": {
           "title": "AI Xazna | Преобразование текста в речь",

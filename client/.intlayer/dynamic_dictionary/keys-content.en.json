@@ -78,7 +78,7 @@
         "delete": {
           "title": "Delete",
           "modal": {
-            "title": "Delete session",
+            "title": "Delete data",
             "description": "Are you sure you want to proceed? This action will permanently delete the data.",
             "buttons": {
               "submit": "Continue",

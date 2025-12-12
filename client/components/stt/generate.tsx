@@ -85,8 +85,8 @@ export function STTGenerate({
         });
         if (data) {
           setSttData({
-            audioUrl: `${ENDPOINTS.audio_stream}/${data.audio.id}`,
-            downloadUrl: `${ENDPOINTS.audio_download}/${data.audio.id}`,
+            audioUrl: `/${ENDPOINTS.audio_stream}/${data.audio.id}`,
+            downloadUrl: `/${ENDPOINTS.audio_download}/${data.audio.id}`,
             text: data.text,
             id: data.id,
           });
@@ -131,7 +131,7 @@ export function STTGenerate({
             <div className="space-y-4 flex flex-col items-center justify-center">
               <FiUploadCloud className="w-6 h-6 text-primary" />
               <h3 className="text-xs text-default-500 text-center">
-                MP3 or WAV, maximum file size 50 MB
+                {content.form.file.description}
               </h3>
 
               <Button
@@ -141,7 +141,7 @@ export function STTGenerate({
                 variant="bordered"
                 className="border-1"
               >
-                Browse file
+                {content.form.file.button}
               </Button>
             </div>
           </div>
@@ -166,13 +166,22 @@ export function STTGenerate({
                   size="sm"
                   type="submit"
                   isLoading={isLoading}
-                  spinner={<Spinner variant="dots" color="white" size="sm" />}
+                  spinner={
+                    <Spinner
+                      className="absolute"
+                      variant="dots"
+                      color="white"
+                      size="sm"
+                    />
+                  }
                   color="primary"
                 >
-                  {!isLoading ? "Generate text" : ""}
+                  <span className={isLoading ? "invisible" : "visible"}>
+                    {content.form.buttons.submit}
+                  </span>
                 </Button>
                 <Button isDisabled={isLoading} onPress={handleClear} size="sm">
-                  Cancel
+                  {content.form.buttons.cancel}
                 </Button>
               </div>
             </div>

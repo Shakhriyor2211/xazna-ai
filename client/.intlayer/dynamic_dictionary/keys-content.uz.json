@@ -78,7 +78,7 @@
         "delete": {
           "title": "O'chirish",
           "modal": {
-            "title": "Sessiyani o'chirish",
+            "title": "Ma'lumotlarni o'chirish",
             "description": "Ishni davom ettirmoqchimisiz? Bu amal maʼlumotlarni doimiy o'chiradi.",
             "buttons": {
               "submit": "Davom etish",
@@ -156,7 +156,7 @@
     },
     "info": {
       "copy": "Kalit xotiraga nusxalandi.",
-      "delete": "Kalit muvaffaqiyatli o‘chirildi."
+      "delete": "Kalit muvaffaqiyatli o'chirildi."
     },
     "metadata": {
       "title": "AI Xazna | Kalitlar",

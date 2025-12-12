@@ -1,3 +1,4 @@
+import { dropdown } from "@heroui/theme";
 import { type Dictionary, t } from "intlayer";
 
 const navigationContent = {
@@ -56,7 +57,60 @@ const navigationContent = {
           ru: "API ключи",
         }),
       }
-    }
+    },
+    header: {
+      dropdown: {
+        total: t({
+          uz: "Yangilash",
+          en: "Upgrade",
+          ru: "Обновить",
+        }),
+        usage: t({
+          uz: "Foydalanish",
+          en: "Usage",
+          ru: "Использование",
+        }),
+        cash: t({
+          uz: "Balans",
+          en: "Cash",
+          ru: "Баланс",
+        }),
+        sub: t({
+          uz: "Obuna",
+          en: "Subscription",
+          ru: "Подписка",
+        }),
+        transactions: t({
+          uz: "Tranzaksiyalar",
+          en: "Transactions",
+          ru: "Транзакции",
+        }),
+        profile: t({
+          uz: "Profil",
+          en: "Profile",
+          ru: "Профиль",
+        }),
+        sign_out: t({
+          uz: "Chiqish",
+          en: "Sign out",
+          ru: "Выйти",
+        }),
+        buttons: {
+          upgrade: t({
+            uz: "Yangilash",
+            en: "Upgrade",
+            ru: "Обновить",
+          }),
+        }
+      }
+    },
+    errors: {
+      server: t({
+        uz: "Serverda ichki xato yuz berdi.",
+        ru: "Внутренняя ошибка сервера.",
+        en: "Internal server error.",
+      })
+    },
   },
 } satisfies Dictionary;
 

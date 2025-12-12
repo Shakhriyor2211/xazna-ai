@@ -1,18 +1,20 @@
 import { ENDPOINTS } from "@/shared/site";
-import { FinanceProps, PlansProps } from "@/types";
-import { getRequest } from "@/utils/axios-instance";
+import { AxiosErrorProps, FinanceProps, PlansProps } from "@/types";
+import { getError, getRequest } from "@/utils/axios-instance";
 import { Button, Skeleton } from "@heroui/react";
 import { Fragment, useCallback, useEffect, useState } from "react";
 import { SubChange } from "./modal/change";
 import { SubRestart } from "./modal/restart";
 import { useMillify } from "@/hooks/millify";
 import { useAlertStore } from "@/providers/alert";
+import { useIntlayer } from "next-intlayer";
 
 interface SubPlansProps {
   isYearly: boolean;
 }
 
 export function SubPlans({ isYearly }: SubPlansProps) {
+  const content = useIntlayer("sub-content");
   const [plans, setPlans] = useState<PlansProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [finance, setFinance] = useState<FinanceProps | null>(null);
@@ -22,14 +24,22 @@ export function SubPlans({ isYearly }: SubPlansProps) {
     try {
       const { data } = await getRequest({ url: ENDPOINTS.plans });
       if (data) setPlans(data);
-    } catch {
-      setAlert((prev) => ({
-        ...prev,
-        isVisible: true,
-        color: "danger",
-        title: "",
-        description: "Failed to load plans.",
-      }));
+    } catch (e) {
+      const { data, status } = getError(e as AxiosErrorProps);
+      if (status === 500)
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: content.errors.server.value,
+          isVisible: true,
+        }));
+      else
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: data.message,
+          isVisible: true,
+        }));
     } finally {
       setIsLoading(false);
     }
@@ -40,14 +50,22 @@ export function SubPlans({ isYearly }: SubPlansProps) {
       const { data } = await getRequest({ url: ENDPOINTS.finance_info });
 
       if (data) setFinance(data);
-    } catch {
-      setAlert((prev) => ({
-        ...prev,
-        isVisible: true,
-        color: "danger",
-        title: "",
-        description: "Failed to load finance.",
-      }));
+    } catch (e) {
+      const { data, status } = getError(e as AxiosErrorProps);
+      if (status === 500)
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: content.errors.server.value,
+          isVisible: true,
+        }));
+      else
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: data.message,
+          isVisible: true,
+        }));
     }
   }, []);
 
@@ -98,11 +116,11 @@ export function SubPlans({ isYearly }: SubPlansProps) {
                   <div className="mt-2">
                     {isYearly ? (
                       <p className="text-sm font-semibold">
-                        {`${useMillify(Number(plan.annual_credit))} credits/year`}
+                        {`${useMillify(Number(plan.annual_credit))} ${content.card.credit_range.year.value}`}
                       </p>
                     ) : (
                       <p className="text-sm font-semibold">
-                        {`${useMillify(Number(plan.monthly_credit))} credits/month`}
+                        {`${useMillify(Number(plan.monthly_credit))} ${content.card.credit_range.month.value}`}
                       </p>
                     )}
                   </div>
@@ -115,14 +133,18 @@ export function SubPlans({ isYearly }: SubPlansProps) {
                           <span className="text-xl sm:text-2xl">
                             {useMillify(Number(plan.annual_price))} UZS
                           </span>
-                          <span className="text-default-500">per year</span>
+                          <span className="text-default-500">
+                            {content.card.price_range.year}
+                          </span>
                         </p>
                       ) : (
                         <p className="space-x-2">
                           <span className="text-xl sm:text-2xl">
                             {useMillify(Number(plan.monthly_price))} UZS
                           </span>
-                          <span className="text-default-500">per month</span>
+                          <span className="text-default-500">
+                            {content.card.price_range.month}
+                          </span>
                         </p>
                       )}
                       <div
@@ -146,7 +168,7 @@ export function SubPlans({ isYearly }: SubPlansProps) {
                     </div>
                   ) : (
                     <Button fullWidth color="primary">
-                      Contact sales
+                      {content.card.buttons.contact}
                     </Button>
                   )}
                 </div>

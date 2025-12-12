@@ -16,7 +16,7 @@ export const generateMetadata = async ({
 
 const MainPage: NextPageIntlayer = async () => {
   return (
-    <main className="flex h-screen">
+    <main className="flex h-svh">
       <Sidebar />
       <div className="flex-1">
         <Header title="Landing" />

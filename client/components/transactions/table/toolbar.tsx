@@ -1,12 +1,14 @@
-import { TransactionTableProps } from "@/types";
 import { Pagination } from "@heroui/pagination";
 import { Select, SelectItem } from "@heroui/react";
 import { ChangeEvent, useCallback } from "react";
+import { TransactionTableProps } from "@/types";
+import { useIntlayer } from "next-intlayer";
 
 export const TransactionTableToolbar = ({
   history,
   getHistory,
 }: TransactionTableProps) => {
+  const content = useIntlayer("transactions-content");
   const handleRowChange = useCallback(
     (event: ChangeEvent<HTMLSelectElement>) => {
       const value = event.target.value;
@@ -43,7 +45,7 @@ export const TransactionTableToolbar = ({
           base: "max-w-40",
           trigger: "border border-default-300 cursor-pointer",
         }}
-        label="Rows per page"
+        label={content.table.rows}
         labelPlacement="outside-left"
         selectedKeys={[history.page_size]}
         onChange={handleRowChange}

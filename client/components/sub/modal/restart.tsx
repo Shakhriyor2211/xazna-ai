@@ -1,7 +1,8 @@
 import { useUserStore } from "@/hooks/user";
 import { useAlertStore } from "@/providers/alert";
 import { ENDPOINTS } from "@/shared/site";
-import { getRequest, postRequest } from "@/utils/axios-instance";
+import { AxiosErrorProps } from "@/types";
+import { getError, getRequest, postRequest } from "@/utils/axios-instance";
 import {
   Button,
   Modal,
@@ -10,12 +11,13 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@heroui/react";
+import { useIntlayer } from "next-intlayer";
 import { Fragment, useCallback, useState } from "react";
 
 export function SubRestart() {
+  const content = useIntlayer("sub-content");
   const [isOpen, setIsOpen] = useState(false);
   const { setUser } = useUserStore();
-
   const { setAlert } = useAlertStore();
 
   const handleOpen = useCallback(() => {
@@ -30,14 +32,22 @@ export function SubRestart() {
     try {
       const res = await getRequest({ url: ENDPOINTS.profile });
       setUser(res.data);
-    } catch {
-      setAlert((prev) => ({
-        ...prev,
-        color: "danger",
-        title: "",
-        description: "Failed to load user data.",
-        isVisible: true,
-      }));
+    } catch (e) {
+      const { data, status } = getError(e as AxiosErrorProps);
+      if (status === 500)
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: content.errors.server.value,
+          isVisible: true,
+        }));
+      else
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: data.message,
+          isVisible: true,
+        }));
     }
   }, []);
 
@@ -51,19 +61,26 @@ export function SubRestart() {
         setAlert((prev) => ({
           ...prev,
           color: "success",
-          title: "",
-          description: "Your plan restarted successfully.",
+          description: content.success.restart.value,
           isVisible: true,
         }));
       }
-    } catch {
-      setAlert((prev) => ({
-        ...prev,
-        color: "danger",
-        title: "",
-        description: "Failed to restart your plan.",
-        isVisible: true,
-      }));
+    } catch (e) {
+      const { data, status } = getError(e as AxiosErrorProps);
+      if (status === 500)
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: content.errors.server.value,
+          isVisible: true,
+        }));
+      else
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: data.message,
+          isVisible: true,
+        }));
     } finally {
       setIsOpen(false);
     }
@@ -72,20 +89,22 @@ export function SubRestart() {
   return (
     <Fragment>
       <Button fullWidth color="primary" onPress={handleOpen}>
-        Restart
+        {content.card.restart.title}
       </Button>
       <Modal size="lg" isOpen={isOpen} onClose={handleClose}>
         <ModalContent>
-          <ModalHeader>Restart plan</ModalHeader>
+          <ModalHeader> {content.card.restart.modal.title}</ModalHeader>
           <ModalBody>
-            <p>Do you wish to proceed with restarting your plan?</p>
+            <p className="text-sm text-default-500">
+              {content.card.restart.modal.description}
+            </p>
           </ModalBody>
           <ModalFooter>
             <Button color="danger" variant="light" onPress={handleClose}>
-              Close
+              {content.card.restart.modal.buttons.cancel}
             </Button>
             <Button color="primary" onPress={handleSubmit}>
-              Confirm
+              {content.card.restart.modal.buttons.submit}
             </Button>
           </ModalFooter>
         </ModalContent>

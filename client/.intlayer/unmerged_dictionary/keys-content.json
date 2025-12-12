@@ -328,9 +328,9 @@
               "title": {
                 "nodeType": "translation",
                 "translation": {
-                  "uz": "Sessiyani o'chirish",
-                  "ru": "Удалить сессию",
-                  "en": "Delete session"
+                  "uz": "Ma'lumotlarni o'chirish",
+                  "ru": "Удалить данные",
+                  "en": "Delete data"
                 }
               },
               "description": {
@@ -637,7 +637,7 @@
         "delete": {
           "nodeType": "translation",
           "translation": {
-            "uz": "Kalit muvaffaqiyatli o‘chirildi.",
+            "uz": "Kalit muvaffaqiyatli o'chirildi.",
             "en": "Key successfully deleted.",
             "ru": "Ключ успешно удалён."
           }

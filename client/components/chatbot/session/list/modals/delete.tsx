@@ -72,10 +72,10 @@ export function SessionDelete({
               </p>
             </ModalBody>
             <ModalFooter>
-              <Button variant="light" color="danger" onPress={onClose}>
+              <Button variant="light" onPress={onClose}>
                 {content.session.dropdown.delete.modal.buttons.cancel}
               </Button>
-              <Button color="primary" onPress={handleSubmit}>
+              <Button color="danger" variant="flat" onPress={handleSubmit}>
                 {content.session.dropdown.delete.modal.buttons.submit}
               </Button>
             </ModalFooter>

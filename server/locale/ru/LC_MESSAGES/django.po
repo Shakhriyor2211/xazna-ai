@@ -1,0 +1,276 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-05 14:42+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+#: accounts/managers.py:8
+msgid "The Email must be set."
+msgstr "Необходимо указать электронную почту."
+
+#: accounts/serializers.py:18
+msgid "Enter a valid email address."
+msgstr "Введите корректный адрес электронной почты."
+
+#: accounts/serializers.py:26
+msgid "Email and password are required."
+msgstr "Необходимо указать электронную почту и пароль."
+
+#: accounts/serializers.py:31
+msgid "Invalid credentials."
+msgstr "Неверные учетные данные."
+
+#: accounts/serializers.py:34 accounts/views.py:556
+msgid "User is blocked."
+msgstr "Пользователь заблокирован."
+
+#: accounts/serializers.py:63
+msgid "Email is already taken."
+msgstr "Эта электронная почта уже используется."
+
+#: accounts/serializers.py:68
+msgid "Password and confirm password do not match."
+msgstr "Пароль и подтверждение пароля не совпадают."
+
+#: accounts/serializers.py:139
+msgid "Old password is incorrect."
+msgstr "Старый пароль указан неверно."
+
+#: accounts/serializers.py:145 accounts/views.py:705
+msgid "New password cannot be the same as the old password."
+msgstr "Новый пароль не может совпадать со старым."
+
+#: accounts/serializers.py:149
+msgid "Passwords do not match."
+msgstr "Пароли не совпадают."
+
+#: accounts/views.py:61 accounts/views.py:317 accounts/views.py:629
+msgid "User not found."
+msgstr "Пользователь не найден."
+
+#: accounts/views.py:134 accounts/views.py:206 accounts/views.py:248
+msgid "User temporarily blocked."
+msgstr "Пользователь временно заблокирован."
+
+#: accounts/views.py:201
+msgid "Resend confirmation code limit exceeded."
+msgstr "Превышен лимит повторной отправки кода подтверждения."
+
+#: accounts/views.py:223
+msgid "Confirmation code was sent to your email address."
+msgstr "Код подтверждения отправлен на вашу электронную почту."
+
+#: accounts/views.py:227
+msgid "Failed to send confirmation code."
+msgstr "Не удалось отправить код подтверждения."
+
+#: accounts/views.py:256
+msgid "Invalid confirmation code."
+msgstr "Неверный код подтверждения."
+
+#: accounts/views.py:261
+msgid "Confirmation code is expired."
+msgstr "Код подтверждения истёк."
+
+#: accounts/views.py:310
+msgid "Refresh token is required."
+msgstr "Необходим refresh токен."
+
+#: accounts/views.py:337
+msgid "Invalid refresh token."
+msgstr "Неверный refresh токен."
+
+#: accounts/views.py:356
+msgid "Access token is required."
+msgstr "Необходим access токен."
+
+#: accounts/views.py:360
+msgid "Access token is valid."
+msgstr "Access токен действителен."
+
+#: accounts/views.py:362 accounts/views.py:650 accounts/views.py:654 accounts/views.py:687
+msgid "Invalid token."
+msgstr "Недействительный токен."
+
+#: accounts/views.py:376
+msgid "Logged out successfully."
+msgstr "Вы успешно вышли из системы."
+
+#: accounts/views.py:401 accounts/views.py:499
+msgid "Missing code."
+msgstr "Код отсутствует."
+
+#: accounts/views.py:414 accounts/views.py:511
+msgid "Failed to exchange code."
+msgstr "Не удалось обменять код."
+
+#: accounts/views.py:421 accounts/views.py:519
+msgid "No id_token in response."
+msgstr "id_token отсутствует в ответе."
+
+#: accounts/views.py:458
+msgid "Account is blocked."
+msgstr "Аккаунт заблокирован."
+
+#: accounts/views.py:584
+msgid "Something went wrong."
+msgstr "Что-то пошло не так."
+
+#: accounts/views.py:624
+msgid "Email address is required."
+msgstr "Требуется адрес электронной почты."
+
+#: accounts/views.py:632
+msgid "User is inactive or blocked."
+msgstr "Пользователь неактивен или заблокирован."
+
+#: accounts/views.py:639
+msgid "Message sent successfully."
+msgstr "Сообщение успешно отправлено."
+
+#: accounts/views.py:694
+msgid "Password is required."
+msgstr "Необходим пароль."
+
+#: accounts/views.py:697 accounts/views.py:701
+msgid "Confirm password is required."
+msgstr "Необходимо подтвердить пароль."
+
+#: accounts/views.py:714
+msgid "Password updated successfully."
+msgstr "Пароль успешно обновлён."
+
+#: accounts/views.py:820
+msgid "Profile picture removed."
+msgstr "Фотография профиля удалена."
+
+#: accounts/views.py:825
+msgid "No picture found for this user."
+msgstr "У пользователя нет фотографии."
+
+#: finance/views.py:95 finance/views.py:128 service/views.py:101 stt/views.py:275 stt/views.py:346 tts/views.py:323 tts/views.py:356
+msgid "Data successfully deleted."
+msgstr "Данные успешно удалены."
+
+#: finance/views.py:97 finance/views.py:130 service/views.py:88 service/views.py:103 service/views.py:124 stt/views.py:260 stt/views.py:277 stt/views.py:318 stt/views.py:348 tts/views.py:325 tts/views.py:358
+msgid "Data not found."
+msgstr "Данные не найдены."
+
+#: finance/views.py:177
+msgid "Balance settings changed successfully."
+msgstr "Настройки баланса успешно изменены."
+
+#: llm/consumers.py:81
+msgid "Internal server error"
+msgstr "Внутренняя ошибка сервера."
+
+#: llm/consumers.py:116 llm/consumers.py:358 llm/views.py:284 llm/views.py:304 llm/views.py:350 llm/views.py:384
+msgid "Session not found."
+msgstr "Сессия не найдена."
+
+#: llm/consumers.py:119 llm/consumers.py:361 llm/views.py:120 llm/views.py:206
+msgid "Content is required."
+msgstr "Необходимо указать содержимое."
+
+#: llm/consumers.py:122 llm/consumers.py:364 llm/views.py:123 llm/views.py:209
+msgid "Model is required."
+msgstr "Необходимо указать модель."
+
+#: llm/consumers.py:141 llm/consumers.py:228 llm/consumers.py:315 llm/consumers.py:384
+msgid "Internal server error."
+msgstr "Внутренняя ошибка сервера."
+
+#: llm/consumers.py:331 llm/views.py:49 llm/views.py:90 llm/views.py:200 llm/views.py:336 llm/views.py:371 stt/views.py:107 stt/views.py:223 stt/views.py:304 stt/views.py:340 stt/views.py:398 tts/views.py:129 tts/views.py:242 tts/views.py:302 tts/views.py:350
+msgid "Permission denied."
+msgstr "Доступ запрещён."
+
+#: llm/views.py:128 llm/views.py:214
+msgid "Session limit reached."
+msgstr "Достигнут лимит сессий."
+
+#: llm/views.py:147 llm/views.py:233 shared/utils.py:126 shared/utils.py:162 shared/utils.py:202
+msgid "Not enough founds."
+msgstr "Недостаточно средств."
+
+#: llm/views.py:151 llm/views.py:237
+msgid "Not enough credits."
+msgstr "Недостаточно кредитов."
+
+#: llm/views.py:154 llm/views.py:240 shared/utils.py:133 shared/utils.py:169 shared/utils.py:208
+msgid "Request limit exceeded."
+msgstr "Превышен лимит запросов."
+
+#: llm/views.py:276 llm/views.py:341
+msgid "Title is required."
+msgstr "Необходимо указать название."
+
+#: llm/views.py:302 llm/views.py:382
+msgid "Session successfully deleted."
+msgstr "Сессия успешно удалена."
+
+#: service/views.py:40 service/views.py:55
+msgid "Token not found."
+msgstr "Токен не найден."
+
+#: service/views.py:86
+msgid "Data successfully edited."
+msgstr "Данные успешно изменены."
+
+#: service/views.py:122
+msgid "Key settings changed successfully."
+msgstr "Настройки ключа успешно изменены."
+
+#: shared/utils.py:108 shared/utils.py:144 shared/utils.py:179
+msgid "Model not found."
+msgstr "Модель не найдена."
+
+#: shared/utils.py:130 shared/utils.py:166 shared/utils.py:205
+msgid "Not enough credits"
+msgstr "Недостаточно кредитов."
+
+#: shared/utils.py:192
+msgid "Message limit reached, open new session."
+msgstr "Достигнут лимит сообщений, откройте новую сессию."
+
+#: stt/views.py:258 stt/views.py:316
+msgid "Data successfully changed."
+msgstr "Данные успешно изменены."
+
+#: sub/views.py:42
+msgid "This plan can't be restarted."
+msgstr "Этот тариф нельзя перезапустить."
+
+#: sub/views.py:46 sub/views.py:125
+msgid "Not enough funds, please top up your balance."
+msgstr "Недостаточно средств, пожалуйста пополните баланс."
+
+#: sub/views.py:67
+msgid "Subscription restarted successfully."
+msgstr "Подписка успешно перезапущена."
+
+#: sub/views.py:69 sub/views.py:150
+msgid "Plan not found."
+msgstr "Тариф не найден."
+
+#: sub/views.py:90
+msgid "Failed to change subscription."
+msgstr "Не удалось изменить подписку."
+
+#: sub/views.py:147
+msgid "Subscription changed successfully."
+msgstr "Подписка успешно изменена."

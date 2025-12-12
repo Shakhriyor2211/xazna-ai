@@ -1,0 +1,52 @@
+{
+  "key": "transactions-content",
+  "content": {
+    "title": "Tranzaksiyalar",
+    "table": {
+      "empty": "Hozircha hech qanday maʼlumot yoʻq.",
+      "head": {
+        "amount": "Summasi",
+        "provider": "Provayder",
+        "status": "Holati",
+        "created_at": "Yaratilgan vaqti"
+      },
+      "rows": "Qatorlar"
+    },
+    "top_up": {
+      "title": "Balansni to‘ldirish",
+      "modal": {
+        "title": "Provayderni tanlang",
+        "form": {
+          "amount": {
+            "label": "Summasi"
+          },
+          "buttons": {
+            "submit": "Davom etish",
+            "cancel": "Bekor qilish"
+          }
+        }
+      }
+    },
+    "errors": {
+      "form": {
+        "amount": {
+          "required": "Ushbu qator to'ldirilishi shart."
+        }
+      },
+      "server": "Serverda ichki xato yuz berdi."
+    },
+    "metadata": {
+      "title": "AI Xazna | Tranzaksiyalar",
+      "description": "Ushbu sahifa orqali AI Xazna hisobingizdagi barcha tranzaksiyalarni kuzatishingiz mumkin. To‘lovlar, balans to‘ldirish va foydalanuvchi faoliyati qayd etiladi.",
+      "keywords": "AI Xazna, tranzaksiyalar, balans, to‘lov, tarix, hisob",
+      "robots": {
+        "index": false,
+        "follow": false
+      }
+    }
+  },
+  "localIds": [
+    "transactions-content::local::intlayer/transactions.content.ts"
+  ],
+  "locale": "uz"
+}

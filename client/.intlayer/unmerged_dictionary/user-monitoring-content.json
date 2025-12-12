@@ -85,7 +85,7 @@
         "description": {
           "nodeType": "translation",
           "translation": {
-            "uz": "Ushbu sahifa orqali AI Xazna hisobingiz faoliyatini kuzatishingiz mumkin. Barcha so‘rovlar va tizimdan foydalanish tarixi monitoring uchun qayd etiladi.",
+            "uz": "Ushbu sahifa orqali AI Xazna hisobingiz faoliyatini kuzatishingiz mumkin. Barcha so'rovlar va tizimdan foydalanish tarixi monitoring uchun qayd etiladi.",
             "en": "Use this page to monitor the activity of your AI Xazna account. All requests and usage history are logged for monitoring purposes.",
             "ru": "На этой странице вы можете отслеживать активность вашего аккаунта AI Xazna. Все запросы и история использования фиксируются для мониторинга."
           }

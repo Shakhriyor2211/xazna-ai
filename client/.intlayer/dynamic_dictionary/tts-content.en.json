@@ -1,20 +1,63 @@
 {
   "key": "tts-content",
   "content": {
-    "page": {
-      "title": "Text-to-Speech",
-      "description": "Convert text into natural-sounding speech using AI."
-    },
+    "title": "Text to speech",
     "form": {
-      "text_label": "Enter text...",
-      "voice_label": "Choose a voice",
-      "submit": "Generate Speech",
-      "download": "Download"
+      "text": {
+        "label": "Enter text ..."
+      },
+      "buttons": {
+        "submit": "Generate",
+        "cancel": "Cancel"
+      }
     },
-    "messages": {
-      "empty_text": "Please enter text.",
-      "generating": "Generating speech...",
-      "error": "An error occurred. Please try again."
+    "drawer": {
+      "buttons": {
+        "download": "Download"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "form": {
+        "select": {
+          "model": {
+            "label": "Model"
+          },
+          "emotion": {
+            "label": "Emotion"
+          },
+          "format": {
+            "label": "Audio format"
+          }
+        }
+      }
+    },
+    "history": {
+      "title": "History",
+      "empty": {
+        "load": "There is no data yet.",
+        "search": "Nothing found."
+      },
+      "form": {
+        "search": {
+          "label": "Search by name ..."
+        }
+      },
+      "modal": {
+        "title": "Delete data",
+        "description": "Are you sure you want to proceed? This action will permanently delete the data.",
+        "buttons": {
+          "submit": "Continue",
+          "cancel": "Cancel"
+        }
+      },
+      "buttons": {
+        "more": "More",
+        "less": "Less"
+      }
+    },
+    "errors": {
+      "server": "Internal server error."
     },
     "metadata": {
       "title": "AI Xazna | Text-to-Speech",

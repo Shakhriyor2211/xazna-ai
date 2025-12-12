@@ -232,9 +232,9 @@ const keysContent = {
                     }),
                     modal: {
                         title: t({
-                            uz: "Sessiyani o'chirish",
-                            ru: "Удалить сессию",
-                            en: "Delete session",
+                            uz: "Ma'lumotlarni o'chirish",
+                            ru: "Удалить данные",
+                            en: "Delete data",
                         }),
                         description: t({
                             uz: "Ishni davom ettirmoqchimisiz? Bu amal maʼlumotlarni doimiy o'chiradi.",
@@ -454,7 +454,7 @@ const keysContent = {
             }),
 
             delete: t({
-                uz: "Kalit muvaffaqiyatli o‘chirildi.",
+                uz: "Kalit muvaffaqiyatli o'chirildi.",
                 en: "Key successfully deleted.",
                 ru: "Ключ успешно удалён.",
             })

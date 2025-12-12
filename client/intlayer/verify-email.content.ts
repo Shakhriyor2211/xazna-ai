@@ -49,7 +49,7 @@ const verifyEmailContent = {
             }),
 
             keywords: t({
-                uz: "AI Xazna, email tasdiqlash, hisobni faollashtirish, ro‘yxatdan o‘tish, avtorizatsiya",
+                uz: "AI Xazna, email tasdiqlash, hisobni faollashtirish, ro'yxatdan o'tish, avtorizatsiya",
                 en: "AI Xazna, email verification, activate account, registration, authorization",
                 ru: "AI Xazna, подтверждение электронной почты, активация аккаунта, регистрация, авторизация",
             }),

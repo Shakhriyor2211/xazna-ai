@@ -22,9 +22,13 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@heroui/react";
+import { useAlertStore } from "@/providers/alert";
+import { useIntlayer } from "next-intlayer";
 
 export function ProfileCredentials({ user, setUser }: UserStoreProps) {
   const formRef = useRef<HTMLFormElement | null>(null);
+  const content = useIntlayer("profile-content");
+  const { setAlert } = useAlertStore();
   const [values, setValues] = useState<FormProps>({
     old_password: "",
     new_password: "",
@@ -60,7 +64,7 @@ export function ProfileCredentials({ user, setUser }: UserStoreProps) {
       const name = event.target.name as keyof typeof error;
 
       setValues((prev) => ({ ...prev, [name]: event.target.value }));
-      setError((prev) => ({ ...prev, ...validate(values, name) }));
+      setError((prev) => ({ ...prev, ...validate(values, name, content) }));
     },
     [values, error]
   );
@@ -88,7 +92,7 @@ export function ProfileCredentials({ user, setUser }: UserStoreProps) {
       for (const key in values) {
         const name = key as keyof typeof new_error;
 
-        new_error = { ...new_error, ...validate(values, name) };
+        new_error = { ...new_error, ...validate(values, name, content) };
         if (new_error[name] !== "" && !has_error) has_error = true;
       }
       setError(new_error);
@@ -106,12 +110,20 @@ export function ProfileCredentials({ user, setUser }: UserStoreProps) {
         if (data) setUser(data);
 
         setIsOpen(false);
-      } catch (err) {
-        const { data } = getError(err as AxiosErrorProps);
-        setError((prev) => ({
-          ...prev,
-          [data?.code as keyof typeof error]: data?.message,
-        }));
+      } catch (e) {
+        const { data, status } = getError(e as AxiosErrorProps);
+        if (status === 500)
+          setAlert((prev) => ({
+            ...prev,
+            color: "danger",
+            description: content.errors.server.value,
+            isVisible: true,
+          }));
+        else
+          setError((prev) => ({
+            ...prev,
+            [data?.code as keyof typeof error]: data?.message,
+          }));
       }
     },
     [values, open, error]
@@ -131,13 +143,15 @@ export function ProfileCredentials({ user, setUser }: UserStoreProps) {
             }}
             variant="bordered"
             type="text"
-            label="Email"
+            label={content.security.form.email.label}
             defaultValue={user?.email ?? ""}
           />
           <p className="hidden lg:block text-sm space-x-2">
-            <span className="text-foreground-800">Joining date:</span>
+            <span className="text-foreground-800">
+              {content.security.join_date}
+            </span>
             <span className="text-foreground-500">
-              {user?.created_at ? fullDate(user?.created_at) : "N/A"}
+              {user?.created_at ? fullDate(user?.created_at) : "-"}
             </span>
           </p>
         </div>
@@ -148,14 +162,16 @@ export function ProfileCredentials({ user, setUser }: UserStoreProps) {
               startContent={<RiLockPasswordLine className="w-4 h-4" />}
               size="sm"
             >
-              Change password
+              {content.security.change_password.title}
             </Button>
             <p className="hidden lg:block text-sm space-x-2">
-              <span className="text-foreground-800">Last password update:</span>
+              <span className="text-foreground-800">
+                {content.security.last_password_upadte}
+              </span>
               <span className="text-foreground-500">
                 {user?.last_password_update
                   ? fullDate(user?.last_password_update)
-                  : "N/A"}
+                  : "-"}
               </span>
             </p>
           </div>
@@ -171,7 +187,7 @@ export function ProfileCredentials({ user, setUser }: UserStoreProps) {
           {(onClose) => (
             <form ref={formRef} noValidate onSubmit={handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                Change password
+                {content.security.change_password.modal.title}
               </ModalHeader>
               <ModalBody>
                 <Input
@@ -188,7 +204,9 @@ export function ProfileCredentials({ user, setUser }: UserStoreProps) {
                   isInvalid={Boolean(error.old_password)}
                   errorMessage={error.old_password}
                   onBlur={handleBlur}
-                  label="Old password"
+                  label={
+                    content.security.change_password.modal.form.old_password
+                  }
                   type="password"
                   name="old_password"
                 />
@@ -206,7 +224,9 @@ export function ProfileCredentials({ user, setUser }: UserStoreProps) {
                   isInvalid={Boolean(error.new_password)}
                   errorMessage={error.new_password}
                   onBlur={handleBlur}
-                  label="New password"
+                  label={
+                    content.security.change_password.modal.form.new_password
+                  }
                   type="password"
                   name="new_password"
                 />
@@ -224,17 +244,19 @@ export function ProfileCredentials({ user, setUser }: UserStoreProps) {
                   onFocus={handleFocus}
                   onBlur={handleBlur}
                   color="primary"
-                  label="Confirm password"
+                  label={
+                    content.security.change_password.modal.form.confirm_password
+                  }
                   type="password"
                   name="confirm_password"
                 />
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="flat" onPress={onClose}>
-                  Cancel
+                  {content.security.change_password.modal.form.buttons.cancel}
                 </Button>
                 <Button color="primary" type="submit">
-                  Submit
+                  {content.security.change_password.modal.form.buttons.submit}
                 </Button>
               </ModalFooter>
             </form>

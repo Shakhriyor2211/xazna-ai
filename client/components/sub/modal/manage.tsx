@@ -1,8 +1,8 @@
 import { useMillify } from "@/hooks/millify";
 import { useAlertStore } from "@/providers/alert";
 import { ENDPOINTS } from "@/shared/site";
-import { FinanceProps } from "@/types";
-import { getRequest, patchRequest } from "@/utils/axios-instance";
+import { AxiosErrorProps, FinanceProps } from "@/types";
+import { getError, getRequest, patchRequest } from "@/utils/axios-instance";
 import {
   Button,
   Modal,
@@ -12,10 +12,12 @@ import {
   Switch,
   useDisclosure,
 } from "@heroui/react";
+import { useIntlayer } from "next-intlayer";
 import { ChangeEvent, Fragment, useCallback, useEffect, useState } from "react";
 import { IoSettingsOutline } from "react-icons/io5";
 
 export function SubManage() {
+  const content = useIntlayer("sub-content");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [finance, setFinance] = useState<FinanceProps | null>(null);
   const { setAlert } = useAlertStore();
@@ -70,14 +72,22 @@ export function SubManage() {
               : prev
           );
         }
-      } catch {
-        setAlert((prev) => ({
-          ...prev,
-          color: "danger",
-          title: "",
-          description: "Failed to update balance.",
-          isVisible: true,
-        }));
+      } catch (e) {
+        const { data, status } = getError(e as AxiosErrorProps);
+        if (status === 500)
+          setAlert((prev) => ({
+            ...prev,
+            color: "danger",
+            description: content.errors.server.value,
+            isVisible: true,
+          }));
+        else
+          setAlert((prev) => ({
+            ...prev,
+            color: "danger",
+            description: data.message,
+            isVisible: true,
+          }));
       }
     },
     [finance]
@@ -88,14 +98,22 @@ export function SubManage() {
       const { data } = await getRequest({ url: ENDPOINTS.finance_info });
 
       if (data) setFinance(data);
-    } catch {
-      setAlert((prev) => ({
-        ...prev,
-        isVisible: true,
-        color: "danger",
-        title: "",
-        description: "Failed to load balance.",
-      }));
+    } catch (e) {
+      const { data, status } = getError(e as AxiosErrorProps);
+      if (status === 500)
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: content.errors.server.value,
+          isVisible: true,
+        }));
+      else
+        setAlert((prev) => ({
+          ...prev,
+          color: "danger",
+          description: data.message,
+          isVisible: true,
+        }));
     }
   }, []);
 
@@ -114,7 +132,7 @@ export function SubManage() {
         }
         onPress={onOpen}
       >
-        Manage
+        {content.manage.modal.title}
       </Button>
       <Modal
         className="pt-2 pb-8"
@@ -125,15 +143,15 @@ export function SubManage() {
         <ModalContent>
           {(onClose) => (
             <Fragment>
-              <ModalHeader>Manage</ModalHeader>
+              <ModalHeader> {content.manage.modal.title}</ModalHeader>
               <ModalBody>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between text-sm border-b pb-1 border-default-200">
-                    <span>Current plan</span>
+                    <span> {content.manage.modal.plan}</span>
                     <span className="font-semibold">{finance?.sub.title}</span>
                   </div>
                   <div className="flex items-center justify-between text-sm border-b pb-1 border-default-200">
-                    <span>Credits</span>
+                    <span> {content.manage.modal.credits}</span>
                     <span className="font-semibold">
                       {useMillify(Number(finance?.sub.credit_expense ?? 0))}
                       &nbsp;/&nbsp;
@@ -141,7 +159,7 @@ export function SubManage() {
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-sm border-b pb-1 border-default-200">
-                    <span>Plan cost</span>
+                    <span> {content.manage.modal.plan}</span>
                     <span className="font-semibold">
                       {useMillify(Number(finance?.sub.price ?? 0))} UZS
                     </span>
@@ -149,7 +167,7 @@ export function SubManage() {
                 </div>
                 <div className="space-y-4 mt-6">
                   <div className="flex items-center justify-between text-sm">
-                    <span>Auto-renew plan</span>
+                    <span> {content.manage.modal.auto_renew}</span>
                     <Switch
                       size="sm"
                       isSelected={finance?.sub.auto_renew}
@@ -157,7 +175,7 @@ export function SubManage() {
                     />
                   </div>
                   <div className="flex items-center justify-between text-sm">
-                    <span>Over-limit cash payment</span>
+                    <span> {content.manage.modal.cash_charge}</span>
                     <Switch
                       size="sm"
                       isSelected={finance?.balance.chargeable}

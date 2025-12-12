@@ -12,7 +12,7 @@ export default {
             "label": "Email",
             "errors": {
               "required": "Ushbu qator to'ldirilishi shart.",
-              "invalid": "Email manzili noto‘g‘ri formatda."
+              "invalid": "Email manzili noto'g'ri formatda."
             }
           },
           "first_name": {
@@ -31,7 +31,7 @@ export default {
             "label": "Parol",
             "errors": {
               "required": "Ushbu qator to'ldirilishi shart.",
-              "rule": "Parol 8–16 belgidan iborat bo‘lishi, harflar va raqamlarni o‘z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin.",
+              "rule": "Parol 8–16 belgidan iborat bo'lishi, harflar va raqamlarni o'z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin.",
               "match": "Parollar mos kelmadi."
             }
           },
@@ -43,14 +43,14 @@ export default {
             }
           },
           "buttons": {
-            "submit": "Ro‘yxatdan o‘tish"
+            "submit": "Ro'yxatdan o'tish"
           }
         },
         "errors": {
           "form": {
             "email": {
               "required": "Ushbu qator to'ldirilishi shart.",
-              "invalid": "Email manzili noto‘g‘ri formatda."
+              "invalid": "Email manzili noto'g'ri formatda."
             },
             "first_name": {
               "required": "Ushbu qator to'ldirilishi shart."
@@ -60,7 +60,7 @@ export default {
             },
             "password": {
               "required": "Ushbu qator to'ldirilishi shart.",
-              "rule": "Parol 8–16 belgidan iborat bo‘lishi, harflar va raqamlarni o‘z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin.",
+              "rule": "Parol 8–16 belgidan iborat bo'lishi, harflar va raqamlarni o'z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin.",
               "match": "Parollar mos kelmadi."
             },
             "confirm_password": {

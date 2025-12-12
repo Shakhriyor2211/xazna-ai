@@ -82,6 +82,86 @@
             }
           }
         }
+      },
+      "header": {
+        "dropdown": {
+          "total": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Yangilash",
+              "en": "Upgrade",
+              "ru": "Обновить"
+            }
+          },
+          "usage": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Foydalanish",
+              "en": "Usage",
+              "ru": "Использование"
+            }
+          },
+          "cash": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Balans",
+              "en": "Cash",
+              "ru": "Баланс"
+            }
+          },
+          "sub": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Obuna",
+              "en": "Subscription",
+              "ru": "Подписка"
+            }
+          },
+          "transactions": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Tranzaksiyalar",
+              "en": "Transactions",
+              "ru": "Транзакции"
+            }
+          },
+          "profile": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Profil",
+              "en": "Profile",
+              "ru": "Профиль"
+            }
+          },
+          "sign_out": {
+            "nodeType": "translation",
+            "translation": {
+              "uz": "Chiqish",
+              "en": "Sign out",
+              "ru": "Выйти"
+            }
+          },
+          "buttons": {
+            "upgrade": {
+              "nodeType": "translation",
+              "translation": {
+                "uz": "Yangilash",
+                "en": "Upgrade",
+                "ru": "Обновить"
+              }
+            }
+          }
+        }
+      },
+      "errors": {
+        "server": {
+          "nodeType": "translation",
+          "translation": {
+            "uz": "Serverda ichki xato yuz berdi.",
+            "ru": "Внутренняя ошибка сервера.",
+            "en": "Internal server error."
+          }
+        }
       }
     },
     "localId": "navigation-content::local::intlayer/navigation.content.ts",

@@ -16,6 +16,7 @@ import { RiSearch2Line } from "react-icons/ri";
 import { useDebounce } from "@/hooks/debounce";
 import { STTDelete } from "./delete";
 import { ContentDataProps, ContentHistoryProps } from "@/types";
+import { useIntlayer } from "next-intlayer";
 
 interface STTHistoryDataProps {
   getHistory: (page?: number) => void;
@@ -30,6 +31,7 @@ export function STTHistory({
   setHistory,
   setSttData,
 }: STTHistoryDataProps) {
+  const content = useIntlayer("stt-content");
   const [q, setQ] = useState("");
   const debouncedQuery = useDebounce(q, 500);
   const { mediumDate } = useDate();
@@ -61,8 +63,8 @@ export function STTHistory({
       if (index >= 0) {
         setSttData({
           text: history.results[index].text,
-          audioUrl: `${ENDPOINTS.audio_stream}/${history.results[index].audio.id}`,
-          downloadUrl: `${ENDPOINTS.audio_download}/${history.results[index].audio.id}`,
+          audioUrl: `/${ENDPOINTS.audio_stream}/${history.results[index].audio.id}`,
+          downloadUrl: `/${ENDPOINTS.audio_download}/${history.results[index].audio.id}`,
           id: history.results[index].id,
         });
       }
@@ -91,7 +93,7 @@ export function STTHistory({
 
   return (
     <form className="space-y-2">
-      <h3 className="font-semibold px-4 sm:px-8">History</h3>
+      <h3 className="font-semibold px-4 sm:px-8">{content.history.title}</h3>
       {history.isLoading ? (
         <Fragment>
           <div className="px-4 sm:px-8">
@@ -126,7 +128,7 @@ export function STTHistory({
                 base: "px-4 sm:px-8",
                 inputWrapper: "border border-default-300",
               }}
-              placeholder="Search by name ..."
+              placeholder={content.history.form.search.label.value}
               startContent={<RiSearch2Line className="text-gray-600" />}
               value={q}
               onClear={() => setQ("")}
@@ -186,8 +188,8 @@ export function STTHistory({
           ) : (
             <h3 className="text-sm text-default-400 py-2 px-4 sm:px-8">
               {history.showInput
-                ? "No results found."
-                : "There is no data yet."}
+                ? content.history.empty.search
+                : content.history.empty.load}
             </h3>
           )}
         </Fragment>

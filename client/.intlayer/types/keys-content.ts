@@ -82,7 +82,7 @@ export default {
             "delete": {
               "title": "O'chirish",
               "modal": {
-                "title": "Sessiyani o'chirish",
+                "title": "Ma'lumotlarni o'chirish",
                 "description": "Ishni davom ettirmoqchimisiz? Bu amal maʼlumotlarni doimiy o'chiradi.",
                 "buttons": {
                   "submit": "Davom etish",
@@ -160,7 +160,7 @@ export default {
         },
         "info": {
           "copy": "Kalit xotiraga nusxalandi.",
-          "delete": "Kalit muvaffaqiyatli o‘chirildi."
+          "delete": "Kalit muvaffaqiyatli o'chirildi."
         },
         "metadata": {
           "title": "AI Xazna | Kalitlar",
@@ -250,7 +250,7 @@ export default {
             "delete": {
               "title": "Delete",
               "modal": {
-                "title": "Delete session",
+                "title": "Delete data",
                 "description": "Are you sure you want to proceed? This action will permanently delete the data.",
                 "buttons": {
                   "submit": "Continue",
@@ -418,7 +418,7 @@ export default {
             "delete": {
               "title": "Удалить",
               "modal": {
-                "title": "Удалить сессию",
+                "title": "Удалить данные",
                 "description": "Вы уверены, что хотите продолжить? Это действие навсегда удалит данные.",
                 "buttons": {
                   "submit": "Продолжить",
