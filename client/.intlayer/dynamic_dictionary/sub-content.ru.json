@@ -1,1 +1,76 @@
-{"key":"sub-content","content":{"title":"Подписка","range":{"month":"Ежемесячно","year":"Ежегодно"},"card":{"credit_range":{"month":"кредитов/месяц","year":"кредитов/год"},"price_range":{"month":"в месяц","year":"в год"},"change":{"title":"Подписаться","modal":{"title":"Изменить план","description":"Вы хотите продолжить изменение плана?","buttons":{"submit":"Продолжить","cancel":"Отмена"}}},"restart":{"title":"Перезапустить","modal":{"title":"Перезапуск плана","description":"Вы хотите продолжить перезапуск плана?","buttons":{"submit":"Продолжить","cancel":"Отмена"}}},"buttons":{"contact":"Связаться с отделом продаж"}},"manage":{"title":"Управление","modal":{"title":"Управление","plan":"План","credits":"Кредиты","cost":"Стоимость","auto_renew":"Автопродление","cash_charge":"Пополнить баланс"}},"success":{"change":"Ваш план успешно изменён.","restart":"Ваш план успешно перезапущен."},"errors":{"server":"Внутренняя ошибка сервера."},"metadata":{"title":"AI Xazna | Подписки","description":"Ознакомьтесь с планами подписки AI Xazna и выберите подходящий для себя.","keywords":"AI Xazna, подписка, планы, цены, обновление, премиум","robots":{"index":false,"follow":false}}},"localIds":["sub-content::local::src/intlayer/sub.content.ts"],"locale":"ru"}
+{
+  "key": "sub-content",
+  "content": {
+    "title": "Подписка",
+    "range": {
+      "month": "Ежемесячно",
+      "year": "Ежегодно"
+    },
+    "card": {
+      "credit_range": {
+        "month": "кредитов/месяц",
+        "year": "кредитов/год"
+      },
+      "price_range": {
+        "month": "в месяц",
+        "year": "в год"
+      },
+      "change": {
+        "title": "Подписаться",
+        "modal": {
+          "title": "Изменить план",
+          "description": "Вы хотите продолжить изменение плана?",
+          "buttons": {
+            "submit": "Продолжить",
+            "cancel": "Отмена"
+          }
+        }
+      },
+      "restart": {
+        "title": "Перезапустить",
+        "modal": {
+          "title": "Перезапуск плана",
+          "description": "Вы хотите продолжить перезапуск плана?",
+          "buttons": {
+            "submit": "Продолжить",
+            "cancel": "Отмена"
+          }
+        }
+      },
+      "buttons": {
+        "contact": "Связаться с отделом продаж"
+      }
+    },
+    "manage": {
+      "title": "Управление",
+      "modal": {
+        "title": "Управление",
+        "plan": "План",
+        "credits": "Кредиты",
+        "cost": "Стоимость",
+        "auto_renew": "Автопродление",
+        "cash_charge": "Пополнить баланс"
+      }
+    },
+    "success": {
+      "change": "Ваш план успешно изменён.",
+      "restart": "Ваш план успешно перезапущен."
+    },
+    "errors": {
+      "server": "Внутренняя ошибка сервера."
+    },
+    "metadata": {
+      "title": "AI Xazna | Подписки",
+      "description": "Ознакомьтесь с планами подписки AI Xazna и выберите подходящий для себя.",
+      "keywords": "AI Xazna, подписка, планы, цены, обновление, премиум",
+      "robots": {
+        "index": false,
+        "follow": false
+      }
+    }
+  },
+  "localIds": [
+    "sub-content::local::src/intlayer/sub.content.ts"
+  ],
+  "locale": "ru"
+}

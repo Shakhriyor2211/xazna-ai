@@ -1,1 +1,175 @@
-{"key":"keys-content","content":{"title":"Kalitlarni boshqarish","table":{"empty":"Hozircha hech qanday maʼlumot yoʻq.","head":{"name":"Nomi","key":"Kalit","active":"Faol","created_at":"Yaratilgan vaqti","action":"Amallar"},"dropdown":{"monitoring":{"title":"Monitoring"},"copy":{"title":"Nusxa olish"},"edit":{"title":"Tahrirlash","drawer":{"title":"Kalit tahrirlash","form":{"name":{"label":"Nomi"}},"permissions":{"title":"Ruxsatlar","chatbot":{"title":"Chatbot","tabs":{"enable":"yoqish","disable":"o'chirish"}},"tts":{"title":"Matndan nutqqa","tabs":{"enable":"yoqish","disable":"o'chirish"}},"stt":{"title":"Nutqdan matnga","tabs":{"enable":"yoqish","disable":"o'chirish"}},"history":{"title":"Tarix","tabs":{"all":"barchasi","read":"o'qish","write":"yozish","disable":"o'chirish"}},"monitoring":{"title":"Monitoring","tabs":{"all":"barchasi","read":"o'qish","write":"yozish","disable":"o'chirish"}}},"buttons":{"submit":"Saqlash","cancel":"Bekor qilish"}}},"delete":{"title":"O'chirish","modal":{"title":"Ma'lumotlarni o'chirish","description":"Ishni davom ettirmoqchimisiz? Bu amal maʼlumotlarni doimiy o'chiradi.","buttons":{"submit":"Davom etish","cancel":"Bekor qilish"}}}},"rows":"Qatorlar"},"create":{"title":"Kalit yaratish","drawer":{"title":"Kalit yaratish","form":{"name":{"label":"Nomi"}},"permissions":{"title":"Ruxsatlar","chatbot":{"title":"Chatbot","tabs":{"enable":"yoqish","disable":"o'chirish"}},"tts":{"title":"Matndan nutqqa","tabs":{"enable":"yoqish","disable":"o'chirish"}},"stt":{"title":"Nutqdan matnga","tabs":{"enable":"yoqish","disable":"o'chirish"}},"history":{"title":"Tarix","tabs":{"all":"barchasi","read":"o'qish","write":"yozish","disable":"o'chirish"}},"monitoring":{"title":"Monitoring","tabs":{"all":"barchasi","read":"o'qish","write":"yozish","disable":"o'chirish"}}},"buttons":{"submit":"Yaratish","cancel":"Bekor qilish"}}},"errors":{"form":{"name":{"required":"Ushbu qator to'ldirilishi shart."}},"server":"Serverda ichki xato yuz berdi."},"info":{"copy":"Kalit xotiraga nusxalandi.","delete":"Kalit muvaffaqiyatli o'chirildi."},"metadata":{"title":"AI Xazna | Kalitlar","description":"Bu sahifada AI Xazna hisobingizdagi barcha kalitlarni ko'rishingiz va boshqarishingiz mumkin.","keywords":"AI Xazna, kalitlar, ro'yxat, boshqarish, TTS, STT, LLM","robots":{"index":false,"follow":false}}},"localIds":["keys-content::local::src/intlayer/keys.content.ts"],"locale":"uz"}
+{
+  "key": "keys-content",
+  "content": {
+    "title": "Kalitlarni boshqarish",
+    "table": {
+      "empty": "Hozircha hech qanday maʼlumot yoʻq.",
+      "head": {
+        "name": "Nomi",
+        "key": "Kalit",
+        "active": "Faol",
+        "created_at": "Yaratilgan vaqti",
+        "action": "Amallar"
+      },
+      "dropdown": {
+        "monitoring": {
+          "title": "Monitoring"
+        },
+        "copy": {
+          "title": "Nusxa olish"
+        },
+        "edit": {
+          "title": "Tahrirlash",
+          "drawer": {
+            "title": "Kalit tahrirlash",
+            "form": {
+              "name": {
+                "label": "Nomi"
+              }
+            },
+            "permissions": {
+              "title": "Ruxsatlar",
+              "chatbot": {
+                "title": "Chatbot",
+                "tabs": {
+                  "enable": "yoqish",
+                  "disable": "o'chirish"
+                }
+              },
+              "tts": {
+                "title": "Matndan nutqqa",
+                "tabs": {
+                  "enable": "yoqish",
+                  "disable": "o'chirish"
+                }
+              },
+              "stt": {
+                "title": "Nutqdan matnga",
+                "tabs": {
+                  "enable": "yoqish",
+                  "disable": "o'chirish"
+                }
+              },
+              "history": {
+                "title": "Tarix",
+                "tabs": {
+                  "all": "barchasi",
+                  "read": "o'qish",
+                  "write": "yozish",
+                  "disable": "o'chirish"
+                }
+              },
+              "monitoring": {
+                "title": "Monitoring",
+                "tabs": {
+                  "all": "barchasi",
+                  "read": "o'qish",
+                  "write": "yozish",
+                  "disable": "o'chirish"
+                }
+              }
+            },
+            "buttons": {
+              "submit": "Saqlash",
+              "cancel": "Bekor qilish"
+            }
+          }
+        },
+        "delete": {
+          "title": "O'chirish",
+          "modal": {
+            "title": "Ma'lumotlarni o'chirish",
+            "description": "Ishni davom ettirmoqchimisiz? Bu amal maʼlumotlarni doimiy o'chiradi.",
+            "buttons": {
+              "submit": "Davom etish",
+              "cancel": "Bekor qilish"
+            }
+          }
+        }
+      },
+      "rows": "Qatorlar"
+    },
+    "create": {
+      "title": "Kalit yaratish",
+      "drawer": {
+        "title": "Kalit yaratish",
+        "form": {
+          "name": {
+            "label": "Nomi"
+          }
+        },
+        "permissions": {
+          "title": "Ruxsatlar",
+          "chatbot": {
+            "title": "Chatbot",
+            "tabs": {
+              "enable": "yoqish",
+              "disable": "o'chirish"
+            }
+          },
+          "tts": {
+            "title": "Matndan nutqqa",
+            "tabs": {
+              "enable": "yoqish",
+              "disable": "o'chirish"
+            }
+          },
+          "stt": {
+            "title": "Nutqdan matnga",
+            "tabs": {
+              "enable": "yoqish",
+              "disable": "o'chirish"
+            }
+          },
+          "history": {
+            "title": "Tarix",
+            "tabs": {
+              "all": "barchasi",
+              "read": "o'qish",
+              "write": "yozish",
+              "disable": "o'chirish"
+            }
+          },
+          "monitoring": {
+            "title": "Monitoring",
+            "tabs": {
+              "all": "barchasi",
+              "read": "o'qish",
+              "write": "yozish",
+              "disable": "o'chirish"
+            }
+          }
+        },
+        "buttons": {
+          "submit": "Yaratish",
+          "cancel": "Bekor qilish"
+        }
+      }
+    },
+    "errors": {
+      "form": {
+        "name": {
+          "required": "Ushbu qator to'ldirilishi shart."
+        }
+      },
+      "server": "Serverda ichki xato yuz berdi."
+    },
+    "info": {
+      "copy": "Kalit xotiraga nusxalandi.",
+      "delete": "Kalit muvaffaqiyatli o'chirildi."
+    },
+    "metadata": {
+      "title": "AI Xazna | Kalitlar",
+      "description": "Bu sahifada AI Xazna hisobingizdagi barcha kalitlarni ko'rishingiz va boshqarishingiz mumkin.",
+      "keywords": "AI Xazna, kalitlar, ro'yxat, boshqarish, TTS, STT, LLM",
+      "robots": {
+        "index": false,
+        "follow": false
+      }
+    }
+  },
+  "localIds": [
+    "keys-content::local::src/intlayer/keys.content.ts"
+  ],
+  "locale": "uz"
+}

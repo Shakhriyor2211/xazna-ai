@@ -1,1 +1,54 @@
-{"key":"sign-in-content","content":{"title":"Kirish","or":"YOKI","regular":{"forgot_password":"Parolni unutdingizmi?","form":{"email":{"label":"Email"},"password":{"label":"Parol"},"buttons":{"submit":"Kirish"}}},"signup":{"title":"Ro'yxatdan o'tish","description":"Hali akkauntingiz yo'qmi?"},"errors":{"regular":{"form":{"email":{"required":"Ushbu qator to'ldirilishi shart."},"password":{"required":"Ushbu qator to'ldirilishi shart."}}},"google":{"auth":"Google hisobiga kirishda xatolik yuz berdi."},"server":"Serverda ichki xato yuz berdi."},"metadata":{"title":"AI Xazna | Kirish","description":"AI Xazna platformasiga kirish va shaxsiy hisobingizni boshqarish uchun tizimga kiring.","keywords":"AI Xazna, kirish, login, sun’iy intellekt, hisob","robots":{"index":true,"follow":true}}},"localIds":["sign-in-content::local::src/intlayer/sign-in.content.ts"],"locale":"uz"}
+{
+  "key": "sign-in-content",
+  "content": {
+    "title": "Kirish",
+    "or": "YOKI",
+    "regular": {
+      "forgot_password": "Parolni unutdingizmi?",
+      "form": {
+        "email": {
+          "label": "Email"
+        },
+        "password": {
+          "label": "Parol"
+        },
+        "buttons": {
+          "submit": "Kirish"
+        }
+      }
+    },
+    "signup": {
+      "title": "Ro'yxatdan o'tish",
+      "description": "Hali akkauntingiz yo'qmi?"
+    },
+    "errors": {
+      "regular": {
+        "form": {
+          "email": {
+            "required": "Ushbu qator to'ldirilishi shart."
+          },
+          "password": {
+            "required": "Ushbu qator to'ldirilishi shart."
+          }
+        }
+      },
+      "google": {
+        "auth": "Google hisobiga kirishda xatolik yuz berdi."
+      },
+      "server": "Serverda ichki xato yuz berdi."
+    },
+    "metadata": {
+      "title": "AI Xazna | Kirish",
+      "description": "AI Xazna platformasiga kirish va shaxsiy hisobingizni boshqarish uchun tizimga kiring.",
+      "keywords": "AI Xazna, kirish, login, sun’iy intellekt, hisob",
+      "robots": {
+        "index": true,
+        "follow": true
+      }
+    }
+  },
+  "localIds": [
+    "sign-in-content::local::src/intlayer/sign-in.content.ts"
+  ],
+  "locale": "uz"
+}

@@ -24,7 +24,7 @@ export default {
         },
         "header": {
           "dropdown": {
-            "total": "Yangilash",
+            "total": "Jami",
             "usage": "Foydalanish",
             "cash": "Balans",
             "sub": "Obuna",
@@ -60,7 +60,7 @@ export default {
         },
         "header": {
           "dropdown": {
-            "total": "Upgrade",
+            "total": "Total",
             "usage": "Usage",
             "cash": "Cash",
             "sub": "Subscription",
@@ -96,7 +96,7 @@ export default {
         },
         "header": {
           "dropdown": {
-            "total": "Обновить",
+            "total": "Итого",
             "usage": "Использование",
             "cash": "Баланс",
             "sub": "Подписка",

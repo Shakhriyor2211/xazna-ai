@@ -1,1 +1,76 @@
-{"key":"sub-content","content":{"title":"Subscription","range":{"month":"Monthly","year":"Yearly"},"card":{"credit_range":{"month":"credits/month","year":"credits/year"},"price_range":{"month":"per month","year":"per year"},"change":{"title":"Subscribe","modal":{"title":"Change plan","description":"Do you want to proceed changing your plan?","buttons":{"submit":"Continue","cancel":"Cancel"}}},"restart":{"title":"Restart","modal":{"title":"Restart plan","description":"Do you want to proceed restarting your plan?","buttons":{"submit":"Continue","cancel":"Cancel"}}},"buttons":{"contact":"Contact sales"}},"manage":{"title":"Manage","modal":{"title":"Manage","plan":"Plan","credits":"Credits","cost":"Cost","auto_renew":"Auto renew","cash_charge":"Cash charge"}},"success":{"change":"Your plan changed successfully.","restart":"Your plan restarted successfully."},"errors":{"server":"Internal server error."},"metadata":{"title":"AI Xazna | Subscriptions","description":"Explore AI Xazna subscription plans and choose the one that fits your needs.","keywords":"AI Xazna, subscription, plans, pricing, upgrade, premium","robots":{"index":false,"follow":false}}},"localIds":["sub-content::local::src/intlayer/sub.content.ts"],"locale":"en"}
+{
+  "key": "sub-content",
+  "content": {
+    "title": "Subscription",
+    "range": {
+      "month": "Monthly",
+      "year": "Yearly"
+    },
+    "card": {
+      "credit_range": {
+        "month": "credits/month",
+        "year": "credits/year"
+      },
+      "price_range": {
+        "month": "per month",
+        "year": "per year"
+      },
+      "change": {
+        "title": "Subscribe",
+        "modal": {
+          "title": "Change plan",
+          "description": "Do you want to proceed changing your plan?",
+          "buttons": {
+            "submit": "Continue",
+            "cancel": "Cancel"
+          }
+        }
+      },
+      "restart": {
+        "title": "Restart",
+        "modal": {
+          "title": "Restart plan",
+          "description": "Do you want to proceed restarting your plan?",
+          "buttons": {
+            "submit": "Continue",
+            "cancel": "Cancel"
+          }
+        }
+      },
+      "buttons": {
+        "contact": "Contact sales"
+      }
+    },
+    "manage": {
+      "title": "Manage",
+      "modal": {
+        "title": "Manage",
+        "plan": "Plan",
+        "credits": "Credits",
+        "cost": "Cost",
+        "auto_renew": "Auto renew",
+        "cash_charge": "Cash charge"
+      }
+    },
+    "success": {
+      "change": "Your plan changed successfully.",
+      "restart": "Your plan restarted successfully."
+    },
+    "errors": {
+      "server": "Internal server error."
+    },
+    "metadata": {
+      "title": "AI Xazna | Subscriptions",
+      "description": "Explore AI Xazna subscription plans and choose the one that fits your needs.",
+      "keywords": "AI Xazna, subscription, plans, pricing, upgrade, premium",
+      "robots": {
+        "index": false,
+        "follow": false
+      }
+    }
+  },
+  "localIds": [
+    "sub-content::local::src/intlayer/sub.content.ts"
+  ],
+  "locale": "en"
+}

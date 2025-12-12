@@ -1,1 +1,87 @@
-{"key":"sign-up-content","content":{"title":"Sign Up","or":"OR","form":{"email":{"label":"Email","errors":{"required":"This field is required.","invalid":"Invalid email format."}},"first_name":{"label":"First name","errors":{"required":"This field is required."}},"last_name":{"label":"Last name","errors":{"required":"This field is required."}},"password":{"label":"Password","errors":{"required":"This field is required.","rule":"Password must be 8–16 characters, include letters and digits, and can contain @#$%^&*.,!","match":"Passwords did not match."}},"confirm_password":{"label":"Confirm password","errors":{"required":"This field is required.","match":"Passwords did not match."}},"buttons":{"submit":"Sign up"}},"errors":{"form":{"email":{"required":"This field is required.","invalid":"Invalid email format."},"first_name":{"required":"This field is required."},"last_name":{"required":"This field is required."},"password":{"required":"This field is required.","rule":"Password must be 8–16 characters, include letters and digits, and can contain @#$%^&*.,!","match":"Passwords did not match."},"confirm_password":{"required":"This field is required.","match":"Passwords did not match."}},"server":"Internal server error."},"sigin":{"title":"Sign in","description":"Already have an account?"},"metadata":{"title":"AI Xazna | Sign Up","description":"Create a new AI Xazna account to access AI services and personalized features.","keywords":"AI Xazna, sign up, register, artificial intelligence, account","robots":{"index":true,"follow":true}}},"localIds":["sign-up-content::local::src/intlayer/sign-up.content.ts"],"locale":"en"}
+{
+  "key": "sign-up-content",
+  "content": {
+    "title": "Sign Up",
+    "or": "OR",
+    "form": {
+      "email": {
+        "label": "Email",
+        "errors": {
+          "required": "This field is required.",
+          "invalid": "Invalid email format."
+        }
+      },
+      "first_name": {
+        "label": "First name",
+        "errors": {
+          "required": "This field is required."
+        }
+      },
+      "last_name": {
+        "label": "Last name",
+        "errors": {
+          "required": "This field is required."
+        }
+      },
+      "password": {
+        "label": "Password",
+        "errors": {
+          "required": "This field is required.",
+          "rule": "Password must be 8–16 characters, include letters and digits, and can contain @#$%^&*.,!",
+          "match": "Passwords did not match."
+        }
+      },
+      "confirm_password": {
+        "label": "Confirm password",
+        "errors": {
+          "required": "This field is required.",
+          "match": "Passwords did not match."
+        }
+      },
+      "buttons": {
+        "submit": "Sign up"
+      }
+    },
+    "errors": {
+      "form": {
+        "email": {
+          "required": "This field is required.",
+          "invalid": "Invalid email format."
+        },
+        "first_name": {
+          "required": "This field is required."
+        },
+        "last_name": {
+          "required": "This field is required."
+        },
+        "password": {
+          "required": "This field is required.",
+          "rule": "Password must be 8–16 characters, include letters and digits, and can contain @#$%^&*.,!",
+          "match": "Passwords did not match."
+        },
+        "confirm_password": {
+          "required": "This field is required.",
+          "match": "Passwords did not match."
+        }
+      },
+      "server": "Internal server error."
+    },
+    "sigin": {
+      "title": "Sign in",
+      "description": "Already have an account?"
+    },
+    "metadata": {
+      "title": "AI Xazna | Sign Up",
+      "description": "Create a new AI Xazna account to access AI services and personalized features.",
+      "keywords": "AI Xazna, sign up, register, artificial intelligence, account",
+      "robots": {
+        "index": true,
+        "follow": true
+      }
+    }
+  },
+  "localIds": [
+    "sign-up-content::local::src/intlayer/sign-up.content.ts"
+  ],
+  "locale": "en"
+}

@@ -1,1 +1,76 @@
-{"key":"tts-content","content":{"title":"Текста в речь","form":{"text":{"label":"Введите текст ..."},"buttons":{"submit":"Сгенерировать","cancel":"Отмена"}},"drawer":{"buttons":{"download":"Скачать"}},"settings":{"title":"Настройки","form":{"select":{"model":{"label":"Модель"},"emotion":{"label":"Эмоция"},"format":{"label":"Аудио формат"}}}},"history":{"title":"История","empty":{"load":"Данных пока нет.","search":"Ничего не найдено."},"form":{"search":{"label":"Поиск по названию ..."}},"modal":{"title":"Удалить данные","description":"Вы уверены, что хотите продолжить? Это действие навсегда удалит данные.","buttons":{"submit":"Продолжить","cancel":"Отмена"}},"buttons":{"more":"Больше","less":"Меньше"}},"errors":{"server":"Внутренняя ошибка сервера."},"metadata":{"title":"AI Xazna | Преобразование текста в речь","description":"AI Xazna TTS — сервис, который мгновенно преобразует текст в естественную речь.","keywords":"AI Xazna, TTS, текст в речь, синтез голоса, искусственный интеллект","robots":{"index":false,"follow":false}}},"localIds":["tts-content::local::src/intlayer/tts.content.ts"],"locale":"ru"}
+{
+  "key": "tts-content",
+  "content": {
+    "title": "Текста в речь",
+    "form": {
+      "text": {
+        "label": "Введите текст ..."
+      },
+      "buttons": {
+        "submit": "Сгенерировать",
+        "cancel": "Отмена"
+      }
+    },
+    "drawer": {
+      "buttons": {
+        "download": "Скачать"
+      }
+    },
+    "settings": {
+      "title": "Настройки",
+      "form": {
+        "select": {
+          "model": {
+            "label": "Модель"
+          },
+          "emotion": {
+            "label": "Эмоция"
+          },
+          "format": {
+            "label": "Аудио формат"
+          }
+        }
+      }
+    },
+    "history": {
+      "title": "История",
+      "empty": {
+        "load": "Данных пока нет.",
+        "search": "Ничего не найдено."
+      },
+      "form": {
+        "search": {
+          "label": "Поиск по названию ..."
+        }
+      },
+      "modal": {
+        "title": "Удалить данные",
+        "description": "Вы уверены, что хотите продолжить? Это действие навсегда удалит данные.",
+        "buttons": {
+          "submit": "Продолжить",
+          "cancel": "Отмена"
+        }
+      },
+      "buttons": {
+        "more": "Больше",
+        "less": "Меньше"
+      }
+    },
+    "errors": {
+      "server": "Внутренняя ошибка сервера."
+    },
+    "metadata": {
+      "title": "AI Xazna | Преобразование текста в речь",
+      "description": "AI Xazna TTS — сервис, который мгновенно преобразует текст в естественную речь.",
+      "keywords": "AI Xazna, TTS, текст в речь, синтез голоса, искусственный интеллект",
+      "robots": {
+        "index": false,
+        "follow": false
+      }
+    }
+  },
+  "localIds": [
+    "tts-content::local::src/intlayer/tts.content.ts"
+  ],
+  "locale": "ru"
+}

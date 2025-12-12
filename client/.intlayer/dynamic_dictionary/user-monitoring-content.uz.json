@@ -1,1 +1,32 @@
-{"key":"user-monitoring-content","content":{"title":"Monitoring","table":{"empty":"Hozircha hech qanday maʼlumot yoʻq.","head":{"operation":"Amal","credit":"Kredit","cash":"Naqd","created_at":"Yaratilgan vaqti"},"rows":"Qatorlar"},"errors":{"server":"Serverda ichki xato yuz berdi."},"metadata":{"title":"AI Xazna | Monitoring","description":"Ushbu sahifa orqali AI Xazna hisobingiz faoliyatini kuzatishingiz mumkin. Barcha so'rovlar va tizimdan foydalanish tarixi monitoring uchun qayd etiladi.","keywords":"AI Xazna, monitoring, foydalanuvchi, faoliyat, tarix","robots":{"index":false,"follow":false}}},"localIds":["user-monitoring-content::local::src/intlayer/user-monitoring.content.ts"],"locale":"uz"}
+{
+  "key": "user-monitoring-content",
+  "content": {
+    "title": "Monitoring",
+    "table": {
+      "empty": "Hozircha hech qanday maʼlumot yoʻq.",
+      "head": {
+        "operation": "Amal",
+        "credit": "Kredit",
+        "cash": "Naqd",
+        "created_at": "Yaratilgan vaqti"
+      },
+      "rows": "Qatorlar"
+    },
+    "errors": {
+      "server": "Serverda ichki xato yuz berdi."
+    },
+    "metadata": {
+      "title": "AI Xazna | Monitoring",
+      "description": "Ushbu sahifa orqali AI Xazna hisobingiz faoliyatini kuzatishingiz mumkin. Barcha so'rovlar va tizimdan foydalanish tarixi monitoring uchun qayd etiladi.",
+      "keywords": "AI Xazna, monitoring, foydalanuvchi, faoliyat, tarix",
+      "robots": {
+        "index": false,
+        "follow": false
+      }
+    }
+  },
+  "localIds": [
+    "user-monitoring-content::local::src/intlayer/user-monitoring.content.ts"
+  ],
+  "locale": "uz"
+}

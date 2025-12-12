@@ -1,1 +1,63 @@
-{"key":"stt-content","content":{"title":"Речь в текст","form":{"file":{"button":"Выбрать файл","description":"MP3 или WAV, максимальный размер файла 50 МБ"},"buttons":{"submit":"Сгенерировать","cancel":"Отмена"}},"drawer":{"form":{"text":{"label":"Введите текст ..."}},"buttons":{"submit":"Обновить","reset":"Сбросить"}},"history":{"title":"История","empty":{"load":"Данных пока нет.","search":"Ничего не найдено."},"form":{"search":{"label":"Поиск по названию ..."}},"modal":{"title":"Удалить данные","description":"Вы уверены, что хотите продолжить? Это действие навсегда удалит данные.","buttons":{"submit":"Продолжить","cancel":"Отмена"}}},"errors":{"server":"Внутренняя ошибка сервера."},"metadata":{"title":"AI Xazна | Речь в текст","description":"AI Xazna STT — сервис, который быстро и точно преобразует аудио в текст.","keywords":"AI Xazna, STT, речь в текст, транскрипция, аудио в текст, искусственный интеллект","robots":{"index":false,"follow":false}}},"localIds":["stt-content::local::src/intlayer/stt.content.ts"],"locale":"ru"}
+{
+  "key": "stt-content",
+  "content": {
+    "title": "Речь в текст",
+    "form": {
+      "file": {
+        "button": "Выбрать файл",
+        "description": "MP3 или WAV, максимальный размер файла 50 МБ"
+      },
+      "buttons": {
+        "submit": "Сгенерировать",
+        "cancel": "Отмена"
+      }
+    },
+    "drawer": {
+      "form": {
+        "text": {
+          "label": "Введите текст ..."
+        }
+      },
+      "buttons": {
+        "submit": "Обновить",
+        "reset": "Сбросить"
+      }
+    },
+    "history": {
+      "title": "История",
+      "empty": {
+        "load": "Данных пока нет.",
+        "search": "Ничего не найдено."
+      },
+      "form": {
+        "search": {
+          "label": "Поиск по названию ..."
+        }
+      },
+      "modal": {
+        "title": "Удалить данные",
+        "description": "Вы уверены, что хотите продолжить? Это действие навсегда удалит данные.",
+        "buttons": {
+          "submit": "Продолжить",
+          "cancel": "Отмена"
+        }
+      }
+    },
+    "errors": {
+      "server": "Внутренняя ошибка сервера."
+    },
+    "metadata": {
+      "title": "AI Xazна | Речь в текст",
+      "description": "AI Xazna STT — сервис, который быстро и точно преобразует аудио в текст.",
+      "keywords": "AI Xazna, STT, речь в текст, транскрипция, аудио в текст, искусственный интеллект",
+      "robots": {
+        "index": false,
+        "follow": false
+      }
+    }
+  },
+  "localIds": [
+    "stt-content::local::src/intlayer/stt.content.ts"
+  ],
+  "locale": "ru"
+}

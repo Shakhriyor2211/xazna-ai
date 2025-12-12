@@ -1,1 +1,54 @@
-{"key":"sign-in-content","content":{"title":"Вход","or":"ИЛИ","regular":{"forgot_password":"Забыли пароль?","form":{"email":{"label":"Электронная почта"},"password":{"label":"Пароль"},"buttons":{"submit":"Вход"}}},"signup":{"title":"Зарегистрироваться","description":"У вас ещё нет аккаунта?"},"errors":{"regular":{"form":{"email":{"required":"Это поле обязательно для заполнения."},"password":{"required":"Это поле обязательно для заполнения."}}},"google":{"auth":"Не удалось выполнить вход через аккаунт Google."},"server":"Внутренняя ошибка сервера."},"metadata":{"title":"AI Xazna | Вход","description":"Войдите в свой аккаунт AI Xazna, чтобы получить доступ к персонализированным функциям и управлять своим профилем.","keywords":"AI Xazna, вход, логин, искусственный интеллект, аккаунт","robots":{"index":true,"follow":true}}},"localIds":["sign-in-content::local::src/intlayer/sign-in.content.ts"],"locale":"ru"}
+{
+  "key": "sign-in-content",
+  "content": {
+    "title": "Вход",
+    "or": "ИЛИ",
+    "regular": {
+      "forgot_password": "Забыли пароль?",
+      "form": {
+        "email": {
+          "label": "Электронная почта"
+        },
+        "password": {
+          "label": "Пароль"
+        },
+        "buttons": {
+          "submit": "Вход"
+        }
+      }
+    },
+    "signup": {
+      "title": "Зарегистрироваться",
+      "description": "У вас ещё нет аккаунта?"
+    },
+    "errors": {
+      "regular": {
+        "form": {
+          "email": {
+            "required": "Это поле обязательно для заполнения."
+          },
+          "password": {
+            "required": "Это поле обязательно для заполнения."
+          }
+        }
+      },
+      "google": {
+        "auth": "Не удалось выполнить вход через аккаунт Google."
+      },
+      "server": "Внутренняя ошибка сервера."
+    },
+    "metadata": {
+      "title": "AI Xazna | Вход",
+      "description": "Войдите в свой аккаунт AI Xazna, чтобы получить доступ к персонализированным функциям и управлять своим профилем.",
+      "keywords": "AI Xazna, вход, логин, искусственный интеллект, аккаунт",
+      "robots": {
+        "index": true,
+        "follow": true
+      }
+    }
+  },
+  "localIds": [
+    "sign-in-content::local::src/intlayer/sign-in.content.ts"
+  ],
+  "locale": "ru"
+}

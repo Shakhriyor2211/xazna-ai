@@ -1,1 +1,27 @@
-{"key":"verify-email-content","content":{"title":"Подтверждение электронной почты","description":"Введите 6-значный код, отправленный на вашу электронную почту","buttons":{"submit":"Проверить","resend":"Отправить код ещё раз"},"errors":{"server":"Внутренняя ошибка сервера."},"metadata":{"title":"AI Xazna | Подтверждение электронной почты","description":"Подтвердите свою электронную почту, чтобы активировать аккаунт AI Xazna. Ссылка для подтверждения будет отправлена на вашу почту.","keywords":"AI Xazna, подтверждение электронной почты, активация аккаунта, регистрация, авторизация","robots":{"index":false,"follow":false}}},"localIds":["verify-email-content::local::src/intlayer/verify-email.content.ts"],"locale":"ru"}
+{
+  "key": "verify-email-content",
+  "content": {
+    "title": "Подтверждение электронной почты",
+    "description": "Введите 6-значный код, отправленный на вашу электронную почту",
+    "buttons": {
+      "submit": "Проверить",
+      "resend": "Отправить код ещё раз"
+    },
+    "errors": {
+      "server": "Внутренняя ошибка сервера."
+    },
+    "metadata": {
+      "title": "AI Xazna | Подтверждение электронной почты",
+      "description": "Подтвердите свою электронную почту, чтобы активировать аккаунт AI Xazna. Ссылка для подтверждения будет отправлена на вашу почту.",
+      "keywords": "AI Xazna, подтверждение электронной почты, активация аккаунта, регистрация, авторизация",
+      "robots": {
+        "index": false,
+        "follow": false
+      }
+    }
+  },
+  "localIds": [
+    "verify-email-content::local::src/intlayer/verify-email.content.ts"
+  ],
+  "locale": "ru"
+}

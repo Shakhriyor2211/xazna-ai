@@ -61,9 +61,9 @@ const navigationContent = {
     header: {
       dropdown: {
         total: t({
-          uz: "Yangilash",
-          en: "Upgrade",
-          ru: "Обновить",
+          uz: "Jami",
+          en: "Total",
+          ru: "Итого",
         }),
         usage: t({
           uz: "Foydalanish",

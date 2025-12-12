@@ -1,1 +1,76 @@
-{"key":"sub-content","content":{"title":"Obuna","range":{"month":"Oylik","year":"Yillik"},"card":{"credit_range":{"month":"kredit/oy","year":"kredit/yil"},"price_range":{"month":"oyiga","year":"yiliga"},"change":{"title":"Obuna bo'lish","modal":{"title":"Rejani o‘zgartirish","description":"Rejangizni o‘zgartirishni davom ettirmoqchimisiz?","buttons":{"submit":"Davom etish","cancel":"Bekor qilish"}}},"restart":{"title":"Qayta ishga tushirish","modal":{"title":"Rejani qayta ishga tushirish","description":"Rejangizni qayta ishga tushirishni davom ettirmoqchimisiz?","buttons":{"submit":"Davom etish","cancel":"Bekor qilish"}}},"buttons":{"contact":"Savdo bilan bog‘lanish"}},"manage":{"title":"Boshqarish","modal":{"title":"Boshqarish","plan":"Reja","credits":"Kreditlar","cost":"Narx","auto_renew":"Avto yangilash","cash_charge":"Balansni to'ldirish"}},"success":{"change":"Rejangiz muvaffaqiyatli o‘zgartirildi.","restart":"Rejangiz muvaffaqiyatli qayta ishga tushirildi."},"errors":{"server":"Serverda ichki xato yuz berdi."},"metadata":{"title":"AI Xazna | Obunalar","description":"AI Xazna obunalari — ehtiyojingizga mos rejani tanlab, xizmatlardan cheklovlarsiz foydalaning.","keywords":"AI Xazna, obuna, reja, narxlar, to'lov, premium","robots":{"index":false,"follow":false}}},"localIds":["sub-content::local::src/intlayer/sub.content.ts"],"locale":"uz"}
+{
+  "key": "sub-content",
+  "content": {
+    "title": "Obuna",
+    "range": {
+      "month": "Oylik",
+      "year": "Yillik"
+    },
+    "card": {
+      "credit_range": {
+        "month": "kredit/oy",
+        "year": "kredit/yil"
+      },
+      "price_range": {
+        "month": "oyiga",
+        "year": "yiliga"
+      },
+      "change": {
+        "title": "Obuna bo'lish",
+        "modal": {
+          "title": "Rejani o‘zgartirish",
+          "description": "Rejangizni o‘zgartirishni davom ettirmoqchimisiz?",
+          "buttons": {
+            "submit": "Davom etish",
+            "cancel": "Bekor qilish"
+          }
+        }
+      },
+      "restart": {
+        "title": "Qayta ishga tushirish",
+        "modal": {
+          "title": "Rejani qayta ishga tushirish",
+          "description": "Rejangizni qayta ishga tushirishni davom ettirmoqchimisiz?",
+          "buttons": {
+            "submit": "Davom etish",
+            "cancel": "Bekor qilish"
+          }
+        }
+      },
+      "buttons": {
+        "contact": "Savdo bilan bog‘lanish"
+      }
+    },
+    "manage": {
+      "title": "Boshqarish",
+      "modal": {
+        "title": "Boshqarish",
+        "plan": "Reja",
+        "credits": "Kreditlar",
+        "cost": "Narx",
+        "auto_renew": "Avto yangilash",
+        "cash_charge": "Balansni to'ldirish"
+      }
+    },
+    "success": {
+      "change": "Rejangiz muvaffaqiyatli o‘zgartirildi.",
+      "restart": "Rejangiz muvaffaqiyatli qayta ishga tushirildi."
+    },
+    "errors": {
+      "server": "Serverda ichki xato yuz berdi."
+    },
+    "metadata": {
+      "title": "AI Xazna | Obunalar",
+      "description": "AI Xazna obunalari — ehtiyojingizga mos rejani tanlab, xizmatlardan cheklovlarsiz foydalaning.",
+      "keywords": "AI Xazna, obuna, reja, narxlar, to'lov, premium",
+      "robots": {
+        "index": false,
+        "follow": false
+      }
+    }
+  },
+  "localIds": [
+    "sub-content::local::src/intlayer/sub.content.ts"
+  ],
+  "locale": "uz"
+}

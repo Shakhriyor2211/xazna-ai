@@ -1,1 +1,32 @@
-{"key":"user-monitoring-content","content":{"title":"Monitoring","table":{"empty":"There is no data yet.","head":{"operation":"Operation","credit":"Credit","cash":"Cash","created_at":"Created at"},"rows":"Rows"},"errors":{"server":"Internal server error."},"metadata":{"title":"AI Xazna | Monitoring","description":"Use this page to monitor the activity of your AI Xazna account. All requests and usage history are logged for monitoring purposes.","keywords":"AI Xazna, monitoring, user, activity, history","robots":{"index":false,"follow":false}}},"localIds":["user-monitoring-content::local::src/intlayer/user-monitoring.content.ts"],"locale":"en"}
+{
+  "key": "user-monitoring-content",
+  "content": {
+    "title": "Monitoring",
+    "table": {
+      "empty": "There is no data yet.",
+      "head": {
+        "operation": "Operation",
+        "credit": "Credit",
+        "cash": "Cash",
+        "created_at": "Created at"
+      },
+      "rows": "Rows"
+    },
+    "errors": {
+      "server": "Internal server error."
+    },
+    "metadata": {
+      "title": "AI Xazna | Monitoring",
+      "description": "Use this page to monitor the activity of your AI Xazna account. All requests and usage history are logged for monitoring purposes.",
+      "keywords": "AI Xazna, monitoring, user, activity, history",
+      "robots": {
+        "index": false,
+        "follow": false
+      }
+    }
+  },
+  "localIds": [
+    "user-monitoring-content::local::src/intlayer/user-monitoring.content.ts"
+  ],
+  "locale": "en"
+}
