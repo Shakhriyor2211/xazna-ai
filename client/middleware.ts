@@ -29,7 +29,7 @@ export const config = {
     "/",
     "/user/:path*",
     "/auth/:path*",
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)"
+    "/((?!api|protected|media|docs|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)"
   ],
 };
 

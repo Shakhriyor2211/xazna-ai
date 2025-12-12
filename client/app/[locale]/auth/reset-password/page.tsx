@@ -1,6 +1,7 @@
 import { getIntlayer } from "intlayer";
 import { Metadata } from "next";
-import { LocalPromiseParams } from "next-intlayer";
+import { LocalPromiseParams, NextPageIntlayer } from "next-intlayer";
+import { ResetPassword } from "@/components/auth/reset-password";
 
 export const generateMetadata = async ({
   params,
@@ -12,4 +13,9 @@ export const generateMetadata = async ({
   return content.metadata;
 };
 
-export { ResetPassword as default } from "@/components/auth/reset-password";
+const ResetPasswordPage: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
+  return <ResetPassword />;
+};
+
+export default ResetPasswordPage;

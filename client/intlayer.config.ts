@@ -6,7 +6,6 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.UZBEK_LATIN
   },
   routing: {
-
     storage: {
       type: "cookie",
       name: "locale"
