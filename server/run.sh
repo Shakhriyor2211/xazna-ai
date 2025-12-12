@@ -10,7 +10,7 @@ python manage.py makemigrations --noinput
 python manage.py migrate --noinput
 
 echo ">>> Compiling Django messages..."
-python manage.py compilemessages --noinput
+python manage.py compilemessages
 
 
 echo ">>> Collecting  Django static files..."
