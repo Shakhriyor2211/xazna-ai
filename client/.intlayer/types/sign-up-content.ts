@@ -1,0 +1,252 @@
+/* eslint-disable */
+export default {
+  "key": "sign-up-content",
+  "content": {
+    "nodeType": "translation",
+    "translation": {
+      "uz": {
+        "title": "Ro'yxatdan o'tish",
+        "or": "YOKI",
+        "form": {
+          "email": {
+            "label": "Email",
+            "errors": {
+              "required": "Ushbu qator to'ldirilishi shart.",
+              "invalid": "Email manzili noto'g'ri formatda."
+            }
+          },
+          "first_name": {
+            "label": "Ism",
+            "errors": {
+              "required": "Ushbu qator to'ldirilishi shart."
+            }
+          },
+          "last_name": {
+            "label": "Familiya",
+            "errors": {
+              "required": "Ushbu qator to'ldirilishi shart."
+            }
+          },
+          "password": {
+            "label": "Parol",
+            "errors": {
+              "required": "Ushbu qator to'ldirilishi shart.",
+              "rule": "Parol 8–16 belgidan iborat bo'lishi, harflar va raqamlarni o'z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin.",
+              "match": "Parollar mos kelmadi."
+            }
+          },
+          "confirm_password": {
+            "label": "Parolni tasdiqlang",
+            "errors": {
+              "required": "Ushbu qator to'ldirilishi shart.",
+              "match": "Parollar mos kelmadi."
+            }
+          },
+          "buttons": {
+            "submit": "Ro'yxatdan o'tish"
+          }
+        },
+        "errors": {
+          "form": {
+            "email": {
+              "required": "Ushbu qator to'ldirilishi shart.",
+              "invalid": "Email manzili noto'g'ri formatda."
+            },
+            "first_name": {
+              "required": "Ushbu qator to'ldirilishi shart."
+            },
+            "last_name": {
+              "required": "Ushbu qator to'ldirilishi shart."
+            },
+            "password": {
+              "required": "Ushbu qator to'ldirilishi shart.",
+              "rule": "Parol 8–16 belgidan iborat bo'lishi, harflar va raqamlarni o'z ichiga olishi, @#$%^&*.,! belgilarini ishlatishi mumkin.",
+              "match": "Parollar mos kelmadi."
+            },
+            "confirm_password": {
+              "required": "Ushbu qator to'ldirilishi shart.",
+              "match": "Parollar mos kelmadi."
+            }
+          },
+          "server": "Serverda ichki xato yuz berdi."
+        },
+        "sigin": {
+          "title": "Kirish",
+          "description": "Akkauntingiz bormi?"
+        },
+        "metadata": {
+          "title": "AI Xazna | Ro'yxatdan o'tish",
+          "description": "AI Xazna platformasiga yangi hisob yaratish va sun'iy intellekt xizmatlaridan foydalanish uchun ro'yxatdan o'ting.",
+          "keywords": "AI Xazna, ro'yxatdan o'tish, sign up, sun'iy intellekt, hisob",
+          "robots": {
+            "index": true,
+            "follow": true
+          }
+        }
+      },
+      "en": {
+        "title": "Sign Up",
+        "or": "OR",
+        "form": {
+          "email": {
+            "label": "Email",
+            "errors": {
+              "required": "This field is required.",
+              "invalid": "Invalid email format."
+            }
+          },
+          "first_name": {
+            "label": "First name",
+            "errors": {
+              "required": "This field is required."
+            }
+          },
+          "last_name": {
+            "label": "Last name",
+            "errors": {
+              "required": "This field is required."
+            }
+          },
+          "password": {
+            "label": "Password",
+            "errors": {
+              "required": "This field is required.",
+              "rule": "Password must be 8–16 characters, include letters and digits, and can contain @#$%^&*.,!",
+              "match": "Passwords did not match."
+            }
+          },
+          "confirm_password": {
+            "label": "Confirm password",
+            "errors": {
+              "required": "This field is required.",
+              "match": "Passwords did not match."
+            }
+          },
+          "buttons": {
+            "submit": "Sign up"
+          }
+        },
+        "errors": {
+          "form": {
+            "email": {
+              "required": "This field is required.",
+              "invalid": "Invalid email format."
+            },
+            "first_name": {
+              "required": "This field is required."
+            },
+            "last_name": {
+              "required": "This field is required."
+            },
+            "password": {
+              "required": "This field is required.",
+              "rule": "Password must be 8–16 characters, include letters and digits, and can contain @#$%^&*.,!",
+              "match": "Passwords did not match."
+            },
+            "confirm_password": {
+              "required": "This field is required.",
+              "match": "Passwords did not match."
+            }
+          },
+          "server": "Internal server error."
+        },
+        "sigin": {
+          "title": "Sign in",
+          "description": "Already have an account?"
+        },
+        "metadata": {
+          "title": "AI Xazna | Sign Up",
+          "description": "Create a new AI Xazna account to access AI services and personalized features.",
+          "keywords": "AI Xazna, sign up, register, artificial intelligence, account",
+          "robots": {
+            "index": true,
+            "follow": true
+          }
+        }
+      },
+      "ru": {
+        "title": "Регистрация",
+        "or": "ИЛИ",
+        "form": {
+          "email": {
+            "label": "Электронная почта",
+            "errors": {
+              "required": "Это поле обязательно для заполнения.",
+              "invalid": "Неверный формат электронной почты."
+            }
+          },
+          "first_name": {
+            "label": "Имя",
+            "errors": {
+              "required": "Это поле обязательно для заполнения."
+            }
+          },
+          "last_name": {
+            "label": "Фамилия",
+            "errors": {
+              "required": "Это поле обязательно для заполнения."
+            }
+          },
+          "password": {
+            "label": "Пароль",
+            "errors": {
+              "required": "Это поле обязательно для заполнения.",
+              "rule": "Пароль должен содержать 8–16 символов, включать буквы и цифры, и может содержать @#$%^&*.,!.",
+              "match": "Пароли не совпадают."
+            }
+          },
+          "confirm_password": {
+            "label": "Подтвердите пароль",
+            "errors": {
+              "required": "Это поле обязательно для заполнения.",
+              "match": "Пароли не совпадают."
+            }
+          },
+          "buttons": {
+            "submit": "Регистрация"
+          }
+        },
+        "errors": {
+          "form": {
+            "email": {
+              "required": "Это поле обязательно для заполнения.",
+              "invalid": "Неверный формат электронной почты."
+            },
+            "first_name": {
+              "required": "Это поле обязательно для заполнения."
+            },
+            "last_name": {
+              "required": "Это поле обязательно для заполнения."
+            },
+            "password": {
+              "required": "Это поле обязательно для заполнения.",
+              "rule": "Пароль должен содержать 8–16 символов, включать буквы и цифры, и может содержать @#$%^&*.,!.",
+              "match": "Пароли не совпадают."
+            },
+            "confirm_password": {
+              "required": "Это поле обязательно для заполнения.",
+              "match": "Пароли не совпадают."
+            }
+          },
+          "server": "Внутренняя ошибка сервера."
+        },
+        "sigin": {
+          "title": "Вход",
+          "description": "У вас уже есть аккаунт?"
+        },
+        "metadata": {
+          "title": "AI Xazna | Регистрация",
+          "description": "Создайте новый аккаунт AI Xazna для доступа к сервисам искусственного интеллекта и персонализированным функциям.",
+          "keywords": "AI Xazna, регистрация, sign up, искусственный интеллект, аккаунт",
+          "robots": {
+            "index": true,
+            "follow": true
+          }
+        }
+      }
+    }
+  },
+  "localIds": [
+    "sign-up-content::local::src/intlayer/sign-up.content.ts"
+  ]
+} as const;
