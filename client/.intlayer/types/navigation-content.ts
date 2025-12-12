@@ -1,0 +1,120 @@
+/* eslint-disable */
+export default {
+  "key": "navigation-content",
+  "content": {
+    "nodeType": "translation",
+    "translation": {
+      "uz": {
+        "sidebar": {
+          "playground": {
+            "title": "O'yin maydonchasi",
+            "chatbot": {
+              "title": "Chatbot",
+              "new_session": "Yangi chat"
+            },
+            "stt": "Nutqdan matnga",
+            "tts": "Matndan nutqqa",
+            "monitoring": "Monitoring"
+          },
+          "development": {
+            "title": "Rivojlantirish",
+            "docs": "Hujjatlar",
+            "keys": "API kalitlari"
+          }
+        },
+        "header": {
+          "dropdown": {
+            "total": "Yangilash",
+            "usage": "Foydalanish",
+            "cash": "Balans",
+            "sub": "Obuna",
+            "transactions": "Tranzaksiyalar",
+            "profile": "Profil",
+            "sign_out": "Chiqish",
+            "buttons": {
+              "upgrade": "Yangilash"
+            }
+          }
+        },
+        "errors": {
+          "server": "Serverda ichki xato yuz berdi."
+        }
+      },
+      "en": {
+        "sidebar": {
+          "playground": {
+            "title": "Playground",
+            "chatbot": {
+              "title": "Chatbot",
+              "new_session": "New chat"
+            },
+            "stt": "Speech to Text",
+            "tts": "Text to Speech",
+            "monitoring": "Monitoring"
+          },
+          "development": {
+            "title": "Development",
+            "docs": "Documentation",
+            "keys": "API Keys"
+          }
+        },
+        "header": {
+          "dropdown": {
+            "total": "Upgrade",
+            "usage": "Usage",
+            "cash": "Cash",
+            "sub": "Subscription",
+            "transactions": "Transactions",
+            "profile": "Profile",
+            "sign_out": "Sign out",
+            "buttons": {
+              "upgrade": "Upgrade"
+            }
+          }
+        },
+        "errors": {
+          "server": "Internal server error."
+        }
+      },
+      "ru": {
+        "sidebar": {
+          "playground": {
+            "title": "Игровое поле",
+            "chatbot": {
+              "title": "Чат-бот",
+              "new_session": "Новый чат"
+            },
+            "stt": "Речь в текст",
+            "tts": "Текст в речь",
+            "monitoring": "Мониторинг"
+          },
+          "development": {
+            "title": "Разработка",
+            "docs": "Документация",
+            "keys": "API ключи"
+          }
+        },
+        "header": {
+          "dropdown": {
+            "total": "Обновить",
+            "usage": "Использование",
+            "cash": "Баланс",
+            "sub": "Подписка",
+            "transactions": "Транзакции",
+            "profile": "Профиль",
+            "sign_out": "Выйти",
+            "buttons": {
+              "upgrade": "Обновить"
+            }
+          }
+        },
+        "errors": {
+          "server": "Внутренняя ошибка сервера."
+        }
+      }
+    }
+  },
+  "localIds": [
+    "navigation-content::local::src/intlayer/navigation.content.ts"
+  ]
+} as const;
