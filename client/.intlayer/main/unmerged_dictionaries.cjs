@@ -1,35 +1,35 @@
-const _yA6dpyPyOpQ16qApz5ls = require('../unmerged_dictionary/chatbot-content.json');
-const _nOLlEk6F8NbGnVMM50GV = require('../unmerged_dictionary/key-monitoring-content.json');
-const _a2y1BM8WxoFfluNtG5te = require('../unmerged_dictionary/keys-content.json');
-const _fYm5BwcaltMS84Re0vEH = require('../unmerged_dictionary/main-content.json');
-const _ohc8g6FfWjLBlkF77NMO = require('../unmerged_dictionary/navigation-content.json');
-const _kLzRQqziyz0KCUks9DOV = require('../unmerged_dictionary/profile-content.json');
-const _8l2wIcYcdqnhyFwhAgAK = require('../unmerged_dictionary/reset-password-content.json');
-const _JdKYCjMmTa713ROe3DJM = require('../unmerged_dictionary/sign-in-content.json');
-const _EjOfpF32k3JtfyRs65YG = require('../unmerged_dictionary/sign-up-content.json');
-const _fdGpaHtUK2FJgcQkx6J1 = require('../unmerged_dictionary/stt-content.json');
-const _qFvnC8bKXC96t1Y0JwAC = require('../unmerged_dictionary/sub-content.json');
-const _LIncHTWS7iEujPnLWLQA = require('../unmerged_dictionary/transactions-content.json');
-const _dCoam9niQ27CcSIGbksb = require('../unmerged_dictionary/tts-content.json');
-const _XZTxW3y7fSv8yR8ObjxV = require('../unmerged_dictionary/user-monitoring-content.json');
-const _C16NycS8iSckuuhOeew8 = require('../unmerged_dictionary/verify-email-content.json');
+const _sC9GsavAnBb5Wq28jDb8 = require('../unmerged_dictionary/chatbot-content.json');
+const _od46Wabc6MbDfgYODQyg = require('../unmerged_dictionary/key-monitoring-content.json');
+const _kSlROatiWvOh0mRr0Nhr = require('../unmerged_dictionary/keys-content.json');
+const _O9CfcaP0oOUxYyEwZiGK = require('../unmerged_dictionary/main-content.json');
+const _vvfmc4PIY5Q08GH4mNwY = require('../unmerged_dictionary/navigation-content.json');
+const _sDcaU9UTudTX8vJrQn4n = require('../unmerged_dictionary/profile-content.json');
+const _u2nZoXeS4nHdwUqhuSn7 = require('../unmerged_dictionary/reset-password-content.json');
+const _vJMuwcNT4HtlZrl9MGbe = require('../unmerged_dictionary/sign-in-content.json');
+const _vdj0ihSLbdYV9OLA98b7 = require('../unmerged_dictionary/sign-up-content.json');
+const _3bPv0BXyuMFOWDA8WwRE = require('../unmerged_dictionary/stt-content.json');
+const _LDJhkNk0mVQE4KvjGQfG = require('../unmerged_dictionary/sub-content.json');
+const _EISorHmztZ9sDjr85BUv = require('../unmerged_dictionary/transactions-content.json');
+const _ztMBnvpaNlLkt5vHVFJd = require('../unmerged_dictionary/tts-content.json');
+const _iWfDtZL88HWB3fmdGs09 = require('../unmerged_dictionary/user-monitoring-content.json');
+const _rjIbcDrMcu3K6ojrPhuV = require('../unmerged_dictionary/verify-email-content.json');
 
 const dictionaries = {
-  "chatbot-content": _yA6dpyPyOpQ16qApz5ls,
-  "key-monitoring-content": _nOLlEk6F8NbGnVMM50GV,
-  "keys-content": _a2y1BM8WxoFfluNtG5te,
-  "main-content": _fYm5BwcaltMS84Re0vEH,
-  "navigation-content": _ohc8g6FfWjLBlkF77NMO,
-  "profile-content": _kLzRQqziyz0KCUks9DOV,
-  "reset-password-content": _8l2wIcYcdqnhyFwhAgAK,
-  "sign-in-content": _JdKYCjMmTa713ROe3DJM,
-  "sign-up-content": _EjOfpF32k3JtfyRs65YG,
-  "stt-content": _fdGpaHtUK2FJgcQkx6J1,
-  "sub-content": _qFvnC8bKXC96t1Y0JwAC,
-  "transactions-content": _LIncHTWS7iEujPnLWLQA,
-  "tts-content": _dCoam9niQ27CcSIGbksb,
-  "user-monitoring-content": _XZTxW3y7fSv8yR8ObjxV,
-  "verify-email-content": _C16NycS8iSckuuhOeew8
+  "chatbot-content": _sC9GsavAnBb5Wq28jDb8,
+  "key-monitoring-content": _od46Wabc6MbDfgYODQyg,
+  "keys-content": _kSlROatiWvOh0mRr0Nhr,
+  "main-content": _O9CfcaP0oOUxYyEwZiGK,
+  "navigation-content": _vvfmc4PIY5Q08GH4mNwY,
+  "profile-content": _sDcaU9UTudTX8vJrQn4n,
+  "reset-password-content": _u2nZoXeS4nHdwUqhuSn7,
+  "sign-in-content": _vJMuwcNT4HtlZrl9MGbe,
+  "sign-up-content": _vdj0ihSLbdYV9OLA98b7,
+  "stt-content": _3bPv0BXyuMFOWDA8WwRE,
+  "sub-content": _LDJhkNk0mVQE4KvjGQfG,
+  "transactions-content": _EISorHmztZ9sDjr85BUv,
+  "tts-content": _ztMBnvpaNlLkt5vHVFJd,
+  "user-monitoring-content": _iWfDtZL88HWB3fmdGs09,
+  "verify-email-content": _rjIbcDrMcu3K6ojrPhuV
 };
 const getUnmergedDictionaries = () => dictionaries;
 

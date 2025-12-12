@@ -1,35 +1,35 @@
-const _eoVoJGAk1MpAf6QMmtVY = require('../dynamic_dictionary/chatbot-content.cjs');
-const _eT3wskciMR5CGI9fCoXr = require('../dynamic_dictionary/key-monitoring-content.cjs');
-const _5mJuPeC3oFgoa1KsByKw = require('../dynamic_dictionary/keys-content.cjs');
-const _6PMwsgQfnXIlKlm3hkJB = require('../dynamic_dictionary/main-content.cjs');
-const _iX4c5qC87HlWGfmaxplM = require('../dynamic_dictionary/navigation-content.cjs');
-const _XkEbmbkOBeKeaCLcBCAR = require('../dynamic_dictionary/profile-content.cjs');
-const _ctPAO5TKEywswm0cqcS8 = require('../dynamic_dictionary/reset-password-content.cjs');
-const _cP2XtSUetecr6YEkihqx = require('../dynamic_dictionary/sign-in-content.cjs');
-const _WdBFjYnUCYjIhYj7rEJf = require('../dynamic_dictionary/sign-up-content.cjs');
-const _7XuKWkTRRZGugW3ig6iw = require('../dynamic_dictionary/stt-content.cjs');
-const _w7bfbwJCU0yu0sF4PEZq = require('../dynamic_dictionary/sub-content.cjs');
-const _uEgvJ9HQdUAXesJ61Krt = require('../dynamic_dictionary/transactions-content.cjs');
-const _2uNsd8SoG1r7IMdDH7qi = require('../dynamic_dictionary/tts-content.cjs');
-const _crYY7OX3fm72tkagB1g3 = require('../dynamic_dictionary/user-monitoring-content.cjs');
-const _eCUhhOSGmSFg8JNbqXHz = require('../dynamic_dictionary/verify-email-content.cjs');
+const _kh0tRo6Thrlx65htx1Oh = require('../dynamic_dictionary/chatbot-content.cjs');
+const _e5uate2tRfC1dAMLOQEy = require('../dynamic_dictionary/key-monitoring-content.cjs');
+const _zlz2k8oZT1IHZ4IoXWFj = require('../dynamic_dictionary/keys-content.cjs');
+const _QvUHvEQLyABQog52dGZ8 = require('../dynamic_dictionary/main-content.cjs');
+const _CjK18tNFUgV7FchEko1c = require('../dynamic_dictionary/navigation-content.cjs');
+const _bgcrPDzIl7jK6AINExH6 = require('../dynamic_dictionary/profile-content.cjs');
+const _ezHNs9SU6QHmmeMaBR0W = require('../dynamic_dictionary/reset-password-content.cjs');
+const _8Atj2Rtp9Ewz0mrhgA8V = require('../dynamic_dictionary/sign-in-content.cjs');
+const _ZHJzvHdjiETXfFNar2lK = require('../dynamic_dictionary/sign-up-content.cjs');
+const _WM8R0IMBGvorgOc8HYS3 = require('../dynamic_dictionary/stt-content.cjs');
+const _sX5f9Johd3lvu1mBRfxW = require('../dynamic_dictionary/sub-content.cjs');
+const _9CJeU3rdJT6O6mIVRMaI = require('../dynamic_dictionary/transactions-content.cjs');
+const _B4NrV7ygXO207Gc6iVXf = require('../dynamic_dictionary/tts-content.cjs');
+const _uWJpEp8VIjfSiMpIFKuP = require('../dynamic_dictionary/user-monitoring-content.cjs');
+const _qEK8Qi747PCns4fhcHFG = require('../dynamic_dictionary/verify-email-content.cjs');
 
 const dictionaries = {
-  "chatbot-content": _eoVoJGAk1MpAf6QMmtVY,
-  "key-monitoring-content": _eT3wskciMR5CGI9fCoXr,
-  "keys-content": _5mJuPeC3oFgoa1KsByKw,
-  "main-content": _6PMwsgQfnXIlKlm3hkJB,
-  "navigation-content": _iX4c5qC87HlWGfmaxplM,
-  "profile-content": _XkEbmbkOBeKeaCLcBCAR,
-  "reset-password-content": _ctPAO5TKEywswm0cqcS8,
-  "sign-in-content": _cP2XtSUetecr6YEkihqx,
-  "sign-up-content": _WdBFjYnUCYjIhYj7rEJf,
-  "stt-content": _7XuKWkTRRZGugW3ig6iw,
-  "sub-content": _w7bfbwJCU0yu0sF4PEZq,
-  "transactions-content": _uEgvJ9HQdUAXesJ61Krt,
-  "tts-content": _2uNsd8SoG1r7IMdDH7qi,
-  "user-monitoring-content": _crYY7OX3fm72tkagB1g3,
-  "verify-email-content": _eCUhhOSGmSFg8JNbqXHz
+  "chatbot-content": _kh0tRo6Thrlx65htx1Oh,
+  "key-monitoring-content": _e5uate2tRfC1dAMLOQEy,
+  "keys-content": _zlz2k8oZT1IHZ4IoXWFj,
+  "main-content": _QvUHvEQLyABQog52dGZ8,
+  "navigation-content": _CjK18tNFUgV7FchEko1c,
+  "profile-content": _bgcrPDzIl7jK6AINExH6,
+  "reset-password-content": _ezHNs9SU6QHmmeMaBR0W,
+  "sign-in-content": _8Atj2Rtp9Ewz0mrhgA8V,
+  "sign-up-content": _ZHJzvHdjiETXfFNar2lK,
+  "stt-content": _WM8R0IMBGvorgOc8HYS3,
+  "sub-content": _sX5f9Johd3lvu1mBRfxW,
+  "transactions-content": _9CJeU3rdJT6O6mIVRMaI,
+  "tts-content": _B4NrV7ygXO207Gc6iVXf,
+  "user-monitoring-content": _uWJpEp8VIjfSiMpIFKuP,
+  "verify-email-content": _qEK8Qi747PCns4fhcHFG
 };
 const getDynamicDictionaries = () => dictionaries;
 
