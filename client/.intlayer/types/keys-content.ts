@@ -511,6 +511,6 @@ export default {
     }
   },
   "localIds": [
-    "keys-content::local::intlayer/keys.content.ts"
+    "keys-content::local::src/intlayer/keys.content.ts"
   ]
 } as const;

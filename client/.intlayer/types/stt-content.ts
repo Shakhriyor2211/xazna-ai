@@ -175,6 +175,6 @@ export default {
     }
   },
   "localIds": [
-    "stt-content::local::intlayer/stt.content.ts"
+    "stt-content::local::src/intlayer/stt.content.ts"
   ]
 } as const;

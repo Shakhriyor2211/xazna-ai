@@ -35,8 +35,8 @@ export default function useDate() {
   const { locale } = useLocale()
 
   const formatDate = (value: string, format: string) => {
-    i18n.monthNames = monthNames[locale];
-    i18n.dayNames = dayNames[locale];
+    i18n.monthNames = monthNames[locale as "uz" | "ru" | "en"];
+    i18n.dayNames = dayNames[locale as "uz" | "ru" | "en"];
     const date = new Date(value);
     return dateFormat(date, format);
   };

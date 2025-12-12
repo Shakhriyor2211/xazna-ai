@@ -142,6 +142,6 @@ export default {
     }
   },
   "localIds": [
-    "transactions-content::local::intlayer/transactions.content.ts"
+    "transactions-content::local::src/intlayer/transactions.content.ts"
   ]
 } as const;

@@ -148,6 +148,6 @@ export default {
     }
   },
   "localIds": [
-    "sign-in-content::local::intlayer/sign-in.content.ts"
+    "sign-in-content::local::src/intlayer/sign-in.content.ts"
   ]
 } as const;

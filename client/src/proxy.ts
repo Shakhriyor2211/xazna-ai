@@ -6,7 +6,7 @@ import { getLocaleFromPath, getPathWithoutLocale } from "intlayer";
 
 
 
-function appMiddleware(request: NextRequest) {
+function appProxy(request: NextRequest) {
   const token = request.cookies.get("access_token")?.value;
   const locale = getLocaleFromPath(request.nextUrl.pathname);
   const path = getPathWithoutLocale(request.nextUrl.pathname);
@@ -33,4 +33,4 @@ export const config = {
   ],
 };
 
-export const middleware = multipleProxies([intlayerProxy, appMiddleware]);
+export const proxy = multipleProxies([intlayerProxy, appProxy]);

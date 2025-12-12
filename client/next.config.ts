@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "www.pillar.uz",
+        hostname: "www.ai.xazna.uz",
         pathname: "/**",
       },
     ],

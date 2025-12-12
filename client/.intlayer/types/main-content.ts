@@ -136,6 +136,6 @@ export default {
     }
   },
   "localIds": [
-    "main-content::local::intlayer/main.content.ts"
+    "main-content::local::src/intlayer/main.content.ts"
   ]
 } as const;

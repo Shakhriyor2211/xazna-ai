@@ -247,6 +247,6 @@ export default {
     }
   },
   "localIds": [
-    "sign-up-content::local::intlayer/sign-up.content.ts"
+    "sign-up-content::local::src/intlayer/sign-up.content.ts"
   ]
 } as const;

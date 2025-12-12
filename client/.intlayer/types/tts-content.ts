@@ -214,6 +214,6 @@ export default {
     }
   },
   "localIds": [
-    "tts-content::local::intlayer/tts.content.ts"
+    "tts-content::local::src/intlayer/tts.content.ts"
   ]
 } as const;

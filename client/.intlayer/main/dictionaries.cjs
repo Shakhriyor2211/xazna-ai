@@ -1,35 +1,35 @@
-const _QJVafm7BTRuA0uG4Usmi = require('../dictionary/chatbot-content.json');
-const _LYBSQsOj72OZlqeEK0c8 = require('../dictionary/key-monitoring-content.json');
-const _Rfl8JGz2q8vASNzT93Bv = require('../dictionary/keys-content.json');
-const _mTAFtZkCT8iRJRxXeiN1 = require('../dictionary/main-content.json');
-const _Nbi0difA3bOj8ZMwsf1D = require('../dictionary/navigation-content.json');
-const _Ez1PcHGFjT352l10ONLv = require('../dictionary/profile-content.json');
-const _v8gE26cYh0WWFhtOxxjv = require('../dictionary/reset-password-content.json');
-const _Yia9W5P18RVONZieXRwN = require('../dictionary/sign-in-content.json');
-const _QfNmTcOyAXhiaHz446Gw = require('../dictionary/sign-up-content.json');
-const _4YqbHyHIP1411q1Iq6wf = require('../dictionary/stt-content.json');
-const _HxHYJNgK2n4r8yZaW4FR = require('../dictionary/sub-content.json');
-const _oLrfcLrnfyannHXG8fJF = require('../dictionary/transactions-content.json');
-const _mugudsmhI1aPshO5zBPG = require('../dictionary/tts-content.json');
-const _kYIUe3W0EhrwEOzUBtfD = require('../dictionary/user-monitoring-content.json');
-const _dggUlSvEDkHzh5bjRVPP = require('../dictionary/verify-email-content.json');
+const _FDSjAKJPp9VeT6D2uIcv = require('../dictionary/chatbot-content.json');
+const _PIYXbAM6rcHkDuGp7Cst = require('../dictionary/key-monitoring-content.json');
+const _DdddWiHB9tDyYCCAAetR = require('../dictionary/keys-content.json');
+const _1TS608fABiBfrVci4Os6 = require('../dictionary/main-content.json');
+const _ofMPnyvRHvhMKM2RHG5f = require('../dictionary/navigation-content.json');
+const _IEHVacgLoYTHXIQpNEve = require('../dictionary/profile-content.json');
+const _tSdoIrCETCK0tKBZWgVV = require('../dictionary/reset-password-content.json');
+const _DQ3vtjxZ12OBwlrJjbAm = require('../dictionary/sign-in-content.json');
+const _idJwZCea20NMS2UFzdr9 = require('../dictionary/sign-up-content.json');
+const _Eww5WANpjs64JZBQyN4D = require('../dictionary/stt-content.json');
+const _8YUDeDpOFDVRGSxn0kc0 = require('../dictionary/sub-content.json');
+const _KwoJEQlhDvM18baHe42R = require('../dictionary/transactions-content.json');
+const _n1FKkH549e7Jso7fmSQ9 = require('../dictionary/tts-content.json');
+const _yFAs0AaUZcgkXCXRZeQ7 = require('../dictionary/user-monitoring-content.json');
+const _9FuLwIP7FJM0rqW98Zpk = require('../dictionary/verify-email-content.json');
 
 const dictionaries = {
-  "chatbot-content": _QJVafm7BTRuA0uG4Usmi,
-  "key-monitoring-content": _LYBSQsOj72OZlqeEK0c8,
-  "keys-content": _Rfl8JGz2q8vASNzT93Bv,
-  "main-content": _mTAFtZkCT8iRJRxXeiN1,
-  "navigation-content": _Nbi0difA3bOj8ZMwsf1D,
-  "profile-content": _Ez1PcHGFjT352l10ONLv,
-  "reset-password-content": _v8gE26cYh0WWFhtOxxjv,
-  "sign-in-content": _Yia9W5P18RVONZieXRwN,
-  "sign-up-content": _QfNmTcOyAXhiaHz446Gw,
-  "stt-content": _4YqbHyHIP1411q1Iq6wf,
-  "sub-content": _HxHYJNgK2n4r8yZaW4FR,
-  "transactions-content": _oLrfcLrnfyannHXG8fJF,
-  "tts-content": _mugudsmhI1aPshO5zBPG,
-  "user-monitoring-content": _kYIUe3W0EhrwEOzUBtfD,
-  "verify-email-content": _dggUlSvEDkHzh5bjRVPP
+  "chatbot-content": _FDSjAKJPp9VeT6D2uIcv,
+  "key-monitoring-content": _PIYXbAM6rcHkDuGp7Cst,
+  "keys-content": _DdddWiHB9tDyYCCAAetR,
+  "main-content": _1TS608fABiBfrVci4Os6,
+  "navigation-content": _ofMPnyvRHvhMKM2RHG5f,
+  "profile-content": _IEHVacgLoYTHXIQpNEve,
+  "reset-password-content": _tSdoIrCETCK0tKBZWgVV,
+  "sign-in-content": _DQ3vtjxZ12OBwlrJjbAm,
+  "sign-up-content": _idJwZCea20NMS2UFzdr9,
+  "stt-content": _Eww5WANpjs64JZBQyN4D,
+  "sub-content": _8YUDeDpOFDVRGSxn0kc0,
+  "transactions-content": _KwoJEQlhDvM18baHe42R,
+  "tts-content": _n1FKkH549e7Jso7fmSQ9,
+  "user-monitoring-content": _yFAs0AaUZcgkXCXRZeQ7,
+  "verify-email-content": _9FuLwIP7FJM0rqW98Zpk
 };
 const getDictionaries = () => dictionaries;
 

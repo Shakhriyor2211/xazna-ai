@@ -82,6 +82,6 @@ export default {
     }
   },
   "localIds": [
-    "key-monitoring-content::local::intlayer/key-monitoring.content.ts"
+    "key-monitoring-content::local::src/intlayer/key-monitoring.content.ts"
   ]
 } as const;

@@ -217,6 +217,6 @@ export default {
     }
   },
   "localIds": [
-    "reset-password-content::local::intlayer/reset-password.content.ts"
+    "reset-password-content::local::src/intlayer/reset-password.content.ts"
   ]
 } as const;

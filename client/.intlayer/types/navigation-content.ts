@@ -115,6 +115,6 @@ export default {
     }
   },
   "localIds": [
-    "navigation-content::local::intlayer/navigation.content.ts"
+    "navigation-content::local::src/intlayer/navigation.content.ts"
   ]
 } as const;

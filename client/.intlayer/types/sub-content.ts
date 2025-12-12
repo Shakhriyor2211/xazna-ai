@@ -214,6 +214,6 @@ export default {
     }
   },
   "localIds": [
-    "sub-content::local::intlayer/sub.content.ts"
+    "sub-content::local::src/intlayer/sub.content.ts"
   ]
 } as const;

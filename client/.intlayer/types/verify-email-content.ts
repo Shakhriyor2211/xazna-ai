@@ -67,6 +67,6 @@ export default {
     }
   },
   "localIds": [
-    "verify-email-content::local::intlayer/verify-email.content.ts"
+    "verify-email-content::local::src/intlayer/verify-email.content.ts"
   ]
 } as const;

@@ -199,6 +199,6 @@ export default {
     }
   },
   "localIds": [
-    "chatbot-content::local::intlayer/chatbot.content.ts"
+    "chatbot-content::local::src/intlayer/chatbot.content.ts"
   ]
 } as const;

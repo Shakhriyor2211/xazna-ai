@@ -82,6 +82,6 @@ export default {
     }
   },
   "localIds": [
-    "user-monitoring-content::local::intlayer/user-monitoring.content.ts"
+    "user-monitoring-content::local::src/intlayer/user-monitoring.content.ts"
   ]
 } as const;

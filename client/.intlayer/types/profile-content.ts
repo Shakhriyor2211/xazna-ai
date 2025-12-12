@@ -331,6 +331,6 @@ export default {
     }
   },
   "localIds": [
-    "profile-content::local::intlayer/profile.content.ts"
+    "profile-content::local::src/intlayer/profile.content.ts"
   ]
 } as const;
