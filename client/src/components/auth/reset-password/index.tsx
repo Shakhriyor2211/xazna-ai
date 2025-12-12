@@ -56,7 +56,7 @@ export const ResetPassword = () => {
         }
       } catch (e) {
         const { data, status } = getError(e as AxiosErrorProps);
-        if (status === 500) setError(data.message);
+        if (status && status >= 500) setError(data.message);
         else
           setAlert((prev) => ({
             ...prev,

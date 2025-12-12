@@ -105,7 +105,7 @@ export const ResetPasswordConfirm = () => {
       } catch (err) {
         const { data, status } = getError(err as AxiosErrorProps);
 
-        if (status === 500)
+        if (status && status >= 500)
           setAlert((prev) => ({
             ...prev,
             isVisible: true,
@@ -135,7 +135,7 @@ export const ResetPasswordConfirm = () => {
       }
     } catch (e) {
       const { data, status } = getError(e as AxiosErrorProps);
-      if (status === 500)
+      if (status && status >= 500)
         setAlert((prev) => ({
           ...prev,
           isVisible: true,

@@ -47,9 +47,11 @@ export function KeyMonitoringTable({ id }: { id: string }) {
     ) => {
       try {
         const { data } = await getRequest({
-          url: `${ENDPOINTS.key_monitorting_list}/${id}?page=${page}&page_size=${
-            page_size
-          }&ordering=${direction === "ascending" ? column : `-${column}`}`,
+          url: `${
+            ENDPOINTS.key_monitorting_list
+          }/${id}?page=${page}&page_size=${page_size}&ordering=${
+            direction === "ascending" ? column : `-${column}`
+          }`,
         });
 
         if (data && data.results.length > 0) {
@@ -64,7 +66,7 @@ export function KeyMonitoringTable({ id }: { id: string }) {
         }
       } catch (e) {
         const { data, status } = getError(e as AxiosErrorProps);
-        if (status === 500)
+        if (status && status >= 500)
           setAlert((prev) => ({
             ...prev,
             color: "danger",

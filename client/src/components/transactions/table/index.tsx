@@ -62,9 +62,11 @@ export function TransactionsTable() {
     ) => {
       try {
         const { data } = await getRequest({
-          url: `${ENDPOINTS.transaction_list}?page=${page}&page_size=${
-            page_size
-          }&ordering=${direction === "ascending" ? column : `-${column}`}`,
+          url: `${
+            ENDPOINTS.transaction_list
+          }?page=${page}&page_size=${page_size}&ordering=${
+            direction === "ascending" ? column : `-${column}`
+          }`,
         });
 
         if (data && data.results.length > 0) {
@@ -79,7 +81,7 @@ export function TransactionsTable() {
         }
       } catch (e) {
         const { data, status } = getError(e as AxiosErrorProps);
-        if (status === 500)
+        if (status && status >= 500)
           setAlert((prev) => ({
             ...prev,
             color: "danger",

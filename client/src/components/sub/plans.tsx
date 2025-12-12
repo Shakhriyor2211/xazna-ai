@@ -26,7 +26,7 @@ export function SubPlans({ isYearly }: SubPlansProps) {
       if (data) setPlans(data);
     } catch (e) {
       const { data, status } = getError(e as AxiosErrorProps);
-      if (status === 500)
+      if (status && status >= 500)
         setAlert((prev) => ({
           ...prev,
           color: "danger",
@@ -52,7 +52,7 @@ export function SubPlans({ isYearly }: SubPlansProps) {
       if (data) setFinance(data);
     } catch (e) {
       const { data, status } = getError(e as AxiosErrorProps);
-      if (status === 500)
+      if (status && status >= 500)
         setAlert((prev) => ({
           ...prev,
           color: "danger",
@@ -116,11 +116,15 @@ export function SubPlans({ isYearly }: SubPlansProps) {
                   <div className="mt-2">
                     {isYearly ? (
                       <p className="text-sm font-semibold">
-                        {`${useMillify(Number(plan.annual_credit))} ${content.card.credit_range.year.value}`}
+                        {`${useMillify(Number(plan.annual_credit))} ${
+                          content.card.credit_range.year.value
+                        }`}
                       </p>
                     ) : (
                       <p className="text-sm font-semibold">
-                        {`${useMillify(Number(plan.monthly_credit))} ${content.card.credit_range.month.value}`}
+                        {`${useMillify(Number(plan.monthly_credit))} ${
+                          content.card.credit_range.month.value
+                        }`}
                       </p>
                     )}
                   </div>

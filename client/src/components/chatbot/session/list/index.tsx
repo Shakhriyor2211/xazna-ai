@@ -36,7 +36,7 @@ export function ChatSessionList({
       if (data) setSessions(data);
     } catch (e) {
       const { data, status } = getError(e as AxiosErrorProps);
-      if (status === 500)
+      if (status && status >= 500)
         setAlert((prev) => ({
           ...prev,
           isVisible: true,
@@ -72,7 +72,9 @@ export function ChatSessionList({
           <span>{title}</span>
         </div>
         <MdArrowBackIos
-          className={`h-3 w-3 transition-all duration-300 ${isVisible ? "-rotate-90" : "rotate-0"}`}
+          className={`h-3 w-3 transition-all duration-300 ${
+            isVisible ? "-rotate-90" : "rotate-0"
+          }`}
         />
       </div>
       {isVisible ? (

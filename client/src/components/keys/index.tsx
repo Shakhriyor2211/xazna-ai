@@ -35,9 +35,11 @@ export function Keys() {
     ) => {
       try {
         const { data } = await getRequest({
-          url: `${ENDPOINTS.key_list}?page=${page}&page_size=${
-            page_size
-          }&ordering=${direction === "ascending" ? column : `-${column}`}`,
+          url: `${
+            ENDPOINTS.key_list
+          }?page=${page}&page_size=${page_size}&ordering=${
+            direction === "ascending" ? column : `-${column}`
+          }`,
         });
 
         if (data) {
@@ -52,7 +54,7 @@ export function Keys() {
         }
       } catch (e) {
         const { data, status } = getError(e as AxiosErrorProps);
-        if (status === 500)
+        if (status && status >= 500)
           setAlert((prev) => ({
             ...prev,
             color: "danger",

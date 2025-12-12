@@ -38,9 +38,7 @@ export function STT() {
     async (range: number = 1) => {
       try {
         const { data } = await getRequest({
-          url: `${ENDPOINTS.stt_list}?page=${range}&page_size=${
-            STT_CONFIGS.pagination.rows_per_page
-          }`,
+          url: `${ENDPOINTS.stt_list}?page=${range}&page_size=${STT_CONFIGS.pagination.rows_per_page}`,
         });
 
         if (data)
@@ -52,7 +50,7 @@ export function STT() {
           }));
       } catch (e) {
         const { data, status } = getError(e as AxiosErrorProps);
-        if (status === 500)
+        if (status && status >= 500)
           setAlert((prev) => ({
             ...prev,
             color: "danger",

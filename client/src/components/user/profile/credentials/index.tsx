@@ -112,7 +112,7 @@ export function ProfileCredentials({ user, setUser }: UserStoreProps) {
         setIsOpen(false);
       } catch (e) {
         const { data, status } = getError(e as AxiosErrorProps);
-        if (status === 500)
+        if (status && status >= 500)
           setAlert((prev) => ({
             ...prev,
             color: "danger",

@@ -35,7 +35,7 @@ export function UserMenu() {
       push(`${ROUTES.sign_in}?next=${path}`);
     } catch (e) {
       const { data, status } = getError(e as AxiosErrorProps);
-      if (status === 500)
+      if (status && status >= 500)
         setAlert((prev) => ({
           ...prev,
           color: "danger",
@@ -68,7 +68,7 @@ export function UserMenu() {
       }
     } catch (e) {
       const { data, status } = getError(e as AxiosErrorProps);
-      if (status === 500)
+      if (status && status >= 500)
         setAlert((prev) => ({
           ...prev,
           color: "danger",
@@ -118,7 +118,13 @@ export function UserMenu() {
             <div className="flex justify-between items-center space-x-2 mt-2">
               <div className="flex items-center space-x-2">
                 <CircularProgressbar
-                  className={`w-5 h-5 ${progress > 50 ? "stroke-primary" : progress > 20 ? "stroke-warning" : "stroke-danger"}`}
+                  className={`w-5 h-5 ${
+                    progress > 50
+                      ? "stroke-primary"
+                      : progress > 20
+                      ? "stroke-warning"
+                      : "stroke-danger"
+                  }`}
                   strokeWidth={12}
                   counterClockwise={true}
                   styles={{
