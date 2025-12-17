@@ -2,7 +2,6 @@ from django.contrib.auth import authenticate
 from django.core.validators import validate_email
 from rest_framework import serializers
 from accounts.models import CustomUserModel, EmailConfirmOtpModel, PictureModel
-from finance.serializers import BalanceSerializer
 from xazna.exceptions import ForbiddenException, BadRequestException
 
 

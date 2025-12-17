@@ -129,7 +129,7 @@ def tts_transaction(balance, sub, rate, text, mdl):
             raise CustomException("Not enough credits.", 403)
 
         if char_length > credit_active / plan.credit:
-            raise CustomException("Request limit exceeded.", 403)
+            raise CustomException("Request limit exceeded.", 429)
 
 
     return credit_usage, cash_usage
@@ -165,7 +165,7 @@ def stt_transaction(balance, sub, rate, audio, mdl):
             raise CustomException("Not enough credits.", 403)
 
         if audio_duration > credit_active / plan.credit:
-            raise CustomException("Request limit exceeded.", 403)
+            raise CustomException("Request limit exceeded.", 429)
 
 
     return credit_usage, cash_usage
@@ -204,6 +204,6 @@ def llm_transaction(balance, sub, rate, context_rate, content, mdl):
             raise CustomException("Not enough credits.", 403)
 
         if char_length > credit_active / plan.credit:
-            raise CustomException("Request limit exceeded.", 403)
+            raise CustomException("Request limit exceeded.", 429)
 
     return credit_usage, cash_usage

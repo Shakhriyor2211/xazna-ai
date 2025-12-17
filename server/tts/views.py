@@ -16,6 +16,8 @@ from xazna import settings
 from django.db import transaction
 import tritonclient.grpc as triton_grpc
 from xazna.exceptions import CustomException
+from django.utils.translation import gettext_lazy as _
+
 
 client = triton_grpc.InferenceServerClient(url=settings.TTS_TRITON_SERVER, verbose=False)
 
@@ -52,6 +54,9 @@ class UserTTSView(APIView):
             text = serializer.validated_data["text"]
             mdl = serializer.validated_data["mdl"]
             format = serializer.validated_data["format"]
+
+            if len(text) > 5000:
+                return Response(data={"message": _("Max length of text is 5000.")}, status=status.HTTP_400_BAD_REQUEST)
 
             balance = request.user.balance
             rate = request.user.tts_rate
