@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-17 13:40+0500\n"
+"POT-Creation-Date: 2025-12-17 17:59+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,378 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
 #: accounts/managers.py:8
 msgid "The Email must be set"
 msgstr ""
 
+#: accounts/serializers.py:17
+msgid "Enter a valid email address."
+msgstr ""
+
+#: accounts/serializers.py:27
+msgid "Email and password are required."
+msgstr ""
+
+#: accounts/serializers.py:32
+msgid "Invalid credentials."
+msgstr ""
+
+#: accounts/serializers.py:36 accounts/views.py:447 accounts/views.py:545
+#: xazna/consumers.py:49 xazna/consumers.py:159
+msgid "Account is blocked."
+msgstr ""
+
+#: accounts/serializers.py:65
+msgid "Email is already taken."
+msgstr ""
+
+#: accounts/serializers.py:71
+msgid "Password and Confirm Password do not match."
+msgstr ""
+
+#: accounts/serializers.py:142
+msgid "Old password is incorrect."
+msgstr ""
+
+#: accounts/serializers.py:149 accounts/views.py:694
+msgid "New password cannot be the same as the old password."
+msgstr ""
+
+#: accounts/serializers.py:153
+msgid "Passwords do not match."
+msgstr ""
+
+#: accounts/tasks.py:14
+msgid "Confirmation Code"
+msgstr ""
+
+#: accounts/tasks.py:18
+msgid "Welcome to OCR. Your confirmation code is"
+msgstr ""
+
+#: accounts/templates/email/confirmation.html:22
+msgid "Please verify your email"
+msgstr ""
+
+#: accounts/templates/email/confirmation.html:33
+msgid ""
+"Please do not share this code with anyone under any circumstances. If you "
+"did not request this code or unsure why you received this message, you may "
+"safely disregard it."
+msgstr ""
+
+#: accounts/templates/email/confirmation.html:37
+#: accounts/templates/password/reset.html:38
+msgid "Sincerely, Xazna team."
+msgstr ""
+
+#: accounts/templates/password/reset.html:22
+msgid "Reset your password"
+msgstr ""
+
+#: accounts/templates/password/reset.html:28
+msgid "CONTINUE"
+msgstr ""
+
+#: accounts/templates/password/reset.html:35
+msgid ""
+"If you did not request reset password or unsure why you received this "
+"message, you may safely disregard it."
+msgstr ""
+
+#: accounts/templates/profile.html:35
+msgid "Welcome"
+msgstr ""
+
+#: accounts/templates/profile.html:36
+msgid "Email"
+msgstr ""
+
+#: accounts/templates/profile.html:37
+msgid "First name"
+msgstr ""
+
+#: accounts/templates/profile.html:38
+msgid "Last name"
+msgstr ""
+
+#: accounts/templates/profile.html:39
+msgid "Is staff"
+msgstr ""
+
+#: accounts/views.py:129 accounts/views.py:201 accounts/views.py:241
+msgid "Your account temporarily blocked."
+msgstr ""
+
+#: accounts/views.py:196
+msgid "Resend confirmation code limit exceeded."
+msgstr ""
+
+#: accounts/views.py:218
+msgid "Confirmation code was sent to your email address."
+msgstr ""
+
+#: accounts/views.py:222 accounts/views.py:355 accounts/views.py:477
+#: accounts/views.py:573 accounts/views.py:631 accounts/views.py:705
+#: accounts/views.py:799 accounts/views.py:817 finance/views.py:99
+#: finance/views.py:132 finance/views.py:180 llm/views.py:166 llm/views.py:252
+#: llm/views.py:284 llm/views.py:304 llm/views.py:350 llm/views.py:384
+#: service/views.py:45 service/views.py:60 service/views.py:93
+#: service/views.py:108 service/views.py:129 stt/views.py:86 stt/views.py:163
+#: stt/views.py:262 stt/views.py:279 stt/views.py:320 stt/views.py:350
+#: sub/views.py:70 sub/views.py:151 sub/views.py:171 tts/views.py:107
+#: tts/views.py:186 tts/views.py:331 tts/views.py:364
+msgid "Something went wrong."
+msgstr ""
+
+#: accounts/views.py:249
+msgid "Invalid confirmation code."
+msgstr ""
+
+#: accounts/views.py:254
+msgid "Confirmation code is expired."
+msgstr ""
+
+#: accounts/views.py:301
+msgid "Refresh token is required."
+msgstr ""
+
+#: accounts/views.py:308
+msgid "Invalid token payload"
+msgstr ""
+
+#: accounts/views.py:328
+msgid "Invalid refresh token."
+msgstr ""
+
+#: accounts/views.py:347
+msgid "Access token is required."
+msgstr ""
+
+#: accounts/views.py:351
+msgid "Access token is valid."
+msgstr ""
+
+#: accounts/views.py:353
+msgid "Invalid token."
+msgstr ""
+
+#: accounts/views.py:367
+msgid "Logged out successfully."
+msgstr ""
+
+#: accounts/views.py:374
+msgid "Token is not provided."
+msgstr ""
+
+#: accounts/views.py:390 accounts/views.py:488
+msgid "Missing code."
+msgstr ""
+
+#: accounts/views.py:403
+msgid "Failed to exchange code."
+msgstr ""
+
+#: accounts/views.py:410 accounts/views.py:508
+msgid "No id_token in response."
+msgstr ""
+
+#: accounts/views.py:500
+msgid "Failed to exchange code"
+msgstr ""
+
+#: accounts/views.py:613
+msgid "Email address is required."
+msgstr ""
+
+#: accounts/views.py:618
+msgid "User not found."
+msgstr ""
+
+#: accounts/views.py:621
+msgid "User is inactive or blocked."
+msgstr ""
+
+#: accounts/views.py:628
+msgid "Message sent successfully."
+msgstr ""
+
+#: accounts/views.py:639 accounts/views.py:643 accounts/views.py:676
+msgid "Invalid token"
+msgstr ""
+
+#: accounts/views.py:683
+msgid "Password is required."
+msgstr ""
+
+#: accounts/views.py:686
+msgid "Confirm password is required."
+msgstr ""
+
+#: accounts/views.py:690
+msgid "Confirm password did not match."
+msgstr ""
+
+#: accounts/views.py:702
+msgid "Password updated successfully."
+msgstr ""
+
+#: accounts/views.py:808
+msgid "Profile picture removed."
+msgstr ""
+
+#: accounts/views.py:813
+msgid "No picture found for this user."
+msgstr ""
+
+#: finance/views.py:70 finance/views.py:122 llm/consumers.py:329
+#: llm/views.py:49 llm/views.py:88 llm/views.py:198 llm/views.py:334
+#: llm/views.py:369 stt/views.py:107 stt/views.py:223 stt/views.py:304
+#: stt/views.py:340 stt/views.py:398 tts/views.py:133 tts/views.py:246
+#: tts/views.py:306 tts/views.py:354
+msgid "Permission denied."
+msgstr ""
+
+#: finance/views.py:95 finance/views.py:128 service/views.py:104
+#: stt/views.py:275 stt/views.py:346 tts/views.py:327 tts/views.py:360
+msgid "Data successfully deleted."
+msgstr ""
+
+#: finance/views.py:97 finance/views.py:130 service/views.py:91
+#: service/views.py:106 stt/views.py:260 stt/views.py:277 stt/views.py:318
+#: stt/views.py:348 tts/views.py:329 tts/views.py:362
+msgid "Data not found."
+msgstr ""
+
+#: finance/views.py:177
+msgid "Balance settings changed successfully."
+msgstr ""
+
+#: llm/consumers.py:82 llm/consumers.py:228 llm/consumers.py:313
+#: llm/consumers.py:381 llm/consumers.py:469
+msgid "Internal server error"
+msgstr ""
+
+#: llm/consumers.py:116 llm/consumers.py:356 llm/views.py:282 llm/views.py:302
+#: llm/views.py:348 llm/views.py:382
+msgid "Session not found."
+msgstr ""
+
+#: llm/consumers.py:119 llm/consumers.py:359 llm/views.py:118 llm/views.py:204
+msgid "Content is required."
+msgstr ""
+
+#: llm/consumers.py:122 llm/consumers.py:362 llm/views.py:121 llm/views.py:207
+msgid "Model is required."
+msgstr ""
+
+#: llm/views.py:126 llm/views.py:212
+msgid "Session limit reached."
+msgstr ""
+
+#: llm/views.py:145 llm/views.py:231 shared/utils.py:125 shared/utils.py:161
+#: shared/utils.py:201
+msgid "Not enough founds."
+msgstr ""
+
+#: llm/views.py:149 llm/views.py:235 shared/utils.py:129 shared/utils.py:165
+#: shared/utils.py:204
+msgid "Not enough credits."
+msgstr ""
+
+#: llm/views.py:152 llm/views.py:238 shared/utils.py:132 shared/utils.py:168
+#: shared/utils.py:207
+msgid "Request limit exceeded."
+msgstr ""
+
+#: llm/views.py:274 llm/views.py:339
+msgid "Title is required."
+msgstr ""
+
+#: llm/views.py:380
+msgid "Session successfully deleted."
+msgstr ""
+
+#: service/views.py:41 service/views.py:58 service/views.py:127
+msgid "Token not found."
+msgstr ""
+
+#: service/views.py:89
+msgid "Data successfully edited."
+msgstr ""
+
+#: service/views.py:125
+msgid "Token settings changed successfully."
+msgstr ""
+
+#: shared/utils.py:107 shared/utils.py:143 shared/utils.py:178
+msgid "Model not found."
+msgstr ""
+
+#: shared/utils.py:191
+msgid "Message limit reached, open new session."
+msgstr ""
+
+#: stt/views.py:258 stt/views.py:316
+msgid "Data successfully changed."
+msgstr ""
+
+#: sub/views.py:41
+msgid "This plan can't be restarted."
+msgstr ""
+
+#: sub/views.py:45 sub/views.py:124
+msgid "Not enough funds, please top up your balance."
+msgstr ""
+
+#: sub/views.py:66
+msgid "Subscription restarted successfully."
+msgstr ""
+
+#: sub/views.py:68 sub/views.py:149
+msgid "Plan not found."
+msgstr ""
+
+#: sub/views.py:89
+msgid "Failed to change subscription."
+msgstr ""
+
+#: sub/views.py:146
+msgid "Subscription changed successfully."
+msgstr ""
+
 #: tts/views.py:59
 msgid "Max length of text is 5000."
+msgstr ""
+
+#: xazna/consumers.py:59
+msgid "Admin privileges required."
+msgstr ""
+
+#: xazna/consumers.py:69
+msgid "Token has expired."
+msgstr ""
+
+#: xazna/consumers.py:143
+msgid "Token is blocked."
+msgstr ""
+
+#: xazna/consumers.py:151
+msgid "Token is inactive."
+msgstr ""
+
+#: xazna/consumers.py:166
+msgid "Account is inactive."
+msgstr ""
+
+#: xazna/settings.py:239
+msgid "Uzbek"
+msgstr ""
+
+#: xazna/settings.py:240
+msgid "Russian"
+msgstr ""
+
+#: xazna/settings.py:241
+msgid "English"
 msgstr ""

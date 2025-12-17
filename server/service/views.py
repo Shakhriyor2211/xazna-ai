@@ -10,6 +10,8 @@ from service.serializers import ServiceTokenListSerializer, ServiceTokenSerializ
 from shared.views import CustomPagination
 from xazna import settings
 from openai import OpenAI
+from django.utils.translation import gettext_lazy as _
+
 
 tts_client = triton_grpc.InferenceServerClient(url=settings.TTS_TRITON_SERVER, verbose=False)
 stt_client = OpenAI(base_url=settings.STT_SERVER, api_key=settings.STT_SERVER_API_KEY)
@@ -18,7 +20,7 @@ stt_client = OpenAI(base_url=settings.STT_SERVER, api_key=settings.STT_SERVER_AP
 class ServiceTokenView(APIView):
     auth_required = True
 
-    @swagger_auto_schema(operation_description='Token generate...', request_body=ServiceTokenSerializer,
+    @swagger_auto_schema(operation_description="Token generate...", request_body=ServiceTokenSerializer,
                          tags=["Service"])
     def post(self, request):
         try:
@@ -36,26 +38,26 @@ class ServiceTokenView(APIView):
 
             return Response(data={"key": token.key, "last_symbols": token.last_symbols}, status=status.HTTP_200_OK)
         except ServiceTokenModel.DoesNotExist:
-            return Response(data={"message": "Token not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={"message": _("Token not found.")}, status=status.HTTP_404_NOT_FOUND)
         except ValidationError as e:
             return Response(data={"message": e.detail}, status=status.HTTP_400_BAD_REQUEST)
         except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class ServiceTokenKeyView(APIView):
     auth_required = True
 
-    @swagger_auto_schema(operation_description='Token key...', tags=["Service"])
+    @swagger_auto_schema(operation_description="Token key...", tags=["Service"])
     def get(self, request, token_id):
         try:
             token = ServiceTokenModel.objects.get(user=request.user, id=token_id)
 
             return Response(data={"key": token.key}, status=status.HTTP_200_OK)
         except ServiceTokenModel.DoesNotExist:
-            return Response(data={"message": "Token not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={"message": _("Token not found.")}, status=status.HTTP_404_NOT_FOUND)
         except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class ServiceTokenItemView(APIView):
@@ -84,11 +86,11 @@ class ServiceTokenItemView(APIView):
             token.save()
             permission.save()
 
-            return Response(data={'message': 'Data successfully edited.'}, status=status.HTTP_200_OK)
+            return Response(data={"message": _("Data successfully edited.")}, status=status.HTTP_200_OK)
         except ServiceTokenModel.DoesNotExist:
-            return Response(data={"message": "Data not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={"message": _("Data not found.")}, status=status.HTTP_404_NOT_FOUND)
         except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     @swagger_auto_schema(
         operation_description="Delete token...",
@@ -99,18 +101,18 @@ class ServiceTokenItemView(APIView):
             token = ServiceTokenModel.objects.get(user=request.user, id=token_id)
             token.delete()
 
-            return Response(data={'message': 'Data successfully deleted.'}, status=status.HTTP_200_OK)
+            return Response(data={"message": _("Data successfully deleted.")}, status=status.HTTP_200_OK)
         except ServiceTokenModel.DoesNotExist:
-            return Response(data={"message": "Data not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={"message": _("Data not found.")}, status=status.HTTP_404_NOT_FOUND)
         except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 
 class ServiceTokenManageView(APIView):
     auth_required = True
 
-    @swagger_auto_schema(operation_description='Token list...', tags=["Service"])
+    @swagger_auto_schema(operation_description="Token list...", tags=["Service"])
     def put(self, request, token_id):
         try:
             serializer = ServiceTokenManageSerializer(data=request.data)
@@ -120,19 +122,19 @@ class ServiceTokenManageView(APIView):
             token.is_active = serializer.validated_data["is_active"]
             token.save()
 
-            return Response(data={"message": "Token settings changed successfully."}, status=status.HTTP_200_OK)
+            return Response(data={"message": _("Token settings changed successfully.")}, status=status.HTTP_200_OK)
         except ServiceTokenModel.DoesNotExist:
-            return Response(data={"message": "Token not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={"message": _("Token not found.")}, status=status.HTTP_404_NOT_FOUND)
         except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class ServiceTokenListView(APIView):
     auth_required = True
 
-    @swagger_auto_schema(operation_description='Token list...', tags=["Service"])
+    @swagger_auto_schema(operation_description="Token list...", tags=["Service"])
     def get(self, request):
-        ordering = request.query_params.get('ordering', '-created_at')
+        ordering = request.query_params.get("ordering", "-created_at")
         queryset = ServiceTokenModel.objects.filter(user=request.user).order_by(ordering)
         paginator = CustomPagination()
         paginated_qs = paginator.paginate_queryset(queryset, request)

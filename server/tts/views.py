@@ -66,7 +66,7 @@ class UserTTSView(APIView):
             with transaction.atomic():
                 audio_chunks = []
                 for chunk in split(text):
-                    input_data = np.array([[chunk.encode('utf-8')]], dtype=object)
+                    input_data = np.array([[chunk.encode("utf-8")]], dtype=object)
                     inputs = [triton_grpc.InferInput("target_text", [1, 1], "BYTES")]
                     inputs[0].set_data_from_numpy(input_data)
 
@@ -104,7 +104,7 @@ class UserTTSView(APIView):
             return Response(data={"message": str(e)}, status=e.status)
         except Exception as e:
             UserTTSErrorLogModel.objects.create(message=str(e), text=text, user=self.request.user)
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 
@@ -130,7 +130,7 @@ class TokenTTSView(APIView):
         try:
             permission = request.token.permission
             if permission.tts == "disable":
-                return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+                return Response(data={"message": _("Permission denied.")}, status=status.HTTP_403_FORBIDDEN)
 
             serializer = TokenTTSSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
@@ -147,7 +147,7 @@ class TokenTTSView(APIView):
             with transaction.atomic():
                 audio_chunks = []
                 for chunk in split(text):
-                    input_data = np.array([[chunk.encode('utf-8')]], dtype=object)
+                    input_data = np.array([[chunk.encode("utf-8")]], dtype=object)
                     inputs = [triton_grpc.InferInput("target_text", [1, 1], "BYTES")]
                     inputs[0].set_data_from_numpy(input_data)
 
@@ -183,28 +183,28 @@ class TokenTTSView(APIView):
             return Response(data={"message": str(e)}, status=e.status)
         except Exception as e:
             TokenTTSErrorLogModel.objects.create(message=str(e), text=text, token=self.request.token)
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class UserTTSListView(APIView):
     auth_required = True
 
-    @swagger_auto_schema(operation_description='TTS list...', manual_parameters=[
+    @swagger_auto_schema(operation_description="TTS list...", manual_parameters=[
         openapi.Parameter(
-            'page', openapi.IN_QUERY, description="Page number", type=openapi.TYPE_INTEGER
+            "page", openapi.IN_QUERY, description="Page number", type=openapi.TYPE_INTEGER
         ),
         openapi.Parameter(
-            'page_size', openapi.IN_QUERY, description="Items per page", type=openapi.TYPE_INTEGER
+            "page_size", openapi.IN_QUERY, description="Items per page", type=openapi.TYPE_INTEGER
         ),
         openapi.Parameter(
-            'ordering', openapi.IN_QUERY, description="Comma-separated fields (e.g. `created_at,text`)",
+            "ordering", openapi.IN_QUERY, description="Comma-separated fields (e.g. `created_at,text`)",
             type=openapi.TYPE_STRING
         ),
     ],
         tags=["TTS"]
     )
     def get(self, request):
-        ordering = request.query_params.get('ordering', '-created_at')
+        ordering = request.query_params.get("ordering", "-created_at")
 
         queryset = UserTTSModel.objects.filter(user=request.user, is_deleted=False).order_by(ordering)
 
@@ -219,15 +219,15 @@ class UserTTSListView(APIView):
 class TokenTTSListView(APIView):
     token_required = True
 
-    @swagger_auto_schema(operation_description='TTS list...', manual_parameters=[
+    @swagger_auto_schema(operation_description="TTS list...", manual_parameters=[
         openapi.Parameter(
-            'page', openapi.IN_QUERY, description="Page number", type=openapi.TYPE_INTEGER
+            "page", openapi.IN_QUERY, description="Page number", type=openapi.TYPE_INTEGER
         ),
         openapi.Parameter(
-            'page_size', openapi.IN_QUERY, description="Items per page", type=openapi.TYPE_INTEGER
+            "page_size", openapi.IN_QUERY, description="Items per page", type=openapi.TYPE_INTEGER
         ),
         openapi.Parameter(
-            'ordering', openapi.IN_QUERY, description="Comma-separated fields (e.g. `created_at,text`)",
+            "ordering", openapi.IN_QUERY, description="Comma-separated fields (e.g. `created_at,text`)",
             type=openapi.TYPE_STRING
         ),
         openapi.Parameter(
@@ -243,9 +243,9 @@ class TokenTTSListView(APIView):
     def get(self, request):
         permission = request.token.permission
         if permission.history != "all" and permission.history != "read":
-            return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+            return Response(data={"message": _("Permission denied.")}, status=status.HTTP_403_FORBIDDEN)
 
-        ordering = request.query_params.get('ordering', '-created_at')
+        ordering = request.query_params.get("ordering", "-created_at")
 
         queryset = TokenTTSModel.objects.filter(token=request.token, is_deleted=False).order_by(ordering)
 
@@ -263,7 +263,7 @@ class UserTTSSearchView(APIView):
     @swagger_auto_schema(
         manual_parameters=[
             openapi.Parameter(
-                'q', openapi.IN_QUERY,
+                "q", openapi.IN_QUERY,
                 description="Search by name",
                 type=openapi.TYPE_STRING,
                 required=True
@@ -272,8 +272,8 @@ class UserTTSSearchView(APIView):
         tags=["TTS"]
     )
     def get(self, request):
-        q = request.GET['q'].strip()
-        items = UserTTSModel.objects.filter(text__icontains=q, user=request.user, is_deleted=False).order_by('-created_at')
+        q = request.GET["q"].strip()
+        items = UserTTSModel.objects.filter(text__icontains=q, user=request.user, is_deleted=False).order_by("-created_at")
         serializer = UserTTSListSerializer(items, many=True)
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
@@ -285,7 +285,7 @@ class TokenTTSSearchView(APIView):
     @swagger_auto_schema(
         manual_parameters=[
             openapi.Parameter(
-                'q', openapi.IN_QUERY,
+                "q", openapi.IN_QUERY,
                 description="Search by name",
                 type=openapi.TYPE_STRING,
                 required=True
@@ -303,10 +303,10 @@ class TokenTTSSearchView(APIView):
     def get(self, request):
         permission = request.token.permission
         if permission.history != "all" and permission.history != "read":
-            return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+            return Response(data={"message": _("Permission denied.")}, status=status.HTTP_403_FORBIDDEN)
 
-        q = request.GET['q'].strip()
-        items = TokenTTSModel.objects.filter(text__icontains=q, token=request.token, is_deleted=False).order_by('-created_at')
+        q = request.GET["q"].strip()
+        items = TokenTTSModel.objects.filter(text__icontains=q, token=request.token, is_deleted=False).order_by("-created_at")
         serializer = TokenTTSListSerializer(items, many=True)
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
@@ -324,11 +324,11 @@ class UserTTSItemView(APIView):
             tts.is_deleted = True
             tts.save()
 
-            return Response(data={'message': 'Data successfully deleted.'}, status=status.HTTP_200_OK)
+            return Response(data={"message": _("Data successfully deleted.")}, status=status.HTTP_200_OK)
         except UserTTSModel.DoesNotExist:
-            return Response(data={"message": "Data not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={"message": _("Data not found.")}, status=status.HTTP_404_NOT_FOUND)
         except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class TokenTTSItemView(APIView):
@@ -351,14 +351,14 @@ class TokenTTSItemView(APIView):
         try:
             permission = request.token.permission
             if permission.history != "all" and permission.history != "write":
-                return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+                return Response(data={"message": _("Permission denied.")}, status=status.HTTP_403_FORBIDDEN)
 
             tts = TokenTTSModel.objects.get(token=request.token, id=tts_id, is_deleted=False)
             tts.is_deleted = True
             tts.save()
 
-            return Response(data={'message': 'Data successfully deleted.'}, status=status.HTTP_200_OK)
+            return Response(data={"message": _("Data successfully deleted.")}, status=status.HTTP_200_OK)
         except TokenTTSModel.DoesNotExist:
-            return Response(data={"message": "Data not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={"message": _("Data not found.")}, status=status.HTTP_404_NOT_FOUND)
         except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

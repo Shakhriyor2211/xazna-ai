@@ -24,6 +24,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from accounts.tasks import send_email_confirmation, send_email_reset_password
 from shared.utils import generate_email_otp
 from xazna import settings
+from django.utils.translation import gettext_lazy as _
 
 
 class UserProfileView(APIView):
@@ -125,7 +126,7 @@ class SignInView(APIView):
                 if email_otp.last_attempt + timedelta(minutes=settings.EMAIL_ATTEMPT_BLOCK_TIME) <= timezone.now():
                     email_otp.remaining_attempts = settings.EMAIL_MAX_ATTEMPTS
                 elif email_otp.remaining_attempts == 0:
-                    return Response(data={"message": "Your account temporarily blocked."},
+                    return Response(data={"message": _("Your account temporarily blocked.")},
                                     status=status.HTTP_403_FORBIDDEN)
 
                 if email_otp.last_resend + timedelta(minutes=settings.EMAIL_RESEND_BLOCK_TIME) <= timezone.now():
@@ -192,12 +193,12 @@ class ResendEmailCodeView(APIView):
                 email_otp.remaining_resends = settings.EMAIL_MAX_RESENDS
 
             elif email_otp.remaining_resends == 0:
-                return Response(data={"message": "Resend confirmation code limit exceeded."},
+                return Response(data={"message": _("Resend confirmation code limit exceeded.")},
                                 status=status.HTTP_403_FORBIDDEN)
 
             if email_otp.remaining_attempts == 0 and email_otp.last_attempt + timedelta(
                     minutes=settings.EMAIL_ATTEMPT_BLOCK_TIME) >= timezone.now():
-                return Response(data={"message": "Your account temporarily blocked."},
+                return Response(data={"message": _("Your account temporarily blocked.")},
                                 status=status.HTTP_403_FORBIDDEN)
 
             result = AsyncResult(email_otp.task_id)
@@ -214,12 +215,11 @@ class ResendEmailCodeView(APIView):
             email_otp.task_id = send_email_confirmation.delay(email_otp.id)
             email_otp.save()
 
-            return Response(data={"message": "Confirmation code was sent to your email address."},
+            return Response(data={"message": _("Confirmation code was sent to your email address.")},
                             status=status.HTTP_200_OK)
 
-        except Exception as e:
-            return Response(data={"message": "Failed to send confirmation code."},
-                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except:
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class VerifyEmailCodeView(APIView):
@@ -238,7 +238,7 @@ class VerifyEmailCodeView(APIView):
             email_otp.remaining_attempts = settings.EMAIL_MAX_ATTEMPTS
 
         if email_otp.remaining_attempts == 0:
-            return Response(data={"message": "Your account temporarily blocked."},
+            return Response(data={"message": _("Your account temporarily blocked.")},
                             status=status.HTTP_403_FORBIDDEN)
 
         email_otp.last_attempt = timezone.now()
@@ -246,12 +246,12 @@ class VerifyEmailCodeView(APIView):
         if code != email_otp.code:
             email_otp.remaining_attempts -= 1
             email_otp.save()
-            return Response(data={"message": "Invalid confirmation code."},
+            return Response(data={"message": _("Invalid confirmation code.")},
                             status=status.HTTP_400_BAD_REQUEST)
 
         if email_otp.expires_at <= timezone.now():
             email_otp.save()
-            return Response(data={"message": "Confirmation code is expired."},
+            return Response(data={"message": _("Confirmation code is expired.")},
                             status=status.HTTP_404_NOT_FOUND)
 
         user_instance = email_otp.user
@@ -298,14 +298,14 @@ class RefreshTokenView(APIView):
         refresh_token = request.COOKIES.get("refresh_token") or serializer.validated_data.get("refresh")
 
         if not refresh_token:
-            return Response({"message": "Refresh token is required."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message": _("Refresh token is required.")}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             token = RefreshToken(refresh_token)
             user_id = token.payload.get("user_id")
 
             if not user_id:
-                raise ValueError("Invalid token payload")
+                raise ValueError(_("Invalid token payload"))
 
             user = CustomUserModel.objects.get(id=user_id)
 
@@ -324,8 +324,8 @@ class RefreshTokenView(APIView):
 
             return response
 
-        except Exception:
-            response = Response({"message": "Invalid refresh token."}, status=status.HTTP_400_BAD_REQUEST)
+        except:
+            response = Response({"message": _("Invalid refresh token.")}, status=status.HTTP_400_BAD_REQUEST)
             response.delete_cookie("access_token")
             response.delete_cookie("refresh_token")
 
@@ -344,13 +344,15 @@ class VerifyTokenView(APIView):
         token = serializer.validated_data.get("token") or request.COOKIES.get("access_token")
 
         if not token:
-            return Response({"message": "Access token is required."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message": _("Access token is required.")}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             AccessToken(token)
-            return Response({"message": "Access token is valid."}, status=status.HTTP_200_OK)
+            return Response({"message": _("Access token is valid.")}, status=status.HTTP_200_OK)
         except TokenError:
-            return Response({"message": "Invalid token.", "code": "invalid_token"}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({"message": _("Invalid token."), "code": "invalid_token"}, status=status.HTTP_401_UNAUTHORIZED)
+        except:
+            Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class SignOutView(APIView):
@@ -362,14 +364,14 @@ class SignOutView(APIView):
             token = RefreshToken(refresh_token)
             token.blacklist()
 
-            response = Response(data={"message": "Logged out successfully."}, status=status.HTTP_200_OK)
+            response = Response(data={"message": _("Logged out successfully.")}, status=status.HTTP_200_OK)
 
             response.delete_cookie("access_token")
             response.delete_cookie("refresh_token")
 
             return response
 
-        return Response(data={"message": "Token is not provided."}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(data={"message": _("Token is not provided.")}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class GoogleOAuthView(APIView):
@@ -385,7 +387,7 @@ class GoogleOAuthView(APIView):
     def post(self, request):
         code = request.data.get("code")
         if not code:
-            return Response({"error": "Missing code"}, status=400)
+            return Response({"message": _("Missing code.")}, status=400)
 
         data = {
             "code": code,
@@ -398,14 +400,14 @@ class GoogleOAuthView(APIView):
         token_res = requests.post("https://oauth2.googleapis.com/token", data=data)
 
         if not token_res.ok:
-            return Response({"error": "Failed to exchange code"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message": _("Failed to exchange code.")}, status=status.HTTP_400_BAD_REQUEST)
 
         token_data = token_res.json()
         id_token_str = token_data.get("id_token")
         access_token_str = token_data.get("access_token")
 
         if not id_token_str:
-            return Response({"error": "No id_token in response"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message": _("No id_token in response.")}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             idinfo = id_token.verify_oauth2_token(
@@ -419,10 +421,10 @@ class GoogleOAuthView(APIView):
             first_name = idinfo.get("given_name", "")
             last_name = idinfo.get("family_name", "")
 
-            user, _ = CustomUserModel.objects.get_or_create(email=email, defaults={"first_name": first_name,
+            user, __ = CustomUserModel.objects.get_or_create(email=email, defaults={"first_name": first_name,
                                                                                    "last_name": last_name})
 
-            _, social_account_created = SocialAccountModel.objects.get_or_create(provider_user_id=idinfo["sub"],
+            __, social_account_created = SocialAccountModel.objects.get_or_create(provider_user_id=idinfo["sub"],
                                                                                  defaults={
                                                                                      "user": user,
                                                                                      "provider": "google"})
@@ -442,7 +444,7 @@ class GoogleOAuthView(APIView):
                     user.picture.portrait_url(picture)
 
             if user.is_blocked:
-                return Response(data={"message": "Account is blocked.", "code": "blocked_user"},
+                return Response(data={"message": _("Account is blocked."), "code": "blocked_user"},
                                 status=status.HTTP_403_FORBIDDEN)
 
             serializer = UserSerializer(user)
@@ -471,8 +473,8 @@ class GoogleOAuthView(APIView):
                 )
 
             return response
-        except ValueError:
-            return Response({"error": "Something went wrong"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except:
+            Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     @swagger_auto_schema(operation_description="Google oauth redirect callback...", tags=["Auth"])
     def get(self, request):
@@ -483,7 +485,7 @@ class GoogleOAuthView(APIView):
         fallback_url = state_data.get("fallback", "/404")
 
         if not code:
-            return HttpResponseRedirect(redirect_to=f"""{fallback_url}?error=Missing code.""")
+            return HttpResponseRedirect(redirect_to=f"""{fallback_url}?error={_("Missing code.")}""")
 
         data = {
             "code": code,
@@ -495,7 +497,7 @@ class GoogleOAuthView(APIView):
         token_res = requests.post(url="https://oauth2.googleapis.com/token", data=data)
 
         if not token_res.ok:
-            return HttpResponseRedirect(redirect_to=f"""{fallback_url}?error=Failed to exchange code.""")
+            return HttpResponseRedirect(redirect_to=f"""{fallback_url}?error={_("Failed to exchange code")}.""")
 
         token_data = token_res.json()
 
@@ -503,7 +505,7 @@ class GoogleOAuthView(APIView):
         access_token_str = token_data.get("access_token")
 
         if not id_token_str:
-            return HttpResponseRedirect(redirect_to=f"""{fallback_url}?error=No id_token in response.""")
+            return HttpResponseRedirect(redirect_to=f"""{fallback_url}?error={_("No id_token in response.")}""")
 
         try:
             idinfo = id_token.verify_oauth2_token(
@@ -517,10 +519,10 @@ class GoogleOAuthView(APIView):
             first_name = idinfo.get("given_name", "")
             last_name = idinfo.get("family_name", "")
 
-            user, _ = CustomUserModel.objects.get_or_create(email=email, defaults={"first_name": first_name,
+            user, __ = CustomUserModel.objects.get_or_create(email=email, defaults={"first_name": first_name,
                                                                                    "last_name": last_name})
 
-            _, social_account_created = SocialAccountModel.objects.get_or_create(provider_user_id=idinfo["sub"],
+            __, social_account_created = SocialAccountModel.objects.get_or_create(provider_user_id=idinfo["sub"],
                                                                                  defaults={
                                                                                      "user": user,
                                                                                      "provider": "google"})
@@ -540,7 +542,7 @@ class GoogleOAuthView(APIView):
                     user.picture.portrait_url(picture)
 
             if user.is_blocked:
-                return HttpResponseRedirect(redirect_to=f"""{fallback_url}?error=Account is blocked.""")
+                return HttpResponseRedirect(redirect_to=f"""{fallback_url}?error={_("Account is blocked.")}""")
 
             response = HttpResponseRedirect(redirect_to=next_url)
 
@@ -567,8 +569,8 @@ class GoogleOAuthView(APIView):
 
             return response
 
-        except ValueError:
-            return HttpResponseRedirect(redirect_to=f"""{fallback_url}?error=Something went wrong.""")
+        except:
+            return HttpResponseRedirect(redirect_to=f"""{fallback_url}?error={_("Something went wrong.")}""")
 
     def _get_google_photo(self, access_token):
         res = requests.get("https://people.googleapis.com/v1/people/me?personFields=photos",
@@ -608,25 +610,25 @@ class PasswordResetView(APIView):
             target = request.data.get("target")
 
             if email is None:
-                return Response(data={"message": "Email address is required."}, status=status.HTTP_400_BAD_REQUEST)
+                return Response(data={"message": _("Email address is required.")}, status=status.HTTP_400_BAD_REQUEST)
 
             user = CustomUserModel.objects.filter(email=email).first()
 
             if user is None:
-                return Response(data={"message": "User not found."}, status=status.HTTP_400_BAD_REQUEST)
+                return Response(data={"message": _("User not found.")}, status=status.HTTP_400_BAD_REQUEST)
 
             if not user.is_active or user.is_blocked:
-                return Response(data={"message": "User is inactive or blocked."}, status=status.HTTP_400_BAD_REQUEST)
+                return Response(data={"message": _("User is inactive or blocked.")}, status=status.HTTP_400_BAD_REQUEST)
 
             token_generator = PasswordResetTokenGenerator()
 
             t = PasswordResetTokenModel.objects.create(user=user, token=token_generator.make_token(user))
             t.task_id = send_email_reset_password.delay(t.id, target)
 
-            return Response(data={"message": "Message sent successfully."}, status=status.HTTP_200_OK)
+            return Response(data={"message": _("Message sent successfully.")}, status=status.HTTP_200_OK)
 
-        except Exception as e:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except:
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class PasswordResetConfirmView(APIView):
@@ -634,11 +636,11 @@ class PasswordResetConfirmView(APIView):
     def get(self, request, slug):
         t = PasswordResetTokenModel.objects.filter(slug=slug).first()
         if t is None:
-            return Response(data={"message": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(data={"message": _("Invalid token")}, status=status.HTTP_400_BAD_REQUEST)
 
         if t.slug is None or t.created_at + timedelta(minutes=settings.RESET_PASSWORD_EXPIRE_TIME) <= timezone.now():
             t.delete()
-            return Response(data={"message": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(data={"message": _("Invalid token")}, status=status.HTTP_400_BAD_REQUEST)
 
         token_generator = PasswordResetTokenGenerator()
         token = token_generator.make_token(t.user)
@@ -671,25 +673,25 @@ class PasswordResetConfirmView(APIView):
             t = PasswordResetTokenModel.objects.filter(token=slug).first()
 
             if t is None:
-                return Response(data={"message": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response(data={"message": _("Invalid token")}, status=status.HTTP_400_BAD_REQUEST)
 
             user = t.user
             new_password = request.data.get("new_password")
             confirm_password = request.data.get("confirm_password")
 
             if not new_password:
-                return Response(data={"new_password": "Password is required."},
+                return Response(data={"new_password": _("Password is required.")},
                                 status=status.HTTP_400_BAD_REQUEST)
             if not confirm_password:
-                return Response(data={"confirm_password": "Confirm password is required."},
+                return Response(data={"confirm_password": _("Confirm password is required.")},
                                 status=status.HTTP_400_BAD_REQUEST)
 
             elif new_password != confirm_password:
-                return Response(data={"confirm_password": "Confirm password did not match."},
+                return Response(data={"confirm_password": _("Confirm password did not match.")},
                                 status=status.HTTP_400_BAD_REQUEST)
 
             elif user.check_password(new_password):
-                return Response(data={"new_password": "New password cannot be the same as the old password"},
+                return Response(data={"new_password": _("New password cannot be the same as the old password.")},
                                 status=status.HTTP_400_BAD_REQUEST)
 
             user.set_password(new_password)
@@ -697,10 +699,10 @@ class PasswordResetConfirmView(APIView):
             user.save()
 
             t.delete()
-            return Response(data={"message": "Password updated successfully"}, status=status.HTTP_200_OK)
+            return Response(data={"message": _("Password updated successfully.")}, status=status.HTTP_200_OK)
 
-        except Exception as e:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except:
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class PasswordChangeView(APIView):
@@ -794,7 +796,7 @@ class ProfileChangeImageView(APIView):
 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     @swagger_auto_schema(operation_description="Profile image delete...", tags=["User"])
     def delete(self, request, *args, **kwargs):
@@ -803,11 +805,13 @@ class ProfileChangeImageView(APIView):
             picture_obj.portrait = None
             picture_obj.save()
             return Response(
-                data={"message": "Profile picture removed."},
+                data={"message": _("Profile picture removed.")},
                 status=status.HTTP_200_OK
             )
         except PictureModel.DoesNotExist:
             return Response(
-                data={"error": "No picture found for this user."},
+                data={"message": _("No picture found for this user.")},
                 status=status.HTTP_404_NOT_FOUND
             )
+        except:
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

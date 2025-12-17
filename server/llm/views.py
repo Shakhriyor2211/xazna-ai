@@ -11,6 +11,7 @@ from llm.models import UserLLMSessionModel, UserLLMMessageModel, LLMModelModel, 
 from llm.serializers import UserLLMSessionSerializer, UserLLMMessageSerializer, TokenLLMSessionSerializer
 from drf_yasg.utils import swagger_auto_schema
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 
 class UserLLMSessionListView(APIView):
@@ -45,7 +46,7 @@ class TokenLLMSessionListView(APIView):
     def get(self, request):
         permission = request.token.permission
         if permission.history != "all" and permission.history != "read":
-            return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+            return Response(data={"message": _("Permission denied.")}, status=status.HTTP_403_FORBIDDEN)
 
         sessions = TokenLLMSessionModel.objects.filter(token=request.token, is_deleted=False).order_by("-created_at")
         serializer = TokenLLMSessionSerializer(sessions, many=True)
@@ -84,7 +85,7 @@ class TokenLLMMessageListView(APIView):
     def get(self, request, session_id):
         permission = request.token.permission
         if permission.history != "all" and permission.history != "read":
-            return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+            return Response(data={"message": _("Permission denied.")}, status=status.HTTP_403_FORBIDDEN)
 
         session = TokenLLMSessionModel.objects.filter(id=session_id, token=request.token, is_deleted=False).first()
         messages = session.messages.order_by("created_at")
@@ -114,15 +115,15 @@ class UserLLMSessionView(APIView):
             mdl = request.data.get("mdl")
 
             if not cnt:
-                return Response({"message": "Content is required."}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"message": _("Content is required.")}, status=status.HTTP_400_BAD_REQUEST)
 
             if not mdl:
-                return Response({"message": "Model is required."}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"message": _("Model is required.")}, status=status.HTTP_400_BAD_REQUEST)
 
             rate = request.user.llm_rate
 
             if rate.session_limit == rate.session_usage:
-                return Response(data={"message": "Session limit reached."}, status=status.HTTP_403_FORBIDDEN)
+                return Response(data={"message": _("Session limit reached.")}, status=status.HTTP_403_FORBIDDEN)
 
             plan = LLMModelModel.objects.get(title=mdl)
             balance = request.user.balance
@@ -141,14 +142,14 @@ class UserLLMSessionView(APIView):
                 cash_usage = remainder * plan.cash
 
                 if cash_usage > balance.cash:
-                    return Response(data={"message": "Not enough founds."}, status=status.HTTP_403_FORBIDDEN)
+                    return Response(data={"message": _("Not enough founds.")}, status=status.HTTP_403_FORBIDDEN)
 
             else:
                 if char_length > credit_avail / plan.credit:
-                    return Response(data={"message": "Not enough credits."}, status=status.HTTP_403_FORBIDDEN)
+                    return Response(data={"message": _("Not enough credits.")}, status=status.HTTP_403_FORBIDDEN)
 
                 if char_length > credit_active / plan.credit:
-                    return Response(data={"message": "Request limit exceeded."}, status=status.HTTP_403_FORBIDDEN)
+                    return Response(data={"message": _("Request limit exceeded.")}, status=status.HTTP_403_FORBIDDEN)
 
             session = UserLLMSessionModel.objects.create(user=request.user, title=generate_title(cnt), is_streaming=True)
             UserLLMContextRateModel.objects.create(session=session, context_limit=sub.llm_rate.context_limit)
@@ -162,7 +163,7 @@ class UserLLMSessionView(APIView):
 
         except Exception as e:
             UserLLMErrorLogModel.objects.create(message=str(e), content=cnt, user=self.request.user)
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class TokenLLMSessionView(APIView):
@@ -194,21 +195,21 @@ class TokenLLMSessionView(APIView):
         try:
             permission = request.token.permission
             if permission.llm == "disable":
-                return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+                return Response(data={"message": _("Permission denied.")}, status=status.HTTP_403_FORBIDDEN)
 
             cnt = request.data.get("content")
             mdl = request.data.get("mdl")
 
             if not cnt:
-                return Response({"message": "Content is required."}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"message": _("Content is required.")}, status=status.HTTP_400_BAD_REQUEST)
 
             if not mdl:
-                return Response({"message": "Model is required."}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"message": _("Model is required.")}, status=status.HTTP_400_BAD_REQUEST)
 
             rate = request.token.llm_rate
 
             if rate.session_limit == rate.session_usage:
-                return Response(data={"message": "Session limit reached."}, status=status.HTTP_403_FORBIDDEN)
+                return Response(data={"message": _("Session limit reached.")}, status=status.HTTP_403_FORBIDDEN)
 
             plan = LLMModelModel.objects.get(title=mdl)
             balance = request.user.balance
@@ -227,14 +228,14 @@ class TokenLLMSessionView(APIView):
                 cash_usage = remainder * plan.cash
 
                 if cash_usage > balance.cash:
-                    return Response(data={"message": "Not enough founds."}, status=status.HTTP_403_FORBIDDEN)
+                    return Response(data={"message": _("Not enough founds.")}, status=status.HTTP_403_FORBIDDEN)
 
             else:
                 if char_length > credit_avail / plan.credit:
-                    return Response(data={"message": "Not enough credits."}, status=status.HTTP_403_FORBIDDEN)
+                    return Response(data={"message": _("Not enough credits.")}, status=status.HTTP_403_FORBIDDEN)
 
                 if char_length > credit_active / plan.credit:
-                    return Response(data={"message": "Request limit exceeded."}, status=status.HTTP_403_FORBIDDEN)
+                    return Response(data={"message": _("Request limit exceeded.")}, status=status.HTTP_403_FORBIDDEN)
 
             session = TokenLLMSessionModel.objects.create(token=request.token, title=generate_title(cnt), is_streaming=True)
             TokenLLMContextRateModel.objects.create(session=session, context_limit=sub.llm_rate.context_limit)
@@ -248,7 +249,7 @@ class TokenLLMSessionView(APIView):
 
         except Exception as e:
             TokenLLMErrorLogModel.objects.create(message=str(e), content=cnt, token=self.request.token)
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class UserLLMSessionItemView(APIView):
@@ -270,7 +271,7 @@ class UserLLMSessionItemView(APIView):
             title = request.data.get("title")
 
             if title is None:
-                return Response(data={"message": "Title is required."}, status=status.HTTP_400_BAD_REQUEST)
+                return Response(data={"message": _("Title is required.")}, status=status.HTTP_400_BAD_REQUEST)
 
             session = UserLLMSessionModel.objects.get(user=request.user, id=session_id, is_deleted=False)
             session.title = generate_title(title)
@@ -278,9 +279,9 @@ class UserLLMSessionItemView(APIView):
 
             return Response(data={"title": session.title}, status=status.HTTP_200_OK)
         except UserLLMSessionModel.DoesNotExist:
-            return Response(data={"message": "Session not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={"message": _("Session not found.")}, status=status.HTTP_404_NOT_FOUND)
         except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     @swagger_auto_schema(
         operation_description="Delete session...",
@@ -296,11 +297,11 @@ class UserLLMSessionItemView(APIView):
             rate.save()
             session.save()
 
-            return Response(data={"message": "Session successfully deleted."}, status=status.HTTP_200_OK)
+            return Response(data={"message": ""}, status=status.HTTP_200_OK)
         except UserLLMSessionModel.DoesNotExist:
-            return Response(data={"message": "Session not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={"message": _("Session not found.")}, status=status.HTTP_404_NOT_FOUND)
         except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class TokenLLMSessionItemView(APIView):
@@ -330,12 +331,12 @@ class TokenLLMSessionItemView(APIView):
         try:
             permission = request.token.permission
             if permission.history != "all" and permission.history != "write":
-                return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+                return Response(data={"message": _("Permission denied.")}, status=status.HTTP_403_FORBIDDEN)
 
             title = request.data.get("title")
 
             if title is None:
-                return Response(data={"message": "Title is required."}, status=status.HTTP_400_BAD_REQUEST)
+                return Response(data={"message": _("Title is required.")}, status=status.HTTP_400_BAD_REQUEST)
 
             session = TokenLLMSessionModel.objects.get(token=request.token, id=session_id, is_deleted=False)
 
@@ -344,9 +345,9 @@ class TokenLLMSessionItemView(APIView):
 
             return Response(data={"title": session.title}, status=status.HTTP_200_OK)
         except TokenLLMSessionModel.DoesNotExist:
-            return Response(data={"message": "Session not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={"message": _("Session not found.")}, status=status.HTTP_404_NOT_FOUND)
         except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     @swagger_auto_schema(
         operation_description="Delete session...",
@@ -365,7 +366,7 @@ class TokenLLMSessionItemView(APIView):
         try:
             permission = request.token.permission
             if permission.history != "all" and permission.history != "write":
-                return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+                return Response(data={"message": _("Permission denied.")}, status=status.HTTP_403_FORBIDDEN)
 
             session = TokenLLMSessionModel.objects.get(token=request.token, id=session_id, is_deleted=False)
 
@@ -376,8 +377,8 @@ class TokenLLMSessionItemView(APIView):
             rate.save()
             session.save()
 
-            return Response(data={"message": "Session successfully deleted."}, status=status.HTTP_200_OK)
+            return Response(data={"message": _("Session successfully deleted.")}, status=status.HTTP_200_OK)
         except TokenLLMSessionModel.DoesNotExist:
-            return Response(data={"message": "Session not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={"message": _("Session not found.")}, status=status.HTTP_404_NOT_FOUND)
         except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

@@ -12,8 +12,9 @@ from stt.models import STTModelModel
 from tts.models import TTSModelModel
 from xazna import settings
 from django.conf import settings
-
+from django.utils.translation import gettext_lazy as _
 from xazna.exceptions import CustomException
+
 
 
 async def send_post_request(payload, url, request_type="json"):
@@ -99,12 +100,11 @@ def convert_to_wav(audio_file):
 
 
 
-
 def tts_transaction(balance, sub, rate, text, mdl):
     plan = TTSModelModel.objects.filter(title=mdl).first()
 
     if plan is None:
-        raise CustomException("Model not found.", 400)
+        raise CustomException(_("Model not found."), 400)
 
     if rate.credit_reset is None or rate.credit_reset < timezone.now():
         rate.credit_reset = timezone.now() + timedelta(minutes=rate.credit_time)
@@ -122,14 +122,14 @@ def tts_transaction(balance, sub, rate, text, mdl):
         cash_usage = remainder * plan.cash
 
         if cash_usage > balance.cash:
-            raise CustomException("Not enough founds.", 403)
+            raise CustomException(_("Not enough founds."), 403)
 
     else:
         if char_length > credit_avail / plan.credit:
-            raise CustomException("Not enough credits.", 403)
+            raise CustomException(_("Not enough credits."), 403)
 
         if char_length > credit_active / plan.credit:
-            raise CustomException("Request limit exceeded.", 429)
+            raise CustomException(_("Request limit exceeded."), 429)
 
 
     return credit_usage, cash_usage
@@ -140,7 +140,7 @@ def stt_transaction(balance, sub, rate, audio, mdl):
     plan = STTModelModel.objects.filter(title=mdl).first()
 
     if plan is None:
-        raise CustomException("Model not found.", 400)
+        raise CustomException(_("Model not found."), 400)
 
     if rate.credit_reset is None or rate.credit_reset < timezone.now():
         rate.credit_reset = timezone.now() + timedelta(minutes=rate.credit_time)
@@ -158,14 +158,14 @@ def stt_transaction(balance, sub, rate, audio, mdl):
         cash_usage = remainder * plan.cash
 
         if cash_usage > balance.cash:
-            raise CustomException("Not enough founds.", 403)
+            raise CustomException(_("Not enough founds."), 403)
 
     else:
         if audio_duration > credit_avail / plan.credit:
-            raise CustomException("Not enough credits.", 403)
+            raise CustomException(_("Not enough credits."), 403)
 
         if audio_duration > credit_active / plan.credit:
-            raise CustomException("Request limit exceeded.", 429)
+            raise CustomException(_("Request limit exceeded."), 429)
 
 
     return credit_usage, cash_usage
@@ -175,7 +175,7 @@ def llm_transaction(balance, sub, rate, context_rate, content, mdl):
     plan = LLMModelModel.objects.filter(title=mdl).first()
 
     if plan is None:
-        raise CustomException("Model not found.", 400)
+        raise CustomException(_("Model not found."), 400)
 
     if rate.credit_reset is None or rate.credit_reset < timezone.now():
         rate.credit_reset = timezone.now() + timedelta(minutes=rate.credit_time)
@@ -188,7 +188,7 @@ def llm_transaction(balance, sub, rate, context_rate, content, mdl):
     cash_usage = 0
 
     if context_rate.context_usage + char_length > context_rate.context_limit:
-        raise CustomException("Message limit reached, open new session.", 403)
+        raise CustomException(_("Message limit reached, open new session."), 403)
 
     context_rate.context_usage += char_length
 
@@ -198,12 +198,12 @@ def llm_transaction(balance, sub, rate, context_rate, content, mdl):
         cash_usage = remainder * plan.cash
 
         if cash_usage > balance.cash:
-            raise CustomException("Not enough founds.", 403)
+            raise CustomException(_("Not enough founds."), 403)
     else:
         if char_length > credit_avail / plan.credit:
-            raise CustomException("Not enough credits.", 403)
+            raise CustomException(_("Not enough credits."), 403)
 
         if char_length > credit_active / plan.credit:
-            raise CustomException("Request limit exceeded.", 429)
+            raise CustomException(_("Request limit exceeded."), 429)
 
     return credit_usage, cash_usage

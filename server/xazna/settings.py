@@ -5,7 +5,7 @@ from kombu import Queue
 from celery.schedules import crontab
 from dotenv import load_dotenv
 from corsheaders.defaults import default_headers
-
+from django.utils.translation import gettext_lazy as _
 
 load_dotenv()
 
@@ -119,6 +119,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -231,11 +232,22 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "uz"
+LANGUAGE_COOKIE_NAME = "locale"
+
+LANGUAGES = [
+    ("uz", _("Uzbek")),
+    ("ru", _("Russian")),
+    ("en", _("English")),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
 
 TIME_ZONE = "Asia/Tashkent"
 USE_TZ = True
-
+USE_L10N = True
 USE_I18N = True
 
 USE_TZ = True

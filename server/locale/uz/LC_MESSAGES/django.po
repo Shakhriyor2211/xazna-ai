@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-05 14:45+0500\n"
+"POT-Creation-Date: 2025-12-17 15:01+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,258 +17,263 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-#: accounts/managers.py:8
-msgid "The Email must be set."
-msgstr "Email manzili kiritilishi shart."
+msgid "The Email must be set"
+msgstr "Elektron pochta manzili kiritilishi kerak"
 
-#: accounts/serializers.py:18
 msgid "Enter a valid email address."
-msgstr "To‘g‘ri email manzilini kiriting."
+msgstr "To'g'ri elektron pochta manzilini kiriting."
 
-#: accounts/serializers.py:26
 msgid "Email and password are required."
-msgstr "Email va parol talab qilinadi."
+msgstr "Elektron pochta va parol talab qilinadi."
 
-#: accounts/serializers.py:31
 msgid "Invalid credentials."
-msgstr "Noto‘g‘ri autentifikatsiya ma’lumotlari."
+msgstr "Noto'g'ri login yoki parol."
 
-#: accounts/serializers.py:34 accounts/views.py:556
-msgid "User is blocked."
-msgstr "Foydalanuvchi bloklangan."
-
-#: accounts/serializers.py:63
-msgid "Email is already taken."
-msgstr "Bu email allaqachon ishlatilgan."
-
-#: accounts/serializers.py:68
-msgid "Password and confirm password do not match."
-msgstr "Parol va tasdiqlash paroli mos kelmaydi."
-
-#: accounts/serializers.py:139
-msgid "Old password is incorrect."
-msgstr "Eski parol noto‘g‘ri."
-
-#: accounts/serializers.py:145 accounts/views.py:705
-msgid "New password cannot be the same as the old password."
-msgstr "Yangi parol eski parol bilan bir xil bo‘la olmaydi."
-
-#: accounts/serializers.py:149
-msgid "Passwords do not match."
-msgstr "Parollar mos kelmaydi."
-
-#: accounts/views.py:61 accounts/views.py:317 accounts/views.py:629
-msgid "User not found."
-msgstr "Foydalanuvchi topilmadi."
-
-#: accounts/views.py:134 accounts/views.py:206 accounts/views.py:248
-msgid "User temporarily blocked."
-msgstr "Foydalanuvchi vaqtincha bloklangan."
-
-#: accounts/views.py:201
-msgid "Resend confirmation code limit exceeded."
-msgstr "Tasdiqlash kodini qayta yuborish limiti oshib ketdi."
-
-#: accounts/views.py:223
-msgid "Confirmation code was sent to your email address."
-msgstr "Tasdiqlash kodi sizning email manzilingizga yuborildi."
-
-#: accounts/views.py:227
-msgid "Failed to send confirmation code."
-msgstr "Tasdiqlash kodini yuborishda xatolik yuz berdi."
-
-#: accounts/views.py:256
-msgid "Invalid confirmation code."
-msgstr "Noto‘g‘ri tasdiqlash kodi."
-
-#: accounts/views.py:261
-msgid "Confirmation code is expired."
-msgstr "Tasdiqlash kodi muddati o‘tgan."
-
-#: accounts/views.py:310
-msgid "Refresh token is required."
-msgstr "Refresh token talab qilinadi."
-
-#: accounts/views.py:337
-msgid "Invalid refresh token."
-msgstr "Noto‘g‘ri refresh token."
-
-#: accounts/views.py:356
-msgid "Access token is required."
-msgstr "Access token talab qilinadi."
-
-#: accounts/views.py:360
-msgid "Access token is valid."
-msgstr "Access token amal qiladi."
-
-#: accounts/views.py:362 accounts/views.py:650 accounts/views.py:654 accounts/views.py:687
-msgid "Invalid token."
-msgstr "Noto‘g‘ri token."
-
-#: accounts/views.py:376
-msgid "Logged out successfully."
-msgstr "Muvaffaqiyatli tizimdan chiqildi."
-
-#: accounts/views.py:401 accounts/views.py:499
-msgid "Missing code."
-msgstr "Kod mavjud emas."
-
-#: accounts/views.py:414 accounts/views.py:511
-msgid "Failed to exchange code."
-msgstr "Kod almashinuvida xatolik yuz berdi."
-
-#: accounts/views.py:421 accounts/views.py:519
-msgid "No id_token in response."
-msgstr "Javobda id_token mavjud emas."
-
-#: accounts/views.py:458
 msgid "Account is blocked."
 msgstr "Hisob bloklangan."
 
-#: accounts/views.py:584
+msgid "Email is already taken."
+msgstr "Bu elektron pochta manzil allaqachon ishlatilgan."
+
+msgid "Password and Confirm Password do not match."
+msgstr "Parol va parolni tasdiqlash mos kelmadi."
+
+msgid "Old password is incorrect."
+msgstr "Eski parol noto'g'ri."
+
+msgid "New password cannot be the same as the old password."
+msgstr "Yangi parol eski parol bilan bir xil bo'lishi mumkin emas."
+
+msgid "Passwords do not match."
+msgstr "Parollar mos kelmadi."
+
+msgid "Confirmation Code"
+msgstr "Tasdiqlash kodi"
+
+msgid "Welcome to OCR. Your confirmation code is"
+msgstr "OCR ga xush kelibsiz. Sizning tasdiqlash kodingiz:"
+
+msgid "Please verify your email"
+msgstr "Iltimos, elektron pochta manzilingizni tasdiqlang"
+
+msgid "Please do not share this code with anyone under any circumstances. If you did not request this code or unsure why you received this message, you may safely disregard it."
+msgstr "Iltimos, bu kodni hech kim bilan bo'lishmang. Agar siz bu kodni so'ramagan bo'lsangiz yoki nega olganingizni bilmasangiz, e'tiborsiz qoldirishingiz mumkin."
+
+msgid "Sincerely, Xazna team."
+msgstr "Hurmat bilan, Xazna jamoasi."
+
+msgid "Reset your password"
+msgstr "Parolni tiklash"
+
+msgid "CONTINUE"
+msgstr "DAVOM ETISH"
+
+msgid "If you did not request reset password or unsure why you received this message, you may safely disregard it."
+msgstr "Agar siz parolni tiklashni so'ramagan bo'lsangiz yoki nega xabar olganingizni bilmasangiz, e'tiborsiz qoldirishingiz mumkin."
+
+msgid "Welcome"
+msgstr "Xush kelibsiz"
+
+msgid "Email"
+msgstr "Elektron pochta"
+
+msgid "First name"
+msgstr "Ism"
+
+msgid "Last name"
+msgstr "Familiya"
+
+msgid "Is staff"
+msgstr "Xodim"
+
+msgid "Your account temporarily blocked."
+msgstr "Sizning hisobingiz vaqtincha bloklangan."
+
+msgid "Resend confirmation code limit exceeded."
+msgstr "Tasdiqlash kodini qayta yuborish chegarasi oshdi."
+
+msgid "Confirmation code was sent to your email address."
+msgstr "Tasdiqlash kodi sizning elektron pochta manzilingizga yuborildi."
+
 msgid "Something went wrong."
-msgstr "Nimadir noto‘g‘ri ketdi."
+msgstr "Nimadir xato ketdi."
 
-#: accounts/views.py:624
+msgid "Invalid confirmation code."
+msgstr "Tasdiqlash kodi noto'g'ri."
+
+msgid "Confirmation code is expired."
+msgstr "Tasdiqlash kodi muddati tugagan."
+
+msgid "Refresh token is required."
+msgstr "Refresh token talab qilinadi."
+
+msgid "Invalid token payload"
+msgstr "Token ma'lumotlari noto'g'ri."
+
+msgid "Invalid refresh token."
+msgstr "Refresh token noto'g'ri."
+
+msgid "Access token is required."
+msgstr "Access token talab qilinadi."
+
+msgid "Access token is valid."
+msgstr "Access token to'g'ri."
+
+msgid "Invalid token."
+msgstr "Token noto'g'ri."
+
+msgid "Logged out successfully."
+msgstr "Muvaffaqiyatli chiqildi."
+
+msgid "Token is not provided."
+msgstr "Token kiritilmagan."
+
+msgid "Missing code."
+msgstr "Kod yo'q."
+
+msgid "Failed to exchange code."
+msgstr "Kod almashinuvi muvaffaqiyatsiz tugadi."
+
+msgid "No id_token in response."
+msgstr "Javobda id_token yo'q."
+
+msgid "Failed to exchange code"
+msgstr "Kod almashinuvi muvaffaqiyatsiz tugadi"
+
 msgid "Email address is required."
-msgstr "Email manzili talab qilinadi."
+msgstr "Elektron pochta manzili talab qilinadi."
 
-#: accounts/views.py:632
+msgid "User not found."
+msgstr "Foydalanuvchi topilmadi."
+
 msgid "User is inactive or blocked."
 msgstr "Foydalanuvchi faol emas yoki bloklangan."
 
-#: accounts/views.py:639
 msgid "Message sent successfully."
 msgstr "Xabar muvaffaqiyatli yuborildi."
 
-#: accounts/views.py:694
+msgid "Invalid token"
+msgstr "Token noto'g'ri."
+
 msgid "Password is required."
 msgstr "Parol talab qilinadi."
 
-#: accounts/views.py:697 accounts/views.py:701
 msgid "Confirm password is required."
 msgstr "Parolni tasdiqlash talab qilinadi."
 
-#: accounts/views.py:714
+msgid "Confirm password did not match."
+msgstr "Parolni tasdiqlash mos kelmadi."
+
 msgid "Password updated successfully."
 msgstr "Parol muvaffaqiyatli yangilandi."
 
-#: accounts/views.py:820
 msgid "Profile picture removed."
-msgstr "Profil rasmi o‘chirildi."
+msgstr "Profil rasmi o'chirildi."
 
-#: accounts/views.py:825
 msgid "No picture found for this user."
 msgstr "Bu foydalanuvchi uchun rasm topilmadi."
 
-#: finance/views.py:95 finance/views.py:128 service/views.py:101 stt/views.py:275 stt/views.py:346 tts/views.py:323 tts/views.py:356
+msgid "Permission denied."
+msgstr "Ruxsat rad etildi."
+
 msgid "Data successfully deleted."
-msgstr "Ma’lumot muvaffaqiyatli o‘chirildi."
+msgstr "Ma'lumot muvaffaqiyatli o'chirildi."
 
-#: finance/views.py:97 finance/views.py:130 service/views.py:88 service/views.py:103 service/views.py:124 stt/views.py:260 stt/views.py:277 stt/views.py:318 stt/views.py:348 tts/views.py:325 tts/views.py:358
 msgid "Data not found."
-msgstr "Ma’lumot topilmadi."
+msgstr "Ma'lumot topilmadi."
 
-#: finance/views.py:177
 msgid "Balance settings changed successfully."
-msgstr "Balans sozlamalari muvaffaqiyatli o‘zgartirildi."
+msgstr "Balans sozlamalari muvaffaqiyatli o'zgartirildi."
 
-#: llm/consumers.py:81
 msgid "Internal server error"
 msgstr "Ichki server xatosi"
 
-#: llm/consumers.py:116 llm/consumers.py:358 llm/views.py:284 llm/views.py:304 llm/views.py:350 llm/views.py:384
 msgid "Session not found."
 msgstr "Sessiya topilmadi."
 
-#: llm/consumers.py:119 llm/consumers.py:361 llm/views.py:120 llm/views.py:206
 msgid "Content is required."
 msgstr "Kontent talab qilinadi."
 
-#: llm/consumers.py:122 llm/consumers.py:364 llm/views.py:123 llm/views.py:209
 msgid "Model is required."
 msgstr "Model talab qilinadi."
 
-#: llm/consumers.py:141 llm/consumers.py:228 llm/consumers.py:315 llm/consumers.py:384
-msgid "Internal server error."
-msgstr "Ichki server xatosi."
-
-#: llm/consumers.py:331 llm/views.py:49 llm/views.py:90 llm/views.py:200 llm/views.py:336 llm/views.py:371 stt/views.py:107 stt/views.py:223 stt/views.py:304 stt/views.py:340 stt/views.py:398 tts/views.py:129 tts/views.py:242 tts/views.py:302 tts/views.py:350
-msgid "Permission denied."
-msgstr "Ruxsat berilmadi."
-
-#: llm/views.py:128 llm/views.py:214
 msgid "Session limit reached."
-msgstr "Sessiyalar limiti oshdi."
+msgstr "Sessiya chegarasi oshdi."
 
-#: llm/views.py:147 llm/views.py:233 shared/utils.py:126 shared/utils.py:162 shared/utils.py:202
 msgid "Not enough founds."
-msgstr "Yetarli mablag‘ mavjud emas."
+msgstr "Yetarli mablag' mavjud emas."
 
-#: llm/views.py:151 llm/views.py:237
 msgid "Not enough credits."
-msgstr "Yetarli kredit mavjud emas."
+msgstr "Yetarli kreditlar mavjud emas."
 
-#: llm/views.py:154 llm/views.py:240 shared/utils.py:133 shared/utils.py:169 shared/utils.py:208
 msgid "Request limit exceeded."
-msgstr "So‘rovlar limiti oshdi."
+msgstr "So'rovlar chegarasi oshdi."
 
-#: llm/views.py:276 llm/views.py:341
 msgid "Title is required."
 msgstr "Sarlavha talab qilinadi."
 
-#: llm/views.py:302 llm/views.py:382
 msgid "Session successfully deleted."
-msgstr "Sessiya muvaffaqiyatli o‘chirildi."
+msgstr "Sessiya muvaffaqiyatli o'chirildi."
 
-#: service/views.py:40 service/views.py:55
 msgid "Token not found."
 msgstr "Token topilmadi."
 
-#: service/views.py:86
 msgid "Data successfully edited."
-msgstr "Ma’lumot muvaffaqiyatli tahrirlandi."
+msgstr "Ma'lumot muvaffaqiyatli tahrirlandi."
 
-#: service/views.py:122
-msgid "Key settings changed successfully."
-msgstr "Kalit sozlamalari muvaffaqiyatli o‘zgartirildi."
+msgid "Token settings changed successfully."
+msgstr "Token sozlamalari muvaffaqiyatli o'zgartirildi."
 
-#: shared/utils.py:108 shared/utils.py:144 shared/utils.py:179
 msgid "Model not found."
 msgstr "Model topilmadi."
 
-#: shared/utils.py:130 shared/utils.py:166 shared/utils.py:205
-msgid "Not enough credits"
-msgstr "Yetarli kredit mavjud emas"
-
-#: shared/utils.py:192
 msgid "Message limit reached, open new session."
-msgstr "Xabarlar limiti oshdi, yangi sessiya oching."
+msgstr "Xabar chegarasi yetdi, yangi sessiya oching."
 
-#: stt/views.py:258 stt/views.py:316
 msgid "Data successfully changed."
-msgstr "Ma’lumot muvaffaqiyatli o‘zgartirildi."
+msgstr "Ma'lumot muvaffaqiyatli o'zgartirildi."
 
-#: sub/views.py:42
 msgid "This plan can't be restarted."
-msgstr "Ushbu reja qayta ishga tushirilmaydi."
+msgstr "Ushbu reja qayta boshlanishi mumkin emas."
 
-#: sub/views.py:46 sub/views.py:125
 msgid "Not enough funds, please top up your balance."
-msgstr "Yetarli mablag‘ mavjud emas, balansni to‘ldiring."
+msgstr "Yetarli mablag' yo'q, iltimos balansingizni to'ldiring."
 
-#: sub/views.py:67
 msgid "Subscription restarted successfully."
 msgstr "Obuna muvaffaqiyatli qayta ishga tushirildi."
 
-#: sub/views.py:69 sub/views.py:150
 msgid "Plan not found."
 msgstr "Reja topilmadi."
 
-#: sub/views.py:90
 msgid "Failed to change subscription."
-msgstr "Obunani o‘zgartirishda xatolik yuz berdi."
+msgstr "Obunani o'zgartirish muvaffaqiyatsiz tugadi."
 
-#: sub/views.py:147
 msgid "Subscription changed successfully."
-msgstr "Obuna muvaffaqiyatli o‘zgartirildi."
+msgstr "Obuna muvaffaqiyatli o'zgartirildi."
+
+msgid "Max length of text is 5000."
+msgstr "Matnning maksimal uzunligi 5000 belgi."
+
+msgid "Admin privileges required."
+msgstr "Administrator huquqlari talab qilinadi."
+
+msgid "Token has expired."
+msgstr "Token muddati tugagan."
+
+msgid "Token is blocked."
+msgstr "Token bloklangan."
+
+msgid "Token is inactive."
+msgstr "Token faol emas."
+
+msgid "Account is inactive."
+msgstr "Hisob faol emas."
+
+msgid "Uzbek"
+msgstr "O‘zbek"
+
+msgid "Russian"
+msgstr "Rus"
+
+msgid "English"
+msgstr "Ingliz"

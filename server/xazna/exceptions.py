@@ -1,24 +1,11 @@
 from rest_framework.exceptions import APIException
 
 
-class ForbiddenException(APIException):
-    status_code = 403
+class CustomAPIException(APIException):
 
-    def __init__(self, data, code='permission_denied'):
-        self.detail = {
-            **data,
-            "code": code
-        }
-
-
-class BadRequestException(APIException):
-    status_code = 400
-
-    def __init__(self, data, code='bad_request'):
-        self.detail = {
-            **data,
-            "code": code
-        }
+    def __init__(self, data, status=400):
+        self.status_code = status
+        self.detail = data
 
 class CustomException(Exception):
 

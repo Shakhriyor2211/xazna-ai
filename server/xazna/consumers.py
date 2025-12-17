@@ -10,7 +10,8 @@ from service.models import ServiceTokenModel
 from xazna import settings
 from urllib.parse import parse_qsl
 from asgiref.sync import sync_to_async
-
+from django.utils.translation import gettext_lazy as _
+from django.utils import translation
 
 class AuthWebsocketConsumer(AsyncWebsocketConsumer):
     async def _validate(self):
@@ -20,18 +21,13 @@ class AuthWebsocketConsumer(AsyncWebsocketConsumer):
             self.user = AnonymousUser()
             return True
 
-        cookies = {}
         token = None
 
-        for name, value in self.scope.get("headers", []):
-            if name == b"cookie":
-                cookies = parse_cookie(value.decode("latin1"))
-                break
+        token = self.cookie.get("access_token")
 
-        token = cookies.get("access_token")
-
-        if not token:
+        if token is None:
             await self.close(code=4400)
+            return
 
         try:
             payload = decode(
@@ -50,7 +46,7 @@ class AuthWebsocketConsumer(AsyncWebsocketConsumer):
                 await self.send(json.dumps({
                     "status": 403,
                     "type": "error",
-                    "message": "Account is blocked."
+                    "message": _("Account is blocked.")
                 }))
                 return False
 
@@ -60,7 +56,7 @@ class AuthWebsocketConsumer(AsyncWebsocketConsumer):
                 await self.send(json.dumps({
                     "status": 403,
                     "type": "error",
-                    "message": "Admin privileges required."
+                    "message": _("Admin privileges required.")
                 }))
                 return False
 
@@ -70,7 +66,7 @@ class AuthWebsocketConsumer(AsyncWebsocketConsumer):
             await self.send(json.dumps({
                 "status": 401,
                 "type": "error",
-                "message": "Token has expired."
+                "message": _("Token has expired.")
             }))
             return False
 
@@ -85,7 +81,21 @@ class AuthWebsocketConsumer(AsyncWebsocketConsumer):
 
     async def connect(self):
         await self.accept()
+
+        self.cookie = {}
+
+        for name, value in self.scope.get("headers", []):
+            if name == b"cookie":
+                self.cookie = parse_cookie(value.decode("latin1"))
+                break
+
+        locale = self.cookie.get("locale")
+
+        if locale is not None:
+            translation.activate(locale)
+
         is_valid = await self._validate()
+
 
         if not is_valid:
             return
@@ -116,26 +126,12 @@ class TokenWebsocketConsumer(AsyncWebsocketConsumer):
             self.token = None
             return True
 
-        t = None
-
-        for name, value in self.scope.get("headers", []):
-            if name == b"x-access-token":
-                t = value.decode("latin1")
-                break
-
-        if not t:
-            raw = self.scope.get("query_string", b"").decode()
-
-            for name, value in parse_qsl(raw):
-                if name == "token":
-                    t = value
-                    break
-
-            if not t:
-                await self.close(code=4400)
+        if self.key is None:
+            await self.close(code=4400)
+            return
 
         try:
-            token = await database_sync_to_async(ServiceTokenModel.objects.get)(key=t)
+            token = await database_sync_to_async(ServiceTokenModel.objects.get)(key=self.key)
             user = await sync_to_async(lambda: token.user)()
             token.last_used_at = timezone.now()
             await database_sync_to_async(token.save)()
@@ -144,7 +140,7 @@ class TokenWebsocketConsumer(AsyncWebsocketConsumer):
                 await self.send(json.dumps({
                     "status": 403,
                     "type": "error",
-                    "message": "Token is blocked."
+                    "message": _("Token is blocked.")
                 }))
                 return False
 
@@ -152,7 +148,7 @@ class TokenWebsocketConsumer(AsyncWebsocketConsumer):
                 await self.send(json.dumps({
                     "status": 403,
                     "type": "error",
-                    "message": "Token is inactive."
+                    "message": _("Token is inactive.")
                 }))
                 return False
 
@@ -160,14 +156,14 @@ class TokenWebsocketConsumer(AsyncWebsocketConsumer):
                 await self.send(json.dumps({
                     "status": 403,
                     "type": "error",
-                    "message": "Account is blocked."
+                    "message": _("Account is blocked.")
                 }))
 
             if not user.is_active:
                 await self.send(json.dumps({
                     "status": 403,
                     "type": "error",
-                    "message": "Account is inactive."
+                    "message": _("Account is inactive.")
                 }))
 
             self.user = user
@@ -181,6 +177,29 @@ class TokenWebsocketConsumer(AsyncWebsocketConsumer):
 
     async def connect(self):
         await self.accept()
+
+        self.cookie = {}
+        self.key = None
+
+        for name, value in self.scope.get("headers", []):
+            if name == b"cookie":
+                self.cookie = parse_cookie(value.decode("latin1"))
+            elif name == b"x-access-token":
+                self.key = value.decode("latin1")
+
+        locale = self.cookie.get("locale")
+
+        if locale is not None:
+            translation.activate(locale)
+
+        if self.key is None:
+            raw = self.scope.get("query_string", b"").decode()
+
+            for name, value in parse_qsl(raw):
+                if name == "token":
+                    self.key = value
+                    break
+
         is_valid = await self._validate()
 
         if not is_valid:

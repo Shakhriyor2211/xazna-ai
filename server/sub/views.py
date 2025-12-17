@@ -13,6 +13,7 @@ from rest_framework.response import Response
 from django.utils import timezone
 from shared.views import CustomPagination
 from django.db import transaction
+from django.utils.translation import gettext_lazy as _
 
 
 class SubRestartView(APIView):
@@ -37,11 +38,11 @@ class SubRestartView(APIView):
                     price = plan.annual_price * (Decimal(100 - discount) / Decimal(100))
 
                 if plan.title == "Free":
-                    return Response(data={"message": "This plan can't be restarted."},
+                    return Response(data={"message": _("This plan can't be restarted.")},
                                     status=status.HTTP_400_BAD_REQUEST)
 
                 if price > balance.cash:
-                    return Response(data={"message": "Not enough funds, please top up your balance."},
+                    return Response(data={"message": _("Not enough funds, please top up your balance.")},
                                     status=status.HTTP_400_BAD_REQUEST)
 
                 sub = SubModel.objects.create(user=request.user, title=plan.title, period=active_sub.period,
@@ -62,11 +63,11 @@ class SubRestartView(APIView):
                 active_sub.save()
                 balance.save()
 
-                return Response(data={"message": "Subscription restarted successfully."}, status=status.HTTP_200_OK)
+                return Response(data={"message": _("Subscription restarted successfully.")}, status=status.HTTP_200_OK)
         except PlanModel.DoesNotExist:
-            return Response(data={"message": "Plan not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={"message": _("Plan not found.")}, status=status.HTTP_404_NOT_FOUND)
         except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class SubChangeView(APIView):
@@ -85,7 +86,7 @@ class SubChangeView(APIView):
                 active_sub = request.user.active_sub
 
                 if plan.title == "Enterprise" or plan.title == "Free" and period == "annual" or plan.title == active_sub.title and active_sub.period == period:
-                    return Response(data={"message": "Failed to change subscription."},
+                    return Response(data={"message": _("Failed to change subscription.")},
                                     status=status.HTTP_400_BAD_REQUEST)
 
                 if plan.title == "Free":
@@ -120,7 +121,7 @@ class SubChangeView(APIView):
                     balance = request.user.balance
 
                     if price > balance.cash:
-                        return Response(data={"message": "Not enough funds, please top up your balance."},
+                        return Response(data={"message": _("Not enough funds, please top up your balance.")},
                                         status=status.HTTP_400_BAD_REQUEST)
 
                     sub = SubModel.objects.create(user=request.user, title=plan.title, credit=credit,
@@ -142,12 +143,12 @@ class SubChangeView(APIView):
                 active_sub.status = "canceled"
                 active_sub.save()
 
-                return Response(data={"message": "Subscription changed successfully."}, status=status.HTTP_200_OK)
+                return Response(data={"message": _("Subscription changed successfully.")}, status=status.HTTP_200_OK)
 
         except PlanModel.DoesNotExist:
-            return Response(data={"message": "Plan not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={"message": _("Plan not found.")}, status=status.HTTP_404_NOT_FOUND)
         except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class SubManageView(APIView):
@@ -167,7 +168,7 @@ class SubManageView(APIView):
 
         except Exception as e:
             print(e)
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class SubListView(APIView):

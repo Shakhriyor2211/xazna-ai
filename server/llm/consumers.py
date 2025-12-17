@@ -16,6 +16,8 @@ from xazna.exceptions import CustomException
 from datetime import timedelta
 from finance.models import UserExpenseModel, TokenExpenseModel
 from log.models import UserLLMErrorLogModel, TokenLLMErrorLogModel
+from django.utils.translation import gettext_lazy as _
+
 
 openai_api_key = settings.LLM_SERVER_API_KEY
 openai_api_base = settings.LLM_SERVER
@@ -77,7 +79,7 @@ class UserLLMConsumer(AuthWebsocketConsumer):
                 await self.send(json.dumps({
                     "status": 500,
                     "type": "error",
-                    "message": "Internal server error"
+                    "message": _("Internal server error")
                 }))
                 self.contents.append({"role": "assistant", "content": ""})
                 await sync_to_async(UserLLMErrorLogModel.objects.create)(message=str(e),
@@ -111,13 +113,13 @@ class UserLLMConsumer(AuthWebsocketConsumer):
             mdl = data.get("model", None)
 
             if self.session is None:
-                raise CustomException("Session not found.", 404)
+                raise CustomException(_("Session not found."), 404)
 
             if not cnt:
-                raise CustomException("Content is required.", 400)
+                raise CustomException(_("Content is required."), 400)
 
             if not cnt:
-                raise CustomException("Model is required.", 400)
+                raise CustomException(_("Model is required."), 400)
 
             self.user_message = await self._create_message(role="user", content=cnt, mdl=mdl)
             self.contents.append({"role": "user", "content": cnt})
@@ -223,7 +225,7 @@ class UserLLMConsumer(AuthWebsocketConsumer):
             await self.send(json.dumps({
                 "status": 500,
                 "type": "error",
-                "message": "Internal server error"
+                "message": _("Internal server error")
             }))
             self.contents.append({"role": "assistant", "content": ""})
             await sync_to_async(UserLLMErrorLogModel.objects.create)(message=str(e),
@@ -308,7 +310,7 @@ class TokenLLMConsumer(TokenWebsocketConsumer):
                 await self.send(json.dumps({
                     "status": 500,
                     "type": "error",
-                    "message": "Internal server error"
+                    "message": _("Internal server error")
                 }))
                 self.contents.append({"role": "assistant", "content": ""})
                 await sync_to_async(TokenLLMErrorLogModel.objects.create)(message=str(e),
@@ -324,7 +326,7 @@ class TokenLLMConsumer(TokenWebsocketConsumer):
             await self.send(json.dumps({
                 "status": 403,
                 "type": "error",
-                "message": "Permission denied."
+                "message": _("Permission denied.")
             }))
             return
 
@@ -351,13 +353,13 @@ class TokenLLMConsumer(TokenWebsocketConsumer):
             mdl = data.get("model", None)
 
             if self.session is None:
-                raise CustomException("Session not found.", 404)
+                raise CustomException(_("Session not found."), 404)
 
             if not cnt:
-                raise CustomException("Content is required.", 400)
+                raise CustomException(_("Content is required."), 400)
 
             if not cnt:
-                raise CustomException("Model is required.", 400)
+                raise CustomException(_("Model is required."), 400)
 
             self.user_message = await self._create_message(role="user", content=cnt, mdl=mdl)
             self.contents.append({"role": "user", "content": cnt})
@@ -376,7 +378,7 @@ class TokenLLMConsumer(TokenWebsocketConsumer):
             await self.send(json.dumps({
                 "status": 500,
                 "type": "error",
-                "message": "Internal server error"
+                "message": _("Internal server error")
             }))
             self.contents.append({"role": "assistant", "content": ""})
             await sync_to_async(TokenLLMErrorLogModel.objects.create)(message=str(e), content=self.user_message.content,
@@ -464,7 +466,7 @@ class TokenLLMConsumer(TokenWebsocketConsumer):
             await self.send(json.dumps({
                 "status": 500,
                 "type": "error",
-                "message": "Internal server error"
+                "message": _("Internal server error")
             }))
             self.contents.append({"role": "assistant", "content": ""})
             await sync_to_async(TokenLLMErrorLogModel.objects.create)(message=str(e), content=self.user_message.content,

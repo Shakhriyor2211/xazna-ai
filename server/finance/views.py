@@ -10,6 +10,7 @@ from shared.views import CustomPagination
 from django.db import transaction
 from sub.models import SubModel
 from sub.serializers import SubSerializer
+from django.utils.translation import gettext_lazy as _
 
 
 class UserExpenseListView(APIView):
@@ -66,7 +67,7 @@ class TokenExpenseListView(APIView):
     def get(self, request):
         permission = request.token.permission
         if permission.history != "all" and permission.history != "read":
-            return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+            return Response(data={"message": _("Permission denied.")}, status=status.HTTP_403_FORBIDDEN)
 
         ordering = request.query_params.get('ordering', '-created_at')
 
@@ -91,11 +92,11 @@ class UserExpenseItemView(APIView):
             expense.is_deleted = True
             expense.save()
 
-            return Response(data={'message': 'Data successfully deleted.'}, status=status.HTTP_200_OK)
+            return Response(data={"message": _("Data successfully deleted.")}, status=status.HTTP_200_OK)
         except UserExpenseModel.DoesNotExist:
-            return Response(data={"message": "Data not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={"message": _("Data not found.")}, status=status.HTTP_404_NOT_FOUND)
         except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class TokenExpenseItemView(APIView):
@@ -118,17 +119,17 @@ class TokenExpenseItemView(APIView):
         try:
             permission = request.token.permission
             if permission.history != "all" and permission.history != "write":
-                return Response(data={"message": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
+                return Response(data={"message": _("Permission denied.")}, status=status.HTTP_403_FORBIDDEN)
 
             expense = TokenExpenseModel.objects.get(token=request.token, id=expense_id, is_deleted=False)
             expense.is_deleted = True
             expense.save()
 
-            return Response(data={'message': 'Data successfully deleted.'}, status=status.HTTP_200_OK)
+            return Response(data={"message": _("Data successfully deleted.")}, status=status.HTTP_200_OK)
         except TokenExpenseModel.DoesNotExist:
-            return Response(data={"message": "Data not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={"message": _("Data not found.")}, status=status.HTTP_404_NOT_FOUND)
         except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class BalanceView(APIView):
@@ -173,10 +174,10 @@ class BalanceManageView(APIView):
             )
             serializer.is_valid(raise_exception=True)
             serializer.save()
-            return Response(data={"message": "Balance settings changed successfully."}, status=status.HTTP_200_OK)
+            return Response(data={"message": _("Balance settings changed successfully.")}, status=status.HTTP_200_OK)
 
         except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class TransactionListView(APIView):

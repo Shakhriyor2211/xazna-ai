@@ -2,7 +2,8 @@ from django.contrib.auth import authenticate
 from django.core.validators import validate_email
 from rest_framework import serializers
 from accounts.models import CustomUserModel, EmailConfirmOtpModel, PictureModel
-from xazna.exceptions import ForbiddenException, BadRequestException
+from django.utils.translation import gettext_lazy as _
+from xazna.exceptions import CustomAPIException
 
 
 class SignInSerializer(serializers.Serializer):
@@ -13,7 +14,8 @@ class SignInSerializer(serializers.Serializer):
         try:
             validate_email(value)
         except serializers.ValidationError:
-            raise BadRequestException(data={"message": "Enter a valid email address."}, code="invalid_credentials")
+            raise CustomAPIException(data={"message": _("Enter a valid email address."), "code": "invalid_credentials"},
+                                     status=400)
         return value
 
     def validate(self, data):
@@ -21,15 +23,17 @@ class SignInSerializer(serializers.Serializer):
         password = data.get("password")
 
         if not email or not password:
-            raise BadRequestException(data={"message": "Email and password are required."}, code="invalid_credentials")
+            raise CustomAPIException(
+                data={"message": _("Email and password are required."), "code": "invalid_credentials"}, status=400)
 
         user = authenticate(username=email, password=password)
 
         if user is None:
-            raise BadRequestException(data={"message": "Invalid credentials."}, code="invalid_credentials")
+            raise CustomAPIException(data={"message": _("Invalid credentials."), "code": "invalid_credentials"},
+                                     status=400)
 
         elif user.is_blocked:
-            raise ForbiddenException(data={"message": "Account is blocked."}, code="blocked_user")
+            raise CustomAPIException(data={"message": _("Account is blocked."), "code": "blocked_user"}, status=403)
 
         return {"user": user}
 
@@ -58,12 +62,14 @@ class SignUpSerializer(serializers.ModelSerializer):
 
     def validate_email(self, email):
         if CustomUserModel.objects.filter(email=email, regular_auth=True).exists():
-            raise ForbiddenException(data={"email": "Email is already taken."})
+            raise CustomAPIException(data={"message": _("Email is already taken."), "code": "email"}, status=403)
         return email
 
     def validate(self, data):
         if data["password"] != data["confirm_password"]:
-            raise ForbiddenException(data={"confirm_password": "Password and Confirm Password do not match."})
+            raise CustomAPIException(
+                data={"message": _("Password and Confirm Password do not match."), "code": "confirm_password"},
+                status=403)
         return data
 
     def save(self, **kwargs):
@@ -133,15 +139,19 @@ class PasswordChangeSerializer(serializers.Serializer):
     def validate_old_password(self, value):
         user = self.context["request"].user
         if not user.check_password(value):
-            raise ForbiddenException(data={"old_password": "Old password is incorrect."})
+            raise CustomAPIException(data={"message": _("Old password is incorrect."), "code": "old_password"},
+                                     status=403)
         return value
 
     def validate(self, attrs):
         if attrs["old_password"] == attrs["new_password"]:
-            raise ForbiddenException(data={"new_password": "New password cannot be the same as the old password."})
+            raise CustomAPIException(
+                data={"message": _("New password cannot be the same as the old password."), "code": "new_password"},
+                status=403)
 
         elif attrs["new_password"] != attrs["confirm_password"]:
-            raise ForbiddenException(data={"confirm_password": "Passwords do not match."})
+            raise CustomAPIException(data={"message": _("Passwords do not match."), "code": "confirm_password"},
+                                     status=403)
 
         return attrs
 
