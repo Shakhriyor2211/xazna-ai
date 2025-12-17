@@ -49,7 +49,7 @@ protected_media_patterns = [
 
 urlpatterns = [
     path("swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="schema_swagger_ui"),
-    path("api/", include(base_patterns)),
+    path("api/v1/", include(base_patterns)),
     path("admin/", admin.site.urls),
     path("protected/media/", include(protected_media_patterns)),
 

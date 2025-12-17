@@ -1,0 +1,36 @@
+---
+title: Rate Limits
+description: Understand API rate limits and restrictions.
+---
+
+# Rate Limits
+
+DVoice enforces rate limits to ensure fair usage and maintain service stability for all users. The following limits are in effect for the TTS (`https://oyqiz.airi.uz/api/v2/tts`, `ws://oyqiz.airi.uz/stream`) and STT (`/stt`) endpoints.
+
+## Current Rate Limits
+
+### Text-to-Speech (TTS)
+
+- **Requests per Minute**: 60 requests per minute per API token.
+
+This limit applies to the total number of requests across both single and streaming TTS conversions, tracked over a rolling one-minute window.
+
+### Speech-to-Text (STT)
+
+- **Audio Duration per Minute**: 5 minutes (300 seconds) of audio per minute per API token.
+
+This limit applies to the total duration of audio processed for STT transcriptions, tracked over a rolling one-minute window.
+
+## How Limits Are Enforced
+
+- Limits are tracked per API token and reset every minute.
+- Exceeding a limit will return a `429 Too Many Requests` HTTP status with a `Retry-After` header indicating when you can retry.
+- For WebSocket streaming (TTS) or STT processing, exceeding the limit will close the connection or reject the request with an error message.
+
+## Future Plans
+
+Higher limits may be available for paid subscription plans in the future. Expected increases could include 120 requests per minute for TTS and 10 minutes per minute for STT. Details will be updated here as they become available.
+
+## Updates to Rate Limits
+
+Rate limits may be adjusted based on usage patterns and service capacity. Updates will be communicated via the DVoice dashboard and this documentation, with the latest information reflecting the current date. Your continued use of the API after changes indicates acceptance of the new limits.

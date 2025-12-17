@@ -1,0 +1,63 @@
+---
+title: Authentication
+description: How to authenticate with the DVoice TTS API.
+---
+
+# Authentication
+
+The DVoice API employs token-based authentication. A valid API token must be included in all requests to both the Text to Speech and Speech to Text endpoints.
+
+## Getting a Token
+
+1. Go to [voice.airi.uz](https://voice.airi.uz).
+2. Sign in using your DVoice account details.
+3. Access the API section to create or retrieve your API token.
+4. Keep the token secure and private.
+
+<Callout type="warning">
+  Avoid sharing your API token publicly. If it’s compromised, regenerate it at
+  [voice.airi.uz](https://voice.airi.uz).
+</Callout>
+
+## Making Authenticated Requests
+
+### Single Endpoint (HTTP)
+
+Add the token in the `token` header of your HTTP POST request.
+
+**Example Header**:
+
+```
+token: <your-token>
+```
+
+### Streaming Endpoint (WebSocket)
+
+Include the token in the `token` header when establishing a connection to the stream URL.
+
+**Example Connection** (raw WebSocket):
+
+```
+token: <your-token>
+```
+
+When using SDKs, set the token during client setup (see [SDK Usage](../developer-guide/sdk-libraries)).
+
+## Handling Authentication Errors
+
+| Status/Code | Message                                | Description                                 |
+| ----------- | -------------------------------------- | ------------------------------------------- |
+| 401         | Invalid Token                          | The token is either invalid or has expired. |
+| 403         | A token is required for authentication | No token was included in the request.       |
+
+For WebSocket connections, an invalid or missing token triggers a `401 Unauthorized` or `403 Forbidden` response, followed by connection closure.
+
+## Additional Notes
+
+- Tokens contain a user ID and token name, verified on the server side.
+- If you receive a `401 Invalid Token` error, check your token’s validity at [voice.airi.uz](https://voice.airi.uz).
+
+<Callout type="info">
+  Reach out to support through [voice.airi.uz](https://voice.airi.uz) for
+  assistance with token generation problems.
+</Callout>

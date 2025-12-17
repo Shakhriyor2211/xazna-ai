@@ -1,0 +1,89 @@
+---
+title: Muammolarni Hal Qilish
+description: Umumiy muammolar va ularning yechimlarini o‘rganing.
+---
+
+Ushbu qo‘llanma DVoice’ning matnni nutqqa (TTS) va nutqni matnga (STT) aylantirish xizmatlaridan foydalanishda duch kelishingiz mumkin bo‘lgan umumiy muammolarni hal qilishga yordam beradi.
+
+## Matnni Nutqqa (TTS) Muammolari
+
+### Muammo: Audio Chiqishi Jim yoki Buzilgan
+
+- **Ehtimoliy Sabab**: Kiruvchi matnda qo‘llab-quvvatlanmaydigan belgilar mavjud yoki mos kelmaydigan model/format tanlangan.
+- **Yechim**:
+  - Matn faqat qo‘llab-quvvatlanadigan belgilar va tillardan (masalan, "Iroda" yoki "Surayyo_v2" uchun o‘zbekcha) iborat ekanligiga ishonch hosil qiling.
+  - `format` parametri (masalan, "mp3", "wav") to‘g‘ri ekanligini tekshiring.
+  - Muammoni aniqlash uchun "Haq olinur, berilmas" kabi oddiy kirish bilan sinab ko‘ring.
+
+### Muammo: 429 Too Many Requests Xatosi
+
+- **Ehtimoliy Sabab**: Har bir API token uchun daqiqada 60 so‘rov chegarasidan oshib ketgan.
+- **Yechim**:
+  - Foydalanishni [dashbordda](https://voice.airi.uz) tekshiring.
+  - Qayta urinishdan oldin `Retry-After` sarlavhasi vaqtini kuting.
+  - So‘rov chastotasini kamaytiring yoki maxsus chegaralar uchun qo‘llab-quvvatlashga murojaat qiling.
+
+### Muammo: WebSocket Ulanishi Kutilmaganda Yopiladi
+
+- **Ehtimoliy Sabab**: Tarmoqning beqarorligi yoki oqim paytida chegara chegarasidan oshish.
+- **Yechim**:
+  - Barqaror internet ulanishini tasdiqlang.
+  - Daqiqada 60 so‘rov chegarasida ekanligingizga ishonch hosil qiling.
+  - `text`, `model` va `format` parametrlarini to‘g‘ri kiritib, oqimni qayta ishga tushiring.
+
+## Nutqni Matnga (STT) Muammolari
+
+### Muammo: Transkripsiya Noaniq yoki Bo‘sh
+
+- **Ehtimoliy Sabab**: Audio sifati past, fon shovqini ko‘p yoki daqiqada 5 daqiqa audio chegarasidan oshgan.
+- **Yechim**:
+  - Minimal fon shovqini bilan yuqori sifatli audio’dan foydalaning.
+  - Audio davomiyligini [dashbordda](https://voice.airi.uz) chegaraga qarshi tekshiring.
+  - Qisqaroq yoki aniqroq audio faylni qayta yuboring.
+
+### Muammo: 429 Too Many Requests Xatosi
+
+- **Ehtimoliy Sabab**: Har bir API token uchun daqiqada 5 daqiqa audio chegarasidan oshgan.
+- **Yechim**:
+  - Audio foydalanishni [dashbordda](https://voice.airi.uz) kuzating.
+  - Qayta urinishdan oldin `Retry-After` sarlavhasi vaqtini kuting.
+  - Qisqaroq audio segmentlarini yuboring yoki so‘rovlar orasidagi vaqtni oshiring.
+
+### Muammo: Yuklab Olish 400 Bad Request bilan Amalga Oshmaydi
+
+- **Ehtimoliy Sabab**: Audio format noto‘g‘ri yoki `form-data` da `audio` maydoni yo‘q.
+- **Yechim**:
+  - Audio faylning qo‘llab-quvvatlanadigan formatda ekanligiga ishonch hosil qiling (masalan, "mp3", "wav").
+  - Faylning so‘rovda `audio` deb nomlanganligini tekshiring.
+  - Tafsilotlar uchun [API Havolasi](https://voice.airi.uz/docs/api/stt/single) ga qarang.
+
+## Umumiy Muammolar
+
+### Muammo: 403 Forbidden Xatosi
+
+- **Ehtimoliy Sabab**: Yaroqsiz yoki muddati tugagan API token.
+- **Yechim**:
+  - [Dashbordda](https://voice.airi.uz) yangi token yarating.
+  - Ilovangizni yangi token bilan yangilang.
+  - Tokenni xavfsiz joyda saqlang, muddat tugashidan qochish uchun.
+
+### Muammo: Sekin Javob Vaqtlari
+
+- **Ehtimoliy Sabab**: Serverning yuqori yuklanishi yoki tarmoq kechikishi.
+- **Yechim**:
+  - So‘rovni qisqa kechikishdan keyin (masalan, 30 soniya) qayta urining.
+  - Agar muammo davom etsa, [voice.airi.uz](https://voice.airi.uz) orqali qo‘llab-quvvatlashga murojaat qiling.
+
+### Muammo: Ulanish Taym-Auti
+
+- **Ehtimoliy Sabab**: Tarmoqning beqarorligi yoki vaqtinchalik server ishdan chiqishi.
+- **Yechim**:
+  - Internet ulanishingizning barqarorligini tekshiring.
+  - DVoice xizmat holatini [voice.airi.uz](https://voice.airi.uz) da tekshiring.
+  - Agar muammo server bilan bog‘liq bo‘lsa, bir necha daqiqadan keyin qayta urining.
+
+<Callout type="info">
+  Tezlik chegaralari (TTS uchun 60 so‘rov/min, STT uchun 5 daqiqa/min) va boshqa
+  siyosatlar o‘zgarishi mumkin. Yangilanishlar uchun ushbu sahifani muntazam
+  tekshiring.
+</Callout>

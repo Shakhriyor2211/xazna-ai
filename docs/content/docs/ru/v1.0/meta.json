@@ -1,0 +1,18 @@
+{
+  "title": "Последняя версия",
+  "root": true,
+  "pages": [
+    "---Введение---",
+    "introduction/index",
+    "introduction/quick-start",
+    "introduction/authentication",
+    "introduction/models",
+    "---Разработчика---",
+    "developer-guide/api-usage",
+    "---Ресурсы---",
+    "resources/your-data",
+    "resources/rate-limits",
+    "---Другое---",
+    "faq"
+  ]
+}

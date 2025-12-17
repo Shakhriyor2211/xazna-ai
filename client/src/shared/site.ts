@@ -23,9 +23,9 @@ export const ROUTES = {
 };
 
 export const ENDPOINTS = {
-  http_server_base: `${process.env.NEXT_PUBLIC_HTTP_SERVER_URL}/api`,
-  http_client_base: "/api",
-  ws_server_base: `${process.env.NEXT_PUBLIC_WS_SERVER_URL}/ws`,
+  http_server_base: `${process.env.NEXT_PUBLIC_HTTP_SERVER_URL}/api/v1`,
+  http_client_base: "/api/v1",
+  ws_server_base: `${process.env.NEXT_PUBLIC_WS_SERVER_URL}/ws/v1`,
   ws_client_base: "/ws",
   refresh_token: "/auth/token/refresh",
   verify_token: "/auth/token/verify",

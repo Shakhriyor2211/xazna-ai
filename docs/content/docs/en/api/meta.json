@@ -1,0 +1,12 @@
+{
+  "title": "API Reference",
+  "root": true,
+  "icon": "Network",
+  "pages": [
+    "---Text to Speech---",
+    "tts/single",
+    "tts/stream",
+    "---Speech to Text---",
+    "stt/single"
+  ]
+}

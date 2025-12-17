@@ -1,0 +1,144 @@
+---
+title: STT
+description: Create transcript.
+---
+
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+The **STT Endpoint** enables you to convert spoken audio into accurate text transcriptions using a single HTTP POST request. This endpoint is designed for ease of use with automatic language detection when needed. Updated as of August 19, 2025.
+
+## Endpoint
+
+`POST https://oyqiz.airi.uz/api/v2/stt`
+
+## Authentication
+
+Include your API token in the request header:
+
+```
+token: <your-token>
+```
+
+## Request Body
+
+| Field    | Type   | Required | Description                                                                   |
+| -------- | ------ | -------- | ----------------------------------------------------------------------------- |
+| audio    | file   | ✅       | The audio file to transcribe (e.g., "audio.mp3").                             |
+| language | string | ❌       | The ISO 639-1 language code (e.g., "uz" for Uzbek); auto-detected if omitted. |
+
+## Example Usage
+
+<Tabs items={['curl', 'javascript', 'python']} defaultValue="curl">
+  <Tab value="curl">
+**Notes**:
+
+- Use the `-F` flag to upload the `audio` file (e.g., `audio.mp3`).
+- Replace `YOUR_API_TOKEN` with your actual API token.
+- The endpoint is limited to 5 minutes of audio per minute per API token.
+
+```bash
+curl -X POST "https://oyqiz.airi.uz/api/v2/stt" \
+  -H "Content-Type: multipart/form-data" \
+  -H "token: YOUR_API_TOKEN" \
+  -F "audio=@audio.mp3" \
+  -F "language=uz"
+```
+
+  </Tab>
+<Tab value="javascript">
+
+**Notes**:
+
+- Install dependencies: `npm install node-fetch form-data`.
+- Replace `YOUR_API_TOKEN` with your actual token.
+- Ensure `audio.mp3` exists in the specified path.
+
+```javascript
+import fetch from "node-fetch";
+import fs from "fs";
+
+async function stt() {
+  const formData = new FormData();
+  formData.append("audio", fs.createReadStream("audio.mp3"));
+  formData.append("language", "uz");
+
+  const response = await fetch("https://oyqiz.airi.uz/api/v2/stt", {
+    method: "POST",
+    headers: {
+      token: "YOUR_API_TOKEN",
+    },
+    body: formData,
+  });
+
+  const data = await response.json();
+  console.log("Transcription:", data.transcript);
+}
+
+stt();
+```
+
+    </Tab>
+
+<Tab value="python">
+
+**Notes**:
+
+- Install the library: `pip install requests`.
+- Replace `YOUR_API_TOKEN` with your actual token.
+- Verify `audio.mp3` is accessible and readable.
+
+```python
+import requests
+
+url = "https://oyqiz.airi.uz/api/v2/stt"
+headers = {
+    "token": "01985ef0-6a9e-74ca-bd9d-621c82a348fb"
+}
+
+with open("output.mp3", "rb") as f:
+    files = {
+        "audio": ("output.mp3", f, "audio/mpeg")
+    }
+
+    response = requests.post(url, headers=headers, files=files)
+
+print("Status:", response.status_code)
+print("Response:", response.json())
+```
+
+      </Tab>
+
+  </Tabs>
+
+## Response
+
+- **transcript**: _string_  
+  The transcribed text from the audio file.
+- **inference_time**: _number_  
+  The time taken (in seconds) to process the audio and generate the transcription.
+
+### Example Response (200 OK)
+
+```json
+{
+  "transcript": "Haq olinur, berilmas.",
+  "inference_time": 2.1
+}
+```
+
+### Example Error Response (429 Too Many Requests)
+
+```json
+{
+  "error": "Rate limit exceeded. 5 minutes of audio per minute allowed.",
+  "status": 429
+}
+```
+
+## Notes
+
+- The STT model is optimized for accurate transcription, with automatic language detection if no `language` is specified.
+- Supported audio formats include `MP3`, `WAV`, `AAC`, and `OGG` (details in the [API Reference](../../api/stt/single)).
+- Performance may vary based on audio quality and length.
+- Billing is based on the duration of the audio processed, measured in seconds.
+- Check the [dashboard](https://voice.airi.uz) for usage details and support.

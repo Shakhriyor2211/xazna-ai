@@ -1,0 +1,18 @@
+{
+  "title": "Latest version",
+  "root": true,
+  "pages": [
+    "---Introduction---",
+    "introduction/index",
+    "introduction/quick-start",
+    "introduction/authentication",
+    "introduction/models",
+    "---Development---",
+    "developer-guide/api-usage",
+    "---Resources---",
+    "resources/your-data",
+    "resources/rate-limits",
+    "---Other---",
+    "faq"
+  ]
+}

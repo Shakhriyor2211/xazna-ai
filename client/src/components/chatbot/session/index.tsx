@@ -109,8 +109,8 @@ export function ChatbotSession() {
 
     const url =
       process.env.NEXT_PUBLIC_NODE_ENV === "dev"
-        ? `${HTTP_SERVER_URL}${ENDPOINTS.ws_client_base}/${ENDPOINTS.llm_message}/${sessionId}`
-        : `${ENDPOINTS.ws_client_base}/${ENDPOINTS.llm_message}/${sessionId}`;
+        ? `${HTTP_SERVER_URL}${ENDPOINTS.ws_client_base}/v1/${ENDPOINTS.llm_message}/${sessionId}`
+        : `${ENDPOINTS.ws_client_base}/v1/${ENDPOINTS.llm_message}/${sessionId}`;
 
     ws.current = new WebSocket(url);
 

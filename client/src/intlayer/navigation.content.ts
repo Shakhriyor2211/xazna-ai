@@ -42,7 +42,7 @@ const navigationContent = {
       },
       development: {
         title: t({
-          uz: "Rivojlantirish",
+          uz: "Ishlab chiqish",
           en: "Development",
           ru: "Разработка",
         }),

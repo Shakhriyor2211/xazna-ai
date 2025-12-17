@@ -1,0 +1,64 @@
+---
+title: Autentifikatsiya
+description: DVoice TTS API bilan autentifikatsiya qilish usullari.
+---
+
+# Autentifikatsiya
+
+DVoice API token asosidagi autentifikatsiyadan foydalanadi. Text to Speech va Speech to Text uchun barcha so‘rovlarida haqiqiy API tokeni kiritilishi kerak.
+
+## Token Olish
+
+1. [voice.airi.uz](https://voice.airi.uz) saytiga tashrif buyuring.
+2. DVoice hisobingiz ma’lumotlari bilan tizimga kiring.
+3. API bo‘limiga o‘tib, API tokeningizni yarating yoki nusxalang.
+4. Tokenni xavfsiz saqlang.
+
+<Callout type="warning">
+  API tokeningizni ommaga oshkormang. Agar u xavf ostida qolsa, uni
+  [voice.airi.uz](https://voice.airi.uz) saytida qayta yarating.
+</Callout>
+
+## Autentifikatsiyalangan So‘rovlar Amalga Oshirish
+
+### Yagona Uchastka (HTTP)
+
+HTTP POST so‘rovingizda `token` sarlavhasiga tokenni qo‘shing.
+
+**Misol Sarlavha**:
+
+```
+token: <your-token>
+```
+
+### Oqim Uchastkasi (WebSocket)
+
+Oqim URL’siga ulanishda `token` sarlavhasiga tokenni kiring.
+
+**Misol Ulanish** (oddiy WebSocket):
+
+```
+token: <your-token>
+```
+
+SDK’lardan foydalanganda, tokenni mijozni sozlashda belgilang (qarang [SDK Foydalanishi](../developer-guide/sdk-libraries)).
+
+## Autentifikatsiya Xatolarini Boshqarish
+
+| Holat/Kod | Xabar                              | Tavsif                                |
+| --------- | ---------------------------------- | ------------------------------------- |
+| 401       | Noto‘g‘ri Token                    | Token noto‘g‘ri yoki muddati tugagan. |
+| 403       | Autentifikatsiya uchun token kerak | Hech qanday token kiritilmagan.       |
+
+WebSocket ulanishlarida noto‘g‘ri yoki yo‘q token `401 Unauthorized` yoki `403 Forbidden` javobi bilan natija beradi va ulanish yopiladi.
+
+## Qo‘shimcha Eslatmalar
+
+- Tokenlar foydalanuvchi identifikatorini va token nomini o‘z ichiga oladi, ular server tomonida tekshiriladi.
+- Agar `401 Invalid Token` xatosi yuzaga kelsa, tokeningizni [voice.airi.uz](https://voice.airi.uz) da tekshiring.
+
+<Callout type="info">
+  Token yaratish bilan bog‘liq muammolar uchun
+  [voice.airi.uz](https://voice.airi.uz) orqali yordam xizmatiga murojaat
+  qiling.
+</Callout>

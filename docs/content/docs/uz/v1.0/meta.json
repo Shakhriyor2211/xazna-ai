@@ -1,0 +1,18 @@
+{
+  "title": "So'nggi versiya",
+  "root": true,
+  "pages": [
+    "---Boshlash---",
+    "introduction/index",
+    "introduction/quick-start",
+    "introduction/authentication",
+    "introduction/models",
+    "---Ishlab chiqish---",
+    "developer-guide/api-usage",
+    "---Resurslar---",
+    "resources/your-data",
+    "resources/rate-limits",
+    "---Boshqa---",
+    "faq"
+  ]
+}

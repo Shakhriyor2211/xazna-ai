@@ -1,0 +1,34 @@
+---
+title: Tezlik Cheklovlari
+description: API tezlik cheklovlari va cheklovlarini tushuning.
+---
+
+DVoice adolatli foydalanishni ta'minlash va barcha foydalanuvchilar uchun xizmat barqarorligini saqlab qolish uchun tezlik cheklovlarini joriy etadi. Quyidagi cheklovlar TTS (`https://oyqiz.airi.uz/api/v2/tts`, `ws://oyqiz.airi.uz/stream`) va STT (`/stt`) uchastkalari uchun amalda.
+
+## Hozirgi Tezlik Cheklovlari
+
+### Matnni Nutqqa (TTS)
+
+- **Daqiqadagi So‘rovlar**: Har bir API token uchun daqiqada 60 so‘rov.
+
+Bu cheklov yagona va oqimda TTS aylantirishlarining umumiy soniga taalluqli bo‘lib, bir daqiqalik harakatlanuvchi oynada kuzatiladi.
+
+### Nutqni Matnga (STT)
+
+- **Daqiqadagi Audio Davomiyligi**: Har bir API token uchun daqiqada 5 daqiqa (300 soniya) audio.
+
+Bu cheklov STT transkripsiyasi uchun qayta ishlatilgan audio umumiy davomiyligiga taalluqli bo‘lib, bir daqiqalik harakatlanuvchi oynada kuzatiladi.
+
+## Cheklovlar Qanday Amalga Oshiriladi
+
+- Cheklovlar har bir API tokeni uchun kuzatiladi va har daqiqada qayta o‘rnatiladi.
+- Cheklovdan oshib ketish `429 Too Many Requests` HTTP statusini qaytaradi, bu `Retry-After` sarlavhasi bilan qachon qayta urinib ko‘rish mumkinligini ko‘rsatadi.
+- WebSocket orqali oqim (TTS) yoki STT qayta ishlashda cheklovdan oshib ketish ulanishning yopilishiga yoki so‘rovning xatolik xabari bilan rad etilishiga olib keladi.
+
+## Kelajakdagi Rejalashtirishlar
+
+Kelajakda pullik obunalar uchun yuqori cheklovlar mavjud bo‘lishi mumkin. Kutilayotgan o‘sishlar 120 so‘rov daqiqada TTS va 10 daqiqa daqiqada STT ni o‘z ichiga olishi mumkin. Tafsilotlar mavjud bo‘lgach, shu yerda yangilanadi.
+
+## Tezlik Cheklovlarining Yangilanishlari
+
+Tezlik cheklovlari foydalanish shablonlariga va xizmat hajmiga qarab o‘zgartirilishi mumkin. Yangilanishlar DVoice boshqaruv paneli va ushbu hujjat orqali xabar qilinadi, eng so‘nggi ma’lumotlar joriy sanani aks ettiradi. O‘zgarishlardan keyin API’dan foydalanishni davom ettirish yangi cheklovlarni qabul qilishni anglatadi.

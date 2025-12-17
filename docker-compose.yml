@@ -5,6 +5,7 @@ services:
   nginx:
     image: nginx:alpine
     container_name: xazna_proxy
+    restart: always
     ports:
       - "2102:80"
     volumes:

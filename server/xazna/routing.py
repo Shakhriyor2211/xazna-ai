@@ -8,5 +8,5 @@ ws_base_patterns = [
 
 
 ws_urlpatterns = [
-    path("ws/", URLRouter(ws_base_patterns))
+    path("ws/v1/", URLRouter(ws_base_patterns))
 ]

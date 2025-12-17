@@ -1,0 +1,183 @@
+---
+title: Stream TTS
+description: Convert text into speech.
+---
+
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+# Stream TTS
+
+The **Stream TTS** endpoint lets you stream audio as it is generated over a WebSocket connection.
+
+## Endpoint
+
+`GET wss://oyqiz.airi.uz/stream`
+
+## Authentication
+
+Include your API token in the header:
+
+```
+token: <your-token>
+```
+
+## Required Fields
+
+- **text**: A string containing the text to convert into speech.
+- **model**: The voice model (e.g., `"Iroda"`, `"Surayyo_v2"`).
+- **format**: Audio format. One of:
+  - `MP3`
+  - `WAV`
+  - `AAC`
+  - `OGG`
+  - `FLAC`
+
+## Optional Fields
+
+- **data**: Object for model-specific options.
+  - For `Surayyo_v2`, you can pass an emotion field `emo` with values:
+    - `Happy`
+    - `Strict`
+    - `Neural`
+
+---
+
+## Example Usage
+
+<Tabs items={['websocat', 'Node.js', 'Python']} defaultValue="websocat">
+  <Tab value="websocat">
+    ```bash
+    # Install websocat if not already installed
+    # On Ubuntu: sudo apt install websocat
+    # On macOS: brew install websocat
+    # On Windows: Download from https://github.com/vi/websocat#install or use a package manager like Chocolatey
+    # Replace <your-token> with your actual API token
+    # Note: No initial message is sent; parameters are in the URL
+    websocat "ws://oyqiz.airi.uz/stream?text=Haq+olinur,+berilmas&model=Iroda&format=mp3" \
+      -H "token: <your-token>" --binary > output.mp3
+    ```
+
+    **Notes**:
+    - Parameters (`text`, `model`, `format`) are passed as URL query parameters.
+    - Use `+` or `%20` for spaces in the `text` parameter (e.g., "Haq olinur, berilmas" becomes "Assalomu+alaykum!").
+    - The `--binary` flag ensures binary data (audio chunks) is handled correctly.
+    - Output is saved to `output.mp3`. Ensure your system supports MP3 playback or conversion.
+
+  </Tab>
+  <Tab value="Node.js">
+    ```javascript
+    const WebSocket = require('ws');
+    const fs = require('fs');
+
+    // Replace '<your-token>' with your actual API token
+    const params = new URLSearchParams({
+        text: 'Haq olinur, berilmas',
+        model: 'Iroda',
+        format: 'mp3'
+    });
+    const ws = new WebSocket(`ws://oyqiz.airi.uz/stream?${params.toString()}`, {
+        headers: {
+            'token': '<your-token>'
+        }
+    });
+
+    ws.on('open', () => {
+        console.log('WebSocket connection established');
+        // No initial message needed; parameters are in the URL
+    });
+
+    const outputStream = fs.createWriteStream('output.mp3');
+    ws.on('message', (data, isBinary) => {
+        let buffer;
+        if (isBinary) {
+            // Handle binary data (e.g., Buffer, ArrayBuffer, or array of Buffers)
+            if (data instanceof Buffer) {
+                buffer = data;
+            } else if (data instanceof ArrayBuffer) {
+                buffer = Buffer.from(new Uint8Array(data));
+            } else if (Array.isArray(data)) {
+                buffer = Buffer.concat(data);
+            } else {
+                console.warn('Unsupported binary message format');
+                return;
+            }
+            console.log('Received audio chunk:', buffer.length, 'bytes');
+            outputStream.write(buffer);
+        } else {
+            // Handle text metadata
+            console.log('Received metadata:', data.toString());
+        }
+    });
+
+    ws.on('close', () => {
+        console.log('Streaming completed');
+        outputStream.end();
+    });
+
+    ws.on('error', (error) => {
+        console.error('Error:', error.message);
+        outputStream.end();
+    });
+    ```
+    **Notes**:
+    - Install the `ws` library: `npm install ws`.
+    - Parameters (`text`, `model`, `format`) are passed as URL query parameters.
+    - Audio chunks are saved to `output.mp3`.
+    - Ensure your token is valid to avoid authentication errors.
+
+  </Tab>
+  <Tab value="Python">
+    ```python
+    import websocket
+    import urllib.parse
+
+    # Replace '<your-token>' with your actual API token
+    params = {
+        "text": "Haq olinur, berilmas",
+        "model": "Iroda",
+        "format": "mp3"
+        # "indexes": true  # Optional: uncomment if needed (not supported by this API)
+    }
+    query_string = urllib.parse.urlencode(params)
+    ws_url = f"ws://oyqiz.airi.uz/stream?{query_string}"
+    headers = {
+        "token": "<your-token>"
+    }
+
+    def on_open(ws):
+        print("WebSocket connection established")
+        # No initial message needed; parameters are in the URL
+
+    def on_message(ws, message):
+        if isinstance(message, bytes):
+            print(f"Received audio chunk: {len(message)} bytes")
+            with open("output.mp3", "wb") as f:
+                f.write(message)
+        else:
+            print(f"Received metadata: {message}")
+
+    def on_error(ws, error):
+        print("Error:", error)
+
+    def on_close(ws, close_status_code, close_msg):
+        print("Streaming completed")
+
+    ws = websocket.WebSocketApp(
+        ws_url,
+        header=headers,
+        on_open=on_open,
+        on_message=on_message,
+        on_error=on_error,
+        on_close=on_close
+    )
+
+    ws.run_forever()
+    ```
+    **Notes**:
+    - Install the `websocket-client` library: `pip install websocket-client`.
+    - Parameters (`text`, `model`, `format`) are passed as URL query parameters.
+    - Audio chunks are appended to `output.mp3` (use `"ab"` mode for binary append).
+    - Ensure your token is valid to avoid authentication errors.
+
+  </Tab>
+</Tabs>
