@@ -17,7 +17,7 @@ export default {
             "monitoring": "Monitoring"
           },
           "development": {
-            "title": "Rivojlantirish",
+            "title": "Ishlab chiqish",
             "docs": "Hujjatlar",
             "keys": "API kalitlari"
           }

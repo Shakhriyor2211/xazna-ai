@@ -72,7 +72,7 @@ export function STTGenerate({
 
       const form_data = new FormData();
 
-      form_data.append("file", file);
+      form_data.append("audio", file);
       form_data.append("mdl", "Base");
 
       try {

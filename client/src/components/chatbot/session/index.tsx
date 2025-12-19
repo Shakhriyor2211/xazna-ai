@@ -26,7 +26,7 @@ export function ChatbotSession() {
 
   const ws = useRef<WebSocket | null>(null);
 
-  const handleSenMessage = useCallback(
+  const handleSendMessage = useCallback(
     async (value: string) => {
       const v = value.trim();
       if (v === "") return;
@@ -43,7 +43,7 @@ export function ChatbotSession() {
 
       try {
         ws.current?.send(
-          JSON.stringify({ content: v, action: "message", model: "Base" })
+          JSON.stringify({ content: v, action: "message", mdl: "Base" })
         );
       } catch (e) {
         const { data, status } = getError(e as AxiosErrorProps);
@@ -178,7 +178,7 @@ export function ChatbotSession() {
       const lastMessage = messagesRef.current[messagesRef.current.length - 1];
       if (lastMessage && lastMessage.role === "user") {
         messagesRef.current = [...messagesRef.current.slice(0, -1)];
-        handleSenMessage(lastMessage.content);
+        handleSendMessage(lastMessage.content);
       }
     };
   }, [ws, messagesRef]);
@@ -211,7 +211,7 @@ export function ChatbotSession() {
           <SessionForm
             ws={ws}
             content={content}
-            handleSenMessage={handleSenMessage}
+            handleSendMessage={handleSendMessage}
             setIsStreaming={setIsStreaming}
             isStreaming={isStreaming}
           />

@@ -4,15 +4,14 @@
   "pages": [
     "---Введение---",
     "introduction/index",
-    "introduction/quick-start",
     "introduction/authentication",
     "introduction/models",
     "---Разработчика---",
-    "developer-guide/api-usage",
+    "development/chatbot",
+    "development/tts",
+    "development/stt",
     "---Ресурсы---",
-    "resources/your-data",
-    "resources/rate-limits",
-    "---Другое---",
-    "faq"
+    "resources/data",
+    "resources/rates"
   ]
 }

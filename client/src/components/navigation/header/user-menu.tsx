@@ -16,11 +16,13 @@ import { useAlertStore } from "@/providers/alert";
 import { CircularProgressbar } from "react-circular-progressbar";
 import Link from "next/link";
 import { useMillify } from "@/hooks/millify";
-import { useIntlayer } from "next-intlayer";
+import { useIntlayer, useLocale } from "next-intlayer";
 
 export function UserMenu() {
   const { user } = useUserStore();
   const content = useIntlayer("navigation-content");
+  const { locale } = useLocale();
+
   const { push } = useRouter();
   const path = usePathname();
 
@@ -32,7 +34,7 @@ export function UserMenu() {
   const signOut = useCallback(async () => {
     try {
       const _ = await postRequest({ url: ENDPOINTS.sign_out });
-      push(`${ROUTES.sign_in}?next=${path}`);
+      push(`/${locale}${ROUTES.sign_in}?next=${path}`);
     } catch (e) {
       const { data, status } = getError(e as AxiosErrorProps);
       if (status && status >= 500)

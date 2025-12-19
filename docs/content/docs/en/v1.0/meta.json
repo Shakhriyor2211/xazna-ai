@@ -4,15 +4,14 @@
   "pages": [
     "---Introduction---",
     "introduction/index",
-    "introduction/quick-start",
     "introduction/authentication",
     "introduction/models",
     "---Development---",
-    "developer-guide/api-usage",
+    "development/chatbot",
+    "development/tts",
+    "development/stt",
     "---Resources---",
-    "resources/your-data",
-    "resources/rate-limits",
-    "---Other---",
-    "faq"
+    "resources/data",
+    "resources/rates"
   ]
 }

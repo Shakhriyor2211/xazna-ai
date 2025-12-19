@@ -34,7 +34,7 @@ def generate_audio(chunks, fmt):
     buffer = BytesIO()
     audio_segment.export(buffer, format=fmt)
     buffer.seek(0)
-    return File(buffer, name=f"""audio.{fmt}""")
+    return File(buffer, name=f"""audio.{fmt}"""), buffer
 
 
 def get_audio_duration(file):
@@ -122,7 +122,7 @@ def tts_transaction(balance, sub, rate, text, mdl):
         cash_usage = remainder * plan.cash
 
         if cash_usage > balance.cash:
-            raise CustomException(_("Not enough founds."), 403)
+            raise CustomException(_("Not enough funds."), 403)
 
     else:
         if char_length > credit_avail / plan.credit:
@@ -158,7 +158,7 @@ def stt_transaction(balance, sub, rate, audio, mdl):
         cash_usage = remainder * plan.cash
 
         if cash_usage > balance.cash:
-            raise CustomException(_("Not enough founds."), 403)
+            raise CustomException(_("Not enough funds."), 403)
 
     else:
         if audio_duration > credit_avail / plan.credit:
@@ -188,7 +188,7 @@ def llm_transaction(balance, sub, rate, context_rate, content, mdl):
     cash_usage = 0
 
     if context_rate.context_usage + char_length > context_rate.context_limit:
-        raise CustomException(_("Message limit reached, open new session."), 403)
+        raise CustomException(_("Message limit exceeded, open new session."), 403)
 
     context_rate.context_usage += char_length
 
@@ -198,7 +198,7 @@ def llm_transaction(balance, sub, rate, context_rate, content, mdl):
         cash_usage = remainder * plan.cash
 
         if cash_usage > balance.cash:
-            raise CustomException(_("Not enough founds."), 403)
+            raise CustomException(_("Not enough funds."), 403)
     else:
         if char_length > credit_avail / plan.credit:
             raise CustomException(_("Not enough credits."), 403)

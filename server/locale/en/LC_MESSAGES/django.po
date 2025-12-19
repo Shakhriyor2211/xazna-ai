@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-17 17:59+0500\n"
+"POT-Creation-Date: 2025-12-19 16:31+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: accounts/managers.py:8
 msgid "The Email must be set"
 msgstr ""
@@ -34,7 +35,8 @@ msgid "Invalid credentials."
 msgstr ""
 
 #: accounts/serializers.py:36 accounts/views.py:447 accounts/views.py:545
-#: xazna/consumers.py:49 xazna/consumers.py:159
+#: xazna/consumers.py:49 xazna/consumers.py:159 xazna/middleware.py:45
+#: xazna/middleware.py:97
 msgid "Account is blocked."
 msgstr ""
 
@@ -134,10 +136,10 @@ msgstr ""
 #: finance/views.py:132 finance/views.py:180 llm/views.py:166 llm/views.py:252
 #: llm/views.py:284 llm/views.py:304 llm/views.py:350 llm/views.py:384
 #: service/views.py:45 service/views.py:60 service/views.py:93
-#: service/views.py:108 service/views.py:129 stt/views.py:86 stt/views.py:163
-#: stt/views.py:262 stt/views.py:279 stt/views.py:320 stt/views.py:350
-#: sub/views.py:70 sub/views.py:151 sub/views.py:171 tts/views.py:107
-#: tts/views.py:186 tts/views.py:331 tts/views.py:364
+#: service/views.py:108 service/views.py:129 stt/views.py:86 stt/views.py:161
+#: stt/views.py:260 stt/views.py:277 stt/views.py:318 stt/views.py:348
+#: sub/views.py:70 sub/views.py:151 sub/views.py:171 tts/views.py:109
+#: tts/views.py:200 tts/views.py:348 tts/views.py:381
 msgid "Something went wrong."
 msgstr ""
 
@@ -169,7 +171,7 @@ msgstr ""
 msgid "Access token is valid."
 msgstr ""
 
-#: accounts/views.py:353
+#: accounts/views.py:353 xazna/middleware.py:60
 msgid "Invalid token."
 msgstr ""
 
@@ -177,7 +179,7 @@ msgstr ""
 msgid "Logged out successfully."
 msgstr ""
 
-#: accounts/views.py:374
+#: accounts/views.py:374 xazna/middleware.py:83
 msgid "Token is not provided."
 msgstr ""
 
@@ -201,7 +203,7 @@ msgstr ""
 msgid "Email address is required."
 msgstr ""
 
-#: accounts/views.py:618
+#: accounts/views.py:618 xazna/middleware.py:62
 msgid "User not found."
 msgstr ""
 
@@ -243,20 +245,20 @@ msgstr ""
 
 #: finance/views.py:70 finance/views.py:122 llm/consumers.py:329
 #: llm/views.py:49 llm/views.py:88 llm/views.py:198 llm/views.py:334
-#: llm/views.py:369 stt/views.py:107 stt/views.py:223 stt/views.py:304
-#: stt/views.py:340 stt/views.py:398 tts/views.py:133 tts/views.py:246
-#: tts/views.py:306 tts/views.py:354
+#: llm/views.py:369 stt/views.py:107 stt/views.py:221 stt/views.py:302
+#: stt/views.py:338 stt/views.py:396 tts/views.py:134 tts/views.py:260
+#: tts/views.py:321 tts/views.py:371
 msgid "Permission denied."
 msgstr ""
 
 #: finance/views.py:95 finance/views.py:128 service/views.py:104
-#: stt/views.py:275 stt/views.py:346 tts/views.py:327 tts/views.py:360
+#: stt/views.py:273 stt/views.py:344 tts/views.py:344 tts/views.py:377
 msgid "Data successfully deleted."
 msgstr ""
 
 #: finance/views.py:97 finance/views.py:130 service/views.py:91
-#: service/views.py:106 stt/views.py:260 stt/views.py:277 stt/views.py:318
-#: stt/views.py:348 tts/views.py:329 tts/views.py:362
+#: service/views.py:106 stt/views.py:258 stt/views.py:275 stt/views.py:316
+#: stt/views.py:346 tts/views.py:346 tts/views.py:379
 msgid "Data not found."
 msgstr ""
 
@@ -282,12 +284,15 @@ msgstr ""
 msgid "Model is required."
 msgstr ""
 
-#: llm/views.py:126 llm/views.py:212
-msgid "Session limit reached."
+#: llm/consumers.py:141
+msgid "Internal server error."
 msgstr ""
 
-#: llm/views.py:145 llm/views.py:231 shared/utils.py:125 shared/utils.py:161
-#: shared/utils.py:201
+#: llm/views.py:126 llm/views.py:212
+msgid "Session limit exceeded."
+msgstr ""
+
+#: llm/views.py:145 llm/views.py:231
 msgid "Not enough founds."
 msgstr ""
 
@@ -310,6 +315,7 @@ msgid "Session successfully deleted."
 msgstr ""
 
 #: service/views.py:41 service/views.py:58 service/views.py:127
+#: xazna/middleware.py:106
 msgid "Token not found."
 msgstr ""
 
@@ -325,11 +331,15 @@ msgstr ""
 msgid "Model not found."
 msgstr ""
 
-#: shared/utils.py:191
-msgid "Message limit reached, open new session."
+#: shared/utils.py:125 shared/utils.py:161 shared/utils.py:201
+msgid "Not enough funds."
 msgstr ""
 
-#: stt/views.py:258 stt/views.py:316
+#: shared/utils.py:191
+msgid "Message limit exceeded, open new session."
+msgstr ""
+
+#: stt/views.py:256 stt/views.py:314
 msgid "Data successfully changed."
 msgstr ""
 
@@ -357,28 +367,32 @@ msgstr ""
 msgid "Subscription changed successfully."
 msgstr ""
 
-#: tts/views.py:59
+#: tts/views.py:63
 msgid "Max length of text is 5000."
 msgstr ""
 
-#: xazna/consumers.py:59
+#: xazna/consumers.py:59 xazna/middleware.py:53
 msgid "Admin privileges required."
 msgstr ""
 
-#: xazna/consumers.py:69
+#: xazna/consumers.py:69 xazna/middleware.py:58
 msgid "Token has expired."
 msgstr ""
 
-#: xazna/consumers.py:143
+#: xazna/consumers.py:143 xazna/middleware.py:91
 msgid "Token is blocked."
 msgstr ""
 
-#: xazna/consumers.py:151
+#: xazna/consumers.py:151 xazna/middleware.py:94
 msgid "Token is inactive."
 msgstr ""
 
-#: xazna/consumers.py:166
+#: xazna/consumers.py:166 xazna/middleware.py:48 xazna/middleware.py:100
 msgid "Account is inactive."
+msgstr ""
+
+#: xazna/middleware.py:28
+msgid "Authentication credentials were not provided."
 msgstr ""
 
 #: xazna/settings.py:239

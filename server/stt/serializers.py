@@ -4,7 +4,7 @@ from stt.models import UserSTTModel, TokenSTTModel
 
 
 class STTSerializer(serializers.Serializer):
-    file = serializers.FileField()
+    audio = serializers.FileField()
     mdl = serializers.CharField(max_length=50)
 
 

@@ -35,7 +35,7 @@ class UserSTTView(APIView):
 
             mdl = serializer.validated_data["mdl"]
 
-            audio_instance = AudioModel.objects.create(user=request.user, file=serializer.validated_data["file"])
+            audio_instance = AudioModel.objects.create(user=request.user, file=serializer.validated_data["audio"])
 
             balance = request.user.balance
             sub = request.user.active_sub
@@ -111,7 +111,7 @@ class TokenSTTView(APIView):
 
             mdl = serializer.validated_data["mdl"]
 
-            audio_instance = AudioModel.objects.create(user=request.user, file=serializer.validated_data["file"])
+            audio_instance = AudioModel.objects.create(user=request.user, file=serializer.validated_data["audio"])
 
             balance = request.user.balance
             sub = request.user.active_sub
@@ -149,13 +149,11 @@ class TokenSTTView(APIView):
                 TokenExpenseModel.objects.create(operation="stt", operation_id=stt_instance.id, credit=credit_usage,
                                                  cash=cash_usage, token=request.token)
 
-                stt = TokenSTTListSerializer(stt_instance)
-
                 balance.save()
                 sub.save()
                 rate.save()
 
-                return Response(data=stt.data, status=status.HTTP_200_OK)
+                return Response(data={"transcript": text}, status=status.HTTP_200_OK)
         except CustomException as e:
             return Response(data={"message": str(e)}, status=e.status)
         except Exception as e:

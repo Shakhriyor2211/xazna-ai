@@ -32,7 +32,7 @@ msgid "Invalid credentials."
 msgstr "Неверные учетные данные."
 
 msgid "Account is blocked."
-msgstr "Аккаунт заблокирован."
+msgstr "Учётная запись заблокирован."
 
 msgid "Email is already taken."
 msgstr "Этот адрес электронной почты уже используется."
@@ -199,10 +199,10 @@ msgstr "Требуется содержимое."
 msgid "Model is required."
 msgstr "Требуется модель."
 
-msgid "Session limit reached."
-msgstr "Достигнут лимит сессий."
+msgid "Session limit exceeded."
+msgstr "Превышен лимит сессий."
 
-msgid "Not enough founds."
+msgid "Not enough funds."
 msgstr "Недостаточно средств."
 
 msgid "Not enough credits."
@@ -229,8 +229,8 @@ msgstr "Настройки токена успешно изменены."
 msgid "Model not found."
 msgstr "Модель не найдена."
 
-msgid "Message limit reached, open new session."
-msgstr "Достигнут лимит сообщений, откройте новую сессию."
+msgid "Message limit exceeded, open new session."
+msgstr "Превышен лимит сообщений, откройте новую сессию."
 
 msgid "Data successfully changed."
 msgstr "Данные успешно изменены."
@@ -269,7 +269,10 @@ msgid "Token is inactive."
 msgstr "Токен неактивен."
 
 msgid "Account is inactive."
-msgstr "Аккаунт неактивен."
+msgstr "Учётная запись неактивен."
+
+msgid "Authentication credentials were not provided."
+msgstr "Учетные данные для аутентификации не были предоставлены."
 
 msgid "Uzbek"
 msgstr "Узбекский"

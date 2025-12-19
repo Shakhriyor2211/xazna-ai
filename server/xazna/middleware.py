@@ -6,7 +6,7 @@ from jwt import decode, InvalidTokenError, ExpiredSignatureError
 from accounts.models import CustomUserModel
 from service.models import ServiceTokenModel
 from xazna import settings
-
+from django.utils.translation import gettext_lazy as _
 
 
 class AuthViewMiddleware(MiddlewareMixin):
@@ -25,7 +25,7 @@ class AuthViewMiddleware(MiddlewareMixin):
         token = request.COOKIES.get("access_token")
 
         if not token:
-            return JsonResponse({"message": "Authentication credentials were not provided.", "code": "auth_required"}, status=401)
+            return JsonResponse({"message": _("Authentication credentials were not provided."), "code": "auth_required"}, status=401)
 
 
         try:
@@ -42,24 +42,24 @@ class AuthViewMiddleware(MiddlewareMixin):
             user.save()
 
             if user.is_blocked:
-                return JsonResponse({"message": "Account is blocked.", "code": "account_blocked"}, status=403)
+                return JsonResponse({"message": _("Account is blocked."), "code": "account_blocked"}, status=403)
 
             if not user.is_active:
-                return JsonResponse({"message": "Account is inactive.", "code": "account_inactive"}, status=403)
+                return JsonResponse({"message": _("Account is inactive."), "code": "account_inactive"}, status=403)
 
             admin_required = getattr(view_class, "admin_required", False) or getattr(view_func, "admin_required", False)
 
             if admin_required and user.role != "admin" and  user.role != "superadmin":
-                return JsonResponse({"message": "Admin privileges required.", "code": "privileges_required"}, status=403)
+                return JsonResponse({"message": _("Admin privileges required."), "code": "privileges_required"}, status=403)
 
             request._user = user
 
         except ExpiredSignatureError:
-            return JsonResponse({"message": "Token has expired.", "code": "expired_token"}, status=401)
+            return JsonResponse({"message": _("Token has expired."), "code": "expired_token"}, status=401)
         except InvalidTokenError:
-            return JsonResponse({"message": "Invalid token.", "code": "invalid_token"}, status=400)
+            return JsonResponse({"message": _("Invalid token."), "code": "invalid_token"}, status=400)
         except CustomUserModel.DoesNotExist:
-            return JsonResponse({"message": "User not found.", "code": "not_found"}, status=404)
+            return JsonResponse({"message": _("User not found."), "code": "not_found"}, status=404)
 
 
 
@@ -80,7 +80,7 @@ class TokenViewMiddleware(MiddlewareMixin):
         t = request.headers.get("X-Access-Token") or request.GET.get("token")
 
         if not t:
-            return JsonResponse({"message": "Token was not provided.", "code": "token_required"}, status=401)
+            return JsonResponse({"message": _("Token is not provided."), "code": "token_required"}, status=401)
 
         try:
             token = ServiceTokenModel.objects.get(key=t)
@@ -88,19 +88,19 @@ class TokenViewMiddleware(MiddlewareMixin):
             token.save()
 
             if token.is_blocked:
-                return JsonResponse({"message": "Token is blocked.", "code": "token_blocked"}, status=403)
+                return JsonResponse({"message": _("Token is blocked."), "code": "token_blocked"}, status=403)
 
             if not token.is_active:
-                return JsonResponse({"message": "Token is inactive.", "code": "token_inactive"}, status=403)
+                return JsonResponse({"message": _("Token is inactive."), "code": "token_inactive"}, status=403)
 
             if token.user.is_blocked:
-                return JsonResponse({"message": "Account is blocked.", "code": "account_blocked"}, status=403)
+                return JsonResponse({"message": _("Account is blocked."), "code": "account_blocked"}, status=403)
 
             if not token.user.is_active:
-                return JsonResponse({"message": "Account is inactive.", "code": "account_inactive"}, status=403)
+                return JsonResponse({"message": _("Account is inactive."), "code": "account_inactive"}, status=403)
 
             request._user = token.user
             request.token = token
 
         except ServiceTokenModel.DoesNotExist:
-            return JsonResponse({"message": "Token not found.", "code": "not_found"}, status=404)
+            return JsonResponse({"message": _("Token not found."), "code": "not_found"}, status=404)

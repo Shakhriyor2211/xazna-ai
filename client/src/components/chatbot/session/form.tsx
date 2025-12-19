@@ -4,7 +4,7 @@ import {
   Dispatch,
   FormEvent,
   KeyboardEvent,
-  MutableRefObject,
+  RefObject,
   SetStateAction,
   useCallback,
   useRef,
@@ -21,15 +21,15 @@ interface SessionFormProps {
   isStreaming: boolean;
   content: any;
   setIsStreaming: Dispatch<SetStateAction<boolean>>;
-  ws: MutableRefObject<WebSocket | null>;
-  handleSenMessage: (value: string) => void;
+  ws: RefObject<WebSocket | null>;
+  handleSendMessage: (value: string) => void;
 }
 
 export function SessionForm({
   ws,
   content,
   isStreaming,
-  handleSenMessage,
+  handleSendMessage,
   setIsStreaming,
 }: SessionFormProps) {
   const { setAlert } = useAlertStore();
@@ -67,7 +67,7 @@ export function SessionForm({
   const handleLLMSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      handleSenMessage(message);
+      handleSendMessage(message);
       setMesssage("");
     },
     [message]
@@ -109,7 +109,7 @@ export function SessionForm({
       });
       if (data) {
         setIsLoading(false);
-        handleSenMessage(data.text);
+        handleSendMessage(data.text);
       }
     } catch (err) {
       setIsLoading(false);

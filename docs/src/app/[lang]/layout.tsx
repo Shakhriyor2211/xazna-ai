@@ -11,14 +11,35 @@ const inter = Inter({
 
 const { provider } = defineI18nUI(i18n, {
   translations: {
-    uz: {
-      displayName: "Uzbek",
-    },
     ru: {
-      displayName: "Russian",
+      displayName: "Русский",
+      toc: "Оглавление",
+      search: "Поиск",
+      lastUpdate: "Последнее обновление",
+      searchNoResult: "Результаты не найдены",
+      previousPage: "Предыдущая страница",
+      nextPage: "Следующая страница",
+      chooseLanguage: "Выбрать язык",
+    },
+    uz: {
+      displayName: "O'zbekcha",
+      toc: "Mundarija",
+      search: "Qidirish",
+      lastUpdate: "Oxirgi yangilanish",
+      searchNoResult: "Hech qanday natija topilmadi",
+      previousPage: "Oldingi sahifa",
+      nextPage: "Keyingi sahifa",
+      chooseLanguage: "Tilni tanlang",
     },
     en: {
       displayName: "English",
+      toc: "Table of Contents",
+      search: "Search",
+      lastUpdate: "Last update",
+      searchNoResult: "No results found",
+      previousPage: "Previous page",
+      nextPage: "Next page",
+      chooseLanguage: "Choose language",
     },
   },
 });

@@ -1,7 +1,6 @@
 "use client";
 import { useUserStore } from "@/hooks/user";
 import { ROUTES } from "@/shared/site";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { ThemeSwitch } from "./theme-switch";
 import { Skeleton } from "@heroui/skeleton";
@@ -10,11 +9,11 @@ import { Divider } from "@heroui/divider";
 import { ChatSessionList } from "../../chatbot/session/list";
 import { UserMenu } from "./user-menu";
 import { LocaleSwitcher } from "./locale-switcher";
-import { useIntlayer } from "react-intlayer";
+import { useIntlayer, useLocale } from "next-intlayer";
 import { Link } from "@/utils/link";
 
 export function Header({ title }: { title: string }) {
-  const pathname = usePathname();
+  const { pathWithoutLocale } = useLocale();
   const { user } = useUserStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const content = useIntlayer("navigation-content");
@@ -48,13 +47,13 @@ export function Header({ title }: { title: string }) {
       </div>
       <NavbarMenu className="py-8">
         <ChatSessionList
-          pathname={pathname}
+          pathname={pathWithoutLocale}
           title={content.sidebar.playground.chatbot.title.value}
           new_session={content.sidebar.playground.chatbot.new_session.value}
         />
         <Link
           className={
-            pathname === ROUTES.stt
+            pathWithoutLocale === ROUTES.stt
               ? "flex items-center space-x-2 p-2 text-sm bg-primary/20 rounded-md text-green-700 font-medium"
               : "flex items-center space-x-2 p-2 text-sm rounded-md hover:bg-default-100 text-default-700 font-medium"
           }
@@ -65,7 +64,7 @@ export function Header({ title }: { title: string }) {
         </Link>
         <Link
           className={
-            pathname === ROUTES.tts
+            pathWithoutLocale === ROUTES.tts
               ? "flex items-center space-x-2 p-2 text-sm bg-primary/20 rounded-md text-green-700 font-medium"
               : "flex items-center space-x-2 p-2 text-sm rounded-md hover:bg-default-100 text-default-700 font-medium"
           }
@@ -77,7 +76,7 @@ export function Header({ title }: { title: string }) {
 
         <Link
           className={
-            pathname === ROUTES.monitoring
+            pathWithoutLocale === ROUTES.monitoring
               ? "flex items-center space-x-2 p-2 text-sm bg-primary/20 rounded-md text-green-700 font-medium"
               : "flex items-center space-x-2 p-2 text-sm rounded-md hover:bg-default-100 text-default-700 font-medium"
           }
@@ -89,7 +88,7 @@ export function Header({ title }: { title: string }) {
         <Divider />
         <Link
           className={
-            pathname === ROUTES.docs
+            pathWithoutLocale === ROUTES.docs
               ? "flex items-center space-x-2 p-2 text-sm bg-primary/20 rounded-md text-green-700 font-medium"
               : "flex items-center space-x-2 p-2 text-sm rounded-md hover:bg-default-100 text-default-700 font-medium"
           }
@@ -100,7 +99,7 @@ export function Header({ title }: { title: string }) {
         </Link>
         <Link
           className={
-            pathname === ROUTES.keys
+            pathWithoutLocale === ROUTES.keys
               ? "flex items-center space-x-2 p-2 text-sm bg-primary/20 rounded-md text-green-700 font-medium"
               : "flex items-center space-x-2 p-2 text-sm rounded-md hover:bg-default-100 text-default-700 font-medium"
           }

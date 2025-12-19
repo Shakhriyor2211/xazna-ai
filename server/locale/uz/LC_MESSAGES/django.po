@@ -90,7 +90,7 @@ msgid "Your account temporarily blocked."
 msgstr "Sizning hisobingiz vaqtincha bloklangan."
 
 msgid "Resend confirmation code limit exceeded."
-msgstr "Tasdiqlash kodini qayta yuborish chegarasi oshdi."
+msgstr "Tasdiqlash kodini qayta yuborish chegarasidan oshib ketdi."
 
 msgid "Confirmation code was sent to your email address."
 msgstr "Tasdiqlash kodi sizning elektron pochta manzilingizga yuborildi."
@@ -126,7 +126,7 @@ msgid "Logged out successfully."
 msgstr "Muvaffaqiyatli chiqildi."
 
 msgid "Token is not provided."
-msgstr "Token kiritilmagan."
+msgstr "Token taqdim etilmadi."
 
 msgid "Missing code."
 msgstr "Kod yo'q."
@@ -197,17 +197,17 @@ msgstr "Kontent talab qilinadi."
 msgid "Model is required."
 msgstr "Model talab qilinadi."
 
-msgid "Session limit reached."
-msgstr "Sessiya chegarasi oshdi."
+msgid "Session limit exceeded."
+msgstr "Sessiya chegarasidan oshib ketdi."
 
-msgid "Not enough founds."
-msgstr "Yetarli mablag' mavjud emas."
+msgid "Not enough funds."
+msgstr "Mablag' yetarli emas."
 
 msgid "Not enough credits."
-msgstr "Yetarli kreditlar mavjud emas."
+msgstr "Kreditlar yetarli emas."
 
 msgid "Request limit exceeded."
-msgstr "So'rovlar chegarasi oshdi."
+msgstr "So'rovlar chegarasidan oshib ketdi."
 
 msgid "Title is required."
 msgstr "Sarlavha talab qilinadi."
@@ -227,8 +227,8 @@ msgstr "Token sozlamalari muvaffaqiyatli o'zgartirildi."
 msgid "Model not found."
 msgstr "Model topilmadi."
 
-msgid "Message limit reached, open new session."
-msgstr "Xabar chegarasi yetdi, yangi sessiya oching."
+msgid "Message limit exceeded, open new session."
+msgstr "Xabarlar chegarasidan oshib ketdi, yangi sessiya oching."
 
 msgid "Data successfully changed."
 msgstr "Ma'lumot muvaffaqiyatli o'zgartirildi."
@@ -237,7 +237,7 @@ msgid "This plan can't be restarted."
 msgstr "Ushbu reja qayta boshlanishi mumkin emas."
 
 msgid "Not enough funds, please top up your balance."
-msgstr "Yetarli mablag' yo'q, iltimos balansingizni to'ldiring."
+msgstr "Mablag' yetarli emas, iltimos balansingizni to'ldiring."
 
 msgid "Subscription restarted successfully."
 msgstr "Obuna muvaffaqiyatli qayta ishga tushirildi."
@@ -268,6 +268,9 @@ msgstr "Token faol emas."
 
 msgid "Account is inactive."
 msgstr "Hisob faol emas."
+
+msgid "Authentication credentials were not provided."
+msgstr "Autentifikatsiya hisob ma'lumotlari taqdim etilmadi."
 
 msgid "Uzbek"
 msgstr "O‘zbek"

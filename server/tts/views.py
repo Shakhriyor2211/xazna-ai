@@ -1,4 +1,7 @@
+import mimetypes
+import os
 import numpy as np
+from django.http.response import FileResponse
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.response import Response
@@ -20,6 +23,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 client = triton_grpc.InferenceServerClient(url=settings.TTS_TRITON_SERVER, verbose=False)
+
 
 class TTSSettingsView(APIView):
     auth_required = True
@@ -61,7 +65,7 @@ class UserTTSView(APIView):
             balance = request.user.balance
             rate = request.user.tts_rate
             sub = request.user.active_sub
-            credit_usage, cash_usage  = tts_transaction(balance, sub, rate, text, mdl)
+            credit_usage, cash_usage = tts_transaction(balance, sub, rate, text, mdl)
 
             with transaction.atomic():
                 audio_chunks = []
@@ -79,10 +83,8 @@ class UserTTSView(APIView):
                     audio_chunks.append(audio_chunk)
 
                 full_audio_chunks = np.concatenate(audio_chunks, axis=0)
-                audio_instance = AudioModel.objects.create(user=request.user,
-                                                           file=generate_audio(full_audio_chunks, format))
-
-
+                audio, __ = generate_audio(full_audio_chunks, format)
+                audio_instance = AudioModel.objects.create(user=request.user, file=audio)
 
                 tts_instance = serializer.save(audio=audio_instance, user=request.user)
 
@@ -91,7 +93,7 @@ class UserTTSView(APIView):
                 balance.cash -= cash_usage
 
                 UserExpenseModel.objects.create(operation="tts", operation_id=tts_instance.id, credit=credit_usage,
-                                            cash=cash_usage, user=request.user)
+                                                cash=cash_usage, user=request.user)
 
                 tts = UserTTSListSerializer(tts_instance)
 
@@ -105,7 +107,6 @@ class UserTTSView(APIView):
         except Exception as e:
             UserTTSErrorLogModel.objects.create(message=str(e), text=text, user=self.request.user)
             return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 
 
 class TokenTTSView(APIView):
@@ -142,7 +143,7 @@ class TokenTTSView(APIView):
             balance = request.user.balance
             sub = request.user.active_sub
             rate = request.token.tts_rate
-            credit_usage, cash_usage  = tts_transaction(balance, sub, rate, text, mdl)
+            credit_usage, cash_usage = tts_transaction(balance, sub, rate, text, mdl)
 
             with transaction.atomic():
                 audio_chunks = []
@@ -159,9 +160,11 @@ class TokenTTSView(APIView):
                     audio_chunk = (waveform * 32767).astype(np.int16)
                     audio_chunks.append(audio_chunk)
 
+
                 full_audio_chunks = np.concatenate(audio_chunks, axis=0)
-                audio_instance = AudioModel.objects.create(user=request.user,
-                                                           file=generate_audio(full_audio_chunks, format))
+                audio, audio_buffer = generate_audio(full_audio_chunks, format)
+
+                audio_instance = AudioModel.objects.create(user=request.user, file=audio)
 
                 tts_instance = serializer.save(audio=audio_instance, token=request.token)
 
@@ -170,15 +173,26 @@ class TokenTTSView(APIView):
                 balance.cash -= cash_usage
 
                 TokenExpenseModel.objects.create(operation="tts", operation_id=tts_instance.id, credit=credit_usage,
-                                            cash=cash_usage, token=request.token)
-
-                tts = TokenTTSListSerializer(tts_instance)
+                                                 cash=cash_usage, token=request.token)
 
                 balance.save()
                 sub.save()
                 rate.save()
 
-                return Response(data=tts.data, status=status.HTTP_200_OK)
+                audio_buffer.seek(0)
+
+                file_path = audio_instance.file.path
+                mime_type, _ = mimetypes.guess_type(file_path)
+
+                if not mime_type:
+                    mime_type = "application/octet-stream"
+
+                filename = os.path.basename(file_path)
+
+                response = FileResponse(audio_buffer, content_type=mime_type)
+                response["Content-Disposition"] = f'''attachment; filename={filename}'''
+
+                return response
         except CustomException as e:
             return Response(data={"message": str(e)}, status=e.status)
         except Exception as e:
@@ -201,8 +215,8 @@ class UserTTSListView(APIView):
             type=openapi.TYPE_STRING
         ),
     ],
-        tags=["TTS"]
-    )
+                         tags=["TTS"]
+                         )
     def get(self, request):
         ordering = request.query_params.get("ordering", "-created_at")
 
@@ -238,8 +252,8 @@ class TokenTTSListView(APIView):
             required=True,
         )
     ],
-        tags=["TTS"]
-    )
+                         tags=["TTS"]
+                         )
     def get(self, request):
         permission = request.token.permission
         if permission.history != "all" and permission.history != "read":
@@ -273,7 +287,8 @@ class UserTTSSearchView(APIView):
     )
     def get(self, request):
         q = request.GET["q"].strip()
-        items = UserTTSModel.objects.filter(text__icontains=q, user=request.user, is_deleted=False).order_by("-created_at")
+        items = UserTTSModel.objects.filter(text__icontains=q, user=request.user, is_deleted=False).order_by(
+            "-created_at")
         serializer = UserTTSListSerializer(items, many=True)
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
@@ -306,10 +321,12 @@ class TokenTTSSearchView(APIView):
             return Response(data={"message": _("Permission denied.")}, status=status.HTTP_403_FORBIDDEN)
 
         q = request.GET["q"].strip()
-        items = TokenTTSModel.objects.filter(text__icontains=q, token=request.token, is_deleted=False).order_by("-created_at")
+        items = TokenTTSModel.objects.filter(text__icontains=q, token=request.token, is_deleted=False).order_by(
+            "-created_at")
         serializer = TokenTTSListSerializer(items, many=True)
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
+
 
 class UserTTSItemView(APIView):
     auth_required = True

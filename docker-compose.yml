@@ -16,6 +16,7 @@ services:
     depends_on:
       - server
       - client
+      - docs
 
   pg_service:
     image: postgres:17
@@ -59,6 +60,13 @@ services:
     restart: always
     env_file:
       - client/.env
+    networks:
+      - nginx_net
+
+  docs:
+    image: xazna_docs:latest
+    container_name: xazna_docs
+    restart: always
     networks:
       - nginx_net
 

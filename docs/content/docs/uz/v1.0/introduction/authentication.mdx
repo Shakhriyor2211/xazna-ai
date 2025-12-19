@@ -1,64 +1,38 @@
 ---
 title: Autentifikatsiya
-description: DVoice TTS API bilan autentifikatsiya qilish usullari.
+description: Xazna AI'da autentifikatsiyadan qanday o'tish.
 ---
 
-# Autentifikatsiya
+---
 
-DVoice API token asosidagi autentifikatsiyadan foydalanadi. Text to Speech va Speech to Text uchun barcha so‘rovlarida haqiqiy API tokeni kiritilishi kerak.
+Xazna AI API token asosidagi autentifikatsiyadan foydalanadi. Matndan nutqqa (TTS) va nutqdan matnga (STT) endpointlariga yuboriladigan barcha so'rovlarda amal qiluvchi API token bo'lishi shart.
 
-## Token Olish
+## Token olish
 
-1. [voice.airi.uz](https://voice.airi.uz) saytiga tashrif buyuring.
-2. DVoice hisobingiz ma’lumotlari bilan tizimga kiring.
-3. API bo‘limiga o‘tib, API tokeningizni yarating yoki nusxalang.
-4. Tokenni xavfsiz saqlang.
+1. [ai.xazna.uz](https://ai.xazna.uz) saytiga o'ting.
+2. Xazna AI akkauntingiz ma'lumotlari bilan tizimga kiring.
+3. API bo'limiga o'tib, API tokeningizni yarating yoki mavjud tokenni oling.
+4. Tokenni xavfsiz saqlang va uni boshqalarga oshkor qilmang.
 
 <Callout type="warning">
-  API tokeningizni ommaga oshkormang. Agar u xavf ostida qolsa, uni
-  [voice.airi.uz](https://voice.airi.uz) saytida qayta yarating.
+  API tokeningizni ommaga oshkor qilmang. Agar u buzilgan bo'lsa, tokenni
+  [ai.xazna.uz](https://ai.xazna.uz) saytida qayta yarating.
 </Callout>
 
-## Autentifikatsiyalangan So‘rovlar Amalga Oshirish
+## Autentifikatsiya xatolarini qayta ishlash
 
-### Yagona Uchastka (HTTP)
-
-HTTP POST so‘rovingizda `token` sarlavhasiga tokenni qo‘shing.
-
-**Misol Sarlavha**:
-
-```
-token: <your-token>
-```
-
-### Oqim Uchastkasi (WebSocket)
-
-Oqim URL’siga ulanishda `token` sarlavhasiga tokenni kiring.
-
-**Misol Ulanish** (oddiy WebSocket):
-
-```
-token: <your-token>
-```
-
-SDK’lardan foydalanganda, tokenni mijozni sozlashda belgilang (qarang [SDK Foydalanishi](../developer-guide/sdk-libraries)).
-
-## Autentifikatsiya Xatolarini Boshqarish
-
-| Holat/Kod | Xabar                              | Tavsif                                |
-| --------- | ---------------------------------- | ------------------------------------- |
-| 401       | Noto‘g‘ri Token                    | Token noto‘g‘ri yoki muddati tugagan. |
-| 403       | Autentifikatsiya uchun token kerak | Hech qanday token kiritilmagan.       |
-
-WebSocket ulanishlarida noto‘g‘ri yoki yo‘q token `401 Unauthorized` yoki `403 Forbidden` javobi bilan natija beradi va ulanish yopiladi.
-
-## Qo‘shimcha Eslatmalar
-
-- Tokenlar foydalanuvchi identifikatorini va token nomini o‘z ichiga oladi, ular server tomonida tekshiriladi.
-- Agar `401 Invalid Token` xatosi yuzaga kelsa, tokeningizni [voice.airi.uz](https://voice.airi.uz) da tekshiring.
+| Status | Xabar                 | Kod              |
+| ------ | --------------------- | ---------------- |
+| 401    | Token taqdim etilmadi | token_required   |
+| 403    | Token bloklangan      | token_blocked    |
+| 403    | Token faol emas       | token_inactive   |
+| 403    | Hisob bloklangan      | account_blocked  |
+| 403    | Hisob faol emas       | account_inactive |
 
 <Callout type="info">
-  Token yaratish bilan bog‘liq muammolar uchun
-  [voice.airi.uz](https://voice.airi.uz) orqali yordam xizmatiga murojaat
-  qiling.
+  Token yaratish bilan bog'liq muammolar bo'lsa, yordam olish uchun
+  [ai.xazna.uz](https://ai.xazna.uz) orqali qo'llab-quvvatlash xizmatiga
+  murojaat qiling.
 </Callout>
+
+---

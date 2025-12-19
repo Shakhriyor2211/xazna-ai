@@ -123,7 +123,7 @@ class UserLLMSessionView(APIView):
             rate = request.user.llm_rate
 
             if rate.session_limit == rate.session_usage:
-                return Response(data={"message": _("Session limit reached.")}, status=status.HTTP_403_FORBIDDEN)
+                return Response(data={"message": _("Session limit exceeded.")}, status=status.HTTP_403_FORBIDDEN)
 
             plan = LLMModelModel.objects.get(title=mdl)
             balance = request.user.balance
@@ -209,7 +209,7 @@ class TokenLLMSessionView(APIView):
             rate = request.token.llm_rate
 
             if rate.session_limit == rate.session_usage:
-                return Response(data={"message": _("Session limit reached.")}, status=status.HTTP_403_FORBIDDEN)
+                return Response(data={"message": _("Session limit exceeded.")}, status=status.HTTP_403_FORBIDDEN)
 
             plan = LLMModelModel.objects.get(title=mdl)
             balance = request.user.balance

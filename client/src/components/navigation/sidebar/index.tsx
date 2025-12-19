@@ -1,18 +1,15 @@
 "use client";
 import { ROUTES } from "@/shared/site";
-import { usePathname } from "next/navigation";
 import { LuBookText, LuScanText } from "react-icons/lu";
 import { RiVoiceprintLine } from "react-icons/ri";
 import { PiKey, PiPresentationChart } from "react-icons/pi";
-
 import { LogoIcon } from "@/utils/icons";
-
 import { ChatSessionList } from "../../chatbot/session/list";
-import { useIntlayer } from "next-intlayer";
+import { useIntlayer, useLocale } from "next-intlayer";
 import { Link } from "@/utils/link";
 
 export function Sidebar() {
-  const pathname = usePathname();
+  const { pathWithoutLocale } = useLocale();
   const content = useIntlayer("navigation-content");
 
   return (
@@ -33,13 +30,13 @@ export function Sidebar() {
         </h3>
         <div className="space-y-2">
           <ChatSessionList
-            pathname={pathname}
+            pathname={pathWithoutLocale}
             title={content.sidebar.playground.chatbot.title.value}
             new_session={content.sidebar.playground.chatbot.new_session.value}
           />
           <Link
             className={
-              pathname === ROUTES.stt
+              pathWithoutLocale === ROUTES.stt
                 ? "flex items-center space-x-2 p-2 text-sm bg-primary/20 rounded-md text-green-700 font-medium"
                 : "flex items-center space-x-2 p-2 text-sm rounded-md hover:bg-default-100 text-default-700 font-medium"
             }
@@ -51,7 +48,7 @@ export function Sidebar() {
           </Link>
           <Link
             className={
-              pathname === ROUTES.tts
+              pathWithoutLocale === ROUTES.tts
                 ? "flex items-center space-x-2 p-2 text-sm bg-primary/20 rounded-md text-green-700 font-medium"
                 : "flex items-center space-x-2 p-2 text-sm rounded-md hover:bg-default-100 text-default-700 font-medium"
             }
@@ -63,7 +60,7 @@ export function Sidebar() {
           </Link>
           <Link
             className={
-              pathname === ROUTES.monitoring
+              pathWithoutLocale === ROUTES.monitoring
                 ? "flex items-center space-x-2 p-2 text-sm bg-primary/20 rounded-md text-green-700 font-medium"
                 : "flex items-center space-x-2 p-2 text-sm rounded-md hover:bg-default-100 text-default-700 font-medium"
             }
@@ -80,11 +77,11 @@ export function Sidebar() {
         <div className="space-y-2">
           <Link
             className={
-              pathname === ROUTES.docs
+              pathWithoutLocale === ROUTES.docs
                 ? "flex items-center space-x-2 p-2 text-sm bg-primary/20 rounded-md text-green-700 font-medium"
                 : "flex items-center space-x-2 p-2 text-sm rounded-md hover:bg-default-100 text-default-700 font-medium"
             }
-            href={"#"}
+            href={ROUTES.docs}
             label="docs"
           >
             <LuBookText className="h-5 w-5" />
@@ -92,7 +89,7 @@ export function Sidebar() {
           </Link>
           <Link
             className={
-              pathname === ROUTES.docs
+              pathWithoutLocale === ROUTES.keys
                 ? "flex items-center space-x-2 p-2 text-sm bg-primary/20 rounded-md text-green-700 font-medium"
                 : "flex items-center space-x-2 p-2 text-sm rounded-md hover:bg-default-100 text-default-700 font-medium"
             }
