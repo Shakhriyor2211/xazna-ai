@@ -13,7 +13,7 @@ export const ROUTES = {
   user_profile: "/user/profile",
   monitoring: "/monitoring",
   key_monitoring: "/monitoring",
-  docs: "/docs/v1.0/introduction",
+  docs: "/docs",
   tts: "/tts",
   stt: "/stt",
   chatbot: "/chatbot",
