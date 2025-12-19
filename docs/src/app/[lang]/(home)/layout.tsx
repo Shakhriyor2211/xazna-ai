@@ -1,11 +1,16 @@
-import { HomeLayout } from 'fumadocs-ui/layouts/home';
-import { baseOptions } from '@/lib/layout.shared';
+import { source } from "@/lib/source";
+import { DocsLayout } from "fumadocs-ui/layouts/docs";
+import { baseOptions } from "@/lib/layout.shared";
 
 export default async function Layout({
   params,
   children,
-}: LayoutProps<'/[lang]'>) {
+}: LayoutProps<"/[lang]/docs">) {
   const { lang } = await params;
-
-  return <HomeLayout {...baseOptions(lang)}>{children}</HomeLayout>;
+  
+  return (
+    <DocsLayout {...baseOptions(lang)} tree={source.getPageTree(lang)}>
+      {children}
+    </DocsLayout>
+  );
 }
