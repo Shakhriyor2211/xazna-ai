@@ -5,7 +5,7 @@ import { baseOptions } from "@/lib/layout.shared";
 export default async function Layout({
   params,
   children,
-}: LayoutProps<"/[lang]">) {
+}: LayoutProps<"/[lang]/docs">) {
   const { lang } = await params;
 
   return (
