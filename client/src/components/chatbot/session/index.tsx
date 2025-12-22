@@ -116,7 +116,6 @@ export function ChatbotSession() {
 
     ws.current.onmessage = async (event) => {
       const { status, token, message } = JSON.parse(event.data);
-      console.log(status);
 
       if (status === 201) {
         messagesRef.current = [
