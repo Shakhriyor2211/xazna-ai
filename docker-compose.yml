@@ -66,6 +66,8 @@ services:
   docs:
     image: xazna_docs:latest
     container_name: xazna_docs
+    ports:
+      - "3101:3101"
     restart: always
     networks:
       - nginx_net
