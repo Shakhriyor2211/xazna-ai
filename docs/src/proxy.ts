@@ -18,5 +18,5 @@ export function proxy(request: NextRequest, event: NextFetchEvent) {
 }
 
 export const config = {
-  matcher: ['/docs/((?!api|_next/static|_next/image|favicon.ico).*)', ...ROOT_DIR],
+  matcher: ['/docs/((?!api|_next/static|_next/image|favicon.ico).*)', '/docs', '/en/docs', '/ru/docs', '/uz/docs'],
 };
