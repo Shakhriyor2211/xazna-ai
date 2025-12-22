@@ -3,12 +3,15 @@ import { i18n } from '@/lib/i18n';
 import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
 
 
+const ROOT_DIR = ["/docs", "/en/docs", "/ru/docs", "/uz/docs"];
+
 const i18nMiddleware = createI18nMiddleware(i18n);
 
 export function proxy(request: NextRequest, event: NextFetchEvent) {
-  const root_pattern = /^\/((ru|en|uz)?|((ru|en|uz)\/))$/
 
-  if (root_pattern.test(request.nextUrl.pathname)) {
+
+
+  if (ROOT_DIR.includes(request.nextUrl.pathname)) {
 
     return NextResponse.redirect(new URL("/docs/v1.0/introduction", request.url));
   }

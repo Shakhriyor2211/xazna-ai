@@ -8,6 +8,5 @@ export function baseOptions(locale: string): BaseLayoutProps {
       title: "Xazna AI",
       url: `/${locale}`,
     },
-    // githubUrl: "https://github.com",
   };
 }
