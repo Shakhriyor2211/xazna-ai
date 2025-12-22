@@ -9,14 +9,14 @@ const i18nMiddleware = createI18nMiddleware(i18n);
 
 export function proxy(request: NextRequest, event: NextFetchEvent) {
 
-  if (ROOT_DIR.includes(request.nextUrl.pathname)) {
+  // if (ROOT_DIR.includes(request.nextUrl.pathname)) {
 
-    return NextResponse.redirect(new URL("/docs/v1.0/introduction", request.url));
-  }
+  //   return NextResponse.redirect(new URL("/docs/v1.0/introduction", request.url));
+  // }
 
   return i18nMiddleware(request, event);
 }
 
 export const config = {
-  matcher: ['/docs/((?!api|_next/static|_next/image|favicon.ico).*)', '/docs', '/en/docs', '/ru/docs', '/uz/docs'],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)', '/'],
 };

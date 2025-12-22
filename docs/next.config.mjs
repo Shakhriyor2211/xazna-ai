@@ -5,7 +5,7 @@ const withMDX = createMDX();
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
-  assetPrefix: process.env.NODE_ENV === "production" ? "/docs/" : "/",
+  basePath: "/docs",
 };
 
 export default withMDX(config);
