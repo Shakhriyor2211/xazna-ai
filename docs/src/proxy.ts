@@ -8,8 +8,6 @@ const ROOT_DIR = ["/docs", "/en/docs", "/ru/docs", "/uz/docs"];
 const i18nMiddleware = createI18nMiddleware(i18n);
 
 export function proxy(request: NextRequest, event: NextFetchEvent) {
-  console.log(process.env.NODE_ENV);
-
 
   if (ROOT_DIR.includes(request.nextUrl.pathname)) {
 
@@ -20,5 +18,5 @@ export function proxy(request: NextRequest, event: NextFetchEvent) {
 }
 
 export const config = {
-  matcher: ['/docs/((?!api|_next/static|_next/image|favicon.ico).*)', '/'],
+  matcher: ['/docs/((?!api|_next/static|_next/image|favicon.ico).*)', '/docs', '/en/docs', '/ru/docs', '/uz/docs'],
 };
