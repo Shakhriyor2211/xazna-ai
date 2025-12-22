@@ -1,0 +1,17 @@
+{
+  "title": "So'nggi versiya",
+  "root": true,
+  "pages": [
+    "---Boshlash---",
+    "introduction/index",
+    "introduction/authentication",
+    "introduction/models",
+    "---Ishlab chiqish---",
+    "development/chatbot",
+    "development/tts",
+    "development/stt",
+    "---Resurslar---",
+    "resources/data",
+    "resources/rates"
+  ]
+}

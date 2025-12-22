@@ -1,0 +1,17 @@
+{
+  "title": "Latest version",
+  "root": true,
+  "pages": [
+    "---Introduction---",
+    "introduction/index",
+    "introduction/authentication",
+    "introduction/models",
+    "---Development---",
+    "development/chatbot",
+    "development/tts",
+    "development/stt",
+    "---Resources---",
+    "resources/data",
+    "resources/rates"
+  ]
+}

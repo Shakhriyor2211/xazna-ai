@@ -1,0 +1,38 @@
+---
+title: Autentifikatsiya
+description: Xazna AI'da autentifikatsiyadan qanday o'tish.
+---
+
+---
+
+Xazna AI API token asosidagi autentifikatsiyadan foydalanadi. Matndan nutqqa (TTS) va nutqdan matnga (STT) endpointlariga yuboriladigan barcha so'rovlarda amal qiluvchi API token bo'lishi shart.
+
+## Token olish
+
+1. [ai.xazna.uz](https://ai.xazna.uz) saytiga o'ting.
+2. Xazna AI akkauntingiz ma'lumotlari bilan tizimga kiring.
+3. API bo'limiga o'tib, API tokeningizni yarating yoki mavjud tokenni oling.
+4. Tokenni xavfsiz saqlang va uni boshqalarga oshkor qilmang.
+
+<Callout type="warning">
+  API tokeningizni ommaga oshkor qilmang. Agar u buzilgan bo'lsa, tokenni
+  [ai.xazna.uz](https://ai.xazna.uz) saytida qayta yarating.
+</Callout>
+
+## Autentifikatsiya xatolarini qayta ishlash
+
+| Status | Xabar                 | Kod              |
+| ------ | --------------------- | ---------------- |
+| 401    | Token taqdim etilmadi | token_required   |
+| 403    | Token bloklangan      | token_blocked    |
+| 403    | Token faol emas       | token_inactive   |
+| 403    | Hisob bloklangan      | account_blocked  |
+| 403    | Hisob faol emas       | account_inactive |
+
+<Callout type="info">
+  Token yaratish bilan bog'liq muammolar bo'lsa, yordam olish uchun
+  [ai.xazna.uz](https://ai.xazna.uz) orqali qo'llab-quvvatlash xizmatiga
+  murojaat qiling.
+</Callout>
+
+---
