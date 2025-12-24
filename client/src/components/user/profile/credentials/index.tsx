@@ -57,6 +57,7 @@ export function ProfileCredentials({ user, setUser }: UserStoreProps) {
 
   const handleClose = useCallback(() => {
     setIsOpen(false);
+    setError({ old_password: "", new_password: "", confirm_password: "" });
   }, [isOpen]);
 
   const handleBlur = useCallback(
@@ -189,13 +190,14 @@ export function ProfileCredentials({ user, setUser }: UserStoreProps) {
               <ModalHeader className="flex flex-col gap-1">
                 {content.security.change_password.modal.title}
               </ModalHeader>
-              <ModalBody>
+              <ModalBody className="gap-0">
                 <Input
                   onChange={handleChange}
                   autoComplete="off"
                   onFocus={handleFocus}
                   size="sm"
                   classNames={{
+                    base: Boolean(error.old_password) ? "mb-0" : "mb-6",
                     inputWrapper: "dark:bg-black border-1 border-default-300",
                     label: "text-default-500",
                   }}
@@ -216,6 +218,7 @@ export function ProfileCredentials({ user, setUser }: UserStoreProps) {
                   onFocus={handleFocus}
                   size="sm"
                   classNames={{
+                    base: Boolean(error.new_password) ? "mb-0" : "mb-6",
                     inputWrapper: "dark:bg-black border-1 border-default-300",
                     label: "text-default-500",
                   }}
@@ -235,8 +238,10 @@ export function ProfileCredentials({ user, setUser }: UserStoreProps) {
                   autoComplete="off"
                   size="sm"
                   classNames={{
+                    base: "relative mb-8",
                     inputWrapper: "dark:bg-black border-1 border-default-300",
                     label: "text-default-500",
+                    helperWrapper: "absolute top-full",
                   }}
                   variant="bordered"
                   isInvalid={Boolean(error.confirm_password)}

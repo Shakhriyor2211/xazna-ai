@@ -47,11 +47,15 @@ msgstr "Yangi parol eski parol bilan bir xil bo'lishi mumkin emas."
 msgid "Passwords do not match."
 msgstr "Parollar mos kelmadi."
 
-msgid "Confirmation Code"
+msgid "Confirmation code"
 msgstr "Tasdiqlash kodi"
 
-msgid "Welcome to OCR. Your confirmation code is"
-msgstr "OCR ga xush kelibsiz. Sizning tasdiqlash kodingiz:"
+
+msgid "Reset password"
+msgstr "Parolni tiklash"
+
+msgid "Email verification"
+msgstr "Elektron pochtani tekshirish"
 
 msgid "Please verify your email"
 msgstr "Iltimos, elektron pochta manzilingizni tasdiqlang"
@@ -62,11 +66,8 @@ msgstr "Iltimos, bu kodni hech kim bilan bo'lishmang. Agar siz bu kodni so'ramag
 msgid "Sincerely, Xazna team."
 msgstr "Hurmat bilan, Xazna jamoasi."
 
-msgid "Reset your password"
-msgstr "Parolni tiklash"
-
-msgid "CONTINUE"
-msgstr "DAVOM ETISH"
+msgid "Continue"
+msgstr "Davom etish"
 
 msgid "If you did not request reset password or unsure why you received this message, you may safely disregard it."
 msgstr "Agar siz parolni tiklashni so'ramagan bo'lsangiz yoki nega xabar olganingizni bilmasangiz, e'tiborsiz qoldirishingiz mumkin."

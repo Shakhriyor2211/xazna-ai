@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import { Link } from "@/utils/link";
 import { RegularSignIn } from "./regular";
 import { GoogleSignIn } from "./google";
 import { ROUTES } from "@/shared/site";
@@ -45,7 +45,11 @@ export function SignIn() {
             <span className="text-sm text-default-500">
               {content.signup.description}
             </span>
-            <Link href={ROUTES.sign_up} className="text-sm text-blue-600">
+            <Link
+              href={ROUTES.sign_up}
+              label="sign up"
+              className="text-sm text-blue-600"
+            >
               {content.signup.title}
             </Link>
           </p>

@@ -49,11 +49,14 @@ msgstr "Новый пароль не может совпадать со стар
 msgid "Passwords do not match."
 msgstr "Пароли не совпадают."
 
-msgid "Confirmation Code"
+msgid "Confirmation code"
 msgstr "Код подтверждения"
 
-msgid "Welcome to OCR. Your confirmation code is"
-msgstr "Добро пожаловать в OCR. Ваш код подтверждения:"
+msgid "Reset password"
+msgstr "Сбросить пароль"
+
+msgid "Email verification"
+msgstr "Проверка электронной почты"
 
 msgid "Please verify your email"
 msgstr "Пожалуйста, подтвердите вашу электронную почту."
@@ -64,10 +67,7 @@ msgstr "Пожалуйста, ни с кем не делитесь этим ко
 msgid "Sincerely, Xazna team."
 msgstr "С уважением, команда Xazna."
 
-msgid "Reset your password"
-msgstr "Сбросить пароль"
-
-msgid "CONTINUE"
+msgid "Continue"
 msgstr "ПРОДОЛЖИТЬ"
 
 msgid "If you did not request reset password or unsure why you received this message, you may safely disregard it."

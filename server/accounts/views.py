@@ -1,6 +1,7 @@
 import json
 from datetime import timedelta
 import requests
+from django.utils import translation
 from celery.result import AsyncResult
 from django.http import HttpResponseRedirect
 from django.utils import timezone
@@ -62,6 +63,7 @@ class SignUpView(APIView):
     @swagger_auto_schema(operation_description="Sign up...", request_body=SignUpSerializer, tags=["Auth"])
     def post(self, request):
         serializer = SignUpSerializer(data=request.data)
+
         if serializer.is_valid():
             user_instance = serializer.save()
 
@@ -95,7 +97,8 @@ class SignUpView(APIView):
             email_otp = EmailConfirmOtpModel.objects.create(user=user_instance)
             email_otp.code, email_otp.expires_at = generate_email_otp(email_otp.code)
             email_otp.remaining_resends -= 1
-            email_otp.task_id = send_email_confirmation.delay(email_otp.id)
+            locale = translation.get_language_from_request(request, check_path=True)
+            email_otp.task_id = send_email_confirmation.delay(email_otp.id, locale)
             email_otp.save()
 
             return Response(data={"otp_id": email_otp.id}, status=status.HTTP_201_CREATED)
@@ -118,7 +121,8 @@ class SignInView(APIView):
                     email_otp = EmailConfirmOtpModel.objects.create(user=user_instance)
                     email_otp.code, email_otp.expires_at = generate_email_otp(email_otp.code)
                     email_otp.remaining_resends -= 1
-                    email_otp.task_id = send_email_confirmation.delay(email_otp.id)
+                    locale = translation.get_language_from_request(request, check_path=True)
+                    email_otp.task_id = send_email_confirmation.delay(email_otp.id, locale)
                     email_otp.save()
 
                     return Response(data={"otp_id": email_otp.id}, status=status.HTTP_200_OK)
@@ -144,7 +148,8 @@ class SignInView(APIView):
                     email_otp.remaining_attempts = settings.EMAIL_MAX_ATTEMPTS
                     email_otp.last_resend = timezone.now()
                     email_otp.save()
-                    email_otp.task_id = send_email_confirmation.delay(email_otp.id)
+                    locale = translation.get_language_from_request(request, check_path=True)
+                    email_otp.task_id = send_email_confirmation.delay(email_otp.id, locale)
                 email_otp.save()
 
                 return Response(data={"otp_id": email_otp.id}, status=status.HTTP_200_OK)
@@ -212,7 +217,8 @@ class ResendEmailCodeView(APIView):
             email_otp.last_resend = timezone.now()
             email_otp.status = "processing"
             email_otp.save()
-            email_otp.task_id = send_email_confirmation.delay(email_otp.id)
+            locale = translation.get_language_from_request(request, check_path=True)
+            email_otp.task_id = send_email_confirmation.delay(email_otp.id, locale)
             email_otp.save()
 
             return Response(data={"message": _("Confirmation code was sent to your email address.")},
@@ -623,7 +629,9 @@ class PasswordResetView(APIView):
             token_generator = PasswordResetTokenGenerator()
 
             t = PasswordResetTokenModel.objects.create(user=user, token=token_generator.make_token(user))
-            t.task_id = send_email_reset_password.delay(t.id, target)
+            locale = translation.get_language_from_request(request, check_path=True)
+            t.task_id = send_email_reset_password.delay(t.id, target, locale)
+
 
             return Response(data={"message": _("Message sent successfully.")}, status=status.HTTP_200_OK)
 

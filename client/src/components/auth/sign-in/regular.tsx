@@ -5,7 +5,7 @@ import { AxiosErrorProps } from "@/types";
 import { getError, postRequest } from "@/utils/axios-instance";
 import { Button, Input } from "@heroui/react";
 import { useIntlayer } from "next-intlayer";
-import Link from "next/link";
+import { Link } from "@/utils/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FocusEvent, FormEvent, useCallback, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -121,9 +121,10 @@ export function RegularSignIn() {
         errorMessage={Boolean(error.password) ? error.password : error.general}
         size="sm"
         classNames={{
-          base: Boolean(error.password) ? "mb-0" : "mb-2",
+          base: "relative mb-2",
           inputWrapper: "dark:bg-neutral-900 border-1 border-default-300",
           label: "text-default-500",
+          helperWrapper: "absolute top-full",
         }}
         color="primary"
         variant="bordered"
@@ -150,7 +151,11 @@ export function RegularSignIn() {
         }
       />
       <div className="flex justify-end">
-        <Link href={ROUTES.password_reset} className="text-xs text-blue-600">
+        <Link
+          href={ROUTES.password_reset}
+          label="password reset"
+          className="text-xs text-blue-600"
+        >
           {content.regular.forgot_password}
         </Link>
       </div>

@@ -13,6 +13,7 @@ function appProxy(request: NextRequest) {
 
   const is_auth_route = path.startsWith("/auth")
 
+
   if (token && is_auth_route) {
     return NextResponse.redirect(new URL(`/${locale}${ROUTES.main}`, request.url));
   }
@@ -20,15 +21,13 @@ function appProxy(request: NextRequest) {
   if (!token && !is_auth_route) {
     return NextResponse.redirect(new URL(`/${locale}${ROUTES.sign_in}?next=/${path !== "/" ? `${locale}${path}` : locale}`, request.url));
   }
+  console.log(path);
 
   return NextResponse.next();
 }
 
 export const config = {
   matcher: [
-    "/",
-    "/user/:path*",
-    "/auth/:path*",
     "/((?!api|protected|media|docs|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)"
   ],
 };

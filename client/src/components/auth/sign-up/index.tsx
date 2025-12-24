@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import {
   ChangeEvent,
   FocusEvent,
@@ -19,9 +18,10 @@ import { GoogleSignIn } from "../sign-in/google";
 import { LogoIcon } from "@/utils/icons";
 import { useUserStore } from "@/hooks/user";
 import { Button, Input, Spinner } from "@heroui/react";
-import { useIntlayer } from "next-intlayer";
+import { useIntlayer, useLocale } from "next-intlayer";
 import { LocaleSwitcher } from "@/components/navigation/header/locale-switcher";
 import { useAlertStore } from "@/providers/alert";
+import { Link } from "@/utils/link";
 
 interface ErrorProps {
   first_name: string;
@@ -33,6 +33,7 @@ interface ErrorProps {
 
 export const SignUp = () => {
   const content = useIntlayer("sign-up-content");
+  const { locale } = useLocale();
   const { setUser } = useUserStore();
   const { setAlert } = useAlertStore();
   const { push } = useRouter();
@@ -109,9 +110,10 @@ export const SignUp = () => {
         if (data) {
           if (data.is_active) {
             push(ROUTES.main);
+            push(`/${locale}${ROUTES.main}`);
             setUser(data);
           } else {
-            push(`${ROUTES.verify_email}/${data.otp_id}`);
+            push(`/${locale}${ROUTES.verify_email}/${data.otp_id}`);
           }
         }
       } catch (e) {
@@ -130,7 +132,7 @@ export const SignUp = () => {
           }));
         }
       } finally {
-        setIsLoading(() => false);
+        setIsLoading(false);
       }
     },
     [values, error, isLoading]
@@ -227,10 +229,11 @@ export const SignUp = () => {
                 color="primary"
                 variant="bordered"
                 classNames={{
-                  base: Boolean(error.password) ? "mb-0" : "mb-6",
+                  base: "relative mb-6",
                   inputWrapper:
                     "dark:bg-neutral-900 border-1 border-default-300",
                   label: "text-default-500",
+                  helperWrapper: "absolute top-full",
                 }}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
@@ -248,10 +251,11 @@ export const SignUp = () => {
                 color="primary"
                 variant="bordered"
                 classNames={{
-                  base: Boolean(error.confirm_password) ? "mb-0" : "mb-6",
+                  base: "relative mb-6",
                   inputWrapper:
                     "dark:bg-neutral-900 border-1 border-default-300",
                   label: "text-default-500",
+                  helperWrapper: "absolute top-full",
                 }}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
@@ -285,7 +289,11 @@ export const SignUp = () => {
             <span className="text-sm text-default-500">
               {content.sigin.description}
             </span>
-            <Link href={ROUTES.sign_in} className="text-sm text-blue-600">
+            <Link
+              href={ROUTES.sign_in}
+              label="sign in"
+              className="text-sm text-blue-600"
+            >
               {content.sigin.title}
             </Link>
           </p>

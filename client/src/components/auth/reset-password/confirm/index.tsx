@@ -194,9 +194,10 @@ export const ResetPasswordConfirm = () => {
           variant="bordered"
           size="sm"
           classNames={{
-            base: "mb-12",
+            base: "relative mb-12",
             inputWrapper: "border-1 border-default-300",
             label: "text-default-500",
+            helperWrapper: "absolute top-full",
           }}
           onBlur={handleBlur}
           onChange={handleChange}

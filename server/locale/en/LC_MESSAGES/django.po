@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-19 16:31+0500\n"
+"POT-Creation-Date: 2025-12-23 16:21+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,11 +61,16 @@ msgid "Passwords do not match."
 msgstr ""
 
 #: accounts/tasks.py:14
-msgid "Confirmation Code"
+msgid "Confirmation code"
 msgstr ""
 
-#: accounts/tasks.py:18
-msgid "Welcome to OCR. Your confirmation code is"
+#: accounts/tasks.py:32 accounts/templates/password/reset.html:6
+#: accounts/templates/password/reset.html:22
+msgid "Reset password"
+msgstr ""
+
+#: accounts/templates/email/confirmation.html:6
+msgid "Email verification"
 msgstr ""
 
 #: accounts/templates/email/confirmation.html:22
@@ -84,12 +89,8 @@ msgstr ""
 msgid "Sincerely, Xazna team."
 msgstr ""
 
-#: accounts/templates/password/reset.html:22
-msgid "Reset your password"
-msgstr ""
-
 #: accounts/templates/password/reset.html:28
-msgid "CONTINUE"
+msgid "Continue"
 msgstr ""
 
 #: accounts/templates/password/reset.html:35
@@ -138,7 +139,7 @@ msgstr ""
 #: service/views.py:45 service/views.py:60 service/views.py:93
 #: service/views.py:108 service/views.py:129 stt/views.py:86 stt/views.py:161
 #: stt/views.py:260 stt/views.py:277 stt/views.py:318 stt/views.py:348
-#: sub/views.py:70 sub/views.py:151 sub/views.py:171 tts/views.py:109
+#: sub/views.py:70 sub/views.py:151 sub/views.py:170 tts/views.py:109
 #: tts/views.py:200 tts/views.py:348 tts/views.py:381
 msgid "Something went wrong."
 msgstr ""

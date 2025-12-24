@@ -5,21 +5,22 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from accounts.models import EmailConfirmOtpModel, PasswordResetTokenModel
 from xazna import settings
+from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 
 
 @shared_task(name="tasks.send_email_confirmation")
-def send_email_confirmation(email_id):
+def send_email_confirmation(email_id, locale):
+    translation.activate(locale)
     email_otp = EmailConfirmOtpModel.objects.get(id=email_id)
-    subject = _("Confirmation Code")
+    subject = _("Confirmation code")
     from_email = f"""no-reply <{settings.EMAIL_HOST_USER}>"""
     to = [email_otp.user.email]
 
-    text_content = f"""{_("Welcome to OCR. Your confirmation code is")} {email_otp.code}."""
 
     html_content = render_to_string("email/confirmation.html", {"code": email_otp.code})
 
-    msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+    msg = EmailMultiAlternatives(subject=subject, from_email=from_email,to=to)
     msg.attach_alternative(html_content, "text/html")
     msg.send()
     email_otp.status = "sent"
@@ -28,17 +29,16 @@ def send_email_confirmation(email_id):
 
 
 @shared_task(name="tasks.send_email_reset_password")
-def send_email_reset_password(token_id, target):
+def send_email_reset_password(token_id, target, locale):
+    translation.activate(locale)
     t = PasswordResetTokenModel.objects.get(id=token_id)
-    subject = "Confirmation Code"
+    subject = _("Reset password")
     from_email = f"""no-reply <{settings.EMAIL_HOST_USER}>"""
     to = [t.user.email]
 
-    text_content = f"""Welcome to OCR. Your confirmation code is {t.slug}."""
-
     html_content = render_to_string("password/reset.html", {"target": f"""{target.rstrip("/")}/{t.slug}"""})
 
-    msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+    msg = EmailMultiAlternatives(subject=subject, from_email=from_email, to=to)
     msg.attach_alternative(html_content, "text/html")
     msg.send()
     t.status = "sent"

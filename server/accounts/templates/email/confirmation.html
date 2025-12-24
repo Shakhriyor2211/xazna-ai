@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Email Verification</title>
+    <title>{% trans "Email verification" %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body style="margin: 0; padding: 12px; background-color: #f0f3f5; font-family: 'Inter', sans-serif; font-size: 14px; color: #333;">
@@ -19,10 +19,10 @@
       box-sizing: border-box;
     ">
         <div style="text-align: center; margin-bottom: 16px;">
-            <p style="font-size: 24px; font-weight: 600; margin-top: 16px;">{% trans "Please verify your email" %}</p>
+            <p style="font-size: 16px; font-weight: 600; margin-top: 16px;">{% trans "Please verify your email" %}</p>
         </div>
 
-        <table role="presentation" style="margin: 24px 0; width: 100%">
+        <table role="presentation" style="margin: 12px 0; width: 100%">
             <tr>
                 <td style="text-align: center">
                     <span style="font-weight: bold; letter-spacing: 2px; text-align: center; color: #4e8a52; font-size: 20px">{{ code }}</span>
@@ -33,7 +33,7 @@
             {% trans "Please do not share this code with anyone under any circumstances. If you did not request this code or unsure why you received this message, you may safely disregard it." %}
         </p>
 
-        <p style="font-size: 16px; font-weight: 600; text-align: right; margin-top: 48px;">
+        <p style="font-size: 14px; text-align: right; margin-top: 48px;">
             {% trans "Sincerely, Xazna team." %}
         </p>
     </div>

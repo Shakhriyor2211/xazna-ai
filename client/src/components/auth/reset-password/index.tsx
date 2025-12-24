@@ -108,8 +108,10 @@ export const ResetPassword = () => {
           <Input
             size="sm"
             classNames={{
+              base: "relative",
               inputWrapper: "border-1 border-default-300",
               label: "text-default-500",
+              helperWrapper: "absolute top-full",
             }}
             color="primary"
             variant="bordered"

@@ -40,5 +40,6 @@ class SubModel(BaseModel):
         db_table = "sub"
 
 
-
+    def __str__(self):
+        return f"""{self.user.email}({self.title})"""
 
