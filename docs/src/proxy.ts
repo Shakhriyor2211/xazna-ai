@@ -11,7 +11,10 @@ export function proxy(request: NextRequest, event: NextFetchEvent) {
 
   if (ROOT_DIR.includes(request.nextUrl.pathname)) {
 
-    return NextResponse.redirect(new URL("/docs/v1.0/introduction", request.url));
+    if (request.nextUrl.pathname === '/docs') {
+      return NextResponse.redirect(new URL(`/${i18n.defaultLanguage}/docs/v1.0/introduction`, request.url));
+    }
+    return NextResponse.redirect(new URL(`${request.nextUrl.pathname}/v1.0/introduction`, request.url));
   }
 
   return i18nMiddleware(request, event);
