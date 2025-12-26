@@ -63,8 +63,8 @@ export function STTHistory({
       if (index >= 0) {
         setSttData({
           text: history.results[index].text,
-          audioUrl: `/${ENDPOINTS.audio_stream}/${history.results[index].audio.id}`,
-          downloadUrl: `/${ENDPOINTS.audio_download}/${history.results[index].audio.id}`,
+          audioUrl: `${ENDPOINTS.audio_stream}/${history.results[index].audio.id}`,
+          downloadUrl: `${ENDPOINTS.audio_download}/${history.results[index].audio.id}`,
           id: history.results[index].id,
         });
       }

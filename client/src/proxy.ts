@@ -21,7 +21,6 @@ function appProxy(request: NextRequest) {
   if (!token && !is_auth_route) {
     return NextResponse.redirect(new URL(`/${locale}${ROUTES.sign_in}?next=/${path !== "/" ? `${locale}${path}` : locale}`, request.url));
   }
-  console.log(path);
 
   return NextResponse.next();
 }

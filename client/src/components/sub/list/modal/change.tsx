@@ -14,10 +14,16 @@ import {
 import { useIntlayer } from "next-intlayer";
 import { Fragment, useCallback, useState } from "react";
 
-export function SubRestart() {
+interface SubChangeProps {
+  plan: string;
+  period: "annual" | "monthly";
+}
+
+export function SubChange({ plan, period }: SubChangeProps) {
   const content = useIntlayer("sub-content");
   const [isOpen, setIsOpen] = useState(false);
   const { setUser } = useUserStore();
+
   const { setAlert } = useAlertStore();
 
   const handleOpen = useCallback(() => {
@@ -45,7 +51,7 @@ export function SubRestart() {
         setAlert((prev) => ({
           ...prev,
           color: "danger",
-          description: data.message,
+          description: data.message ?? content.errors.server.value,
           isVisible: true,
         }));
     }
@@ -54,14 +60,15 @@ export function SubRestart() {
   const handleSubmit = useCallback(async () => {
     try {
       const { data } = await postRequest({
-        url: ENDPOINTS.sub_restart,
+        url: ENDPOINTS.sub_change,
+        data: { plan, period },
       });
       if (data) {
         getUser();
         setAlert((prev) => ({
           ...prev,
           color: "success",
-          description: content.success.restart.value,
+          description: content.success.change.value,
           isVisible: true,
         }));
       }
@@ -78,33 +85,33 @@ export function SubRestart() {
         setAlert((prev) => ({
           ...prev,
           color: "danger",
-          description: data.message,
+          description: data.message ?? content.errors.server.value,
           isVisible: true,
         }));
     } finally {
       setIsOpen(false);
     }
-  }, []);
+  }, [plan, period]);
 
   return (
     <Fragment>
       <Button fullWidth color="primary" onPress={handleOpen}>
-        {content.card.restart.title}
+        {content.card.change.title}
       </Button>
       <Modal size="lg" isOpen={isOpen} onClose={handleClose}>
         <ModalContent>
-          <ModalHeader> {content.card.restart.modal.title}</ModalHeader>
+          <ModalHeader> {content.card.change.modal.title}</ModalHeader>
           <ModalBody>
             <p className="text-sm text-default-500">
-              {content.card.restart.modal.description}
+              {content.card.change.modal.description}
             </p>
           </ModalBody>
           <ModalFooter>
             <Button color="danger" variant="light" onPress={handleClose}>
-              {content.card.restart.modal.buttons.cancel}
+              {content.card.change.modal.buttons.cancel}
             </Button>
             <Button color="primary" onPress={handleSubmit}>
-              {content.card.restart.modal.buttons.submit}
+              {content.card.change.modal.buttons.submit}
             </Button>
           </ModalFooter>
         </ModalContent>

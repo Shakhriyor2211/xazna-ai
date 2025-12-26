@@ -10,37 +10,37 @@ const subContent = {
             ru: "Подписка",
         }),
         range: {
-            month: t({
+            monthly: t({
                 uz: "Oylik",
-                ru: "Ежемесячно",
+                ru: "Ежемесячный",
                 en: "Monthly",
             }),
-            year: t({
+            annual: t({
                 uz: "Yillik",
-                ru: "Ежегодно",
-                en: "Yearly",
+                ru: "Еежегодный",
+                en: "Annual",
             })
         },
         card: {
             credit_range: {
-                month: t({
+                monthly: t({
                     uz: "kredit/oy",
                     ru: "кредитов/месяц",
                     en: "credits/month",
                 }),
-                year: t({
+                annual: t({
                     uz: "kredit/yil",
                     ru: "кредитов/год",
                     en: "credits/year",
                 }),
             },
             price_range: {
-                month: t({
+                monthly: t({
                     uz: "oyiga",
                     ru: "в месяц",
                     en: "per month",
                 }),
-                year: t({
+                annual: t({
                     uz: "yiliga",
                     ru: "в год",
                     en: "per year",
@@ -155,6 +155,66 @@ const subContent = {
                 })
             },
         },
+        tab: {
+            chatbot: t({
+                uz: "Chatbot",
+                en: "Chatbot",
+                ru: "Чат-бот",
+            }),
+
+            stt: t({
+                uz: "Nutqdan matnga",
+                en: "Speech to text",
+                ru: "Речь в текст",
+            }),
+            tts: t({
+                uz: "Matndan nutqqa",
+                en: "Text to speech",
+                ru: "Текст в речь",
+            }),
+        },
+        table: {
+            empty: t({
+                uz: "Hozircha hech qanday maʼlumot yoʻq.",
+                en: "There is no data yet.",
+                ru: "Данных пока нет.",
+            }),
+            head: {
+                credit_rate: t({
+                    uz: "Kredit limiti",
+                    en: "Credit limit",
+                    ru: "Лимит кредита",
+                }),
+                session_rate: t({
+                    uz: "Sessiya limiti",
+                    en: "Session limit",
+                    ru: "Лимит сессий",
+                }),
+
+                credit_usage: t({
+                    uz: "Kreditdan foydalanish",
+                    en: "Credit usage",
+                    ru: "Использование кредита",
+                }),
+                cash_usage: t({
+                    uz: "Naqd puldan foydalanish",
+                    en: "Cash usage",
+                    ru: "Использование денежных средств",
+                }),
+            },
+            minute: t({
+                uz: "min",
+                en: "min",
+                ru: "мин",
+            }),
+            character: t({
+                uz: "belgi",
+                en: "chars",
+                ru: "символов",
+            })
+
+        },
+
         success: {
             change: t({
                 uz: "Rejangiz muvaffaqiyatli o‘zgartirildi.",

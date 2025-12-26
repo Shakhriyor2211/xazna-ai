@@ -1,4 +1,3 @@
-import math
 import re
 from io import BytesIO
 import secrets
@@ -136,7 +135,7 @@ def tts_transaction(balance, sub, rate, text, mdl):
 
 
 
-def stt_transaction(balance, sub, rate, audio, mdl):
+def stt_transaction(balance, sub, rate, audio_duration, mdl):
     plan = STTModelModel.objects.filter(title=mdl).first()
 
     if plan is None:
@@ -148,7 +147,7 @@ def stt_transaction(balance, sub, rate, audio, mdl):
 
     credit_avail = sub.credit - sub.credit_expense
     credit_active = min(credit_avail, rate.credit_limit - rate.credit_usage)
-    audio_duration = math.ceil(get_audio_duration(audio))
+
     credit_usage = audio_duration * plan.credit
     cash_usage = 0
 
@@ -161,6 +160,7 @@ def stt_transaction(balance, sub, rate, audio, mdl):
             raise CustomException(_("Not enough funds."), 403)
 
     else:
+        print(credit_active, credit_avail)
         if audio_duration > credit_avail / plan.credit:
             raise CustomException(_("Not enough credits."), 403)
 

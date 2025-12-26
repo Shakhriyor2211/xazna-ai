@@ -282,3 +282,6 @@ msgstr "Русский"
 
 msgid "English"
 msgstr "Английский"
+
+msgid "Audio duration must not exceed 2 minutes."
+msgstr "Длительность аудио не должна превышать 2 минуты."

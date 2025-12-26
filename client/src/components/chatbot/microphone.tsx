@@ -1,20 +1,22 @@
+import { useAlertStore } from "@/providers/alert";
 import { COLORS } from "@/shared/site";
 import { Button } from "@heroui/react";
-import React, {
+import { useIntlayer } from "next-intlayer";
+import {
   useRef,
   useEffect,
   Fragment,
   useCallback,
   Dispatch,
   SetStateAction,
-  MutableRefObject,
+  RefObject,
 } from "react";
 import { PiMicrophone, PiX } from "react-icons/pi";
 import WaveSurfer from "wavesurfer.js";
 import RecordPlugin from "wavesurfer.js/dist/plugins/record";
 
 interface SessionMicrophoneProps {
-  recordPluginRef: MutableRefObject<RecordPlugin | null>;
+  recordPluginRef: RefObject<RecordPlugin | null>;
   isRecording: boolean;
   setIsRecording: Dispatch<SetStateAction<boolean>>;
 }
@@ -25,6 +27,8 @@ export function SessionMicrophone({
   setIsRecording,
 }: SessionMicrophoneProps) {
   const micContainerRef = useRef<HTMLDivElement | null>(null);
+  const { setAlert } = useAlertStore();
+  const content = useIntlayer("chatbot-content");
 
   useEffect(() => {
     if (micContainerRef.current === null) return;
@@ -42,6 +46,18 @@ export function SessionMicrophone({
     });
 
     wavesurferInstance.registerPlugin(recordPluginRef.current);
+
+    recordPluginRef.current.on("record-progress", (time) => {
+      if (time / 1000 > 120) {
+        recordPluginRef.current?.pauseRecording();
+        setAlert((prev) => ({
+          ...prev,
+          isVisible: true,
+          description: content.errors.recording_limit,
+          color: "danger",
+        }));
+      }
+    });
 
     return () => {
       wavesurferInstance.destroy();

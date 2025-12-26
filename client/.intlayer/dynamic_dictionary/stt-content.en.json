@@ -5,7 +5,7 @@
     "form": {
       "file": {
         "button": "Browse file",
-        "description": "MP3 or WAV, maximum file size 50 MB"
+        "description": "MP3 or WAV file, up to 10 MB and 2 minutes"
       },
       "buttons": {
         "submit": "Generate",
@@ -44,6 +44,7 @@
       }
     },
     "errors": {
+      "audio_limit": "The maximum allowed audio duration is 2 minutes.",
       "server": "Internal server error."
     },
     "metadata": {

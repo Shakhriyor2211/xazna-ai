@@ -18,8 +18,8 @@ import { AxiosErrorProps, TransactionProps } from "@/types";
 import { getError, getRequest } from "@/utils/axios-instance";
 import { useIntlayer } from "next-intlayer";
 import { ENDPOINTS } from "@/shared/site";
-import { useMillify } from "@/hooks/millify";
 import { PiCheck, PiSpinnerGap, PiX } from "react-icons/pi";
+import millify from "millify";
 
 const statusMap = {
   pending: {
@@ -189,7 +189,9 @@ export function TransactionsTable() {
                     : history.data.length - i}
                 </TableCell>
                 <TableCell className="uppercase py-2">
-                  {`${useMillify(Number(item.amount))} ${item.currency}`}
+                  {`${millify(Number(item.amount), { precision: 2 })} ${
+                    item.currency
+                  }`}
                 </TableCell>
                 <TableCell className="uppercase py-2">
                   {item.provider}

@@ -7,6 +7,22 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
 
+export interface SubInfoProps {
+  plan: string[];
+  mdl: {
+    title: string,
+    credit: number,
+    cash: number
+  }[],
+  rate: {
+    plan: string,
+    credit_limit: number,
+    credit_time: number,
+    session_limit: number,
+    context_limit: number
+  }[]
+}
+
 export interface FileProps {
   id: string | null;
   name: string;
@@ -21,7 +37,7 @@ export interface AlertProps {
   variant: "solid" | "flat" | "faded" | "bordered";
 }
 
-interface SubProps {
+export interface SubProps {
   id: number;
   created_at: string;
   updated_at: string;
@@ -220,18 +236,6 @@ export interface PlansProps {
   id: number;
   title: string;
   description: string;
-  llm_rate: {
-    credit_limit: string;
-    credit_time: number;
-  };
-  tts_rate: {
-    credit_limit: string;
-    credit_time: number;
-  };
-  stt_rate: {
-    credit_limit: string;
-    credit_time: number;
-  };
   monthly_credit: string;
   monthly_price: string;
   monthly_discount: string;

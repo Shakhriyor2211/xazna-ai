@@ -9,7 +9,7 @@ export default {
         "form": {
           "file": {
             "button": "Faylni tanlash",
-            "description": "MP3 yoki WAV, maksimal fayl hajmi 50 MB"
+            "description": "MP3 yoki WAV fayl, maksimal 10 MB va 2 daqiqa"
           },
           "buttons": {
             "submit": "Yaratish",
@@ -48,6 +48,7 @@ export default {
           }
         },
         "errors": {
+          "audio_limit": "Audio yozuvining ruxsat etilgan maksimal davomiyligi 2 daqiqa.",
           "server": "Serverda ichki xato yuz berdi."
         },
         "metadata": {
@@ -65,7 +66,7 @@ export default {
         "form": {
           "file": {
             "button": "Browse file",
-            "description": "MP3 or WAV, maximum file size 50 MB"
+            "description": "MP3 or WAV file, up to 10 MB and 2 minutes"
           },
           "buttons": {
             "submit": "Generate",
@@ -104,6 +105,7 @@ export default {
           }
         },
         "errors": {
+          "audio_limit": "The maximum allowed audio duration is 2 minutes.",
           "server": "Internal server error."
         },
         "metadata": {
@@ -121,7 +123,7 @@ export default {
         "form": {
           "file": {
             "button": "Выбрать файл",
-            "description": "MP3 или WAV, максимальный размер файла 50 МБ"
+            "description": "Файл MP3 или WAV, до 10 МБ и 2 минут"
           },
           "buttons": {
             "submit": "Сгенерировать",
@@ -160,6 +162,7 @@ export default {
           }
         },
         "errors": {
+          "audio_limit": "Максимально допустимая продолжительность аудиозаписи составляет 2 минуты.",
           "server": "Внутренняя ошибка сервера."
         },
         "metadata": {

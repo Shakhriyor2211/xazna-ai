@@ -29,6 +29,9 @@ export function LocaleSwitcher() {
             as="a"
             href={getLocalizedUrl(pathWithoutLocale, "uz")}
             onClick={() => setLocale("uz")}
+            className={
+              locale === "uz" ? "pointer-events-none" : "pointer-events-auto"
+            }
             startContent={
               <img
                 className="w-6 h-6 rounded-full"
@@ -40,7 +43,9 @@ export function LocaleSwitcher() {
             O'zbekcha
           </DropdownItem>
           <DropdownItem
-            className="mt-2"
+            className={`mt-2 ${
+              locale === "ru" ? "pointer-events-none" : "pointer-events-auto"
+            }`}
             as="a"
             href={getLocalizedUrl(pathWithoutLocale, "ru")}
             onClick={() => setLocale("ru")}
@@ -55,7 +60,9 @@ export function LocaleSwitcher() {
             Русский
           </DropdownItem>
           <DropdownItem
-            className="mt-2"
+            className={`mt-2 ${
+              locale === "en" ? "pointer-events-none" : "pointer-events-auto"
+            }`}
             as="a"
             href={getLocalizedUrl(pathWithoutLocale, "en")}
             onClick={() => setLocale("en")}

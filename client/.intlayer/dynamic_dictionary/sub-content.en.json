@@ -3,17 +3,17 @@
   "content": {
     "title": "Subscription",
     "range": {
-      "month": "Monthly",
-      "year": "Yearly"
+      "monthly": "Monthly",
+      "annual": "Annual"
     },
     "card": {
       "credit_range": {
-        "month": "credits/month",
-        "year": "credits/year"
+        "monthly": "credits/month",
+        "annual": "credits/year"
       },
       "price_range": {
-        "month": "per month",
-        "year": "per year"
+        "monthly": "per month",
+        "annual": "per year"
       },
       "change": {
         "title": "Subscribe",
@@ -51,6 +51,22 @@
         "auto_renew": "Auto renew",
         "cash_charge": "Cash charge"
       }
+    },
+    "tab": {
+      "chatbot": "Chatbot",
+      "stt": "Speech to text",
+      "tts": "Text to speech"
+    },
+    "table": {
+      "empty": "There is no data yet.",
+      "head": {
+        "credit_rate": "Credit limit",
+        "session_rate": "Session limit",
+        "credit_usage": "Credit usage",
+        "cash_usage": "Cash usage"
+      },
+      "minute": "min",
+      "character": "chars"
     },
     "success": {
       "change": "Your plan changed successfully.",

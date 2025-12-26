@@ -5,7 +5,7 @@
     "form": {
       "file": {
         "button": "Faylni tanlash",
-        "description": "MP3 yoki WAV, maksimal fayl hajmi 50 MB"
+        "description": "MP3 yoki WAV fayl, maksimal 10 MB va 2 daqiqa"
       },
       "buttons": {
         "submit": "Yaratish",
@@ -44,6 +44,7 @@
       }
     },
     "errors": {
+      "audio_limit": "Audio yozuvining ruxsat etilgan maksimal davomiyligi 2 daqiqa.",
       "server": "Serverda ichki xato yuz berdi."
     },
     "metadata": {

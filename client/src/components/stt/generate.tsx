@@ -29,6 +29,20 @@ interface STTGenerateProps {
   getHistory: (page?: number) => void;
 }
 
+const getAudioDuration = (file: File): Promise<number> => {
+  return new Promise((resolve, reject) => {
+    const audio = new Audio();
+    audio.src = URL.createObjectURL(file);
+
+    audio.onloadedmetadata = () => {
+      URL.revokeObjectURL(audio.src);
+      resolve(audio.duration);
+    };
+
+    audio.onerror = reject;
+  });
+};
+
 export function STTGenerate({
   history,
   sttData,
@@ -56,7 +70,7 @@ export function STTGenerate({
       "audio/wav": [".wav"],
       "audio/mpeg": [".mp3"],
     },
-    maxSize: 50 * 1024 * 1024,
+    maxSize: 10 * 1024 * 1024,
   });
 
   const handleClear = useCallback(() => {
@@ -66,7 +80,20 @@ export function STTGenerate({
   const handleSubmit = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
+
       if (file === null) return;
+
+      const duration = await getAudioDuration(file);
+
+      if (duration > 120) {
+        setAlert((prev) => ({
+          ...prev,
+          isVisible: true,
+          description: content.errors.audio_limit,
+          color: "danger",
+        }));
+        return;
+      }
 
       setIsLoading(true);
 
@@ -85,8 +112,8 @@ export function STTGenerate({
         });
         if (data) {
           setSttData({
-            audioUrl: `/${ENDPOINTS.audio_stream}/${data.audio.id}`,
-            downloadUrl: `/${ENDPOINTS.audio_download}/${data.audio.id}`,
+            audioUrl: `${ENDPOINTS.audio_stream}/${data.audio.id}`,
+            downloadUrl: `${ENDPOINTS.audio_download}/${data.audio.id}`,
             text: data.text,
             id: data.id,
           });
@@ -130,7 +157,7 @@ export function STTGenerate({
 
             <div className="space-y-4 flex flex-col items-center justify-center">
               <FiUploadCloud className="w-6 h-6 text-primary" />
-              <h3 className="text-xs text-default-500 text-center">
+              <h3 className="text-xs text-default-500 text-center max-w-2xs">
                 {content.form.file.description}
               </h3>
 

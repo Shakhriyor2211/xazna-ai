@@ -75,6 +75,7 @@ export function SessionForm({
   const handleSTTSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
+
       if (recordPluginRef.current === null) return;
 
       setIsLoading(true);
@@ -96,9 +97,12 @@ export function SessionForm({
     const file = new File([blob], `recording.${extension}`, {
       type: blob.type,
     });
+
     const form_data = new FormData();
-    form_data.append("file", file);
-    form_data.append("model", "Base");
+    form_data.append("audio", file);
+    form_data.append("mdl", "Base");
+    form_data.append("save", "disable");
+
     try {
       const { data } = await postRequest({
         url: ENDPOINTS.stt_generate,
@@ -116,7 +120,7 @@ export function SessionForm({
       setAlert((prev) => ({
         ...prev,
         isVisible: true,
-        description: content.session.error.server.value,
+        description: content.errors.session.server.value,
         color: "danger",
       }));
     }

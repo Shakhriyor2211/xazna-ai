@@ -6,6 +6,8 @@ from stt.models import UserSTTModel, TokenSTTModel
 class STTSerializer(serializers.Serializer):
     audio = serializers.FileField()
     mdl = serializers.CharField(max_length=50)
+    save = serializers.ChoiceField(choices=[("disable", "disable"), ("enable", "enable")], default="enable" )
+
 
 
 class UserSTTListSerializer(serializers.ModelSerializer):

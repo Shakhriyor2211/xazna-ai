@@ -3,17 +3,17 @@
   "content": {
     "title": "Obuna",
     "range": {
-      "month": "Oylik",
-      "year": "Yillik"
+      "monthly": "Oylik",
+      "annual": "Yillik"
     },
     "card": {
       "credit_range": {
-        "month": "kredit/oy",
-        "year": "kredit/yil"
+        "monthly": "kredit/oy",
+        "annual": "kredit/yil"
       },
       "price_range": {
-        "month": "oyiga",
-        "year": "yiliga"
+        "monthly": "oyiga",
+        "annual": "yiliga"
       },
       "change": {
         "title": "Obuna bo'lish",
@@ -51,6 +51,22 @@
         "auto_renew": "Avto yangilash",
         "cash_charge": "Balansni to'ldirish"
       }
+    },
+    "tab": {
+      "chatbot": "Chatbot",
+      "stt": "Nutqdan matnga",
+      "tts": "Matndan nutqqa"
+    },
+    "table": {
+      "empty": "Hozircha hech qanday maʼlumot yoʻq.",
+      "head": {
+        "credit_rate": "Kredit limiti",
+        "session_rate": "Sessiya limiti",
+        "credit_usage": "Kreditdan foydalanish",
+        "cash_usage": "Naqd puldan foydalanish"
+      },
+      "minute": "min",
+      "character": "belgi"
     },
     "success": {
       "change": "Rejangiz muvaffaqiyatli o‘zgartirildi.",

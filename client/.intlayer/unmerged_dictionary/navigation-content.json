@@ -35,7 +35,7 @@
             "nodeType": "translation",
             "translation": {
               "uz": "Nutqdan matnga",
-              "en": "Speech to Text",
+              "en": "Speech to text",
               "ru": "Речь в текст"
             }
           },
@@ -43,7 +43,7 @@
             "nodeType": "translation",
             "translation": {
               "uz": "Matndan nutqqa",
-              "en": "Text to Speech",
+              "en": "Text to speech",
               "ru": "Текст в речь"
             }
           },

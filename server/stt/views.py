@@ -1,3 +1,4 @@
+import math
 import re
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -8,7 +9,7 @@ from rest_framework.response import Response
 from finance.models import UserExpenseModel, TokenExpenseModel
 from shared.models import AudioModel
 from log.models import UserSTTErrorLogModel, TokenSTTErrorLogModel
-from shared.utils import text_decode, convert_to_wav, stt_transaction
+from shared.utils import text_decode, convert_to_wav, stt_transaction, get_audio_duration
 from shared.views import CustomPagination
 from stt.models import UserSTTModel, TokenSTTModel
 from stt.serializers import UserSTTListSerializer, UserSTTChangeSerializer, STTSerializer, TokenSTTListSerializer, \
@@ -34,13 +35,20 @@ class UserSTTView(APIView):
             serializer.is_valid(raise_exception=True)
 
             mdl = serializer.validated_data["mdl"]
+            save = serializer.validated_data["save"]
+
+            audio_duration = math.ceil(get_audio_duration(serializer.validated_data["audio"]))
+
+            if audio_duration > 120:
+                return Response(data={"message": _("Audio duration must not exceed 2 minutes.")}, status=status.HTTP_400_BAD_REQUEST)
+
 
             audio_instance = AudioModel.objects.create(user=request.user, file=serializer.validated_data["audio"])
 
             balance = request.user.balance
             sub = request.user.active_sub
             rate = request.user.stt_rate
-            credit_usage, cash_usage = stt_transaction(balance, sub, rate, audio_instance.file, mdl)
+            credit_usage, cash_usage = stt_transaction(balance, sub, rate, audio_duration, mdl)
 
             with transaction.atomic():
                 audio = convert_to_wav(audio_instance.file)
@@ -63,20 +71,24 @@ class UserSTTView(APIView):
 
                 text = re.sub(r"(Ğ|ğ|Õ|õ|Ş|ş|Ç|ç)", text_decode, text)
 
-                stt_instance = UserSTTModel.objects.create(text=text, user=request.user, mdl=mdl, audio=audio_instance)
+
 
                 sub.credit_expense += credit_usage
                 rate.credit_usage += credit_usage
                 balance.cash -= cash_usage
 
+                balance.save()
+                sub.save()
+                rate.save()
+
+                if save == "disable":
+                    return Response(data={"text": text}, status=status.HTTP_200_OK)
+
+                stt_instance = UserSTTModel.objects.create(text=text, user=request.user, mdl=mdl, audio=audio_instance)
                 UserExpenseModel.objects.create(operation="stt", operation_id=stt_instance.id, credit=credit_usage,
                                                 cash=cash_usage, user=request.user)
 
                 stt = UserSTTListSerializer(stt_instance)
-
-                balance.save()
-                sub.save()
-                rate.save()
 
                 return Response(data=stt.data, status=status.HTTP_200_OK)
         except CustomException as e:

@@ -48,8 +48,8 @@ export default {
               "title": "Chatbot",
               "new_session": "New chat"
             },
-            "stt": "Speech to Text",
-            "tts": "Text to Speech",
+            "stt": "Speech to text",
+            "tts": "Text to speech",
             "monitoring": "Monitoring"
           },
           "development": {

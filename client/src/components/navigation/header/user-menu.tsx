@@ -15,8 +15,8 @@ import { AxiosErrorProps, FinanceProps } from "@/types";
 import { useAlertStore } from "@/providers/alert";
 import { CircularProgressbar } from "react-circular-progressbar";
 import Link from "next/link";
-import { useMillify } from "@/hooks/millify";
 import { useIntlayer, useLocale } from "next-intlayer";
+import millify from "millify";
 
 export function UserMenu() {
   const { user } = useUserStore();
@@ -48,7 +48,7 @@ export function UserMenu() {
         setAlert((prev) => ({
           ...prev,
           color: "danger",
-          description: data.message,
+          description: data.message ?? content.errors.server.value,
           isVisible: true,
         }));
     }
@@ -81,7 +81,7 @@ export function UserMenu() {
         setAlert((prev) => ({
           ...prev,
           color: "danger",
-          description: data.message,
+          description: data.message ?? content.errors.server.value,
           isVisible: true,
         }));
     }
@@ -159,7 +159,7 @@ export function UserMenu() {
                   {content.header.dropdown.total}
                 </span>
                 <span className="text-xs">
-                  {useMillify(Number(finance?.sub.credit ?? 0))}
+                  {millify(Number(finance?.sub.credit ?? 0), { precision: 2 })}
                 </span>
               </div>
               <div className="flex justify-between items-center space-x-2">
@@ -167,7 +167,9 @@ export function UserMenu() {
                   {content.header.dropdown.usage}
                 </span>
                 <span className="text-xs">
-                  {useMillify(Number(finance?.sub.credit_expense ?? 0))}
+                  {millify(Number(finance?.sub.credit_expense ?? 0), {
+                    precision: 2,
+                  })}
                 </span>
               </div>
               <div className="flex justify-between items-center space-x-2">
@@ -175,7 +177,10 @@ export function UserMenu() {
                   {content.header.dropdown.cash}
                 </span>
                 <span className="text-xs">
-                  {useMillify(Number(finance?.balance.cash ?? 0))} UZS
+                  {millify(Number(finance?.balance.cash ?? 0), {
+                    precision: 2,
+                  })}
+                  &nbsp;UZS
                 </span>
               </div>
             </div>

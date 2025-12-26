@@ -24,9 +24,9 @@
           "description": {
             "nodeType": "translation",
             "translation": {
-              "uz": "MP3 yoki WAV, maksimal fayl hajmi 50 MB",
-              "en": "MP3 or WAV, maximum file size 50 MB",
-              "ru": "MP3 или WAV, максимальный размер файла 50 МБ"
+              "uz": "MP3 yoki WAV fayl, maksimal 10 MB va 2 daqiqa",
+              "en": "MP3 or WAV file, up to 10 MB and 2 minutes",
+              "ru": "Файл MP3 или WAV, до 10 МБ и 2 минут"
             }
           }
         },
@@ -158,6 +158,14 @@
         }
       },
       "errors": {
+        "audio_limit": {
+          "nodeType": "translation",
+          "translation": {
+            "uz": "Audio yozuvining ruxsat etilgan maksimal davomiyligi 2 daqiqa.",
+            "ru": "Максимально допустимая продолжительность аудиозаписи составляет 2 минуты.",
+            "en": "The maximum allowed audio duration is 2 minutes."
+          }
+        },
         "server": {
           "nodeType": "translation",
           "translation": {

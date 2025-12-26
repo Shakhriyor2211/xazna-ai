@@ -7,17 +7,17 @@ export default {
       "uz": {
         "title": "Obuna",
         "range": {
-          "month": "Oylik",
-          "year": "Yillik"
+          "monthly": "Oylik",
+          "annual": "Yillik"
         },
         "card": {
           "credit_range": {
-            "month": "kredit/oy",
-            "year": "kredit/yil"
+            "monthly": "kredit/oy",
+            "annual": "kredit/yil"
           },
           "price_range": {
-            "month": "oyiga",
-            "year": "yiliga"
+            "monthly": "oyiga",
+            "annual": "yiliga"
           },
           "change": {
             "title": "Obuna bo'lish",
@@ -56,6 +56,22 @@ export default {
             "cash_charge": "Balansni to'ldirish"
           }
         },
+        "tab": {
+          "chatbot": "Chatbot",
+          "stt": "Nutqdan matnga",
+          "tts": "Matndan nutqqa"
+        },
+        "table": {
+          "empty": "Hozircha hech qanday maʼlumot yoʻq.",
+          "head": {
+            "credit_rate": "Kredit limiti",
+            "session_rate": "Sessiya limiti",
+            "credit_usage": "Kreditdan foydalanish",
+            "cash_usage": "Naqd puldan foydalanish"
+          },
+          "minute": "min",
+          "character": "belgi"
+        },
         "success": {
           "change": "Rejangiz muvaffaqiyatli o‘zgartirildi.",
           "restart": "Rejangiz muvaffaqiyatli qayta ishga tushirildi."
@@ -76,17 +92,17 @@ export default {
       "en": {
         "title": "Subscription",
         "range": {
-          "month": "Monthly",
-          "year": "Yearly"
+          "monthly": "Monthly",
+          "annual": "Annual"
         },
         "card": {
           "credit_range": {
-            "month": "credits/month",
-            "year": "credits/year"
+            "monthly": "credits/month",
+            "annual": "credits/year"
           },
           "price_range": {
-            "month": "per month",
-            "year": "per year"
+            "monthly": "per month",
+            "annual": "per year"
           },
           "change": {
             "title": "Subscribe",
@@ -125,6 +141,22 @@ export default {
             "cash_charge": "Cash charge"
           }
         },
+        "tab": {
+          "chatbot": "Chatbot",
+          "stt": "Speech to text",
+          "tts": "Text to speech"
+        },
+        "table": {
+          "empty": "There is no data yet.",
+          "head": {
+            "credit_rate": "Credit limit",
+            "session_rate": "Session limit",
+            "credit_usage": "Credit usage",
+            "cash_usage": "Cash usage"
+          },
+          "minute": "min",
+          "character": "chars"
+        },
         "success": {
           "change": "Your plan changed successfully.",
           "restart": "Your plan restarted successfully."
@@ -145,17 +177,17 @@ export default {
       "ru": {
         "title": "Подписка",
         "range": {
-          "month": "Ежемесячно",
-          "year": "Ежегодно"
+          "monthly": "Ежемесячный",
+          "annual": "Еежегодный"
         },
         "card": {
           "credit_range": {
-            "month": "кредитов/месяц",
-            "year": "кредитов/год"
+            "monthly": "кредитов/месяц",
+            "annual": "кредитов/год"
           },
           "price_range": {
-            "month": "в месяц",
-            "year": "в год"
+            "monthly": "в месяц",
+            "annual": "в год"
           },
           "change": {
             "title": "Подписаться",
@@ -193,6 +225,22 @@ export default {
             "auto_renew": "Автопродление",
             "cash_charge": "Пополнить баланс"
           }
+        },
+        "tab": {
+          "chatbot": "Чат-бот",
+          "stt": "Речь в текст",
+          "tts": "Текст в речь"
+        },
+        "table": {
+          "empty": "Данных пока нет.",
+          "head": {
+            "credit_rate": "Лимит кредита",
+            "session_rate": "Лимит сессий",
+            "credit_usage": "Использование кредита",
+            "cash_usage": "Использование денежных средств"
+          },
+          "minute": "мин",
+          "character": "символов"
         },
         "success": {
           "change": "Ваш план успешно изменён.",

@@ -18,9 +18,9 @@ const sttContent = {
                     ru: "Выбрать файл",
                 }),
                 description: t({
-                    uz: "MP3 yoki WAV, maksimal fayl hajmi 50 MB",
-                    en: "MP3 or WAV, maximum file size 50 MB",
-                    ru: "MP3 или WAV, максимальный размер файла 50 МБ",
+                    uz: "MP3 yoki WAV fayl, maksimal 10 MB va 2 daqiqa",
+                    en: "MP3 or WAV file, up to 10 MB and 2 minutes",
+                    ru: "Файл MP3 или WAV, до 10 МБ и 2 минут",
                 })
             },
             buttons: {
@@ -113,6 +113,11 @@ const sttContent = {
         },
 
         errors: {
+            audio_limit: t({
+                uz: "Audio davomiyligi 2 daqiqadan oshmasligi kerak.",
+                ru: "Длительность аудио не должна превышать 2 минуты.",
+                en: "Audio duration must not exceed 2 minutes."
+            }),
             server: t({
                 uz: "Serverda ichki xato yuz berdi.",
                 ru: "Внутренняя ошибка сервера.",

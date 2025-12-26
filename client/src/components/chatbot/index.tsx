@@ -59,7 +59,7 @@ export function Chatbot() {
           ...prev,
           isVisible: true,
           color: "danger",
-          description: data.message,
+          description: data.message ?? content.errors.session.server.value,
         }));
     }
   }, []);
@@ -97,8 +97,10 @@ export function Chatbot() {
       type: blob.type,
     });
     const form_data = new FormData();
-    form_data.append("file", file);
-    form_data.append("model", "Base");
+    form_data.append("audio", file);
+    form_data.append("mdl", "Base");
+    form_data.append("save", "disable");
+
     try {
       const { data } = await postRequest({
         url: ENDPOINTS.stt_generate,

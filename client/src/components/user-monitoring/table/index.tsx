@@ -16,10 +16,10 @@ import useDate from "@/hooks/date";
 import { useAlertStore } from "@/providers/alert";
 import { getError, getRequest } from "@/utils/axios-instance";
 import { ENDPOINTS } from "@/shared/site";
-import { useMillify } from "@/hooks/millify";
 import { MonitoringTableToolbar } from "./toolbar";
 import { AxiosErrorProps, ExpenseProps } from "@/types";
 import { useIntlayer } from "next-intlayer";
+import millify from "millify";
 
 export function UserMonitoringTable() {
   const { longDate } = useDate();
@@ -161,7 +161,7 @@ export function UserMonitoringTable() {
                 </TableCell>
                 <TableCell className="uppercase py-2">{item.credit}</TableCell>
                 <TableCell className="uppercase py-2">
-                  {`${useMillify(Number(item.cash))} UZS`}
+                  {`${millify(Number(item.cash), { precision: 2 })} UZS`}
                 </TableCell>
                 <TableCell className="py-2">
                   {longDate(item.created_at)}

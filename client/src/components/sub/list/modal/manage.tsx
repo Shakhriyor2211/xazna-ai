@@ -1,4 +1,3 @@
-import { useMillify } from "@/hooks/millify";
 import { useAlertStore } from "@/providers/alert";
 import { ENDPOINTS } from "@/shared/site";
 import { AxiosErrorProps, FinanceProps } from "@/types";
@@ -12,6 +11,7 @@ import {
   Switch,
   useDisclosure,
 } from "@heroui/react";
+import millify from "millify";
 import { useIntlayer } from "next-intlayer";
 import { ChangeEvent, Fragment, useCallback, useEffect, useState } from "react";
 import { IoSettingsOutline } from "react-icons/io5";
@@ -111,7 +111,7 @@ export function SubManage() {
         setAlert((prev) => ({
           ...prev,
           color: "danger",
-          description: data.message,
+          description: data.message ?? content.errors.server.value,
           isVisible: true,
         }));
     }
@@ -153,15 +153,22 @@ export function SubManage() {
                   <div className="flex items-center justify-between text-sm border-b pb-1 border-default-200">
                     <span> {content.manage.modal.credits}</span>
                     <span className="font-semibold">
-                      {useMillify(Number(finance?.sub.credit_expense ?? 0))}
+                      {millify(Number(finance?.sub.credit_expense ?? 0), {
+                        precision: 2,
+                      })}
                       &nbsp;/&nbsp;
-                      {useMillify(Number(finance?.sub.credit ?? 0))}
+                      {millify(Number(finance?.sub.credit ?? 0), {
+                        precision: 2,
+                      })}
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-sm border-b pb-1 border-default-200">
                     <span> {content.manage.modal.plan}</span>
                     <span className="font-semibold">
-                      {useMillify(Number(finance?.sub.price ?? 0))} UZS
+                      {millify(Number(finance?.sub.price ?? 0), {
+                        precision: 2,
+                      })}
+                      &nbsp;UZS
                     </span>
                   </div>
                 </div>

@@ -47,6 +47,7 @@
       }
     },
     "errors": {
+      "recording_limit": "The maximum allowed recording duration is 2 minutes.",
       "session": {
         "server": "Internal server error."
       },

@@ -53,7 +53,6 @@ export function SessionRename({
             title: title.trim(),
           },
         });
-        console.log(data);
 
         if (data)
           setSessions((prev) =>

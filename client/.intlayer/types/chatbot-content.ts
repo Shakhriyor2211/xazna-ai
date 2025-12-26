@@ -51,6 +51,7 @@ export default {
           }
         },
         "errors": {
+          "recording_limit": "Yozib olish uchun ruxsat etilgan maksimal davomiylik 2 daqiqa.",
           "session": {
             "server": "Serverda ichki xato yuz berdi."
           },
@@ -115,6 +116,7 @@ export default {
           }
         },
         "errors": {
+          "recording_limit": "The maximum allowed recording duration is 2 minutes.",
           "session": {
             "server": "Internal server error."
           },
@@ -179,6 +181,7 @@ export default {
           }
         },
         "errors": {
+          "recording_limit": "Максимально допустимая продолжительность записи составляет 2 минуты.",
           "session": {
             "server": "Внутренняя ошибка сервера."
           },

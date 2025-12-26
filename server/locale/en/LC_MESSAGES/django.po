@@ -263,6 +263,7 @@ msgstr ""
 msgid "Data not found."
 msgstr ""
 
+
 #: finance/views.py:177
 msgid "Balance settings changed successfully."
 msgstr ""
@@ -406,4 +407,7 @@ msgstr ""
 
 #: xazna/settings.py:241
 msgid "English"
+msgstr ""
+
+msgid "Audio duration must not exceed 2 minutes."
 msgstr ""

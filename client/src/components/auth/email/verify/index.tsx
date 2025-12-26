@@ -34,8 +34,6 @@ export const VerifyEmail = () => {
 
   const onSubmit = useCallback(async ({ otp }: { otp: string }) => {
     try {
-      console.log(otp);
-
       const { data } = await postRequest({
         url: ENDPOINTS.verify_email_code,
         data: { otp_id: slug, code: otp },

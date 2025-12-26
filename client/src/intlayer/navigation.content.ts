@@ -26,12 +26,12 @@ const navigationContent = {
         },
         stt: t({
           uz: "Nutqdan matnga",
-          en: "Speech to Text",
+          en: "Speech to text",
           ru: "Речь в текст",
         }),
         tts: t({
           uz: "Matndan nutqqa",
-          en: "Text to Speech",
+          en: "Text to speech",
           ru: "Текст в речь",
         }),
         monitoring: t({

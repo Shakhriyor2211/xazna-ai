@@ -113,6 +113,12 @@ const chatbotContent = {
 
         },
         errors: {
+            recording_limit: t({
+                uz: "Yozib olish uchun ruxsat etilgan maksimal davomiylik 2 daqiqa.",
+                ru: "Максимально допустимая продолжительность записи составляет 2 минуты.",
+                en: "The maximum allowed recording duration is 2 minutes."
+
+            }),
             session: {
                 server: t({
                     uz: "Serverda ichki xato yuz berdi.",

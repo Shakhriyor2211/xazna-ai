@@ -47,6 +47,7 @@
       }
     },
     "errors": {
+      "recording_limit": "Yozib olish uchun ruxsat etilgan maksimal davomiylik 2 daqiqa.",
       "session": {
         "server": "Serverda ichki xato yuz berdi."
       },
