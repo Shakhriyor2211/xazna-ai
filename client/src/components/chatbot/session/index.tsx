@@ -59,7 +59,7 @@ export function ChatbotSession() {
             ...prev,
             isVisible: true,
             color: "danger",
-            description: data.message,
+            description: data.message ?? content.errors.server.value,
           }));
       }
     },
@@ -99,7 +99,7 @@ export function ChatbotSession() {
           ...prev,
           isVisible: true,
           color: "danger",
-          description: data.message,
+          description: data.message ?? content.errors.server.value,
         }));
     }
   }, [sessionId]);

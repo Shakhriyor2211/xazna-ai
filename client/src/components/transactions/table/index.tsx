@@ -92,7 +92,7 @@ export function TransactionsTable() {
           setAlert((prev) => ({
             ...prev,
             color: "danger",
-            description: data.message,
+            description: data.message ?? content.errors.server.value,
             isVisible: true,
           }));
       } finally {

@@ -146,7 +146,7 @@ export const ResetPasswordConfirm = () => {
         setAlert((prev) => ({
           ...prev,
           isVisible: true,
-          description: data.message,
+          description: data.message ?? content.errors.server.value,
           color: "danger",
         }));
     }

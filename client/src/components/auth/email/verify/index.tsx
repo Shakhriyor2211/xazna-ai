@@ -58,7 +58,7 @@ export const VerifyEmail = () => {
           ...prev,
           isVisible: true,
           color: "danger",
-          description: data.message,
+          description: data.message ?? content.errors.server.value,
         }));
       }
     }
@@ -87,7 +87,7 @@ export const VerifyEmail = () => {
           ...prev,
           isVisible: true,
           color: "danger",
-          description: data.message,
+          description: data.message ?? content.errors.server.value,
         }));
       }
     }

@@ -74,7 +74,7 @@ export function SessionRename({
             ...prev,
             isVisible: true,
             color: "danger",
-            description: data.message,
+            description: data.message ?? content.errors.server.value,
           }));
       } finally {
         setIsOpen(false);

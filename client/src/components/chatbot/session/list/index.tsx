@@ -48,7 +48,7 @@ export function ChatSessionList({
           ...prev,
           isVisible: true,
           color: "danger",
-          description: data.message,
+          description: data.message ?? content.errors.server.value,
         }));
     }
   }, [sessions]);

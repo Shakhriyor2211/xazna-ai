@@ -49,7 +49,7 @@ export function ProfileInfo({ user, setUser }: UserStoreProps) {
           setAlert((prev) => ({
             ...prev,
             color: "danger",
-            description: data.message,
+            description: data.message ?? content.errors.server.value,
             isVisible: true,
           }));
       }
