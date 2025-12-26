@@ -48,7 +48,7 @@ export default {
           }
         },
         "errors": {
-          "audio_limit": "Audio yozuvining ruxsat etilgan maksimal davomiyligi 2 daqiqa.",
+          "audio_limit": "Audio davomiyligi 2 daqiqadan oshmasligi kerak.",
           "server": "Serverda ichki xato yuz berdi."
         },
         "metadata": {
@@ -105,7 +105,7 @@ export default {
           }
         },
         "errors": {
-          "audio_limit": "The maximum allowed audio duration is 2 minutes.",
+          "audio_limit": "Audio duration must not exceed 2 minutes.",
           "server": "Internal server error."
         },
         "metadata": {
@@ -162,7 +162,7 @@ export default {
           }
         },
         "errors": {
-          "audio_limit": "Максимально допустимая продолжительность аудиозаписи составляет 2 минуты.",
+          "audio_limit": "Длительность аудио не должна превышать 2 минуты.",
           "server": "Внутренняя ошибка сервера."
         },
         "metadata": {

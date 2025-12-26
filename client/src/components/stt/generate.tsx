@@ -69,6 +69,7 @@ export function STTGenerate({
     accept: {
       "audio/wav": [".wav"],
       "audio/mpeg": [".mp3"],
+      "audio/webm": [".webm"],
     },
     maxSize: 10 * 1024 * 1024,
   });

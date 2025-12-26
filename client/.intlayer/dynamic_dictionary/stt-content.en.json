@@ -44,7 +44,7 @@
       }
     },
     "errors": {
-      "audio_limit": "The maximum allowed audio duration is 2 minutes.",
+      "audio_limit": "Audio duration must not exceed 2 minutes.",
       "server": "Internal server error."
     },
     "metadata": {
