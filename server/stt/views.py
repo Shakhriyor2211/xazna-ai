@@ -36,7 +36,7 @@ class UserSTTView(APIView):
 
             mdl = serializer.validated_data["mdl"]
             save = serializer.validated_data["save"]
-
+            print(serializer.validated_data["audio"].size)
             audio_duration = math.ceil(get_audio_duration(serializer.validated_data["audio"]))
 
             if audio_duration > 120:
