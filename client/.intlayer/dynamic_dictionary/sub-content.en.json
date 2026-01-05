@@ -49,7 +49,7 @@
         "credits": "Credits",
         "cost": "Cost",
         "auto_renew": "Auto renew",
-        "cash_charge": "Cash charge"
+        "cash_usage": "Cash usage"
       }
     },
     "tab": {

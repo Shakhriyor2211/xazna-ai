@@ -49,7 +49,7 @@
         "credits": "Kreditlar",
         "cost": "Narx",
         "auto_renew": "Avto yangilash",
-        "cash_charge": "Balansni to'ldirish"
+        "cash_usage": "Naqd puldan foydalanish"
       }
     },
     "tab": {

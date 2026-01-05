@@ -53,7 +53,7 @@ export default {
             "credits": "Kreditlar",
             "cost": "Narx",
             "auto_renew": "Avto yangilash",
-            "cash_charge": "Balansni to'ldirish"
+            "cash_usage": "Naqd puldan foydalanish"
           }
         },
         "tab": {
@@ -138,7 +138,7 @@ export default {
             "credits": "Credits",
             "cost": "Cost",
             "auto_renew": "Auto renew",
-            "cash_charge": "Cash charge"
+            "cash_usage": "Cash usage"
           }
         },
         "tab": {
@@ -223,7 +223,7 @@ export default {
             "credits": "Кредиты",
             "cost": "Стоимость",
             "auto_renew": "Автопродление",
-            "cash_charge": "Пополнить баланс"
+            "cash_usage": "Использование денежных средств"
           }
         },
         "tab": {

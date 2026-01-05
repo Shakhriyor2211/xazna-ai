@@ -219,12 +219,12 @@
               "en": "Auto renew"
             }
           },
-          "cash_charge": {
+          "cash_usage": {
             "nodeType": "translation",
             "translation": {
-              "uz": "Balansni to'ldirish",
-              "ru": "Пополнить баланс",
-              "en": "Cash charge"
+              "uz": "Naqd puldan foydalanish",
+              "ru": "Использование денежных средств",
+              "en": "Cash usage"
             }
           }
         }

@@ -182,7 +182,7 @@ export function SubManage() {
                     />
                   </div>
                   <div className="flex items-center justify-between text-sm">
-                    <span> {content.manage.modal.cash_charge}</span>
+                    <span> {content.manage.modal.cash_usage}</span>
                     <Switch
                       size="sm"
                       isSelected={finance?.balance.chargeable}

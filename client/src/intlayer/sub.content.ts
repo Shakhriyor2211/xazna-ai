@@ -148,10 +148,10 @@ const subContent = {
                     ru: "Автопродление",
                     en: "Auto renew",
                 }),
-                cash_charge: t({
-                    uz: "Balansni to'ldirish",
-                    ru: "Пополнить баланс",
-                    en: "Cash charge",
+                cash_usage: t({
+                    uz: "Naqd puldan foydalanish",
+                    ru: "Использование денежных средств",
+                    en: "Cash usage",
                 })
             },
         },

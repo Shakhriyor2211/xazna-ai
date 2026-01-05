@@ -14,9 +14,9 @@ import { useCallback, useEffect, useState } from "react";
 import { AxiosErrorProps, FinanceProps } from "@/types";
 import { useAlertStore } from "@/providers/alert";
 import { CircularProgressbar } from "react-circular-progressbar";
-import Link from "next/link";
 import { useIntlayer, useLocale } from "next-intlayer";
 import millify from "millify";
+import { Link } from "@/utils/link";
 
 export function UserMenu() {
   const { user } = useUserStore();
@@ -148,6 +148,7 @@ export function UserMenu() {
               </div>
               <Link
                 href={ROUTES.sub}
+                label="upgrade"
                 className="text-xs bg-primary text-white py-1 px-2 rounded-md"
               >
                 {content.header.dropdown.buttons.upgrade}
