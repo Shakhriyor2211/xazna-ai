@@ -156,5 +156,6 @@ class PictureAdmin(admin.ModelAdmin):
     )
 
 
+
 admin.site.site_header = "Xazna ai"
 admin.site.index_title = "Features area"

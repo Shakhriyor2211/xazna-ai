@@ -17,6 +17,7 @@ def generate_picture_name(_, filename):
 
 
 class CustomUserModel(AbstractBaseUser, PermissionsMixin):
+    DoesNotExist = None
     email = models.EmailField("email address", max_length=200, unique=True)
     first_name = models.CharField("first name", max_length=150)
     last_name = models.CharField("last name", max_length=150)

@@ -2,10 +2,10 @@ from django.utils import timezone
 from django.contrib.auth.models import AnonymousUser
 from django.http import JsonResponse
 from django.utils.deprecation import MiddlewareMixin
-from jwt import decode, InvalidTokenError, ExpiredSignatureError
 from accounts.models import CustomUserModel
 from service.models import ServiceTokenModel
-from xazna import settings
+from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
+from rest_framework_simplejwt.exceptions import ExpiredTokenError, TokenError
 from django.utils.translation import gettext_lazy as _
 
 
