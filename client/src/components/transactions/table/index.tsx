@@ -58,12 +58,12 @@ export function TransactionsTable() {
       page: number,
       page_size: string,
       column: Key,
-      direction: "ascending" | "descending"
+      direction: "ascending" | "descending",
     ) => {
       try {
         const { data } = await getRequest({
           url: `${
-            ENDPOINTS.transaction_list
+            ENDPOINTS.billing_list
           }?page=${page}&page_size=${page_size}&ordering=${
             direction === "ascending" ? column : `-${column}`
           }`,
@@ -102,7 +102,7 @@ export function TransactionsTable() {
         }));
       }
     },
-    [history]
+    [history],
   );
 
   useEffect(() => {
@@ -110,7 +110,7 @@ export function TransactionsTable() {
       history.page,
       history.page_size,
       history.order.column,
-      history.order.direction
+      history.order.direction,
     );
   }, []);
 
@@ -132,7 +132,7 @@ export function TransactionsTable() {
             history.page,
             history.page_size,
             value.column,
-            value.direction
+            value.direction,
           )
         }
       >

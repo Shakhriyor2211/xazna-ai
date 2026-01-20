@@ -7,14 +7,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@heroui/react";
-import {
-  FocusEvent,
-  FormEvent,
-  Fragment,
-  MouseEvent,
-  useCallback,
-  useState,
-} from "react";
+import { FocusEvent, Fragment, useCallback, useState } from "react";
 import { IoWalletOutline } from "react-icons/io5";
 import { PaymentProviderProps } from "@/types";
 import { useIntlayer } from "next-intlayer";
@@ -44,7 +37,7 @@ export function TopUp() {
     (values: NumberFormatValues) => {
       setAmount(values?.floatValue ?? 0);
     },
-    [amount]
+    [amount],
   );
 
   const handleOpen = useCallback(() => {

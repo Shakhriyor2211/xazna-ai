@@ -59,7 +59,7 @@ export const ENDPOINTS = {
   sub_restart: "/sub/restart",
   finance_info: "/finance/info",
   balance_manage: "/finance/balance/manage",
-  transaction_list: "/finance/transaction/list",
+  billing_list: "/billing/list",
   user_monitorting_list: "/finance/user/expense/list",
   key_monitorting_list: "/finance/user/token/expense/list",
   key_list: "/service/token/list",
