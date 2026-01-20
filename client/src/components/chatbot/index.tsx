@@ -35,6 +35,7 @@ export function Chatbot() {
 
   const handleCreateSession = useCallback(async (value: string) => {
     if (value.trim() === "") return;
+    setIsLoading(true);
 
     try {
       const { data } = await postRequest({
@@ -61,6 +62,8 @@ export function Chatbot() {
           color: "danger",
           description: data.message ?? content.errors.session.server.value,
         }));
+    } finally {
+      setIsLoading(false);
     }
   }, []);
   const handleSessionSubmit = useCallback(
@@ -77,9 +80,6 @@ export function Chatbot() {
       event.preventDefault();
       if (recordPluginRef.current === null) return;
 
-      setIsLoading(true);
-      setIsRecording(false);
-
       recordPluginRef.current.stopRecording();
 
       recordPluginRef.current.on("record-end", handleRecordEnd);
@@ -92,6 +92,8 @@ export function Chatbot() {
   );
 
   const handleRecordEnd = useCallback(async (blob: Blob) => {
+    setIsLoading(true);
+    setIsRecording(false);
     const extension = blob.type.split("/")[1].split(";")[0];
     const file = new File([blob], `recording.${extension}`, {
       type: blob.type,
@@ -99,7 +101,7 @@ export function Chatbot() {
     const form_data = new FormData();
     form_data.append("audio", file);
     form_data.append("mdl", "Base");
-    form_data.append("save", "disable");
+    form_data.append("source", "chatbot");
 
     try {
       const { data } = await postRequest({

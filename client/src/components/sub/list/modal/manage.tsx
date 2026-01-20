@@ -141,58 +141,54 @@ export function SubManage() {
         onOpenChange={onOpenChange}
       >
         <ModalContent>
-          {(onClose) => (
-            <Fragment>
-              <ModalHeader> {content.manage.modal.title}</ModalHeader>
-              <ModalBody>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between text-sm border-b pb-1 border-default-200">
-                    <span> {content.manage.modal.plan}</span>
-                    <span className="font-semibold">{finance?.sub.title}</span>
-                  </div>
-                  <div className="flex items-center justify-between text-sm border-b pb-1 border-default-200">
-                    <span> {content.manage.modal.credits}</span>
-                    <span className="font-semibold">
-                      {millify(Number(finance?.sub.credit_expense ?? 0), {
-                        precision: 2,
-                      })}
-                      &nbsp;/&nbsp;
-                      {millify(Number(finance?.sub.credit ?? 0), {
-                        precision: 2,
-                      })}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between text-sm border-b pb-1 border-default-200">
-                    <span> {content.manage.modal.plan}</span>
-                    <span className="font-semibold">
-                      {millify(Number(finance?.sub.price ?? 0), {
-                        precision: 2,
-                      })}
-                      &nbsp;UZS
-                    </span>
-                  </div>
-                </div>
-                <div className="space-y-4 mt-6">
-                  <div className="flex items-center justify-between text-sm">
-                    <span> {content.manage.modal.auto_renew}</span>
-                    <Switch
-                      size="sm"
-                      isSelected={finance?.sub.auto_renew}
-                      onChange={handleAutoRenew}
-                    />
-                  </div>
-                  <div className="flex items-center justify-between text-sm">
-                    <span> {content.manage.modal.cash_usage}</span>
-                    <Switch
-                      size="sm"
-                      isSelected={finance?.balance.chargeable}
-                      onChange={handleChargeable}
-                    />
-                  </div>
-                </div>
-              </ModalBody>
-            </Fragment>
-          )}
+          <ModalHeader> {content.manage.modal.title}</ModalHeader>
+          <ModalBody>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between text-sm border-b pb-1 border-default-200">
+                <span> {content.manage.modal.plan}</span>
+                <span className="font-semibold">{finance?.sub.title}</span>
+              </div>
+              <div className="flex items-center justify-between text-sm border-b pb-1 border-default-200">
+                <span> {content.manage.modal.credits}</span>
+                <span className="font-semibold">
+                  {millify(Number(finance?.sub.credit_expense ?? 0), {
+                    precision: 2,
+                  })}
+                  &nbsp;/&nbsp;
+                  {millify(Number(finance?.sub.credit ?? 0), {
+                    precision: 2,
+                  })}
+                </span>
+              </div>
+              <div className="flex items-center justify-between text-sm border-b pb-1 border-default-200">
+                <span> {content.manage.modal.cost}</span>
+                <span className="font-semibold">
+                  {millify(Number(finance?.sub.price ?? 0), {
+                    precision: 2,
+                  })}
+                  &nbsp;UZS
+                </span>
+              </div>
+            </div>
+            <div className="space-y-4 mt-6">
+              <div className="flex items-center justify-between text-sm">
+                <span> {content.manage.modal.auto_renew}</span>
+                <Switch
+                  size="sm"
+                  isSelected={finance?.sub.auto_renew}
+                  onChange={handleAutoRenew}
+                />
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <span> {content.manage.modal.cash_usage}</span>
+                <Switch
+                  size="sm"
+                  isSelected={finance?.balance.chargeable}
+                  onChange={handleChargeable}
+                />
+              </div>
+            </div>
+          </ModalBody>
         </ModalContent>
       </Modal>
     </Fragment>

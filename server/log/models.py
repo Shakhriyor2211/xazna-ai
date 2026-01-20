@@ -1,10 +1,24 @@
 from xazna.models import BaseModel
 from django.db import models
 
+
+class BillingErrorLogModel(BaseModel):
+    message = models.TextField()
+    code = models.SmallIntegerField(default=0)
+    method = models.CharField(choices=[("info", "info"), ("pay", "pay"), ("check", "check")])
+    invoice = models.CharField(max_length=20, null=True, blank=True)
+    transaction_id = models.CharField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Billing"
+        verbose_name_plural = "Billings"
+        db_table = "billing_log"
+
+
 class UserLLMErrorLogModel(BaseModel):
     message = models.TextField()
-    user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE, related_name="llm_log")
     content = models.TextField(blank=True, null=True)
+    user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE, related_name="llm_log")
 
 
 
@@ -16,8 +30,8 @@ class UserLLMErrorLogModel(BaseModel):
 
 class UserTTSErrorLogModel(BaseModel):
     message = models.TextField()
-    user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE, related_name="tts_log")
     text = models.TextField(blank=True, null=True)
+    user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE, related_name="tts_log")
 
 
 
@@ -29,8 +43,8 @@ class UserTTSErrorLogModel(BaseModel):
 
 class UserSTTErrorLogModel(BaseModel):
     message = models.TextField()
-    user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE, related_name="stt_log")
     audio = models.OneToOneField("shared.AudioModel", blank=True, null=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey("accounts.CustomUserModel", on_delete=models.CASCADE, related_name="stt_log")
 
 
     class Meta:
@@ -42,8 +56,8 @@ class UserSTTErrorLogModel(BaseModel):
 
 class TokenLLMErrorLogModel(BaseModel):
     message = models.TextField()
-    token = models.ForeignKey("service.ServiceTokenModel", on_delete=models.CASCADE, related_name="llm_log")
     content = models.TextField(blank=True, null=True)
+    token = models.ForeignKey("service.ServiceTokenModel", on_delete=models.CASCADE, related_name="llm_log")
 
 
     class Meta:
@@ -54,8 +68,8 @@ class TokenLLMErrorLogModel(BaseModel):
 
 class TokenTTSErrorLogModel(BaseModel):
     message = models.TextField()
-    token = models.ForeignKey("service.ServiceTokenModel", on_delete=models.CASCADE, related_name="tts_log")
     text = models.TextField(blank=True, null=True)
+    token = models.ForeignKey("service.ServiceTokenModel", on_delete=models.CASCADE, related_name="tts_log")
 
 
     class Meta:
@@ -66,12 +80,15 @@ class TokenTTSErrorLogModel(BaseModel):
 
 class TokenSTTErrorLogModel(BaseModel):
     message = models.TextField()
-    token = models.ForeignKey("service.ServiceTokenModel", on_delete=models.CASCADE, related_name="stt_log")
     audio = models.OneToOneField("shared.AudioModel", blank=True, null=True, on_delete=models.SET_NULL)
+    token = models.ForeignKey("service.ServiceTokenModel", on_delete=models.CASCADE, related_name="stt_log")
 
 
     class Meta:
         verbose_name = "Token stt"
         verbose_name_plural = "Token stt"
         db_table = "token_stt_log"
+
+
+
 

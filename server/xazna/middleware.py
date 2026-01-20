@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.utils.deprecation import MiddlewareMixin
 from accounts.models import CustomUserModel
 from service.models import ServiceTokenModel
-from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
+from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework_simplejwt.exceptions import ExpiredTokenError, TokenError
 from django.utils.translation import gettext_lazy as _
 
@@ -27,16 +27,9 @@ class AuthViewMiddleware(MiddlewareMixin):
         if not token:
             return JsonResponse({"message": _("Authentication credentials were not provided."), "code": "auth_required"}, status=401)
 
-
         try:
-            payload = decode(
-                token,
-                settings.SECRET_KEY,
-                algorithms=[settings.JWT_ALGORITHM],
-                options={"verify_exp": True}
-            )
-
-            user_id = payload.get("user_id") or payload.get("sub")
+            access_token = AccessToken(token)
+            user_id = access_token['user_id']
             user = CustomUserModel.objects.get(id=user_id)
             user.last_used_at = timezone.now()
             user.save()
@@ -54,12 +47,13 @@ class AuthViewMiddleware(MiddlewareMixin):
 
             request._user = user
 
-        except ExpiredSignatureError:
+        except ExpiredTokenError:
             return JsonResponse({"message": _("Token has expired."), "code": "expired_token"}, status=401)
-        except InvalidTokenError:
+        except TokenError:
             return JsonResponse({"message": _("Invalid token."), "code": "invalid_token"}, status=400)
         except CustomUserModel.DoesNotExist:
             return JsonResponse({"message": _("User not found."), "code": "not_found"}, status=404)
+
 
 
 

@@ -73,14 +73,6 @@
           }
         },
         "modal": {
-          "title": {
-            "nodeType": "translation",
-            "translation": {
-              "uz": "Provayderni tanlang",
-              "en": "Choose provider",
-              "ru": "Выберите поставщика"
-            }
-          },
           "form": {
             "amount": {
               "label": {

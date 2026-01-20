@@ -20,55 +20,14 @@ import { PaymentProviderProps } from "@/types";
 import { useIntlayer } from "next-intlayer";
 import { NumberFormatValues, NumericFormat } from "react-number-format";
 
-const PROVIDERS = {
-  xazna: {
-    url: "",
-    merchant_id: "",
-    merchant_user_id: "",
-    service_id: "",
-    transaction_param: "",
-    return_url: "",
-  },
-  click: {
-    url: process.env.NEXT_PUBLIC_CLICK_URL,
-    merchant_id: process.env.NEXT_PUBLIC_CLICK_MERCHANT_ID,
-    merchant_user_id: process.env.NEXT_PUBLIC_CLICK_MERCHANT_USER_ID,
-    service_id: process.env.NEXT_PUBLIC_CLICK_SERVICE_ID,
-    transaction_param: "1",
-    return_url: "https://ai.xazna.uz/ru/transactions",
-  },
-  payme: {
-    url: "",
-    merchant_id: "",
-    merchant_user_id: "",
-    service_id: "",
-    transaction_param: "",
-    return_url: "",
-  },
-};
-
 const MAX_TOP_UP_LIMIT = 1000000000;
+const RETURN_URL = "https/ai.xazna.uz/transactions";
 
 export function TopUp() {
   const content = useIntlayer("transactions-content");
   const [isOpen, setIsOpen] = useState(false);
   const [amount, setAmount] = useState(1000);
   const [error, setError] = useState("");
-  const [provider, setProvider] = useState<null | PaymentProviderProps>(null);
-  const [url, setUrl] = useState("");
-
-  const handleProvider = useCallback(
-    (event: MouseEvent<HTMLDivElement>) => {
-      event.preventDefault();
-      const value = event.currentTarget.id as keyof typeof PROVIDERS;
-      const p = PROVIDERS[value];
-      setUrl(
-        `${p.url}?service_id=${p.service_id}&merchant_id=${p.merchant_id}&transaction_param=${p.transaction_param}&return_url=${p.return_url}`
-      );
-      setProvider(value);
-    },
-    [provider]
-  );
 
   const handleBlur = useCallback((event: FocusEvent<Element>) => {
     const target = event.target as HTMLInputElement;
@@ -86,19 +45,6 @@ export function TopUp() {
       setAmount(values?.floatValue ?? 0);
     },
     [amount]
-  );
-
-  const handleSubmit = useCallback(
-    (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      console.log(amount, provider);
-
-      if (!provider || !amount) return;
-
-      const redirectUrl = `${url}&amount=${amount}`;
-      window.location.href = redirectUrl;
-    },
-    [provider, amount, url]
   );
 
   const handleOpen = useCallback(() => {
@@ -123,56 +69,15 @@ export function TopUp() {
         <ModalContent>
           {(onClose) => (
             <Fragment>
-              <ModalHeader> {content.top_up.modal.title}</ModalHeader>
+              <ModalHeader className="mt-4">
+                <img
+                  className="h-8 mx-auto"
+                  src="/assets/media/images/xazna.svg"
+                  alt="xazna"
+                />
+              </ModalHeader>
               <ModalBody>
-                <div className="grid grid-cols-3 gap-4">
-                  <div
-                    onClick={handleProvider}
-                    id="xazna"
-                    className={`p-4 flex items-center justify-center h-18 rounded-lg border cursor-pointer ${
-                      provider === "xazna"
-                        ? "bg-primary/30 border-primary pointer-events-none"
-                        : "border-divider"
-                    }`}
-                  >
-                    <img
-                      className="w-full"
-                      src="/assets/media/images/xazna.svg"
-                      alt="xazna"
-                    />
-                  </div>
-                  <div
-                    onClick={handleProvider}
-                    id="click"
-                    className={`p-4 flex items-center justify-center h-18 rounded-lg border cursor-pointer ${
-                      provider === "click"
-                        ? "bg-primary/30 border-primary pointer-events-none"
-                        : "border-divider"
-                    }`}
-                  >
-                    <img
-                      className="w-full"
-                      src="/assets/media/images/click.svg"
-                      alt="click"
-                    />
-                  </div>
-                  <div
-                    onClick={handleProvider}
-                    id="payme"
-                    className={`p-4 flex items-center justify-center h-18 rounded-lg border cursor-pointer ${
-                      provider === "payme"
-                        ? "bg-primary/30 border-primary pointer-events-none"
-                        : "border-divider"
-                    }`}
-                  >
-                    <img
-                      className="w-full"
-                      src="/assets/media/images/payme.svg"
-                      alt="payme"
-                    />
-                  </div>
-                </div>
-                <form className="mt-2 mb-4" onSubmit={handleSubmit}>
+                <form className="mt-2 mb-4">
                   <NumericFormat
                     defaultValue={amount}
                     onValueChange={handleAmountChange}
@@ -211,8 +116,8 @@ export function TopUp() {
                 <Button
                   type="submit"
                   color="primary"
-                  // as="a"
-                  // href={`${url}&amount=${amount}`}
+                  as="a"
+                  href={`https://pay.xazna.uz/billing/universal?merchantId=${12321321}&amount=${amount}&invoce=${123123}&returnURL=${RETURN_URL}`}
                 >
                   {content.top_up.modal.form.buttons.submit}
                 </Button>

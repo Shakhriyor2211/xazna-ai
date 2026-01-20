@@ -15,7 +15,6 @@
     "top_up": {
       "title": "Balansni to‘ldirish",
       "modal": {
-        "title": "Provayderni tanlang",
         "form": {
           "amount": {
             "label": "Summasi"

@@ -19,7 +19,6 @@ export default {
         "top_up": {
           "title": "Balansni to‘ldirish",
           "modal": {
-            "title": "Provayderni tanlang",
             "form": {
               "amount": {
                 "label": "Summasi"
@@ -64,7 +63,6 @@ export default {
         "top_up": {
           "title": "Top up",
           "modal": {
-            "title": "Choose provider",
             "form": {
               "amount": {
                 "label": "Amount"
@@ -109,7 +107,6 @@ export default {
         "top_up": {
           "title": "Пополнить баланс",
           "modal": {
-            "title": "Выберите поставщика",
             "form": {
               "amount": {
                 "label": "Сумма"

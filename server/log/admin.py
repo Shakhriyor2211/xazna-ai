@@ -1,8 +1,24 @@
 from django.contrib import admin
 from django.utils.html import format_html
-
 from log.models import UserLLMErrorLogModel, TokenLLMErrorLogModel, TokenSTTErrorLogModel, UserSTTErrorLogModel, \
-    TokenTTSErrorLogModel, UserTTSErrorLogModel
+    TokenTTSErrorLogModel, UserTTSErrorLogModel, BillingErrorLogModel
+
+
+
+@admin.register(BillingErrorLogModel)
+class BillingErrorLogAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "short_message",
+        "code",
+        "invoice",
+        "created_at"
+    )
+
+    def short_message(self, obj):
+        return (obj.message[:50] + "...") if obj.message is not None and obj.message and len(obj.message) > 50 else obj.message
+    short_message.short_description = "Message"
+
 
 
 @admin.register(UserLLMErrorLogModel)

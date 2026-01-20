@@ -1,3 +1,4 @@
+import random
 import re
 from io import BytesIO
 import secrets
@@ -207,3 +208,11 @@ def llm_transaction(balance, sub, rate, context_rate, content, mdl):
             raise CustomException(_("Request limit exceeded."), 429)
 
     return credit_usage, cash_usage
+
+
+
+
+def generate_public_id():
+    rand_digits = f"{random.randint(0, 999999):06}"
+    date_part = timezone.now().strftime("%y%m%d")
+    return f"INV-{date_part}-{rand_digits}"

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from finance.models import BalanceModel, TransactionModel, UserExpenseModel, TokenExpenseModel
+from finance.models import BalanceModel, UserExpenseModel, TokenExpenseModel
 
 
 @admin.register(UserExpenseModel)
@@ -21,19 +21,6 @@ class TokenExpenseAdmin(admin.ModelAdmin):
         "cash",
         "credit",
         "token",
-        "created_at"
-    )
-
-@admin.register(TransactionModel)
-class TransactionAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "amount",
-        "currency",
-        "provider",
-        "method",
-        "status",
-        "user",
         "created_at"
     )
 

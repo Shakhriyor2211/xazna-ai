@@ -1,5 +1,5 @@
 from django.urls import path
-from accounts.views import SignOutView, SignUpView, GoogleOAuthView, UsersView, UserDetailView, \
+from accounts.views import SignOutView, SignUpView, GoogleOAuthView, UserListView, UserDetailView, \
     SignInView, UserProfileView, RefreshTokenView, VerifyTokenView, ResendEmailCodeView, \
     VerifyEmailCodeView, PasswordResetView, PasswordResetConfirmView, PasswordChangeView, \
     ProfileChangeInfoView, ProfileChangeImageView
@@ -20,7 +20,7 @@ auth_urlpatterns = [
 
 user_urlpatterns = [
     path("profile", UserProfileView.as_view(), name="profile"),
-    path("list", UsersView.as_view(), name="users"),
+    path("list", UserListView.as_view(), name="user_list"),
     path("detail/<int:user_id>", UserDetailView.as_view(), name="detail"),
     path("profile", UserProfileView.as_view(), name="profile"),
     path("profile/info", ProfileChangeInfoView.as_view(), name="profile_change_info"),

@@ -50,11 +50,6 @@ const transactionsContent = {
                 ru: "Пополнить баланс",
             }),
             modal: {
-                title: t({
-                    uz: "Provayderni tanlang",
-                    en: "Choose provider",
-                    ru: "Выберите поставщика",
-                }),
                 form: {
                     amount: {
                         label: t({

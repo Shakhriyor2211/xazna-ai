@@ -24,6 +24,7 @@ from google.auth.transport import requests as google_requests
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from accounts.tasks import send_email_confirmation, send_email_reset_password
 from shared.utils import generate_email_otp
+from shared.views import CustomPagination
 from xazna import settings
 from django.utils.translation import gettext_lazy as _
 
@@ -37,15 +38,44 @@ class UserProfileView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class UsersView(APIView):
+
+class UserListView(APIView):
     auth_required = True
     admin_required = True
 
-    @swagger_auto_schema(operation_description="Users...", tags=["User"])
+    @swagger_auto_schema(operation_description="User list...", manual_parameters=[
+        openapi.Parameter(
+            'q', openapi.IN_QUERY, description="Search query for user", type=openapi.TYPE_STRING
+        ),
+        openapi.Parameter(
+            "page", openapi.IN_QUERY, description="Page number", type=openapi.TYPE_INTEGER
+        ),
+        openapi.Parameter(
+            "page_size", openapi.IN_QUERY, description="Items per page (max 100)", type=openapi.TYPE_INTEGER
+        ),
+        openapi.Parameter(
+            "ordering", openapi.IN_QUERY, description="Comma-separated fields (e.g. `created_at, email`)",
+            type=openapi.TYPE_STRING
+        ),
+    ],
+    tags=["User"]
+    )
     def get(self, request):
-        users = CustomUserModel.objects.all()
-        serializer = UserSerializer(users, many=True)
-        return Response(data=serializer.data, status=status.HTTP_200_OK)
+        q = request.query_params.get("q")
+        ordering = request.query_params.get("ordering", "-created_at")
+
+        if q is None:
+            queryset = CustomUserModel.objects.all().order_by(ordering)
+        else:
+            queryset = CustomUserModel.objects.filter(email__icontains=q).order_by(ordering)
+
+        paginator = CustomPagination()
+        paginated_qs = paginator.paginate_queryset(queryset, request)
+
+        serializer = UserSerializer(paginated_qs, many=True)
+
+        return paginator.get_paginated_response(serializer.data)
+
 
 
 class UserDetailView(APIView):

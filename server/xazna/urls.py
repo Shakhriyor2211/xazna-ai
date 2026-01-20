@@ -35,6 +35,7 @@ base_patterns = [
     path("user/", include(user_urlpatterns)),
     path("tts/", include("tts.urls")),
     path("stt/", include("stt.urls")),
+    path("billing/", include("billing.urls")),
     path("finance/", include("finance.urls")),
     path("sub/", include("sub.urls")),
     path("plan/", include("plan.urls")),

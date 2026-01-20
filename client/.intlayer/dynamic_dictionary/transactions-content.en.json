@@ -15,7 +15,6 @@
     "top_up": {
       "title": "Top up",
       "modal": {
-        "title": "Choose provider",
         "form": {
           "amount": {
             "label": "Amount"

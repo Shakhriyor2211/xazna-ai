@@ -30,12 +30,13 @@ class UserSTTView(APIView):
     @swagger_auto_schema(operation_description="STT generate...", request_body=STTSerializer, tags=["STT"])
     def post(self, request):
         audio_instance = None
+
         try:
             serializer = STTSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
 
             mdl = serializer.validated_data["mdl"]
-            save = serializer.validated_data["save"]
+            source = serializer.validated_data["source"]
 
             audio_duration = math.ceil(get_audio_duration(serializer.validated_data["audio"]))
 
@@ -47,8 +48,13 @@ class UserSTTView(APIView):
 
             balance = request.user.balance
             sub = request.user.active_sub
-            rate = request.user.stt_rate
-            credit_usage, cash_usage = stt_transaction(balance, sub, rate, audio_duration, mdl)
+            stt_rate = request.user.stt_rate
+            llm_rate = request.user.llm_rate
+
+            if source == "chatbot" and llm_rate.session_limit == llm_rate.session_usage:
+                return Response(data={"message": _("Session limit exceeded.")}, status=status.HTTP_403_FORBIDDEN)
+
+            credit_usage, cash_usage = stt_transaction(balance, sub, stt_rate, audio_duration, mdl)
 
             with transaction.atomic():
                 audio = convert_to_wav(audio_instance.file)
@@ -71,17 +77,15 @@ class UserSTTView(APIView):
 
                 text = re.sub(r"(Ğ|ğ|Õ|õ|Ş|ş|Ç|ç)", text_decode, text)
 
-
-
                 sub.credit_expense += credit_usage
-                rate.credit_usage += credit_usage
+                stt_rate.credit_usage += credit_usage
                 balance.cash -= cash_usage
 
                 balance.save()
                 sub.save()
-                rate.save()
+                stt_rate.save()
 
-                if save == "disable":
+                if source == "chatbot":
                     return Response(data={"text": text}, status=status.HTTP_200_OK)
 
                 stt_instance = UserSTTModel.objects.create(text=text, user=request.user, mdl=mdl, audio=audio_instance)

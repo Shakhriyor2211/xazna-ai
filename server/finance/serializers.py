@@ -1,14 +1,5 @@
 from rest_framework import serializers
-from finance.models import BalanceModel, TransactionModel, UserExpenseModel, TokenExpenseModel
-
-
-class TransactionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TransactionModel
-        exclude = ["user"]
-        extra_kwargs = {
-            "status": {"read_only": True},
-        }
+from finance.models import BalanceModel, UserExpenseModel, TokenExpenseModel
 
 
 class BalanceManageSerializer(serializers.ModelSerializer):
