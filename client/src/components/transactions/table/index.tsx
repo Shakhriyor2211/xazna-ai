@@ -1,4 +1,11 @@
-import { Fragment, useCallback, useEffect, useState } from "react";
+import {
+  Dispatch,
+  Fragment,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import {
   Table,
   TableBody,
@@ -8,111 +15,35 @@ import {
   TableRow,
 } from "@heroui/table";
 import { Spinner } from "@heroui/spinner";
-import { Chip } from "@heroui/chip";
-import { ChipVariantProps } from "@heroui/theme";
 import { Key } from "@react-types/shared";
 import { TransactionTableToolbar } from "./toolbar";
 import useDate from "@/hooks/date";
 import { useAlertStore } from "@/providers/alert";
-import { AxiosErrorProps, TransactionProps } from "@/types";
+import {
+  AxiosErrorProps,
+  TransactionProps,
+  TransactionTableProps,
+} from "@/types";
 import { getError, getRequest } from "@/utils/axios-instance";
 import { useIntlayer } from "next-intlayer";
 import { ENDPOINTS } from "@/shared/site";
 import { PiCheck, PiSpinnerGap, PiX } from "react-icons/pi";
 import millify from "millify";
+import { Chip } from "@heroui/react";
 
 const statusMap = {
-  pending: {
-    color: "warning",
-    icon: <PiSpinnerGap className="w-5 h-5 text-warning-500" />,
-  },
-  completed: {
-    color: "success",
-    icon: <PiCheck className="w-5 h-5 text-success-500" />,
-  },
-  failed: {
-    color: "danger",
-    icon: <PiX className="w-5 h-5 text-danger-500" />,
-  },
-};
+  pending: "warning",
+  completed: "success",
+  failed: "danger",
+} as const;
 
-export function TransactionsTable() {
+export function TransactionsTable({
+  history,
+  getHistory,
+}: TransactionTableProps) {
   const { longDate } = useDate();
-  const { setAlert } = useAlertStore();
+
   const content = useIntlayer("transactions-content");
-
-  const [history, setHistory] = useState<TransactionProps>({
-    data: [],
-    page_size: "4",
-    page: 1,
-    total: 0,
-    order: {
-      column: "created_at",
-      direction: "descending",
-    },
-    loading: true,
-  });
-
-  const getHistory = useCallback(
-    async (
-      page: number,
-      page_size: string,
-      column: Key,
-      direction: "ascending" | "descending",
-    ) => {
-      try {
-        const { data } = await getRequest({
-          url: `${
-            ENDPOINTS.billing_list
-          }?page=${page}&page_size=${page_size}&ordering=${
-            direction === "ascending" ? column : `-${column}`
-          }`,
-        });
-
-        if (data && data.results.length > 0) {
-          setHistory((prev) => ({
-            ...prev,
-            page,
-            page_size,
-            order: { column, direction },
-            data: data.results,
-            total: data.count,
-          }));
-        }
-      } catch (e) {
-        const { data, status } = getError(e as AxiosErrorProps);
-        if (status && status >= 500)
-          setAlert((prev) => ({
-            ...prev,
-            color: "danger",
-            description: content.errors.server.value,
-            isVisible: true,
-          }));
-        else
-          setAlert((prev) => ({
-            ...prev,
-            color: "danger",
-            description: data.message ?? content.errors.server.value,
-            isVisible: true,
-          }));
-      } finally {
-        setHistory((prev) => ({
-          ...prev,
-          loading: false,
-        }));
-      }
-    },
-    [history],
-  );
-
-  useEffect(() => {
-    getHistory(
-      history.page,
-      history.page_size,
-      history.order.column,
-      history.order.direction,
-    );
-  }, []);
 
   return (
     <Fragment>
@@ -150,17 +81,13 @@ export function TransactionsTable() {
           </TableColumn>
           <TableColumn
             className="uppercase"
-            key={"provider"}
+            key={"invoice"}
             align="start"
             allowsSorting
           >
-            {content.table.head.provider}
+            {content.table.head.invoice}
           </TableColumn>
-          <TableColumn
-            className="uppercase text-center"
-            key={"status"}
-            align="center"
-          >
+          <TableColumn className="uppercase" key={"status"} align="start">
             {content.table.head.status}
           </TableColumn>
           <TableColumn
@@ -193,12 +120,18 @@ export function TransactionsTable() {
                     item.currency
                   }`}
                 </TableCell>
-                <TableCell className="uppercase py-2">
-                  {item.provider}
-                </TableCell>
+                <TableCell className="uppercase py-2">{item.invoice}</TableCell>
 
-                <TableCell className="py-2 flex justify-center">
-                  {statusMap[item.status as keyof typeof statusMap].icon}
+                <TableCell className="py-2">
+                  {/* {statusMap[item.status as keyof typeof statusMap].icon} */}
+                  <Chip
+                    size="sm"
+                    className="uppercase border-none gap-1 text-default-600"
+                    color={statusMap[item.status as keyof typeof statusMap]}
+                    variant="dot"
+                  >
+                    {item.status}
+                  </Chip>
                 </TableCell>
                 <TableCell className="py-2">
                   {longDate(item.created_at)}

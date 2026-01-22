@@ -6,7 +6,7 @@
       "empty": "Hozircha hech qanday maʼlumot yoʻq.",
       "head": {
         "amount": "Summasi",
-        "provider": "Provayder",
+        "invoice": "Invoys",
         "status": "Holati",
         "created_at": "Yaratilgan vaqti"
       },
@@ -29,7 +29,8 @@
     "errors": {
       "form": {
         "amount": {
-          "required": "Ushbu qator to'ldirilishi shart."
+          "required": "Ushbu qator to'ldirilishi shart.",
+          "minimum": "Minimal balansni to'ldirish summasi"
         }
       },
       "server": "Serverda ichki xato yuz berdi."

@@ -60,6 +60,7 @@ export const ENDPOINTS = {
   finance_info: "/finance/info",
   balance_manage: "/finance/balance/manage",
   billing_list: "/billing/list",
+  top_up: "/billing/top-up",
   user_monitorting_list: "/finance/user/expense/list",
   key_monitorting_list: "/finance/user/token/expense/list",
   key_list: "/service/token/list",

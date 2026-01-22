@@ -6,6 +6,20 @@ const SERVER_URL = process.env.NEXT_PUBLIC_HTTP_SERVER_URL;
 const nextConfig: NextConfig = {
   reactStrictMode: false,
   htmlLimitedBots: /.*/,
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/chatbot",
+        permanent: false,
+      },
+      {
+        source: "/:locale(ru|en|uz)",
+        destination: "/:locale/chatbot",
+        permanent: false,
+      },
+    ];
+  },
   rewrites: async () => {
     return [
       {

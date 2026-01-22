@@ -6,7 +6,7 @@
       "empty": "There is no data yet.",
       "head": {
         "amount": "Amount",
-        "provider": "Provider",
+        "invoice": "Invoice",
         "status": "Status",
         "created_at": "Created at"
       },
@@ -29,7 +29,8 @@
     "errors": {
       "form": {
         "amount": {
-          "required": "This field is required."
+          "required": "This field is required.",
+          "minimum": "Minimum top-up amount is"
         }
       },
       "server": "Internal server error."

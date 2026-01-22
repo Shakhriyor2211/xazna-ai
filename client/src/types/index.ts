@@ -147,14 +147,13 @@ export interface ContentHistoryProps {
   scrollBottom?: boolean;
 }
 
-export type PaymentProviderProps = "xazna" | "click" | "payme";
+
 
 interface TransactionResultsProps {
   id: number;
   amount: string;
+  invoice: string;
   currency: "uzs" | "usd";
-  provider: PaymentProviderProps;
-  method: "uzcard" | "humo" | "visa" | "mastercard" | "unionpay";
   status: "pending" | "completed" | "failed" | "canceled";
   created_at: string;
   updated_at: string;

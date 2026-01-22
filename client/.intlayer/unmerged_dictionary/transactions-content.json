@@ -29,12 +29,12 @@
               "ru": "Сумма"
             }
           },
-          "provider": {
+          "invoice": {
             "nodeType": "translation",
             "translation": {
-              "uz": "Provayder",
-              "en": "Provider",
-              "ru": "Поставщик"
+              "uz": "Invoys",
+              "en": "Invoice",
+              "ru": "Инвойс"
             }
           },
           "status": {
@@ -114,6 +114,14 @@
                 "uz": "Ushbu qator to'ldirilishi shart.",
                 "ru": "Это поле обязательно для заполнения.",
                 "en": "This field is required."
+              }
+            },
+            "minimum": {
+              "nodeType": "translation",
+              "translation": {
+                "uz": "Minimal balansni to'ldirish summasi",
+                "ru": "Минимальная сумма пополнения",
+                "en": "Minimum top-up amount is"
               }
             }
           }

@@ -1,4 +1,4 @@
-import { type Dictionary, t } from "intlayer";
+import { currency, type Dictionary, t } from "intlayer";
 
 const transactionsContent = {
     key: "transactions-content",
@@ -21,10 +21,10 @@ const transactionsContent = {
                     en: "Amount",
                     ru: "Сумма",
                 }),
-                provider: t({
-                    uz: "Provayder",
-                    en: "Provider",
-                    ru: "Поставщик",
+                invoice: t({
+                    uz: "Invoys",
+                    en: "Invoice",
+                    ru: "Инвойс",
                 }),
                 status: t({
                     uz: "Holati",
@@ -80,6 +80,11 @@ const transactionsContent = {
                         uz: "Ushbu qator to'ldirilishi shart.",
                         ru: "Это поле обязательно для заполнения.",
                         en: "This field is required.",
+                    }),
+                    minimum: t({
+                        uz: "Minimal balansni to'ldirish summasi",
+                        ru: "Минимальная сумма пополнения",
+                        en: "Minimum top-up amount is",
                     }),
                 }
             },

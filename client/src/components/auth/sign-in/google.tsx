@@ -11,7 +11,7 @@ import { useIntlayer } from "next-intlayer";
 import { AxiosErrorProps } from "@/types";
 
 const TARGET_URL = process.env.NEXT_PUBLIC_GOOGLE_TARGET_URL;
-const REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
+const REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
 
 export function GoogleSignIn() {
   const content = useIntlayer("sign-in-content");

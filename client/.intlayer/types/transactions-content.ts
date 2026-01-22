@@ -10,7 +10,7 @@ export default {
           "empty": "Hozircha hech qanday maʼlumot yoʻq.",
           "head": {
             "amount": "Summasi",
-            "provider": "Provayder",
+            "invoice": "Invoys",
             "status": "Holati",
             "created_at": "Yaratilgan vaqti"
           },
@@ -33,7 +33,8 @@ export default {
         "errors": {
           "form": {
             "amount": {
-              "required": "Ushbu qator to'ldirilishi shart."
+              "required": "Ushbu qator to'ldirilishi shart.",
+              "minimum": "Minimal balansni to'ldirish summasi"
             }
           },
           "server": "Serverda ichki xato yuz berdi."
@@ -54,7 +55,7 @@ export default {
           "empty": "There is no data yet.",
           "head": {
             "amount": "Amount",
-            "provider": "Provider",
+            "invoice": "Invoice",
             "status": "Status",
             "created_at": "Created at"
           },
@@ -77,7 +78,8 @@ export default {
         "errors": {
           "form": {
             "amount": {
-              "required": "This field is required."
+              "required": "This field is required.",
+              "minimum": "Minimum top-up amount is"
             }
           },
           "server": "Internal server error."
@@ -98,7 +100,7 @@ export default {
           "empty": "Данных пока нет.",
           "head": {
             "amount": "Сумма",
-            "provider": "Поставщик",
+            "invoice": "Инвойс",
             "status": "Статус",
             "created_at": "Создано"
           },
@@ -121,7 +123,8 @@ export default {
         "errors": {
           "form": {
             "amount": {
-              "required": "Это поле обязательно для заполнения."
+              "required": "Это поле обязательно для заполнения.",
+              "minimum": "Минимальная сумма пополнения"
             }
           },
           "server": "Внутренняя ошибка сервера."
