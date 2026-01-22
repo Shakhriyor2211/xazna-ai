@@ -142,10 +142,14 @@ class BillingPayView(APIView):
                 return Response(data=data, status=status.HTTP_409_CONFLICT)
 
             billing.transaction_id = params["xaznaTransactionId"]
+            billing.status = "completed"
+            balance = billing.user.balance
+            balance.cash += params["amount"]
             billing.save()
+            balance.save()
 
             data["result"] = {
-                "message": "success",
+                "message": "The transaction has been successfully processed.",
                 "code": 0
             }
 
@@ -185,34 +189,27 @@ class BillingCheckView(APIView):
 
 
             if billing.status == "completed":
-                data["error"] = {
-                    "code": -2,
-                    "message": "The transaction has been completed."
+                billing.transaction_id = params["xaznaTransactionId"]
+                billing.status = "completed"
+                billing.save()
+
+                data["result"] = {
+                    "xaznaTransactionId": params["xaznaTransactionId"],
+                    "success": True
                 }
 
-                BillingErrorLogModel.objects.create(message=data["error"]["message"], method="check",
-                                                    code=data["error"]["code"], invoice=params["invoice"], transaction_id=params["xaznaTransactionId"])
-                return Response(data=data, status=status.HTTP_409_CONFLICT)
+                return Response(data=data, status=status.HTTP_200_OK)
 
-            if billing.status == "failed":
-                data["error"] = {
-                    "code": -4,
-                    "message": "The transaction has failed."
-                }
-                BillingErrorLogModel.objects.create(message=data["error"]["message"], method="check",
-                                                    code=data["error"]["code"], invoice=params["invoice"], transaction_id=params["xaznaTransactionId"])
-                return Response(data=data, status=status.HTTP_409_CONFLICT)
-
-            billing.transaction_id = params["xaznaTransactionId"]
-            billing.status = "completed"
-            billing.save()
-
-            data["result"] = {
-                "xaznaTransId": params["xaznaTransactionId"],
-                "success": True
+            data["error"] = {
+                "code": -4,
+                "message": "The transaction has failed."
             }
+            BillingErrorLogModel.objects.create(message=data["error"]["message"], method="check",
+                                                code=data["error"]["code"], invoice=params["invoice"], transaction_id=params["xaznaTransactionId"])
 
-            return Response(data=data, status=status.HTTP_200_OK)
+            return Response(data=data, status=status.HTTP_409_CONFLICT)
+
+
 
         except Exception as e:
             BillingErrorLogModel.objects.create(message=str(e), method="check")
