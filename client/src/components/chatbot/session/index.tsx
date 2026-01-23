@@ -43,7 +43,7 @@ export function ChatbotSession() {
 
       try {
         ws.current?.send(
-          JSON.stringify({ content: v, action: "message", mdl: "Base" })
+          JSON.stringify({ content: v, action: "message", mdl: "Base" }),
         );
       } catch (e) {
         const { data, status } = getError(e as AxiosErrorProps);
@@ -63,7 +63,7 @@ export function ChatbotSession() {
           }));
       }
     },
-    [ws, messagesRef]
+    [ws, messagesRef],
   );
 
   const refreshToken = useCallback(async () => {
@@ -109,8 +109,8 @@ export function ChatbotSession() {
 
     const url =
       process.env.NEXT_PUBLIC_NODE_ENV === "dev"
-        ? `${HTTP_SERVER_URL}${ENDPOINTS.ws_client_base}/v1/${ENDPOINTS.llm_message}/${sessionId}`
-        : `${ENDPOINTS.ws_client_base}/v1/${ENDPOINTS.llm_message}/${sessionId}`;
+        ? `${HTTP_SERVER_URL}${ENDPOINTS.ws_client_base}${ENDPOINTS.llm_message}/${sessionId}`
+        : `${ENDPOINTS.ws_client_base}${ENDPOINTS.llm_message}/${sessionId}`;
 
     ws.current = new WebSocket(url);
 
