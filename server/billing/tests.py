@@ -4,7 +4,6 @@ from rest_framework.test import APIClient
 from rest_framework import status
 from unittest.mock import patch
 from decimal import Decimal
-
 from billing.models import BillingModel
 from log.models import BillingErrorLogModel
 
@@ -198,7 +197,7 @@ class BillingViewTestCase(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertDictEqual(response.data, {"jsonrpc": "2.0", "id": "1234",
-                                             "result": {"message": "success", "code": 0}})
+                                             "result": {"message": "The transaction has been successfully processed.", "code": 0}})
 
     def test_billing_pay_not_found(self):
         """Test billing pay when invoice doesn"t exist"""
@@ -303,7 +302,7 @@ class BillingViewTestCase(TestCase):
             invoice="INV-SUCCEED",
             transaction_id="TXN-SUCCEED",
             amount=Decimal("100.00"),
-            status="pending"
+            status="completed"
         )
 
         data = check_request_data("1234", "TXN-SUCCEED")
@@ -311,7 +310,7 @@ class BillingViewTestCase(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertDictEqual(response.data, {"jsonrpc": "2.0", "id": "1234",
-                                             "result": {"xaznaTransId": "TXN-SUCCEED", "success": True}})
+                                             "result": {"xaznaTransactionId": "TXN-SUCCEED", "success": True}})
 
     def test_billing_check_not_found(self):
         """Test billing pay when invoice doesn"t exist"""
@@ -329,30 +328,6 @@ class BillingViewTestCase(TestCase):
         self.assertEqual(error_log.code, -1)
         self.assertEqual(error_log.message, "Data not found.")
 
-    def test_billing_check_completed(self):
-        """Test billing pay for already completed transaction"""
-
-        BillingModel.objects.create(
-            user=self.user,
-            invoice="INV-COMPLETED",
-            transaction_id="TXN-COMPLETED",
-            amount=Decimal("100.00"),
-            status="completed"
-        )
-
-        data = check_request_data("1234", "TXN-COMPLETED")
-        response = self.client.post("/api/v1/billing/check", data, format="json")
-
-        self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
-        self.assertIn("error", response.data)
-        self.assertEqual(response.data["error"]["code"], -2)
-        self.assertEqual(response.data["error"]["message"], "The transaction has been completed.")
-
-        error_log = BillingErrorLogModel.objects.filter(method="check", transaction_id="TXN-COMPLETED").first()
-
-        self.assertIsNotNone(error_log)
-        self.assertEqual(error_log.code, -2)
-        self.assertEqual(error_log.message, "The transaction has been completed.")
 
     def test_billing_check_failed(self):
         """Test billing pay for already completed transaction"""

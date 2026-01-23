@@ -51,6 +51,8 @@ STT_SERVER_API_KEY = os.getenv("STT_SERVER_API_KEY")
 STT_SERVER = os.getenv("STT_SERVER")
 LLM_SERVER = os.getenv("LLM_SERVER")
 LLM_SERVER_API_KEY = os.getenv("LLM_SERVER_API_KEY")
+ML_FLOW_URL=os.getenv("ML_FLOW_URL")
+ML_FLOW_NAME=os.getenv("ML_FLOW_NAME")
 
 CELERY_BROKER_URL = f"""redis://{os.getenv("REDIS_HOST")}:{os.getenv("REDIS_PORT")}/0"""
 CELERY_RESULT_BACKEND = f"""redis://{os.getenv("REDIS_HOST")}:{os.getenv("REDIS_PORT")}/0"""

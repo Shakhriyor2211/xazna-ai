@@ -1,6 +1,7 @@
 import asyncio
 import json
 import time
+import mlflow
 from time import sleep
 from asgiref.sync import sync_to_async
 from channels.db import database_sync_to_async
@@ -22,6 +23,10 @@ from django.utils.translation import gettext_lazy as _
 openai_api_key = settings.LLM_SERVER_API_KEY
 openai_api_base = settings.LLM_SERVER
 client = OpenAI(api_key=openai_api_key, base_url=openai_api_base)
+
+mlflow.set_tracking_uri(settings.ML_FLOW_URL)
+mlflow.set_experiment(settings.ML_FLOW_NAME)
+mlflow.openai.autolog()
 
 
 class UserLLMConsumer(AuthWebsocketConsumer):
