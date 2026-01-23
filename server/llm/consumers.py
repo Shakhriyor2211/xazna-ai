@@ -24,7 +24,7 @@ openai_api_key = settings.LLM_SERVER_API_KEY
 openai_api_base = settings.LLM_SERVER
 client = OpenAI(api_key=openai_api_key, base_url=openai_api_base)
 
-mlflow.set_tracking_uri(settings.ML_FLOW_URL)
+mlflow.set_tracking_uri(settings.ML_FLOW_SERVER)
 mlflow.set_experiment(settings.ML_FLOW_NAME)
 mlflow.openai.autolog()
 
