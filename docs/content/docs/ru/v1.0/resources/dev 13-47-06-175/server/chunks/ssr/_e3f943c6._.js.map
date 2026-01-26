@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/shakhriyormamadaliev/Folders/my_projects/xazna/src/lib/server.action.ts"],"sourcesContent":["\"use server\";\n\nimport { cookies, headers } from \"next/headers\";\n\ntype Fetcher<T> = () => Promise<Response>;\n\nexport async function serverAction<T>(\n    fetcher: Fetcher<T>\n): Promise<T> {\n    const res = await fetcher();\n    const cookie_store = await cookies()\n\n\n    // 🔹 2. Handle non-OK responses globally\n    if (!res.ok) {\n        const error = await res.json();\n        throw new Error(error.message || \"Request failed\");\n    }\n\n    // 🔹 3. Return parsed data\n    return res.json();\n}\n"],"names":[],"mappings":";;;;;AAEA;;;;AAIO,eAAe,aAClB,OAAmB;IAEnB,MAAM,MAAM,MAAM;IAClB,MAAM,eAAe,MAAM,IAAA,0IAAO;IAGlC,yCAAyC;IACzC,IAAI,CAAC,IAAI,EAAE,EAAE;QACT,MAAM,QAAQ,MAAM,IAAI,IAAI;QAC5B,MAAM,IAAI,MAAM,MAAM,OAAO,IAAI;IACrC;IAEA,2BAA2B;IAC3B,OAAO,IAAI,IAAI;AACnB;;;IAfsB;;AAAA,+OAAA"}},
+    {"offset": {"line": 33, "column": 0}, "map": {"version":3,"sources":["file:///Users/shakhriyormamadaliev/Folders/my_projects/xazna/.next-internal/server/app/account/user/page/actions.js%20%28server%20actions%20loader%29"],"sourcesContent":["export {serverAction as '40305c76becc36ba8c96b617d7cd6c33857c636461'} from 'ACTIONS_MODULE0'\n"],"names":[],"mappings":";AAAA"}}]
+}

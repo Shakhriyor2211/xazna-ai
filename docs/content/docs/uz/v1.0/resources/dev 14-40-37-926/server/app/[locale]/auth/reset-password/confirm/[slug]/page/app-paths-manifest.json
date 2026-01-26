@@ -1,0 +1,3 @@
+{
+  "/[locale]/auth/reset-password/confirm/[slug]/page": "app/[locale]/auth/reset-password/confirm/[slug]/page.js"
+}

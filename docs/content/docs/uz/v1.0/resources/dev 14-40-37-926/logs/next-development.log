@@ -1,0 +1,2488 @@
+[00:00:00.924] Server  LOG      ✓ Ready in 782ms
+[00:00:02.186] Server  LOG     /sub
+[00:00:05.465] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:06.103] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'value')
+[00:00:11.527] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:00:11.534] Server  LOG     /sub
+[00:00:11.594] Server  LOG      ✓ Compiled in 67ms
+[00:00:12.032] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:13.134] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'value')
+[00:00:19.251] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:00:19.257] Server  LOG     /sub
+[00:00:19.315] Server  LOG      ✓ Compiled in 45ms
+[00:00:19.676] Server  ERROR    ⨯ ReferenceError: selected is not defined
+[00:00:19.773] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:21.096] Browser ERROR   uncaughtError: ReferenceError: selected is not defined
+[00:00:22.441] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:00:22.447] Server  LOG     /sub
+[00:00:22.504] Server  LOG      ✓ Compiled in 57ms
+[00:00:22.839] Server  ERROR    ⨯ ReferenceError: selected is not defined
+[00:00:22.929] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:24.097] Browser ERROR   uncaughtError: ReferenceError: selected is not defined
+[00:00:26.804] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:00:26.811] Server  LOG     /sub
+[00:00:26.870] Server  LOG      ✓ Compiled in 54ms
+[00:00:27.325] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:27.778] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:00:27.778] Browser ERROR   uncaughtError: ReferenceError: selected is not defined
+[00:00:27.783] Server  LOG     /sub
+[00:00:27.847] Server  LOG      ✓ Compiled in 62ms
+[00:00:28.300] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:29.097] Browser ERROR   uncaughtError: ReferenceError: selected is not defined
+[00:00:33.012] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:00:33.018] Server  LOG     /sub
+[00:00:33.074] Server  LOG      ✓ Compiled in 42ms
+[00:00:33.510] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:34.106] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'value')
+[00:00:46.502] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:00:46.507] Server  LOG     /sub
+[00:00:46.573] Server  LOG      ✓ Compiled in 38ms
+[00:00:47.005] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:48.976] Server  LOG      ✓ Compiled in 50ms
+[00:00:57.048] Server  LOG      ✓ Compiled in 35ms
+[00:01:01.255] Server  LOG     /sub
+[00:01:01.793] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:07.251] Server  LOG     /sub
+[00:01:07.415] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:33.158] Server  LOG      ✓ Compiled in 48ms
+[00:02:21.999] Server  LOG      ✓ Compiled in 44ms
+[00:02:22.104] Browser ERROR   ./src/components/sub/list/index.tsx:106:17
+Parsing ecmascript source code failed
+  104 |                   }
+  105 |                 />
+> 106 |               ) : null
+      |                 ^
+  107 |             )}
+  108 |           </Fragment>
+  109 |         )}
+
+Expected '</', got ':'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:02:23.929] Server  LOG     /sub
+[00:02:26.767] Server  LOG     /sub
+[00:02:27.272] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:35.973] Server  LOG      ✓ Compiled in 60ms
+[00:02:37.549] Server  LOG      ✓ Compiled in 41ms
+[00:03:05.416] Server  LOG      ✓ Compiled in 52ms
+[00:03:05.522] Browser ERROR   ./src/components/sub/list/index.tsx:89:14
+Parsing ecmascript source code failed
+  87 |             {plans.map((plan) => (
+  88 |              
+> 89 |             ))}
+     |              ^
+  90 |           </Fragment>
+  91 |         )}
+  92 |       </div>
+
+Expected '</', got ')'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:03:08.422] Server  LOG     /sub
+[00:03:26.654] Server  LOG      ✓ Compiled in 58ms
+[00:03:26.757] Browser ERROR   ./src/components/sub/list/index.tsx:93:17
+Parsing ecmascript source code failed
+  91 |                 description={plan.description}
+  92 |                 price={}
+> 93 |                 credit={{
+     |                 ^^^^^^
+  94 |                   value: plan.monthly_credit,
+  95 |                   range: content.card.credit_range.monthly.value,
+  96 |                 }}
+
+Expected '</', got 'credit'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:03:30.586] Server  LOG     /sub
+[00:03:30.778] Browser WARN    WARN: Input value is not a number (millify)
+[00:03:30.778] Browser WARN    WARN: Input value is not a number (millify)
+[00:03:30.778] Browser WARN    WARN: Input value is not a number (millify)
+[00:03:30.778] Browser WARN    WARN: Input value is not a number (millify)
+[00:03:30.778] Browser WARN    WARN: Input value is not a number (millify)
+[00:03:30.778] Browser WARN    WARN: Input value is not a number (millify)
+[00:03:32.356] Server  LOG      ✓ Compiled in 57ms
+[00:03:32.459] Browser ERROR   ./src/components/sub/list/index.tsx:92:45
+Parsing ecmascript source code failed
+  90 |                 title={plan.title}
+  91 |                 description={plan.description}
+> 92 |                 price={period === "monthly"?}
+     |                                             ^
+  93 |                 credit={{
+  94 |                   value: plan.monthly_credit,
+  95 |                   range: content.card.credit_range.monthly.value,
+
+Expected '</', got '}'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:03:33.728] Browser ERROR   ./src/components/sub/list/index.tsx:95:18
+Parsing ecmascript source code failed
+  93 |                   value: plan.monthly_price,
+  94 |                   range: content.card.price_range.monthly.value,
+> 95 |                 }}
+     |                  ^
+  96 |                 credit={{
+  97 |                   value: plan.monthly_credit,
+  98 |                   range: content.card.credit_range.monthly.value,
+
+Expected '</', got '}'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:03:35.638] Server  LOG     /sub
+[00:03:41.396] Server  LOG      ✓ Compiled in 44ms
+[00:03:44.809] Server  LOG      ✓ Compiled in 43ms
+[00:04:05.040] Server  LOG      ✓ Compiled in 59ms
+[00:04:05.136] Browser ERROR   uncaughtError: ReferenceError: pe is not defined
+[00:04:07.587] Server  LOG      ✓ Compiled in 52ms
+[00:04:07.688] Browser ERROR   ./src/components/sub/list/index.tsx:106:18
+Parsing ecmascript source code failed
+  104 |                   value: plan.monthly_credit,
+  105 |                   range: content.card.credit_range.monthly.value,
+> 106 |                 }}
+      |                  ^
+  107 |                 active={
+  108 |                   finance?.sub.title === plan.title &&
+  109 |                   finance.sub.period === "monthly"
+
+Expected '</', got '}'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:04:09.241] Server  LOG      ✓ Compiled in 41ms
+[00:04:09.243] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:04:09.248] Server  LOG     /sub
+[00:04:09.878] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:12.337] Server  LOG      ✓ Compiled in 46ms
+[00:04:12.451] Browser WARN    WARN: Input value is not a number (millify)
+[00:04:12.451] Browser WARN    WARN: Input value is not a number (millify)
+[00:04:12.451] Browser WARN    WARN: Input value is not a number (millify)
+[00:04:12.451] Browser WARN    WARN: Input value is not a number (millify)
+[00:04:13.968] Server  LOG      ✓ Compiled in 44ms
+[00:04:14.094] Browser WARN    WARN: Input value is not a number (millify)
+[00:04:14.094] Browser WARN    WARN: Input value is not a number (millify)
+[00:04:14.094] Browser WARN    WARN: Input value is not a number (millify)
+[00:04:14.094] Browser WARN    WARN: Input value is not a number (millify)
+[00:04:15.217] Server  LOG      ✓ Compiled in 43ms
+[00:04:18.454] Server  LOG      ✓ Compiled in 47ms
+[00:04:18.551] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'value')
+[00:04:20.539] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:04:20.549] Server  LOG     /sub
+[00:04:20.620] Server  LOG      ✓ Compiled in 51ms
+[00:04:21.080] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:28.130] Server  LOG      ✓ Compiled in 50ms
+[00:04:28.255] Browser WARN    WARN: Input value is not a number (millify)
+[00:04:28.255] Browser WARN    WARN: Input value is not a number (millify)
+[00:04:28.255] Browser WARN    WARN: Input value is not a number (millify)
+[00:04:28.255] Browser WARN    WARN: Input value is not a number (millify)
+[00:04:29.578] Server  LOG      ✓ Compiled in 49ms
+[00:04:31.365] Server  LOG      ✓ Compiled in 39ms
+[00:04:33.643] Server  LOG     /sub
+[00:04:34.172] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:36.927] Server  LOG     /sub
+[00:04:37.091] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:37.897] Server  LOG     /sub
+[00:04:38.055] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:38.118] Server  LOG     /sub
+[00:04:38.276] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:38.313] Server  LOG     /sub
+[00:04:38.456] Server  LOG     /sub
+[00:04:38.491] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:38.620] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:38.622] Server  LOG     /sub
+[00:04:38.775] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:38.778] Server  LOG     /sub
+[00:04:38.948] Server  LOG     /sub
+[00:04:38.984] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:39.101] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:39.179] Server  LOG     /sub
+[00:04:39.335] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:39.376] Server  LOG     /sub
+[00:04:39.554] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:41.350] Server  LOG     /sub
+[00:04:41.512] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:05:03.506] Server  LOG      ✓ Compiled in 38ms
+[00:05:04.987] Server  LOG     /sub
+[00:05:05.534] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:05:08.823] Server  LOG      ✓ Compiled in 50ms
+[00:05:35.092] Server  LOG      ✓ Compiled in 55ms
+[00:05:35.197] Browser ERROR   ./src/components/sub/list/index.tsx:89:14
+Parsing ecmascript source code failed
+  87 |             {plans.map((plan) => (
+  88 |              
+> 89 |             ))}
+     |              ^
+  90 |           </Fragment>
+  91 |         )}
+  92 |       </div>
+
+Expected '</', got ')'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:05:39.395] Server  LOG     /sub
+[00:05:39.508] Browser ERROR   uncaughtError: ReferenceError: pla is not defined
+[00:05:53.816] Server  LOG      ✓ Compiled in 57ms
+[00:05:53.919] Browser ERROR   ./src/components/sub/list/index.tsx:89:14
+Parsing ecmascript source code failed
+  87 |             {plans.map((plan) => (
+  88 |              plan.title !== "Free" || period === "monthly" ? (
+> 89 |             ))}
+     |              ^
+  90 |           </Fragment>
+  91 |         )}
+  92 |       </div>
+
+Expected '</', got ')'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:06:04.007] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:06:04.014] Server  LOG     /sub
+[00:06:04.492] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:06:05.046] Browser ERROR   uncaughtError: ReferenceError: pla is not defined
+[00:06:11.394] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:06:11.403] Server  LOG     /sub
+[00:06:11.465] Server  LOG      ✓ Compiled in 58ms
+[00:06:11.909] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:06:13.809] Server  LOG      ✓ Compiled in 45ms
+[00:06:13.913] Browser ERROR   ./src/components/sub/list/index.tsx:89:13
+Parsing ecmascript source code failed
+  87 |             {plans.map((plan) => (
+  88 |              plan.title ===
+> 89 |             ))}
+     |             ^
+  90 |           </Fragment>
+  91 |         )}
+  92 |       </div>
+
+Expected '</', got ')'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:06:15.977] Server  LOG     /sub
+[00:06:18.170] Server  LOG      ✓ Compiled in 52ms
+[00:06:18.273] Browser ERROR   ./src/components/sub/list/index.tsx:89:14
+Parsing ecmascript source code failed
+  87 |             {plans.map((plan) => (
+  88 |              plan.title !== "Free" || period === "monthly" ? (
+> 89 |             ))}
+     |              ^
+  90 |           </Fragment>
+  91 |         )}
+  92 |       </div>
+
+Expected '</', got ')'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:06:20.305] Browser ERROR   ./src/components/sub/list/index.tsx:119:13
+Parsing ecmascript source code failed
+  117 |                 }
+  118 |               />
+> 119 |             ))}
+      |             ^
+  120 |           </Fragment>
+  121 |         )}
+  122 |       </div>
+
+Expected '</', got ')'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:06:21.855] Server  LOG     /sub
+[00:07:09.658] Server  LOG      ✓ Compiled in 48ms
+[00:07:09.760] Browser ERROR   uncaughtError: ReferenceError: currenttitle is not defined
+[00:07:14.781] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:07:14.788] Server  LOG     /sub
+[00:07:14.846] Server  LOG      ✓ Compiled in 36ms
+[00:07:15.321] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:07:15.942] Browser ERROR   uncaughtError: ReferenceError: currenttitle is not defined
+[00:09:07.799] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:09:07.808] Server  LOG     /sub
+[00:09:07.873] Server  LOG      ✓ Compiled in 48ms
+[00:09:08.381] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:09:09.017] Browser ERROR   uncaughtError: ReferenceError: currenttitle is not defined
+[00:09:26.346] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:09:26.351] Server  LOG     /sub
+[00:09:26.414] Server  LOG      ✓ Compiled in 55ms
+[00:09:26.893] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:09:27.436] Browser ERROR   uncaughtError: ReferenceError: currenttitle is not defined
+[00:09:30.738] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:09:30.747] Server  LOG     /sub
+[00:09:30.809] Server  LOG      ✓ Compiled in 52ms
+[00:09:31.253] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:10:09.991] Server  LOG      ✓ Compiled in 58ms
+[00:10:10.097] Browser ERROR   ./src/components/sub/list/card.tsx:9:3
+Parsing ecmascript source code failed
+   7 | export function SubListCard({
+   8 |  plan, currnet
+>  9 |   period,
+     |   ^^^^^^
+  10 | }) {
+  11 |   const content = useIntlayer("sub-content");
+  12 |   return (
+
+Expected ',', got 'period'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:10:13.931] Server  LOG     /sub
+[00:10:14.049] Browser ERROR   uncaughtError: ReferenceError: active is not defined
+[00:10:19.315] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:10:19.325] Server  LOG     /sub
+[00:10:19.382] Server  LOG      ✓ Compiled in 52ms
+[00:10:19.873] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:10:20.384] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:10:20.384] Browser ERROR   uncaughtError: ReferenceError: active is not defined
+[00:10:20.388] Server  LOG     /sub
+[00:10:20.478] Server  LOG      ✓ Compiled in 44ms
+[00:10:20.922] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:10:21.425] Browser ERROR   uncaughtError: ReferenceError: active is not defined
+[00:10:22.802] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:10:22.805] Server  LOG     /sub
+[00:10:22.862] Server  LOG      ✓ Compiled in 43ms
+[00:10:23.294] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:10:23.831] Browser ERROR   uncaughtError: ReferenceError: active is not defined
+[00:10:31.795] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:10:31.803] Server  LOG     /sub
+[00:10:31.867] Server  LOG      ✓ Compiled in 44ms
+[00:10:32.316] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:10:32.808] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'title')
+[00:10:55.618] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:10:55.627] Server  LOG     /sub
+[00:10:55.696] Server  LOG      ✓ Compiled in 43ms
+[00:10:56.161] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:10:56.688] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'title')
+[00:11:02.369] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:11:02.378] Server  LOG     /sub
+[00:11:02.437] Server  LOG      ✓ Compiled in 41ms
+[00:11:02.929] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:11:03.432] Browser ERROR   uncaughtError: ReferenceError: title is not defined
+[00:11:09.725] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:11:09.734] Server  LOG     /sub
+[00:11:09.796] Server  LOG      ✓ Compiled in 54ms
+[00:11:10.261] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:11:10.760] Browser ERROR   uncaughtError: ReferenceError: title is not defined
+[00:11:42.747] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:11:42.753] Server  LOG     /sub
+[00:11:42.821] Server  LOG      ✓ Compiled in 49ms
+[00:11:43.275] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:11:43.867] Browser ERROR   uncaughtError: ReferenceError: title is not defined
+[00:11:57.421] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:11:57.431] Server  LOG     /sub
+[00:11:57.497] Server  LOG      ✓ Compiled in 47ms
+[00:11:57.962] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:11:58.538] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'value')
+[00:12:25.092] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:12:25.102] Server  LOG     /sub
+[00:12:25.166] Server  LOG      ✓ Compiled in 52ms
+[00:12:25.619] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:12:26.188] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'value')
+[00:12:29.952] Server  LOG      ✓ Compiled in 55ms
+[00:12:30.058] Browser ERROR   ./src/components/sub/list/card.tsx:31:45
+Parsing ecmascript source code failed
+  29 |             <p className="space-x-2">
+  30 |               <span className="text-xl sm:text-2xl">
+> 31 |                 {useMillify(Number(period ==))} UZS
+     |                                             ^
+  32 |               </span>
+  33 |               <span className="text-default-500">{price.range}</span>
+  34 |             </p>
+
+Expected '</', got ')'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:12:31.272] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:12:31.275] Server  LOG     /sub
+[00:12:31.775] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:12:32.301] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'value')
+[00:12:41.024] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:12:41.036] Server  LOG     /sub
+[00:12:41.128] Server  LOG      ✓ Compiled in 59ms
+[00:12:41.595] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:12:42.123] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'value')
+[00:12:44.203] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:12:44.211] Server  LOG     /sub
+[00:12:44.270] Server  LOG      ✓ Compiled in 52ms
+[00:12:44.700] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:12:45.194] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'value')
+[00:12:47.222] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:12:47.228] Server  LOG     /sub
+[00:12:47.286] Server  LOG      ✓ Compiled in 47ms
+[00:12:47.750] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:12:48.247] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'value')
+[00:12:48.840] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:12:48.847] Server  LOG     /sub
+[00:12:48.903] Server  LOG      ✓ Compiled in 37ms
+[00:12:49.341] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:12:49.831] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'value')
+[00:13:00.120] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:13:00.126] Server  LOG     /sub
+[00:13:00.192] Server  LOG      ✓ Compiled in 52ms
+[00:13:00.675] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:13:01.275] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'value')
+[00:13:07.591] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:13:07.599] Server  LOG     /sub
+[00:13:07.658] Server  LOG      ✓ Compiled in 40ms
+[00:13:08.145] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:13:08.685] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'value')
+[00:13:15.127] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:13:15.136] Server  LOG     /sub
+[00:13:15.199] Server  LOG      ✓ Compiled in 47ms
+[00:13:15.649] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:13:16.169] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'range')
+[00:13:24.219] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:13:24.226] Server  LOG     /sub
+[00:13:24.325] Server  LOG      ✓ Compiled in 38ms
+[00:13:24.808] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:13:25.345] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'range')
+[00:13:26.612] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:13:26.619] Server  LOG     /sub
+[00:13:26.677] Server  LOG      ✓ Compiled in 35ms
+[00:13:27.109] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:13:27.580] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'range')
+[00:13:38.179] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:13:38.188] Server  LOG     /sub
+[00:13:38.255] Server  LOG      ✓ Compiled in 39ms
+[00:13:38.737] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:13:39.279] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'title')
+[00:13:43.043] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:13:43.051] Server  LOG     /sub
+[00:13:43.113] Server  LOG      ✓ Compiled in 45ms
+[00:13:43.561] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:13:44.157] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'range')
+[00:13:48.042] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:13:48.050] Server  LOG     /sub
+[00:13:48.112] Server  LOG      ✓ Compiled in 38ms
+[00:13:48.562] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:13:49.058] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'range')
+[00:13:49.527] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:13:49.535] Server  LOG     /sub
+[00:13:49.594] Server  LOG      ✓ Compiled in 52ms
+[00:13:50.068] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:13:50.619] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'range')
+[00:13:51.511] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:13:51.518] Server  LOG     /sub
+[00:13:51.578] Server  LOG      ✓ Compiled in 41ms
+[00:13:52.034] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:13:52.508] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'range')
+[00:14:05.936] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:14:05.944] Server  LOG     /sub
+[00:14:06.005] Server  LOG      ✓ Compiled in 50ms
+[00:14:06.483] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:14:07.056] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'range')
+[00:14:07.945] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:14:07.954] Server  LOG     /sub
+[00:14:08.014] Server  LOG      ✓ Compiled in 43ms
+[00:14:08.500] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:14:09.001] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'range')
+[00:14:09.051] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:14:09.058] Server  LOG      ✓ Compiled in 37ms
+[00:14:09.060] Server  LOG     /sub
+[00:14:09.580] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:14:10.074] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'range')
+[00:14:11.582] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:14:11.591] Server  LOG     /sub
+[00:14:11.652] Server  LOG      ✓ Compiled in 44ms
+[00:14:12.142] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:14:12.646] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'range')
+[00:14:14.762] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:14:14.768] Server  LOG     /sub
+[00:14:14.827] Server  LOG      ✓ Compiled in 46ms
+[00:14:15.293] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:14:15.781] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'range')
+[00:14:27.413] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:14:27.422] Server  LOG     /sub
+[00:14:27.488] Server  LOG      ✓ Compiled in 48ms
+[00:14:27.950] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:14:35.576] Server  LOG      ✓ Compiled in 51ms
+[00:14:35.673] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'monthly')
+[00:14:38.726] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:14:38.731] Server  LOG     /sub
+[00:14:38.796] Server  LOG      ✓ Compiled in 39ms
+[00:14:39.281] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:14:42.265] Server  LOG      ✓ Compiled in 37ms
+[00:14:51.753] Server  LOG      ✓ Compiled in 37ms
+[00:14:55.864] Server  LOG      ✓ Compiled in 37ms
+[00:14:58.115] Server  LOG      ✓ Compiled in 48ms
+[00:15:09.370] Server  LOG      ✓ Compiled in 41ms
+[00:15:13.534] Server  LOG      ✓ Compiled in 51ms
+[00:15:34.756] Server  LOG      ✓ Compiled in 52ms
+[00:15:34.857] Browser ERROR   uncaughtError: ReferenceError: title is not defined
+[00:15:40.897] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:15:40.903] Server  LOG     /sub
+[00:15:40.973] Server  LOG      ✓ Compiled in 38ms
+[00:15:41.454] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:42.046] Browser ERROR   uncaughtError: ReferenceError: title is not defined
+[00:15:42.296] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:15:42.300] Server  LOG     /sub
+[00:15:42.358] Server  LOG      ✓ Compiled in 44ms
+[00:15:42.794] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:43.293] Browser ERROR   uncaughtError: ReferenceError: title is not defined
+[00:15:43.939] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:15:43.947] Server  LOG     /sub
+[00:15:44.007] Server  LOG      ✓ Compiled in 44ms
+[00:15:44.454] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:44.952] Browser ERROR   uncaughtError: ReferenceError: title is not defined
+[00:15:46.165] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:15:46.172] Server  LOG     /sub
+[00:15:46.230] Server  LOG      ✓ Compiled in 47ms
+[00:15:46.692] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:47.194] Browser ERROR   uncaughtError: ReferenceError: title is not defined
+[00:15:47.749] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:15:47.756] Server  LOG     /sub
+[00:15:47.813] Server  LOG      ✓ Compiled in 42ms
+[00:15:48.276] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:48.735] Browser ERROR   uncaughtError: ReferenceError: title is not defined
+[00:15:55.617] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:15:55.625] Server  LOG     /sub
+[00:15:55.692] Server  LOG      ✓ Compiled in 45ms
+[00:15:56.162] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:56.650] Browser ERROR   uncaughtError: ReferenceError: ptitle is not defined
+[00:15:57.627] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:15:57.635] Server  LOG     /sub
+[00:15:57.695] Server  LOG      ✓ Compiled in 44ms
+[00:15:58.150] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:58.681] Browser ERROR   uncaughtError: ReferenceError: title is not defined
+[00:16:01.243] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:16:01.251] Server  LOG     /sub
+[00:16:01.311] Server  LOG      ✓ Compiled in 44ms
+[00:16:01.745] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:16:02.251] Browser ERROR   uncaughtError: ReferenceError: ptitle is not defined
+[00:16:02.643] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:16:02.647] Server  LOG     /sub
+[00:16:02.705] Server  LOG      ✓ Compiled in 53ms
+[00:16:03.162] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:16:03.752] Browser ERROR   uncaughtError: ReferenceError: plantitle is not defined
+[00:16:04.596] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:16:04.603] Server  LOG     /sub
+[00:16:04.660] Server  LOG      ✓ Compiled in 42ms
+[00:16:05.113] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:16:05.588] Browser ERROR   uncaughtError: ReferenceError: plantitle is not defined
+[00:16:06.817] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:16:06.825] Server  LOG     /sub
+[00:16:06.880] Server  LOG      ✓ Compiled in 35ms
+[00:16:07.331] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:16:34.626] Server  LOG      ✓ Compiled in 47ms
+[00:16:42.116] Server  LOG     /
+[00:16:45.141] Server  LOG     /auth/sign-in
+[00:16:46.447] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:17:10.960] Server  LOG     /
+[00:17:11.094] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:17:42.202] Server  LOG     /sub
+[00:17:42.750] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:17:51.532] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:17:51.532] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:17:51.532] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:17:51.532] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:17:51.532] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:17:51.532] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:17:51.532] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:17:51.532] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:17:52.548] Server  LOG     /sub
+[00:17:52.644] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:18:13.694] Server  LOG      ✓ Compiled in 52ms
+[00:18:15.912] Server  LOG      ✓ Compiled in 57ms
+[00:18:16.018] Browser ERROR   ./src/components/sub/list/card.tsx:55:28
+Parsing ecmascript source code failed
+  53 |             </p>
+  54 |             <div className={}>
+> 55 |               {current_plan?.title === plan.title ? (
+     |                            ^
+  56 |                 <SubRestart />
+  57 |               ) : (
+  58 |                 <SubChange plan={plan.title} period={period} />
+
+An object member cannot be declared optional
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:16.018] Browser ERROR   ./src/components/sub/list/card.tsx:54:30
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={}>
+     |                              ^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:16.018] Browser ERROR   ./src/components/sub/list/card.tsx:55:28
+Parsing ecmascript source code failed
+  53 |             </p>
+  54 |             <div className={}>
+> 55 |               {current_plan?.title === plan.title ? (
+     |                            ^
+  56 |                 <SubRestart />
+  57 |               ) : (
+  58 |                 <SubChange plan={plan.title} period={period} />
+
+An object member cannot be declared optional
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:16.018] Browser ERROR   ./src/components/sub/list/card.tsx:54:30
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={}>
+     |                              ^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:16.018] Browser ERROR   ./src/components/sub/list/card.tsx:55:28
+Parsing ecmascript source code failed
+  53 |             </p>
+  54 |             <div className={}>
+> 55 |               {current_plan?.title === plan.title ? (
+     |                            ^
+  56 |                 <SubRestart />
+  57 |               ) : (
+  58 |                 <SubChange plan={plan.title} period={period} />
+
+An object member cannot be declared optional
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:16.018] Browser ERROR   ./src/components/sub/list/card.tsx:54:30
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={}>
+     |                              ^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:19.099] Server  LOG     /sub
+[00:18:19.100] Server  LOG     /sub
+[00:18:19.201] Server  LOG     /sub
+[00:18:19.212] Browser ERROR   uncaughtError: ReferenceError: pl is not defined
+[00:18:19.212] Browser ERROR   uncaughtError: ReferenceError: pl is not defined
+[00:18:19.212] Browser ERROR   uncaughtError: ReferenceError: pl is not defined
+[00:18:24.859] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:18:24.860] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:18:24.860] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:18:24.868] Server  LOG     /sub
+[00:18:24.873] Server  LOG     /sub
+[00:18:24.956] Server  LOG      ✓ Compiled in 41ms
+[00:18:25.434] Server  LOG     /sub
+[00:18:25.576] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:18:25.598] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:18:25.665] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:18:26.374] Browser ERROR   uncaughtError: ReferenceError: cu is not defined
+[00:18:26.476] Browser ERROR   uncaughtError: ReferenceError: cu is not defined
+[00:18:26.712] Browser ERROR   uncaughtError: ReferenceError: cu is not defined
+[00:18:28.589] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:18:28.590] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:18:28.591] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:18:28.597] Server  LOG     /sub
+[00:18:28.598] Server  LOG     /sub
+[00:18:28.682] Server  LOG      ✓ Compiled in 47ms
+[00:18:29.086] Server  LOG     /sub
+[00:18:29.201] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:18:29.238] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:18:29.297] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:18:32.143] Server  LOG      ✓ Compiled in 50ms
+[00:18:32.215] Browser ERROR   Received `%s` for a non-boolean attribute `%s`.
+
+If you want to write it to the DOM, pass a string instead: %s="%s" or %s={value.toString()}.
+
+If you used to conditionally omit it with %s={condition && value}, pass %s={condition ? value : undefined} instead. false className className false className className className
+[00:18:32.215] Browser ERROR   Received `%s` for a non-boolean attribute `%s`.
+
+If you want to write it to the DOM, pass a string instead: %s="%s" or %s={value.toString()}.
+
+If you used to conditionally omit it with %s={condition && value}, pass %s={condition ? value : undefined} instead. false className className false className className className
+[00:18:32.226] Browser ERROR   Received `%s` for a non-boolean attribute `%s`.
+
+If you want to write it to the DOM, pass a string instead: %s="%s" or %s={value.toString()}.
+
+If you used to conditionally omit it with %s={condition && value}, pass %s={condition ? value : undefined} instead. false className className false className className className
+[00:18:33.864] Server  LOG      ✓ Compiled in 48ms
+[00:18:37.520] Server  LOG      ✓ Compiled in 47ms
+[00:18:37.625] Browser ERROR   ./src/components/sub/list/card.tsx:54:58
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={current_plan.title ==="Free"></div>}>
+     |                                                          ^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:37.625] Browser ERROR   ./src/components/sub/list/card.tsx:54:59
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={current_plan.title ==="Free"></div>}>
+     |                                                           ^^^^^^^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Unterminated regexp literal
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:37.625] Browser ERROR   ./src/components/sub/list/card.tsx:54:58
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={current_plan.title ==="Free"></div>}>
+     |                                                          ^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:37.625] Browser ERROR   ./src/components/sub/list/card.tsx:54:59
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={current_plan.title ==="Free"></div>}>
+     |                                                           ^^^^^^^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Unterminated regexp literal
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:37.625] Browser ERROR   ./src/components/sub/list/card.tsx:54:58
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={current_plan.title ==="Free"></div>}>
+     |                                                          ^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:37.625] Browser ERROR   ./src/components/sub/list/card.tsx:54:59
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={current_plan.title ==="Free"></div>}>
+     |                                                           ^^^^^^^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Unterminated regexp literal
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:39.851] Browser ERROR   ./src/components/sub/list/card.tsx:54:60
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={current_plan.title ==="Free"? ></div>}>
+     |                                                            ^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:39.851] Browser ERROR   ./src/components/sub/list/card.tsx:54:61
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={current_plan.title ==="Free"? ></div>}>
+     |                                                             ^^^^^^^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Unterminated regexp literal
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:39.852] Browser ERROR   ./src/components/sub/list/card.tsx:54:60
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={current_plan.title ==="Free"? ></div>}>
+     |                                                            ^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:39.852] Browser ERROR   ./src/components/sub/list/card.tsx:54:61
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={current_plan.title ==="Free"? ></div>}>
+     |                                                             ^^^^^^^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Unterminated regexp literal
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:39.852] Browser ERROR   ./src/components/sub/list/card.tsx:54:60
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={current_plan.title ==="Free"? ></div>}>
+     |                                                            ^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:39.852] Browser ERROR   ./src/components/sub/list/card.tsx:54:61
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={current_plan.title ==="Free"? ></div>}>
+     |                                                             ^^^^^^^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Unterminated regexp literal
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:41.675] Server  LOG      ✓ Compiled in 50ms
+[00:18:41.778] Browser ERROR   ./src/components/sub/list/card.tsx:54:58
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={current_plan.title ==="Free">}>
+     |                                                          ^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Expected '</', got '}'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:41.778] Browser ERROR   ./src/components/sub/list/card.tsx:54:58
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={current_plan.title ==="Free">}>
+     |                                                          ^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Expected '</', got '}'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:41.778] Browser ERROR   ./src/components/sub/list/card.tsx:54:58
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={current_plan.title ==="Free">}>
+     |                                                          ^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Expected '</', got '}'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:42.822] Server  LOG     /sub
+[00:18:42.823] Server  LOG     /sub
+[00:18:42.895] Server  LOG     /sub
+[00:18:51.194] Server  LOG      ✓ Compiled in 48ms
+[00:18:51.296] Browser ERROR   ./src/components/sub/list/card.tsx:54:62
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={current_plan.title ==="Free" ? ""}>
+     |                                                              ^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Expected '</', got '}'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:51.297] Browser ERROR   ./src/components/sub/list/card.tsx:54:62
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={current_plan.title ==="Free" ? ""}>
+     |                                                              ^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Expected '</', got '}'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:51.297] Browser ERROR   ./src/components/sub/list/card.tsx:54:62
+Parsing ecmascript source code failed
+  52 |               </span>
+  53 |             </p>
+> 54 |             <div className={current_plan.title ==="Free" ? ""}>
+     |                                                              ^
+  55 |               {current_plan?.title === plan.title ? (
+  56 |                 <SubRestart />
+  57 |               ) : (
+
+Expected '</', got '}'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:18:53.699] Server  LOG     /sub
+[00:18:53.700] Server  LOG     /sub
+[00:18:53.768] Server  LOG     /sub
+[00:18:55.431] Server  LOG      ✓ Compiled in 49ms
+[00:18:58.480] Server  LOG      ✓ Compiled in 37ms
+[00:19:04.260] Server  LOG     /sub
+[00:19:04.764] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:19:05.080] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'title')
+[00:19:06.025] Server  LOG     /sub
+[00:19:06.135] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:19:06.437] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'title')
+[00:19:10.282] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:19:10.286] Server  LOG     /sub
+[00:19:10.344] Server  LOG      ✓ Compiled in 40ms
+[00:19:10.758] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:19:14.349] Server  LOG     /sub
+[00:19:14.446] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:20:01.073] Server  LOG      ✓ Compiled in 49ms
+[00:20:04.714] Server  LOG      ✓ Compiled in 56ms
+[00:20:10.761] Server  LOG     /sub
+[00:20:11.308] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:20:36.838] Server  LOG      ✓ Compiled in 57ms
+[00:20:36.942] Browser ERROR   ./src/components/sub/list/card.tsx:55:61
+Parsing ecmascript source code failed
+  53 |             </p>
+  54 |             <div
+> 55 |               className={current_plan?.title === "Free" &&  ? "hidden" : "block"}
+     |                                                             ^
+  56 |             >
+  57 |               {current_plan?.title === plan.title ? (
+  58 |                 <SubRestart />
+
+Expected '</', got '?'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:20:36.943] Browser ERROR   ./src/components/sub/list/card.tsx:55:61
+Parsing ecmascript source code failed
+  53 |             </p>
+  54 |             <div
+> 55 |               className={current_plan?.title === "Free" &&  ? "hidden" : "block"}
+     |                                                             ^
+  56 |             >
+  57 |               {current_plan?.title === plan.title ? (
+  58 |                 <SubRestart />
+
+Expected '</', got '?'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:20:36.943] Browser ERROR   ./src/components/sub/list/card.tsx:55:61
+Parsing ecmascript source code failed
+  53 |             </p>
+  54 |             <div
+> 55 |               className={current_plan?.title === "Free" &&  ? "hidden" : "block"}
+     |                                                             ^
+  56 |             >
+  57 |               {current_plan?.title === plan.title ? (
+  58 |                 <SubRestart />
+
+Expected '</', got '?'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:20:43.495] Server  LOG     /sub
+[00:20:43.496] Server  LOG     /sub
+[00:20:43.591] Server  LOG     /sub
+[00:20:43.646] Server  LOG      ✓ Compiled in 41ms
+[00:20:57.416] Server  LOG      ✓ Compiled in 45ms
+[00:21:00.330] Server  LOG     /sub
+[00:21:00.824] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:21:19.396] Server  LOG      ✓ Compiled in 54ms
+[00:21:21.045] Server  LOG      ✓ Compiled in 41ms
+[00:21:25.690] Server  LOG     /sub
+[00:21:26.158] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:21:35.019] Server  LOG     /sub
+[00:21:35.122] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:22:17.129] Server  LOG      ✓ Compiled in 65ms
+[00:22:17.233] Browser ERROR   ./src/components/sub/list/card.tsx:10:8
+Parsing ecmascript source code failed
+   8 |
+   9 |
+> 10 | export function SubListCard({ plan, current_plan, period }) {
+     |        ^^^^^^^^
+  11 |   const content = useIntlayer("sub-content");
+  12 |   return (
+  13 |     <div
+
+Expected ';', got 'function'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:22:17.233] Browser ERROR   ./src/components/sub/list/card.tsx:10:8
+Parsing ecmascript source code failed
+   8 |
+   9 |
+> 10 | export function SubListCard({ plan, current_plan, period }) {
+     |        ^^^^^^^^
+  11 |   const content = useIntlayer("sub-content");
+  12 |   return (
+  13 |     <div
+
+Expected ';', got 'function'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:22:17.233] Browser ERROR   ./src/components/sub/list/card.tsx:10:8
+Parsing ecmascript source code failed
+   8 |
+   9 |
+> 10 | export function SubListCard({ plan, current_plan, period }) {
+     |        ^^^^^^^^
+  11 |   const content = useIntlayer("sub-content");
+  12 |   return (
+  13 |     <div
+
+Expected ';', got 'function'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/card.tsx [Client Component Browser]
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/card.tsx [Client Component SSR]
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:22:21.602] Server  LOG     /sub
+[00:22:21.603] Server  LOG     /sub
+[00:22:21.690] Server  LOG     /sub
+[00:22:25.016] Server  LOG      ✓ Compiled in 43ms
+[00:22:26.069] Server  LOG      ✓ Compiled in 46ms
+[00:23:39.665] Server  LOG      ✓ Compiled in 53ms
+[00:23:39.767] Browser ERROR   ./src/components/sub/list/index.tsx:92:48
+Parsing ecmascript source code failed
+  90 |                   key={plan.id}
+  91 |                   plan={plan}
+> 92 |                   current_plan={finance?.sub?? }
+     |                                                ^
+  93 |                   period={period}
+  94 |                 />
+  95 |               ) : null
+
+Expected '</', got '}'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:23:39.768] Browser ERROR   ./src/components/sub/list/index.tsx:92:48
+Parsing ecmascript source code failed
+  90 |                   key={plan.id}
+  91 |                   plan={plan}
+> 92 |                   current_plan={finance?.sub?? }
+     |                                                ^
+  93 |                   period={period}
+  94 |                 />
+  95 |               ) : null
+
+Expected '</', got '}'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:23:39.768] Browser ERROR   ./src/components/sub/list/index.tsx:92:48
+Parsing ecmascript source code failed
+  90 |                   key={plan.id}
+  91 |                   plan={plan}
+> 92 |                   current_plan={finance?.sub?? }
+     |                                                ^
+  93 |                   period={period}
+  94 |                 />
+  95 |               ) : null
+
+Expected '</', got '}'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:23:41.991] Server  LOG      ✓ Compiled in 38ms
+[00:23:42.093] Browser ERROR   ./src/components/sub/list/index.tsx:92:60
+Parsing ecmascript source code failed
+  90 |                   key={plan.id}
+  91 |                   plan={plan}
+> 92 |                   current_plan={finance?.sub?? finance.sub : null}
+     |                                                            ^
+  93 |                   period={period}
+  94 |                 />
+  95 |               ) : null
+
+Expected '</', got ':'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:23:42.093] Browser ERROR   ./src/components/sub/list/index.tsx:92:60
+Parsing ecmascript source code failed
+  90 |                   key={plan.id}
+  91 |                   plan={plan}
+> 92 |                   current_plan={finance?.sub?? finance.sub : null}
+     |                                                            ^
+  93 |                   period={period}
+  94 |                 />
+  95 |               ) : null
+
+Expected '</', got ':'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:23:42.093] Browser ERROR   ./src/components/sub/list/index.tsx:92:60
+Parsing ecmascript source code failed
+  90 |                   key={plan.id}
+  91 |                   plan={plan}
+> 92 |                   current_plan={finance?.sub?? finance.sub : null}
+     |                                                            ^
+  93 |                   period={period}
+  94 |                 />
+  95 |               ) : null
+
+Expected '</', got ':'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:23:43.169] Server  LOG     /sub
+[00:23:43.172] Server  LOG     /sub
+[00:23:43.244] Server  LOG     /sub
+[00:23:46.859] Server  LOG      ✓ Compiled in 46ms
+[00:23:46.961] Browser ERROR   ./src/components/sub/list/index.tsx:92:60
+Parsing ecmascript source code failed
+  90 |                   key={plan.id}
+  91 |                   plan={plan}
+> 92 |                   current_plan={finance?.sub?? finance.sub : null}
+     |                                                            ^
+  93 |                   period={period}
+  94 |                 />
+  95 |               ) : null
+
+Expected '</', got ':'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:23:46.961] Browser ERROR   ./src/components/sub/list/index.tsx:92:60
+Parsing ecmascript source code failed
+  90 |                   key={plan.id}
+  91 |                   plan={plan}
+> 92 |                   current_plan={finance?.sub?? finance.sub : null}
+     |                                                            ^
+  93 |                   period={period}
+  94 |                 />
+  95 |               ) : null
+
+Expected '</', got ':'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:23:46.962] Browser ERROR   ./src/components/sub/list/index.tsx:92:60
+Parsing ecmascript source code failed
+  90 |                   key={plan.id}
+  91 |                   plan={plan}
+> 92 |                   current_plan={finance?.sub?? finance.sub : null}
+     |                                                            ^
+  93 |                   period={period}
+  94 |                 />
+  95 |               ) : null
+
+Expected '</', got ':'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/sub/list/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/sub/list/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:23:48.425] Server  LOG      ✓ Compiled in 42ms
+[00:23:48.432] Server  LOG     /sub
+[00:23:48.432] Server  LOG     /sub
+[00:23:48.499] Server  LOG     /sub
+[00:24:07.285] Server  LOG      ✓ Compiled in 36ms
+[00:24:23.647] Server  LOG      ✓ Compiled in 51ms
+[00:24:25.474] Server  LOG      ✓ Compiled in 49ms
+[00:24:33.877] Server  LOG      ✓ Compiled in 46ms
+[00:24:37.225] Server  LOG      ✓ Compiled in 43ms
+[00:24:47.077] Server  LOG      ✓ Compiled in 58ms
+[00:24:47.130] Browser ERROR   uncaughtError: ReferenceError: current_plan is not defined
+[00:24:47.130] Browser ERROR   uncaughtError: ReferenceError: current_plan is not defined
+[00:24:47.137] Browser ERROR   uncaughtError: ReferenceError: current_plan is not defined
+[00:24:49.135] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:24:49.136] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:24:49.136] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:24:49.147] Server  LOG     /sub
+[00:24:49.151] Server  LOG     /sub
+[00:24:49.160] Server  LOG      ✓ Compiled in 54ms
+[00:24:49.778] Server  LOG     /sub
+[00:24:49.922] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:24:49.996] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:24:50.042] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:24:50.849] Browser ERROR   uncaughtError: ReferenceError: current_plan is not defined
+[00:24:51.080] Browser ERROR   uncaughtError: ReferenceError: current_plan is not defined
+[00:24:51.168] Browser ERROR   uncaughtError: ReferenceError: current_plan is not defined
+[00:24:53.931] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:24:53.932] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:24:53.932] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:24:53.936] Server  LOG     /sub
+[00:24:53.940] Server  LOG     /sub
+[00:24:54.002] Server  LOG      ✓ Compiled in 47ms
+[00:24:54.401] Server  LOG     /sub
+[00:24:54.527] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:24:54.551] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:24:54.618] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:24:55.258] Browser ERROR   uncaughtError: ReferenceError: current_plan is not defined
+[00:24:55.377] Browser ERROR   uncaughtError: ReferenceError: current_plan is not defined
+[00:24:55.606] Browser ERROR   uncaughtError: ReferenceError: current_plan is not defined
+[00:26:22.541] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:26:22.542] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:26:22.544] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:26:22.550] Server  LOG     /sub
+[00:26:22.552] Server  LOG     /sub
+[00:26:22.675] Server  LOG      ✓ Compiled in 42ms
+[00:26:23.073] Server  LOG     /sub
+[00:26:23.184] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:26:23.213] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:26:23.286] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:26:31.358] Server  LOG      ✓ Compiled in 51ms
+[00:26:31.442] Browser ERROR   uncaughtError: ReferenceError: SubLisxtCard is not defined
+[00:26:31.443] Browser ERROR   uncaughtError: ReferenceError: SubLisxtCard is not defined
+[00:26:31.455] Browser ERROR   uncaughtError: ReferenceError: SubLisxtCard is not defined
+[00:26:36.008] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:26:36.008] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:26:36.014] Server  LOG     /sub
+[00:26:36.018] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:26:36.022] Server  LOG     /sub
+[00:26:36.024] Server  LOG      ✓ Compiled in 48ms
+[00:26:36.155] Server  LOG     /sub
+[00:26:36.330] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:26:36.400] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:26:36.474] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:26:45.136] Server  LOG     /sub
+[00:26:45.243] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:27:32.422] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:27:32.422] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:27:32.422] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:27:32.422] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:27:32.422] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:27:32.422] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:27:32.422] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:27:32.422] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:27:41.576] Server  LOG     /tts
+[00:29:26.110] Server  LOG     /protected/media/audio/stream/c029931c-356f-4c7f-8a4a-793a34100e6a
+[00:29:49.508] Server  LOG     /tts
+[00:29:49.855] Server  LOG     /tts
+[00:29:53.036] Server  LOG     /protected/media/audio/stream/0d5d374b-2eba-4ee0-a481-8b18da4171fa
+[00:30:05.519] Server  LOG     /protected/media/audio/stream/0d5d374b-2eba-4ee0-a481-8b18da4171fa
+[00:31:37.782] Server  LOG     /tts
+[00:31:37.783] Server  LOG      ✓ Compiled in 90ms
+[00:31:37.784] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/shared/site.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:31:37.789] Server  LOG     /tts
+[00:31:37.789] Server  LOG     /tts
+[00:31:38.399] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:31:41.119] Server  LOG     /tts
+[00:31:41.120] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/shared/site.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:31:41.122] Server  LOG      ✓ Compiled in 52ms
+[00:31:41.125] Server  LOG     /tts
+[00:31:41.181] Server  LOG     /tts
+[00:31:41.524] Server  LOG     /tts
+[00:31:41.525] Server  LOG     /tts
+[00:31:41.624] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:31:43.555] Server  LOG     /tts
+[00:31:43.556] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/shared/site.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:31:43.561] Server  LOG     /tts
+[00:31:43.615] Server  LOG     /tts
+[00:31:43.981] Server  LOG     /tts
+[00:31:43.982] Server  LOG     /tts
+[00:31:44.077] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:31:46.079] Server  LOG     /tts
+[00:31:46.081] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/shared/site.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:31:46.084] Server  LOG     /tts
+[00:31:46.145] Server  LOG     /tts
+[00:31:46.498] Server  LOG     /tts
+[00:31:46.499] Server  LOG     /tts
+[00:31:46.600] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:31:49.230] Server  LOG     /tts
+[00:31:49.231] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/shared/site.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:31:49.234] Server  LOG     /tts
+[00:31:49.292] Server  LOG     /tts
+[00:31:49.639] Server  LOG     /tts
+[00:31:49.646] Server  LOG     /tts
+[00:31:49.738] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:31:50.850] Server  LOG     /tts
+[00:31:50.852] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/shared/site.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:31:50.856] Server  LOG      ✓ Compiled in 52ms
+[00:31:50.857] Server  LOG     /tts
+[00:31:50.858] Server  LOG     /tts
+[00:31:51.260] Server  LOG     /tts
+[00:31:51.261] Server  LOG     /tts
+[00:31:51.382] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:31:52.367] Server  LOG     /tts
+[00:31:52.370] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/shared/site.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:31:52.372] Server  LOG      ✓ Compiled in 46ms
+[00:31:52.374] Server  LOG     /tts
+[00:31:52.433] Server  LOG     /tts
+[00:31:52.910] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:31:53.842] Server  LOG     /tts
+[00:31:53.844] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/shared/site.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:31:53.847] Server  LOG     /tts
+[00:31:53.905] Server  LOG     /tts
+[00:31:54.381] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:31:55.133] Server  LOG     /tts
+[00:31:55.134] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/shared/site.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:31:55.137] Server  LOG     /tts
+[00:31:55.193] Server  LOG     /tts
+[00:31:55.565] Server  LOG     /tts
+[00:31:55.573] Server  LOG     /tts
+[00:31:55.664] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:31:56.408] Server  LOG     /tts
+[00:31:56.409] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/shared/site.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:31:56.414] Server  LOG     /tts
+[00:31:56.469] Server  LOG     /tts
+[00:31:56.929] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:31:57.958] Server  LOG     /tts
+[00:31:57.959] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/shared/site.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:31:57.962] Server  LOG     /tts
+[00:31:58.017] Server  LOG     /tts
+[00:31:58.367] Server  LOG     /tts
+[00:31:58.374] Server  LOG     /tts
+[00:31:58.467] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:31:59.315] Server  LOG     /tts
+[00:31:59.317] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/shared/site.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:31:59.320] Server  LOG     /tts
+[00:31:59.379] Server  LOG     /tts
+[00:31:59.842] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:32:00.928] Server  LOG     /tts
+[00:32:00.930] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/shared/site.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:32:00.933] Server  LOG     /tts
+[00:32:00.988] Server  LOG     /tts
+[00:32:01.350] Server  LOG     /tts
+[00:32:01.358] Server  LOG     /tts
+[00:32:01.449] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:32:02.960] Server  LOG     /tts
+[00:32:02.962] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/shared/site.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:32:02.966] Server  LOG     /tts
+[00:32:03.026] Server  LOG     /tts
+[00:32:03.391] Server  LOG     /tts
+[00:32:03.515] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:32:04.876] Server  LOG     /tts
+[00:32:04.877] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/shared/site.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:32:04.880] Server  LOG     /tts
+[00:32:04.939] Server  LOG     /tts
+[00:32:05.337] Server  LOG     /tts
+[00:32:05.429] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:32:23.504] Server  LOG     /tts
+[00:32:23.667] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:33:12.686] Server  LOG     /chatbot
+[00:33:17.496] Server  LOG     /chatbot/54010715-9622-4e1b-8332-02316ffce8a7
+[00:33:23.924] Server  LOG     /chatbot
+[00:33:27.179] Server  LOG     /chatbot/6d36b280-62bc-4e73-a787-5ccfa93af595
+[00:33:55.890] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:33:55.890] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:33:55.890] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:33:55.890] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:33:55.890] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:33:55.890] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:33:55.890] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:33:55.890] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:34:39.378] Server  LOG     /chatbot/6d36b280-62bc-4e73-a787-5ccfa93af595
+[00:34:40.810] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:34:40.810] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:34:42.491] Server  LOG     /chatbot
+[00:34:44.992] Server  LOG     /chatbot/d1cc3661-f9b8-43c7-8736-4b06bdf299f0
+[00:35:18.364] Browser ERROR   unhandledRejection: TypeError: Cannot read properties of undefined (reading 'server')
+[00:37:01.612] Server  LOG      ✓ Compiled in 89ms
+[00:37:07.664] Browser ERROR   unhandledRejection: TypeError: Cannot read properties of undefined (reading 'server')
+[00:37:07.664] Browser ERROR   unhandledRejection: TypeError: Cannot read properties of undefined (reading 'server')
+[00:37:22.951] Server  LOG      ✓ Compiled in 57ms
+[00:37:31.450] Server  LOG      ✓ Compiled in 57ms
+[00:37:40.075] Browser ERROR   unhandledRejection: TypeError: Cannot read properties of undefined (reading 'server')
+[00:37:40.075] Browser ERROR   unhandledRejection: TypeError: Cannot read properties of undefined (reading 'server')
+[00:38:20.904] Server  LOG      ✓ Compiled in 50ms
+[00:38:20.992] Browser ERROR   uncaughtError: ReferenceError: log is not defined
+[00:38:22.964] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:38:22.976] Server  LOG     /chatbot/d1cc3661-f9b8-43c7-8736-4b06bdf299f0
+[00:38:23.066] Server  LOG      ✓ Compiled in 41ms
+[00:38:23.509] Server  LOG     Internal server error.
+[00:38:23.519] Browser LOG     Serverda ichki xato yuz berdi.
+[00:38:23.654] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:38:24.399] Browser LOG     Internal server error.
+[00:38:24.399] Browser LOG     Internal server error.
+[00:38:27.643] Server  LOG     /chatbot/d1cc3661-f9b8-43c7-8736-4b06bdf299f0
+[00:38:27.689] Server  LOG     Internal server error.
+[00:38:27.806] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:38:28.387] Browser LOG     Internal server error.
+[00:38:28.387] Browser LOG     Internal server error.
+[00:38:29.647] Browser LOG     Internal server error.
+[00:38:32.645] Browser LOG     Internal server error.
+[00:38:32.645] Browser LOG     Internal server error.
+[00:38:36.676] Browser LOG     Internal server error.
+[00:38:38.865] Server  LOG      ✓ Compiled in 45ms
+[00:41:36.829] Server  LOG      ✓ Compiled in 89ms
+[00:41:38.648] Server  LOG      ✓ Compiled in 44ms
+[00:41:41.245] Server  LOG     /chatbot/d1cc3661-f9b8-43c7-8736-4b06bdf299f0
+[00:41:41.851] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:41:59.061] Browser LOG     123
+[00:42:02.613] Server  LOG      ✓ Compiled in 51ms
+[00:42:06.652] Server  LOG     /chatbot/d1cc3661-f9b8-43c7-8736-4b06bdf299f0
+[00:42:07.223] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:43:14.100] Server  LOG     /chatbot/d1cc3661-f9b8-43c7-8736-4b06bdf299f0
+[00:43:14.267] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:44:57.593] Server  LOG      ✓ Compiled in 102ms
+[00:45:02.556] Server  LOG     /chatbot/d1cc3661-f9b8-43c7-8736-4b06bdf299f0
+[00:45:03.251] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:45:23.870] Server  LOG      ✓ Compiled in 47ms
+[00:45:25.250] Server  LOG     /chatbot/d1cc3661-f9b8-43c7-8736-4b06bdf299f0
+[00:45:25.730] Server  LOG     /chatbot/d1cc3661-f9b8-43c7-8736-4b06bdf299f0
+[00:45:25.730] Server  LOG     /chatbot/d1cc3661-f9b8-43c7-8736-4b06bdf299f0
+[00:45:25.882] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:45:47.449] Server  LOG     /stt
+[00:46:12.815] Server  LOG      ✓ Compiled in 95ms
+[00:46:13.864] Server  LOG      ✓ Compiled in 39ms
+[00:46:34.959] Server  LOG      ✓ Compiled in 59ms
+[00:46:37.365] Server  LOG      ✓ Compiled in 46ms
+[00:46:37.820] Server  LOG      ✓ Compiled in 44ms
+[00:46:46.245] Server  LOG     /tts
+[00:47:18.387] Server  LOG     /docs
+[00:47:18.420] Server  LOG     /docs
+[00:47:18.537] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:47:22.282] Server  LOG     /docs
+[00:47:22.409] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:47:23.664] Server  LOG     /tts
+[00:47:23.829] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:47:24.718] Server  LOG     /docs
+[00:47:24.746] Server  LOG     /docs
+[00:47:24.855] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:47:29.103] Server  LOG     /tts
+[00:47:29.258] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:47:30.362] Server  LOG     /keys
+[00:48:41.284] Server  LOG     /docs
+[00:48:41.332] Server  LOG     /docs
+[00:48:41.520] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:48:42.503] Server  LOG     /keys
+[00:48:42.729] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:49:10.180] Server  LOG     /docs
+[00:49:10.202] Server  LOG     /docs
+[00:49:10.305] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:49:11.263] Server  LOG     /keys
+[00:49:11.412] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:49:17.756] Server  LOG     /keys
+[00:49:17.822] Server  LOG     /keys
+[00:49:17.838] Server  LOG     /keys
+[00:49:17.852] Server  LOG     /keys
+[00:49:17.869] Server  LOG     /keys
+[00:49:17.886] Server  LOG     /keys
+[00:49:17.900] Server  LOG     /keys
+[00:49:17.914] Server  LOG     /keys
+[00:49:17.931] Server  LOG     /keys
+[00:49:17.946] Server  LOG     /keys
+[00:49:17.960] Server  LOG     /keys
+[00:49:17.976] Server  LOG     /keys
+[00:49:17.991] Server  LOG     /keys
+[00:49:18.005] Server  LOG     /keys
+[00:49:18.020] Server  LOG     /keys
+[00:49:18.034] Server  LOG     /keys
+[00:49:18.048] Server  LOG     /keys
+[00:49:18.066] Server  LOG     /keys
+[00:49:18.081] Server  LOG     /keys
+[00:49:18.096] Server  LOG     /keys
+[00:49:18.113] Server  LOG     /keys
+[00:49:18.129] Server  LOG     /keys
+[00:49:18.148] Server  LOG     /keys
+[00:49:18.171] Server  LOG     /keys
+[00:49:18.187] Server  LOG     /keys
+[00:49:18.208] Server  LOG     /keys
+[00:49:18.228] Server  LOG     /keys
+[00:49:18.245] Server  LOG     /keys
+[00:49:18.261] Server  LOG     /keys
+[00:49:18.282] Server  LOG     /keys
+[00:49:18.301] Server  LOG     /keys
+[00:49:18.321] Server  LOG     /keys
+[00:49:18.344] Server  LOG     /keys
+[00:49:18.365] Server  LOG     /keys
+[00:49:18.384] Server  LOG     /keys
+[00:50:25.451] Server  LOG     /keys
+[00:50:25.630] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:50:26.771] Server  LOG     /docs
+[00:50:27.172] Server  ERROR    ⨯ Error: Dictionary docs-content not found - Build optimization is enabled, the dictionary may have been purged. You can disable build optimization, or configure the 'traversePattern' to include the current component.
+[00:50:27.350] Browser ERROR   uncaughtError: Error: Dictionary docs-content not found - Build optimization is enabled, the dictionary may have been purged. You can disable build optimization, or configure the 'traversePattern' to include the current component.
+[00:50:33.929] Server  LOG     /docs
+[00:50:34.337] Server  ERROR    ⨯ ReferenceError: MainPage is not defined
+[00:50:34.460] Server  ERROR    ⨯ ReferenceError: MainPage is not defined
+[00:50:34.463] Server  ERROR    ⨯ Failed to generate static paths for /[locale]/docs:
+[00:50:34.466] Server  ERROR   ReferenceError: MainPage is not defined
+[00:50:34.938] Browser ERROR   uncaughtError: ReferenceError: MainPage is not defined
+[00:50:36.100] Server  LOG     /docs
+[00:50:36.308] Server  ERROR    ⨯ ReferenceError: MainPage is not defined
+[00:50:36.396] Browser ERROR   uncaughtError: ReferenceError: MainPage is not defined
+[00:50:42.356] Server  LOG     /docs
+[00:50:42.586] Server  ERROR    ⨯ ReferenceError: MainPage is not defined
+[00:50:42.782] Browser ERROR   uncaughtError: ReferenceError: MainPage is not defined
+[00:50:44.552] Server  LOG     /docs
+[00:50:44.776] Server  ERROR    ⨯ ReferenceError: MainPage is not defined
+[00:50:44.864] Browser ERROR   uncaughtError: ReferenceError: MainPage is not defined
+[00:50:53.450] Browser ERROR   ./src/app/[locale]/docs/page.tsx:6:10
+Parsing ecmascript source code failed
+  4 |
+  5 | export  {
+> 6 |   return (
+    |          ^
+  7 |     <main className="flex h-svh">
+  8 |       <Sidebar />
+  9 |       <div className="flex-1">
+
+Expected ',', got '('
+[00:50:55.713] Browser ERROR   ./src/app/[locale]/docs/page.tsx:7:5
+Parsing ecmascript source code failed
+   5 | export default  {
+   6 |   return (
+>  7 |     <main className="flex h-svh">
+     |     ^
+   8 |       <Sidebar />
+   9 |       <div className="flex-1">
+  10 |         <Header title={"Docs"} />
+
+Expression expected
+[00:50:57.275] Browser ERROR   ./src/app/[locale]/docs/page.tsx:16:1
+Ecmascript file had an error
+  14 | };
+  15 |
+> 16 | export default MainPage;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^
+  17 |
+
+the name `default` is exported multiple times
+[00:50:58.057] Browser ERROR   ./src/app/[locale]/docs/page.tsx:16:1
+Ecmascript file had an error
+  14 | }
+  15 |
+> 16 | export default MainPage;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^
+  17 |
+
+the name `default` is exported multiple times
+[00:51:01.134] Server  LOG     /docs
+[00:51:01.864] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:51:03.273] Server  LOG     /docs
+[00:51:05.020] Server  LOG     /docs
+[00:51:05.516] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:51:09.457] Server  LOG     /keys
+[00:51:10.688] Server  LOG     /monitoring
+[00:51:20.611] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:51:20.611] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:51:20.611] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:51:20.611] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:51:20.611] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:51:20.611] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:51:20.611] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:51:20.611] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:51:21.791] Server  LOG     /sub
+[00:51:22.428] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:51:41.605] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:51:41.605] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:51:41.605] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:51:41.605] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:51:41.605] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:51:41.605] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:51:41.605] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:51:41.605] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:52:42.404] Server  LOG      ✓ Compiled in 101ms
+[00:52:42.504] Browser ERROR   uncaughtError: ReferenceError: log is not defined
+[00:52:43.109] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:52:43.117] Server  LOG     /sub
+[00:52:43.209] Server  LOG      ✓ Compiled in 43ms
+[00:52:43.758] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:52:44.329] Browser LOG     undefined
+[00:52:44.329] Browser LOG     undefined
+[00:52:47.573] Browser LOG     undefined
+[00:52:47.573] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:52:47.573] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:52:47.573] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:52:47.573] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:52:47.573] Browser LOG     998750.0000
+[00:52:47.573] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:52:47.573] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:52:47.573] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:52:47.573] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:24.840] Server  LOG      ✓ Compiled in 52ms
+[00:53:24.950] Browser ERROR   ./src/components/navigation/header/user-menu.tsx:93:49
+Parsing ecmascript source code failed
+  91 |     if (isDropDownOpen) getFinance();
+  92 |   }, [isDropDownOpen]);
+> 93 |   console.log(Number(finance?.balance.cash ?? 0);
+     |                                                 ^
+  94 |
+  95 |   return (
+  96 |     <Dropdown showArrow placement="bottom-end" onOpenChange={setIsDropDownOpen}>
+
+Expected ',', got ';'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/navigation/header/user-menu.tsx [Client Component Browser]
+    ./src/components/navigation/header/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/navigation/header/user-menu.tsx [Client Component SSR]
+    ./src/components/navigation/header/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:53:26.628] Server  LOG     /sub
+[00:53:26.707] Server  LOG     /sub
+[00:53:26.724] Server  LOG     /sub
+[00:53:26.740] Server  LOG     /sub
+[00:53:26.754] Server  LOG     /sub
+[00:53:26.773] Server  LOG     /sub
+[00:53:26.786] Server  LOG     /sub
+[00:53:26.802] Server  LOG     /sub
+[00:53:26.815] Server  LOG     /sub
+[00:53:26.827] Browser LOG     998750
+[00:53:26.827] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:26.827] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:26.827] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:26.827] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:26.827] Browser LOG     998750
+[00:53:26.827] Browser LOG     998750
+[00:53:26.827] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:26.827] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:26.827] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:26.827] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:26.942] Browser LOG     998750
+[00:53:26.942] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:26.942] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:26.942] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:26.942] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:31.661] Browser LOG     998750
+[00:53:31.847] Server  LOG     /sub
+[00:53:32.503] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:53:32.986] Browser LOG     0
+[00:53:32.986] Browser LOG     0
+[00:53:34.691] Browser LOG     0
+[00:53:34.691] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:34.692] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:34.692] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:34.692] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:34.692] Browser LOG     998750
+[00:53:34.692] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:34.692] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:34.692] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:34.692] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:52.746] Server  LOG      ✓ Compiled in 61ms
+[00:53:52.842] Browser ERROR   uncaughtError: ReferenceError: use is not defined
+[00:53:56.570] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:53:56.578] Server  LOG     /sub
+[00:53:56.653] Server  LOG      ✓ Compiled in 44ms
+[00:53:57.149] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:53:57.750] Browser LOG     0
+[00:53:57.750] Browser LOG     0
+[00:53:59.437] Browser LOG     0
+[00:53:59.437] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:59.437] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:59.437] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:59.437] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:59.437] Browser LOG     998
+[00:53:59.437] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:59.437] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:59.437] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:53:59.438] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:54:43.943] Server  LOG      ✓ Compiled in 90ms
+[00:54:44.027] Browser LOG     0
+[00:54:44.027] Browser LOG     0
+[00:54:47.199] Server  LOG      ✓ Compiled in 49ms
+[00:54:47.295] Browser LOG     0
+[00:54:47.295] Browser LOG     0
+[00:54:47.295] Browser ERROR   uncaughtError: ReferenceError: millify is not defined
+[00:54:54.886] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:54:54.894] Server  LOG     /sub
+[00:54:54.985] Server  LOG      ✓ Compiled in 56ms
+[00:54:55.534] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:54:56.102] Browser LOG     0
+[00:54:56.102] Browser LOG     0
+[00:54:56.102] Browser ERROR   uncaughtError: ReferenceError: value is not defined
+[00:55:01.083] Server  LOG      ✓ Compiled in 43ms
+[00:55:01.191] Browser ERROR   ./src/components/navigation/header/user-menu.tsx:95:107
+Parsing ecmascript source code failed
+  93 |   }, [isDropDownOpen]);
+  94 |   console.log(useMillify(Number(finance?.balance.cash ?? 0)));
+> 95 |   console.log(millify(Number(finance?.balance.cash ?? 0)), { precision: precision + 2, lowercase: false }));
+     |                                                                                                           ^
+  96 |
+  97 |   return (
+  98 |     <Dropdown showArrow placement="bottom-end" onOpenChange={setIsDropDownOpen}>
+
+Expected ';', '}' or <eof>
+
+Import traces:
+  Client Component Browser:
+    ./src/components/navigation/header/user-menu.tsx [Client Component Browser]
+    ./src/components/navigation/header/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/navigation/header/user-menu.tsx [Client Component SSR]
+    ./src/components/navigation/header/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:55:12.292] Browser ERROR   ./src/components/navigation/header/user-menu.tsx:95:99
+Parsing ecmascript source code failed
+  93 |   }, [isDropDownOpen]);
+  94 |   console.log(useMillify(Number(finance?.balance.cash ?? 0)));
+> 95 |   console.log(millify(Number(finance?.balance.cash ?? 0)), { precision: 2 + 2, lowercase: false }));
+     |                                                                                                   ^
+  96 |
+  97 |   return (
+  98 |     <Dropdown showArrow placement="bottom-end" onOpenChange={setIsDropDownOpen}>
+
+Expected ';', '}' or <eof>
+
+Import traces:
+  Client Component Browser:
+    ./src/components/navigation/header/user-menu.tsx [Client Component Browser]
+    ./src/components/navigation/header/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/navigation/header/user-menu.tsx [Client Component SSR]
+    ./src/components/navigation/header/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:55:14.272] Browser ERROR   ./src/components/navigation/header/user-menu.tsx:95:95
+Parsing ecmascript source code failed
+  93 |   }, [isDropDownOpen]);
+  94 |   console.log(useMillify(Number(finance?.balance.cash ?? 0)));
+> 95 |   console.log(millify(Number(finance?.balance.cash ?? 0)), { precision: 2, lowercase: false }));
+     |                                                                                               ^
+  96 |
+  97 |   return (
+  98 |     <Dropdown showArrow placement="bottom-end" onOpenChange={setIsDropDownOpen}>
+
+Expected ';', '}' or <eof>
+
+Import traces:
+  Client Component Browser:
+    ./src/components/navigation/header/user-menu.tsx [Client Component Browser]
+    ./src/components/navigation/header/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Client Component Browser]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/navigation/header/user-menu.tsx [Client Component SSR]
+    ./src/components/navigation/header/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Client Component SSR]
+    ./src/components/sub/index.tsx [Server Component]
+    ./src/app/[locale]/sub/page.tsx [Server Component]
+[00:55:16.331] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:55:16.333] Server  LOG     /sub
+[00:55:16.896] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:55:17.491] Browser LOG     0
+[00:55:17.491] Browser LOG     0 {"lowercase":false,"precision":2}
+[00:55:17.491] Browser LOG     0
+[00:55:17.491] Browser LOG     0 {"lowercase":false,"precision":2}
+[00:55:19.566] Server  LOG     /sub
+[00:55:19.751] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:55:20.245] Browser LOG     0
+[00:55:20.245] Browser LOG     0 {"lowercase":false,"precision":2}
+[00:55:20.245] Browser LOG     0
+[00:55:20.245] Browser LOG     0 {"lowercase":false,"precision":2}
+[00:56:38.823] Server  LOG      ✓ Compiled in 83ms
+[00:56:39.099] Browser LOG     0
+[00:56:39.099] Browser LOG     0
+[00:56:39.099] Browser LOG     0
+[00:56:39.099] Browser LOG     0
+[00:56:43.616] Server  LOG     /sub
+[00:56:44.255] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:56:44.849] Browser LOG     0
+[00:56:44.849] Browser LOG     0
+[00:56:44.849] Browser LOG     0
+[00:56:44.849] Browser LOG     0
+[00:56:45.377] Browser LOG     0
+[00:56:45.377] Browser LOG     0
+[00:56:45.377] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:56:45.377] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:56:45.377] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:56:45.377] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:56:45.377] Browser LOG     998
+[00:56:45.377] Browser LOG     998,8K
+[00:56:45.377] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:56:45.377] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:56:45.377] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:56:45.377] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:58:07.657] Server  LOG      ✓ Compiled in 59ms
+[00:58:17.453] Server  LOG      ✓ Compiled in 62ms
+[00:58:21.161] Server  LOG      ✓ Compiled in 40ms
+[00:58:23.888] Server  LOG     /sub
+[00:58:24.551] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:58:25.581] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:58:25.581] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:58:25.581] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:58:25.581] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:58:25.581] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:58:25.581] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:58:25.581] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:58:25.581] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:58:37.533] Server  LOG      ✓ Compiled in 51ms
+[00:58:37.653] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:58:37.653] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:58:37.653] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:58:37.653] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:58:37.653] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:58:37.653] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:58:37.653] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:58:37.653] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:58:40.331] Server  LOG      ✓ Compiled in 53ms
+[00:58:46.511] Server  LOG      ✓ Compiled in 46ms
+[00:58:53.312] Server  LOG      ✓ Compiled in 43ms
+[00:58:57.669] Server  LOG      ✓ Compiled in 44ms
+[00:58:59.583] Server  LOG      ✓ Compiled in 85ms
+[00:59:01.601] Server  LOG     /sub
+[00:59:02.272] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:59:03.278] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:59:03.278] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:59:03.278] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:59:03.278] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:59:03.278] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:59:03.278] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:59:03.278] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:59:03.278] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:59:33.577] Server  LOG      ✓ Compiled in 51ms
+[00:59:33.713] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:59:33.713] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:59:33.713] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:59:33.713] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:59:33.713] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:59:33.713] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:59:33.713] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.
+[00:59:33.713] Browser WARN    <Item> with non-plain text contents is unsupported by type to select for accessibility. Please add a `textValue` prop.

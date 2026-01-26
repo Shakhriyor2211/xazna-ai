@@ -1,0 +1,11 @@
+{
+  "pages": {},
+  "app": {
+    "[project]/src/app/sign-in/page": [
+      "static/media/Gantari_VariableFont_wght-s.p.38385d16.ttf",
+      "static/media/Gantari_Italic_VariableFont_wght-s.p.e981de20.ttf"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pagesUsingSizeAdjust": false
+}

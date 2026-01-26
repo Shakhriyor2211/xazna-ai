@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///Users/shakhriyormamadaliev/Folders/my_projects/xazna/src/components/navigation/tag-bar.tsx"],"sourcesContent":["export function TagBar() {\n  return (\n    <div className=\"fixed top-0 inset-x-0 bg-gray-700 text-gray-400 px-8 z-100\">\n      <span className=\"text-[13px]\">Tue 30 Dec | 11:28 AM</span>\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;;;AAAO,SAAS;IACd,qBACE,8OAAC;QAAI,WAAU;kBACb,cAAA,8OAAC;YAAK,WAAU;sBAAc;;;;;;;;;;;AAGpC"}},
+    {"offset": {"line": 45, "column": 0}, "map": {"version":3,"sources":["file:///Users/shakhriyormamadaliev/Folders/my_projects/xazna/src/app/page.tsx"],"sourcesContent":["import { TagBar } from \"@/components/navigation/tag-bar\";\n\nexport default function Home() {\n  return (\n    <main>\n      <TagBar />\n      <div className=\"flex\">\n        <div className=\"flex-1 min-h-screen bg-gray-100 pt-6\">\n          <div className=\"h-screen\"></div>\n        </div>\n      </div>\n    </main>\n  );\n}\n"],"names":[],"mappings":";;;;;AAAA;;;AAEe,SAAS;IACtB,qBACE,8OAAC;;0BACC,8OAAC,wJAAM;;;;;0BACP,8OAAC;gBAAI,WAAU;0BACb,cAAA,8OAAC;oBAAI,WAAU;8BACb,cAAA,8OAAC;wBAAI,WAAU;;;;;;;;;;;;;;;;;;;;;;AAKzB"}}]
+}

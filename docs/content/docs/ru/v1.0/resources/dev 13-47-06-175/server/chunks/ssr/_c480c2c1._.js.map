@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/shakhriyormamadaliev/Folders/my_projects/xazna/src/actions/cookie.ts"],"sourcesContent":["\"use server\"\nimport { cookies } from \"next/headers\";\n\nexport async function setCookie(name: string, value: string) {\n  (await cookies()).set(name, value);\n}\n\n\nexport async function getData() {\n  cookies().set(\"user\", \"Test\");\n  // return getRequest({ url: ENDPOINTS.transaction_list });\n  return {}\n}"],"names":[],"mappings":";;;;;;;AACA;;;;AAEO,eAAe,UAAU,IAAY,EAAE,KAAa;IACzD,CAAC,MAAM,IAAA,0IAAO,GAAE,EAAE,GAAG,CAAC,MAAM;AAC9B;AAGO,eAAe;IACpB,IAAA,0IAAO,IAAG,GAAG,CAAC,QAAQ;IACtB,0DAA0D;IAC1D,OAAO,CAAC;AACV;;;IATsB;IAKA;;AALA,+OAAA;AAKA,+OAAA"}},
+    {"offset": {"line": 34, "column": 0}, "map": {"version":3,"sources":["file:///Users/shakhriyormamadaliev/Folders/my_projects/xazna/.next-internal/server/app/account/user/page/actions.js%20%28server%20actions%20loader%29"],"sourcesContent":["export {getData as '0051dccb4d369cddf0a4f2131e2dee3ad21e7d36e2'} from 'ACTIONS_MODULE0'\nexport {setCookie as '60e6783828ef6470ae800682bde80f5b890f072c5f'} from 'ACTIONS_MODULE0'\n"],"names":[],"mappings":";AAAA"}}]
+}

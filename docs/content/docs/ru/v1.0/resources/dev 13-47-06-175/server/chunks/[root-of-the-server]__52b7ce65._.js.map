@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 46, "column": 0}, "map": {"version":3,"sources":["file:///Users/shakhriyormamadaliev/Folders/my_projects/xazna/src/app/api/plan/list/route.ts"],"sourcesContent":["// app/api/blog/route.ts\nimport { NextResponse } from 'next/server';\n\nexport async function GET() {\n    const res = await fetch(\"http://localhost:8000/api/v1/plan/list\");\n    console.log(123);\n\n    // 1. Get the cookie header from the external API\n    const externalCookie = res.headers.get('set-cookie');\n\n    const response = NextResponse.json(await res.json());\n\n    // 2. Forward it to the browser\n    if (externalCookie) {\n        // You may need to parse this if it contains multiple cookies\n        response.headers.set('set-cookie', externalCookie);\n    }\n\n    return response;\n}\n"],"names":[],"mappings":";;;;AAAA,wBAAwB;AACxB;;AAEO,eAAe;IAClB,MAAM,MAAM,MAAM,MAAM;IACxB,QAAQ,GAAG,CAAC;IAEZ,iDAAiD;IACjD,MAAM,iBAAiB,IAAI,OAAO,CAAC,GAAG,CAAC;IAEvC,MAAM,WAAW,gJAAY,CAAC,IAAI,CAAC,MAAM,IAAI,IAAI;IAEjD,+BAA+B;IAC/B,IAAI,gBAAgB;QAChB,6DAA6D;QAC7D,SAAS,OAAO,CAAC,GAAG,CAAC,cAAc;IACvC;IAEA,OAAO;AACX"}}]
+}

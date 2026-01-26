@@ -1,0 +1,88 @@
+---
+title: Troubleshooting
+description: Explore common issues and solutions.
+---
+
+---
+
+This guide addresses common issues you may encounter while using Xazna AI’s text-to-speech (TTS) and speech-to-text (STT) services.
+
+## Text-to-Speech (TTS) Issues
+
+### Issue: Audio Output is Silent or Distorted
+
+- Ensure the text uses supported characters.
+- Verify the `format` parameter (e.g., "mp3", "wav") is correct.
+- Test with a simple input like "Salom! Bu namuna matn." to isolate the issue.
+
+### Issue: 429 Too Many Requests Error
+
+- **Possible Cause**: Exceeded the 60 requests per minute limit per API token.
+- **Solution**:
+  - Check your usage in the [dashboard](https://ai.xazna.uz).
+  - Wait for the `Retry-After` header time before retrying.
+  - Reduce request frequency or contact support for custom limits.
+
+### Issue: WebSocket Connection Closes Unexpectedly
+
+- **Possible Cause**: Network instability or hitting the rate limit during streaming.
+- **Solution**:
+  - Confirm a stable internet connection.
+  - Ensure you’re within the 60 requests per minute limit.
+  - Restart the stream with valid `text`, `model`, and `format` parameters.
+
+## Speech-to-Text (STT) Issues
+
+### Issue: Transcription is Inaccurate or Empty
+
+- **Possible Cause**: Poor audio quality, background noise, or exceeding the 5-minute audio duration limit per minute.
+- **Solution**:
+  - Use high-quality audio with minimal background noise.
+  - Check the audio duration against the limit in the [dashboard](https://ai.xazna.uz).
+  - Resubmit a shorter or clearer audio file.
+
+### Issue: 429 Too Many Requests Error
+
+- **Possible Cause**: Exceeded the 5-minute audio duration per minute limit per API token.
+- **Solution**:
+  - Monitor your audio usage in the [dashboard](https://ai.xazna.uz).
+  - Wait for the `Retry-After` header time before retrying.
+  - Submit shorter audio segments or space out requests.
+
+### Issue: Upload Fails with 400 Bad Request
+
+- **Possible Cause**: Invalid audio format or missing `audio` field in `form-data`.
+- **Solution**:
+  - Ensure the audio file is in a supported format (e.g., "mp3", "wav").
+  - Confirm the file is named `audio` in the request.
+  - Refer to the [API Reference](https://ai.xazna.uz/docs/api/stt/single) for details.
+
+## General Issues
+
+### Issue: 403 Forbidden Error
+
+- **Possible Cause**: Invalid or expired API token.
+- **Solution**:
+  - Regenerate your token in the [dashboard](https://ai.xazna.uz).
+  - Update your application with the new token.
+  - Store the token securely to prevent expiration issues.
+
+### Issue: Slow Response Times
+
+- **Possible Cause**: High server load or network latency.
+- **Solution**:
+  - Retry the request after a brief delay (e.g., 30 seconds).
+  - Contact support at [ai.xazna.uz](https://ai.xazna.uz) if the problem persists.
+
+### Issue: Connection Timeout
+
+- **Possible Cause**: Unstable network or temporary server downtime.
+- **Solution**:
+  - Verify your internet connection stability.
+  - Check the Xazna AI service status on [ai.xazna.uz](https://ai.xazna.uz).
+  - Retry after a few minutes if the issue is server-related.
+
+<Callout type="info">
+  Rate limits (60 requests/min for TTS, 5 minutes/min for STT) and other
+  policies may change. Stay updated by checking this page regularly.
+</Callout>
