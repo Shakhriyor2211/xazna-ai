@@ -2,6 +2,7 @@ import asyncio
 import json
 import time
 import mlflow
+from time import sleep
 from asgiref.sync import sync_to_async
 from channels.db import database_sync_to_async
 from openai import OpenAI
@@ -10,6 +11,8 @@ from llm.serializers import UserLLMMessageSerializer, TokenLLMMessageSerializer
 from shared.utils import llm_transaction
 from xazna import settings
 from xazna.consumers import AuthWebsocketConsumer, TokenWebsocketConsumer
+from django.db import transaction
+from django.utils import timezone
 from xazna.exceptions import CustomException
 from datetime import timedelta
 from finance.models import UserExpenseModel, TokenExpenseModel

@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/shakhriyormamadaliev/Folders/projects/xazna-ai/client/src/app/layout.tsx"],"sourcesContent":["import type { ReactNode } from \"react\";\nimport \"@/styles/globals.css\";\n\nconst RootLayout = ({ children }: { children: ReactNode }) => children;\n\nexport default RootLayout;\n"],"names":[],"mappings":";;;;;AAGA,MAAM,aAAa,CAAC,EAAE,QAAQ,EAA2B,GAAK;uCAE/C"}}]
-}

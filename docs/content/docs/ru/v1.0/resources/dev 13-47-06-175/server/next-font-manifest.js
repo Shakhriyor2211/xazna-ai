@@ -1,1 +1,0 @@
-self.__NEXT_FONT_MANIFEST="{\n  \"app\": {\n    \"[project]/src/app/account/user/page\": [\n      \"static/media/Gantari_VariableFont_wght-s.p.38385d16.ttf\",\n      \"static/media/Gantari_Italic_VariableFont_wght-s.p.e981de20.ttf\"\n    ]\n  },\n  \"appUsingSizeAdjust\": true,\n  \"pages\": {},\n  \"pagesUsingSizeAdjust\": false\n}"

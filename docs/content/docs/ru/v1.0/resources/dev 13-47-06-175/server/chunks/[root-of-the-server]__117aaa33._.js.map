@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 46, "column": 0}, "map": {"version":3,"sources":["file:///Users/shakhriyormamadaliev/Folders/my_projects/xazna/src/proxy.ts"],"sourcesContent":["import { NextResponse } from \"next/server\";\nimport type { NextRequest } from \"next/server\";\nimport { ROUTES } from \"./shared/site\";\n\n\n\nexport function proxy(request: NextRequest) {\n  const token = request.cookies.get(\"access_token\")?.value;\n  const path = request.nextUrl.pathname\n  console.log(path);\n\n\n  // if (token) {\n  //   return NextResponse.redirect(new URL(ROUTES.main, request.url));\n  // }\n\n  // if (!token) {\n  //   return NextResponse.redirect(new URL(path === \"/\" ? ROUTES.sign_in : `${ROUTES.sign_in}?next=${path}\"}`, request.url));\n  // }\n\n  return NextResponse.next();\n}\n\nexport const config = {\n  matcher: [\n    \"/((?!auth|api|_next/static|_next/image|favicon.ico).*)\"\n  ],\n};\n"],"names":[],"mappings":";;;;;;AAAA;;AAMO,SAAS,MAAM,OAAoB;IACxC,MAAM,QAAQ,QAAQ,OAAO,CAAC,GAAG,CAAC,iBAAiB;IACnD,MAAM,OAAO,QAAQ,OAAO,CAAC,QAAQ;IACrC,QAAQ,GAAG,CAAC;IAGZ,eAAe;IACf,qEAAqE;IACrE,IAAI;IAEJ,gBAAgB;IAChB,4HAA4H;IAC5H,IAAI;IAEJ,OAAO,8IAAY,CAAC,IAAI;AAC1B;AAEO,MAAM,SAAS;IACpB,SAAS;QACP;KACD;AACH"}}]
-}

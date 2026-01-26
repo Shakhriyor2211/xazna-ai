@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/shakhriyormamadaliev/Folders/my_projects/xazna/src/app/actions.ts"],"sourcesContent":["'use server'\n\nimport { cookies } from 'next/headers'\n\nexport async function create() {\n    const cookieStore = await cookies()\n\n    cookieStore.set('name', 'lee')\n    // or\n    cookieStore.set('name', 'lee', { secure: true })\n    // or\n    cookieStore.set({\n        name: 'name',\n        value: 'lee',\n        httpOnly: true,\n        path: '/',\n    })\n}"],"names":[],"mappings":";;;;;AAEA;;;;AAEO,eAAe;IAClB,MAAM,cAAc,MAAM,IAAA,0IAAO;IAEjC,YAAY,GAAG,CAAC,QAAQ;IACxB,KAAK;IACL,YAAY,GAAG,CAAC,QAAQ,OAAO;QAAE,QAAQ;IAAK;IAC9C,KAAK;IACL,YAAY,GAAG,CAAC;QACZ,MAAM;QACN,OAAO;QACP,UAAU;QACV,MAAM;IACV;AACJ;;;IAbsB;;AAAA,+OAAA"}},
-    {"offset": {"line": 37, "column": 0}, "map": {"version":3,"sources":["file:///Users/shakhriyormamadaliev/Folders/my_projects/xazna/.next-internal/server/app/account/user/page/actions.js%20%28server%20actions%20loader%29"],"sourcesContent":["export {create as '0080a369be30e45a29f251530815a74703abdad77c'} from 'ACTIONS_MODULE0'\n"],"names":[],"mappings":";AAAA"}}]
-}
