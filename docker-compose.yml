@@ -18,7 +18,7 @@ services:
       - client
       - docs
 
-  pg_service:
+  postgres:
     image: postgres:17
     container_name: xazna_postgres
     restart: always
@@ -48,7 +48,7 @@ services:
     volumes:
       - media:/app/media-files/
     depends_on:
-      - pg_service
+      - postgres
       - redis
     networks:
       - nginx_net
