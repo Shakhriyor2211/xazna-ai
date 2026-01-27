@@ -1,11 +1,14 @@
-from django.test import TestCase
+import threading
+from django.test import TestCase, TransactionTestCase
 from django.contrib.auth import get_user_model
 from rest_framework.test import APIClient
 from rest_framework import status
 from unittest.mock import patch
 from decimal import Decimal
 from billing.models import BillingModel
+from finance.models import BalanceModel
 from log.models import BillingErrorLogModel
+from django.db import connection
 
 User = get_user_model()
 
@@ -38,6 +41,8 @@ def pay_request_data(payment_id="1234", invoice="INV-123", transaction_id="TXN-1
         }
     }
 
+
+
 def check_request_data(payment_id="1234", transaction_id="TXN-123"):
     return {
         "jsonrpc": "2.0",
@@ -48,7 +53,7 @@ def check_request_data(payment_id="1234", transaction_id="TXN-123"):
         }
     }
 
-class BillingViewTestCase(TestCase):
+class BillingTestCase(TestCase):
     def setUp(self):
         self.client = APIClient()
         self.user = User.objects.create_user(
@@ -200,26 +205,25 @@ class BillingViewTestCase(TestCase):
                                              "result": {"message": "The transaction has been successfully processed.", "code": 0}})
 
     def test_billing_pay_not_found(self):
-        """Test billing pay when invoice doesn"t exist"""
-        data = pay_request_data("1234", "INV-NOT-FOUND", "TXN-123", Decimal("100.00") * 100)
-        response = self.client.post("/api/v1/billing/pay", data, format="json")
+            """Test billing pay when invoice doesn"t exist"""
+            data = pay_request_data("1234", "INV-NOT-FOUND", "TXN-123", Decimal("100.00") * 100)
+            response = self.client.post("/api/v1/billing/pay", data, format="json")
 
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-        self.assertIn("error", response.data)
-        self.assertEqual(response.data["result"], None)
+            self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+            self.assertIn("error", response.data)
+            self.assertEqual(response.data["result"], None)
 
-        self.assertEqual(response.data["error"]["code"], -1)
-        self.assertEqual(response.data["error"]["message"], "Data not found.")
+            self.assertEqual(response.data["error"]["code"], -1)
+            self.assertEqual(response.data["error"]["message"], "Data not found.")
 
-        error_log = BillingErrorLogModel.objects.filter(method="pay", invoice="INV-NOT-FOUND").first()
+            error_log = BillingErrorLogModel.objects.filter(method="pay", invoice="INV-NOT-FOUND").first()
 
-        self.assertIsNotNone(error_log)
-        self.assertEqual(error_log.code, -1)
-        self.assertEqual(error_log.message, "Data not found.")
+            self.assertIsNotNone(error_log)
+            self.assertEqual(error_log.code, -1)
+            self.assertEqual(error_log.message, "Data not found.")
 
     def test_billing_pay_completed(self):
         """Test billing pay for already completed transaction"""
-
         BillingModel.objects.create(
             user=self.user,
             invoice="INV-COMPLETED",
@@ -355,7 +359,78 @@ class BillingViewTestCase(TestCase):
         self.assertEqual(error_log.message, "The transaction has failed.")
 
 
+class BillingConcurrencyTestCase(TransactionTestCase):
 
+    def setUp(self):
+        self.user = User.objects.create_user(
+            email="test_concurrent@example.com",
+            first_name="Test",
+            last_name="Test",
+            password="testpass123",
+            is_active=True
+        )
 
+    def _pay(self, results, barrier, idx, amount):
+        connection.close()
 
+        try:
+            user = User.objects.get(id=self.user.id)
+
+            billing = BillingModel.objects.create(
+                user=user,
+                invoice=f"INV-CONCURRENT-{idx}",
+                amount=amount,
+                status="pending"
+            )
+
+            client = APIClient()
+            client.force_authenticate(user=user)
+
+            data = pay_request_data(
+                payment_id=str(idx),
+                invoice=f"INV-CONCURRENT-{idx}",
+                transaction_id=f"TXN-{idx}",
+                amount=int(amount * 100),
+            )
+
+            barrier.wait()
+            response = client.post("/api/v1/billing/pay", data, format="json")
+
+            results[idx] = {
+                'status_code': response.status_code,
+                'data': response.data if hasattr(response, 'data') else None,
+            }
+        except Exception as e:
+            import traceback
+            print(f"Thread {idx} ERROR: {traceback.format_exc()}")
+            results[idx] = {'error': str(e), 'status_code': 500}
+        finally:
+            connection.close()
+
+    def test_concurrent_pay(self):
+        """Test that concurrent payments don't cause race conditions"""
+        results = {}
+        num_threads = 3
+        amount = Decimal("120.00")
+        threads = []
+        barrier = threading.Barrier(num_threads)
+
+        for i in range(1, num_threads + 1):
+            t = threading.Thread(target=self._pay, args=(results, barrier, i, amount))
+            threads.append(t)
+            t.start()
+
+        for t in threads: t.join()
+
+        billing_records = BillingModel.objects.filter(
+            invoice__startswith="INV-CONCURRENT-"
+        )
+
+        balance = BalanceModel.objects.get(user=self.user)
+
+        success_count = sum(1 for r in results.values() if r.get('status_code') == 200)
+
+        self.assertEqual(len(results), num_threads)
+        self.assertEqual(success_count, num_threads)
+        self.assertEqual(balance.cash, amount * num_threads)
 

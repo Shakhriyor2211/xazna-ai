@@ -1,5 +1,6 @@
 from django.db import transaction
 from billing.models import BillingModel
+from finance.models import BalanceModel
 from billing.serializers import BillingSerializer, BillingTransactionSerializer
 from rest_framework.views import APIView
 from drf_yasg.utils import swagger_auto_schema
@@ -31,7 +32,8 @@ class TopUpView(APIView):
 
 
 class BillingInfoView(APIView):
-    @swagger_auto_schema(operation_description="Billing info...", request_body=BillingTransactionSerializer, tags=["Billing"])
+    @swagger_auto_schema(operation_description="Billing info...", request_body=BillingTransactionSerializer,
+                         tags=["Billing"])
     def post(self, request):
         try:
             serializer = BillingTransactionSerializer(data=request.data)
@@ -48,10 +50,11 @@ class BillingInfoView(APIView):
 
             if billing is None:
                 data["error"] = {
-                     "code": -1,
-                     "message": "Data not found."
-                 }
-                BillingErrorLogModel.objects.create(message=data["error"]["message"], method="info", code=data["error"]["code"], invoice=params["invoice"])
+                    "code": -1,
+                    "message": "Data not found."
+                }
+                BillingErrorLogModel.objects.create(message=data["error"]["message"], method="info",
+                                                    code=data["error"]["code"], invoice=params["invoice"])
                 return Response(data=data, status=status.HTTP_404_NOT_FOUND)
 
             if billing.status == "completed":
@@ -60,7 +63,8 @@ class BillingInfoView(APIView):
                     "message": "The transaction has been completed."
                 }
 
-                BillingErrorLogModel.objects.create(message=data["error"]["message"], method="info", code=data["error"]["code"], invoice=params["invoice"])
+                BillingErrorLogModel.objects.create(message=data["error"]["message"], method="info",
+                                                    code=data["error"]["code"], invoice=params["invoice"])
                 return Response(data=data, status=status.HTTP_409_CONFLICT)
 
             if billing.status == "failed":
@@ -71,7 +75,6 @@ class BillingInfoView(APIView):
                 BillingErrorLogModel.objects.create(message=data["error"]["message"], method="info",
                                                     code=data["error"]["code"], invoice=params["invoice"])
                 return Response(data=data, status=status.HTTP_409_CONFLICT)
-
 
             data["result"] = {
                 "invoice": billing.invoice,
@@ -86,7 +89,8 @@ class BillingInfoView(APIView):
 
 
 class BillingPayView(APIView):
-    @swagger_auto_schema(operation_description="Billing pay...", request_body=BillingTransactionSerializer, tags=["Billing"])
+    @swagger_auto_schema(operation_description="Billing pay...", request_body=BillingTransactionSerializer,
+                         tags=["Billing"])
     def post(self, request):
         try:
             serializer = BillingTransactionSerializer(data=request.data)
@@ -99,61 +103,62 @@ class BillingPayView(APIView):
                 "id": validated_data["id"],
                 "result": None
             }
+            with transaction.atomic():
+                billing = BillingModel.objects.select_for_update().filter(invoice=params["invoice"]).first()
 
-            billing = BillingModel.objects.filter(invoice=params["invoice"]).first()
+                if billing is None:
+                    data["error"] = {
+                        "code": -1,
+                        "message": "Data not found."
+                    }
+                    BillingErrorLogModel.objects.create(message=data["error"]["message"], method="pay",
+                                                        code=data["error"]["code"], invoice=params["invoice"])
+                    return Response(data=data, status=status.HTTP_404_NOT_FOUND)
 
-            if billing is None:
-                data["error"] = {
-                    "code": -1,
-                    "message": "Data not found."
+                if billing.status == "completed":
+                    data["error"] = {
+                        "code": -2,
+                        "message": "The transaction has been completed."
+                    }
+
+                    BillingErrorLogModel.objects.create(message=data["error"]["message"], method="pay",
+                                                        code=data["error"]["code"], invoice=params["invoice"],
+                                                        transaction_id=params["xaznaTransactionId"])
+                    return Response(data=data, status=status.HTTP_409_CONFLICT)
+
+                if billing.status == "failed":
+                    data["error"] = {
+                        "code": -4,
+                        "message": "The transaction has failed."
+                    }
+                    BillingErrorLogModel.objects.create(message=data["error"]["message"], method="pay",
+                                                        code=data["error"]["code"], invoice=params["invoice"],
+                                                        transaction_id=params["xaznaTransactionId"])
+                    return Response(data=data, status=status.HTTP_409_CONFLICT)
+
+                if billing.amount * 100 != params["amount"]:
+                    data["error"] = {
+                        "code": -4,
+                        "message": "Transaction amount mismatch."
+                    }
+                    BillingErrorLogModel.objects.create(message=data["error"]["message"], method="pay",
+                                                        code=data["error"]["code"], invoice=params["invoice"],
+                                                        transaction_id=params["xaznaTransactionId"])
+                    return Response(data=data, status=status.HTTP_409_CONFLICT)
+
+                billing.transaction_id = params["xaznaTransactionId"]
+                billing.status = "completed"
+                balance = BalanceModel.objects.select_for_update().get(user=billing.user)
+                balance.cash += params["amount"] / 100
+                billing.save()
+                balance.save()
+
+                data["result"] = {
+                    "message": "The transaction has been successfully processed.",
+                    "code": 0
                 }
-                BillingErrorLogModel.objects.create(message=data["error"]["message"], method="pay",
-                                                    code=data["error"]["code"], invoice=params["invoice"])
-                return Response(data=data, status=status.HTTP_404_NOT_FOUND)
 
-
-            if billing.status == "completed":
-                data["error"] = {
-                    "code": -2,
-                    "message": "The transaction has been completed."
-                }
-
-                BillingErrorLogModel.objects.create(message=data["error"]["message"], method="pay",
-                                                    code=data["error"]["code"], invoice=params["invoice"], transaction_id=params["xaznaTransactionId"])
-                return Response(data=data, status=status.HTTP_409_CONFLICT)
-
-            if billing.status == "failed":
-                data["error"] = {
-                    "code": -4,
-                    "message": "The transaction has failed."
-                }
-                BillingErrorLogModel.objects.create(message=data["error"]["message"], method="pay",
-                                                    code=data["error"]["code"], invoice=params["invoice"], transaction_id=params["xaznaTransactionId"])
-                return Response(data=data, status=status.HTTP_409_CONFLICT)
-
-
-            if billing.amount * 100 != params["amount"]:
-                data["error"] = {
-                    "code": -4,
-                    "message": "Transaction amount mismatch."
-                }
-                BillingErrorLogModel.objects.create(message=data["error"]["message"], method="pay",
-                                                    code=data["error"]["code"], invoice=params["invoice"], transaction_id=params["xaznaTransactionId"])
-                return Response(data=data, status=status.HTTP_409_CONFLICT)
-
-            billing.transaction_id = params["xaznaTransactionId"]
-            billing.status = "completed"
-            balance = billing.user.balance
-            balance.cash += params["amount"]
-            billing.save()
-            balance.save()
-
-            data["result"] = {
-                "message": "The transaction has been successfully processed.",
-                "code": 0
-            }
-
-            return Response(data=data, status=status.HTTP_200_OK)
+                return Response(data=data, status=status.HTTP_200_OK)
 
         except Exception as e:
             BillingErrorLogModel.objects.create(message=str(e), method="pay")
@@ -161,7 +166,8 @@ class BillingPayView(APIView):
 
 
 class BillingCheckView(APIView):
-    @swagger_auto_schema(operation_description="Billing check...", request_body=BillingTransactionSerializer, tags=["Billing"])
+    @swagger_auto_schema(operation_description="Billing check...", request_body=BillingTransactionSerializer,
+                         tags=["Billing"])
     def post(self, request):
         try:
             serializer = BillingTransactionSerializer(data=request.data)
@@ -175,7 +181,8 @@ class BillingCheckView(APIView):
                 "result": None
             }
 
-            billing = BillingModel.objects.filter(transaction_id__isnull=False, transaction_id=params["xaznaTransactionId"]).first()
+            billing = BillingModel.objects.filter(transaction_id__isnull=False,
+                                                  transaction_id=params["xaznaTransactionId"]).first()
 
             if billing is None:
                 data["error"] = {
@@ -184,9 +191,9 @@ class BillingCheckView(APIView):
                 }
 
                 BillingErrorLogModel.objects.create(message=data["error"]["message"], method="check",
-                                                    code=data["error"]["code"], transaction_id=params["xaznaTransactionId"])
+                                                    code=data["error"]["code"],
+                                                    transaction_id=params["xaznaTransactionId"])
                 return Response(data=data, status=status.HTTP_404_NOT_FOUND)
-
 
             if billing.status == "completed":
                 billing.transaction_id = params["xaznaTransactionId"]
@@ -205,7 +212,8 @@ class BillingCheckView(APIView):
                 "message": "The transaction has failed."
             }
             BillingErrorLogModel.objects.create(message=data["error"]["message"], method="check",
-                                                code=data["error"]["code"], invoice=params["invoice"], transaction_id=params["xaznaTransactionId"])
+                                                code=data["error"]["code"], invoice=params["invoice"],
+                                                transaction_id=params["xaznaTransactionId"])
 
             return Response(data=data, status=status.HTTP_409_CONFLICT)
 
