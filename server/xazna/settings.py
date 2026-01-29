@@ -74,7 +74,7 @@ STORAGES = {
     "dbbackup": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
         "OPTIONS": {
-            "location": "/Users/shakhriyormamadaliev/Folders/projects/xazna-ai/server/backups",
+            "location": os.getenv("DB_BACKUP_DIR"),
         }
     }
 }
