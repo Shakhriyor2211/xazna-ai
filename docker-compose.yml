@@ -18,7 +18,7 @@ services:
       - docs
 
   postgres:
-    image: postgres:17
+    image: postgres:15
     container_name: xazna_postgres
     restart: always
     env_file:

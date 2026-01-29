@@ -2,8 +2,13 @@ FROM python:3.12.11-slim-bookworm
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y --no-install-recommends build-essential ffmpeg && \
-     apt-get install -y gettext && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+     apt-get install -y --no-install-recommends \
+     build-essential \
+     ffmpeg \
+     gettext \
+     postgresql-client-15 && \
+     rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
 
