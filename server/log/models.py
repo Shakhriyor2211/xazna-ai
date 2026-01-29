@@ -2,6 +2,10 @@ from xazna.models import BaseModel
 from django.db import models
 
 
+class SchedulrErrorLog(BaseModel):
+    message = models.TextField()
+
+
 class BillingErrorLogModel(BaseModel):
     message = models.TextField()
     code = models.SmallIntegerField(default=0)

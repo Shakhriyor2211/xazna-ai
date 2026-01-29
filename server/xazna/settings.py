@@ -10,39 +10,30 @@ from django.utils.translation import gettext_lazy as _
 load_dotenv()
 
 CELERY_TASK_QUEUES = (
-    Queue("email", routing_key="email.#"),
-    Queue("clean", routing_key="clean.#"),
-    Queue("check", routing_key="check.#"),
+    Queue("account", routing_key="account.#"),
+    Queue("scheduler", routing_key="scheduler.#"),
 )
 
 CELERY_TASK_ROUTES = {
-    "tasks.convert_file": {"queue": "conversion", "routing_key": "conversion.file"},
-    "tasks.send_email_confirmation": {
-        "queue": "email",
-        "routing_key": "email.confirmation"
-    },
-    "tasks.send_email_reset_password": {
-        "queue": "email",
-        "routing_key": "email.reset"
-    }
+    "accounts.tasks.send_email_confirmation": {"queue": "account"},
+    "accounts.tasks.send_email_reset_password": {"queue": "account"}
 }
 
 CELERY_BEAT_SCHEDULE = {
-    "clean-tokens-daily": {
-        "task": "accounts.tasks.clean_password_reset_tokens",
-        "schedule": crontab(hour=3, minute=0),  # every day at 03:00 server time
-        "options": {
-            "queue": "clean",
-            "routing_key": "clean.tokens"
-        }
-    },
-    "check-subs-daily": {
-        "task": "finance.tasks.check_subs",
+    "check-subs": {
+        "task": "shared.tasks.check_subs",
         "schedule": crontab(hour=0, minute=0),  # every day at 00:00 server time
-        "options": {
-            "queue": "check",
-            "routing_key": "check.subs"
-        }
+        "options": {"queue": "scheduler"}
+    },
+    "clean-tokens": {
+        "task": "shared.tasks.clean_password_reset_tokens",
+        "schedule": crontab(hour=3, minute=0),  # every day at 03:00 server time
+        "options": {"queue": "periodic"}
+    },
+    "db-backup": {
+        "task": "shared.tasks.backup_all",
+        "schedule": crontab(hour=3, minute=0),  # every day at 03:00 server time
+        "options": {"queue": "scheduler"}
     }
 }
 
@@ -72,6 +63,31 @@ GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 GOOGLE_REDIRECT_URI = os.getenv("GOOGLE_REDIRECT_URI")
 
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+    "dbbackup": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "OPTIONS": {
+            "location": "/Users/shakhriyormamadaliev/Folders/projects/xazna-ai/server/backups",
+        }
+    }
+}
+
+# Backup settings
+DBBACKUP_CLEANUP_KEEP = 30
+DBBACKUP_CLEANUP_KEEP_MEDIA = 30
+DBBACKUP_FILENAME_TEMPLATE = "file-{datetime}.{extension}"
+DBBACKUP_MEDIA_FILENAME_TEMPLATE = "media-{datetime}.{extension}"
+DBBACKUP_CONNECTOR_MAPPING = {
+    "django.db.backends.postgresql": "dbbackup.db.postgresql.PgDumpBinaryConnector",
+}
+
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
@@ -94,6 +110,8 @@ INSTALLED_APPS = [
     "drf_yasg",
     "django_celery_beat",
     "corsheaders",
+    "dbbackup",
+    "storages",
 
     "shared",
     "accounts",
@@ -245,7 +263,7 @@ LANGUAGES = [
 ]
 
 LOCALE_PATHS = [
-    BASE_DIR / 'locale',
+    BASE_DIR / "locale",
 ]
 
 TIME_ZONE = "Asia/Tashkent"

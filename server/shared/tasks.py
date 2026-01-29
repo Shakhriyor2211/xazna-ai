@@ -1,11 +1,53 @@
 from decimal import Decimal
 from celery import shared_task
-from django.utils import timezone
 from django.db import transaction
+from django.utils import timezone
+from datetime import timedelta
+from accounts.models import PasswordResetTokenModel
 from finance.models import BalanceModel
 from plan.models import PlanModel
 from rate.models import SubLLMRateModel, SubTTSRateModel, SubSTTRateModel
 from sub.models import SubModel
+from django.core.management import call_command
+import logging
+
+from xazna import settings
+
+logger = logging.getLogger(__name__)
+
+@shared_task
+def backup_database():
+    try:
+        logger.info("Starting automated database backup...")
+        call_command('dbbackup', '--clean', '--noinput')
+        logger.info("Database backup completed successfully")
+        return "Database backup completed"
+    except Exception as e:
+        logger.error(f"Database backup failed: {e}")
+        raise
+
+@shared_task
+def backup_media():
+    try:
+        logger.info("Starting automated media backup...")
+        call_command('mediabackup', '--clean', '--noinput')
+        logger.info("Media backup completed successfully")
+        return "Media backup completed"
+    except Exception as e:
+        logger.error(f"Media backup failed: {e}")
+        raise
+
+@shared_task
+def backup_all():
+    try:
+        logger.info("Starting full backup (database + media)...")
+        call_command('dbbackup', '--clean', '--noinput')
+        call_command('mediabackup', '--clean', '--noinput')
+        logger.info("Full backup completed successfully")
+        return "Full backup completed"
+    except Exception as e:
+        logger.error(f"Full backup failed: {e}")
+        raise
 
 
 
@@ -72,4 +114,12 @@ def check_subs():
                                            credit_time=plan.tts_rate.credit_time)
             SubSTTRateModel.objects.create(sub=new_sub, credit_limit=plan.stt_rate.credit_limit,
                                            credit_time=plan.stt_rate.credit_time)
+
+
+
+@shared_task
+def clean_password_reset_tokens():
+    cutoff = timezone.now() - timedelta(minutes=settings.RESET_PASSWORD_EXPIRE_TIME)
+    deleted_count, _ = PasswordResetTokenModel.objects.filter(created_at__lt=cutoff).delete()
+    logger.info(f"Deleted {deleted_count} expired tokens")
 

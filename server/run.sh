@@ -32,8 +32,8 @@ echo ">>> Starting Celery beat..."
 celery -A xazna beat -S django &
 
 echo ">>> Starting Celery workers..."
-celery -A xazna worker -P prefork -c 2 -Q check,clean -n periodic_task@%h --uid nobody &
-celery -A xazna worker -P prefork -c 1 -Q email -n email_task@%h --uid nobody &
+celery -A xazna worker -P prefork -c 1 -Q scheduler -n scheduler_task@%h --uid nobody &
+celery -A xazna worker -P prefork -c 2 -Q account -n account_task@%h --uid nobody &
 CELERY_WORKERS_PID=$(jobs -p | tail -n +4)
 
 sleep 5

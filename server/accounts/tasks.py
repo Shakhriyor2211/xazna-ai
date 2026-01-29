@@ -1,15 +1,13 @@
-from datetime import timedelta
 from celery import shared_task
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-from django.utils import timezone
 from accounts.models import EmailConfirmOtpModel, PasswordResetTokenModel
 from xazna import settings
 from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 
 
-@shared_task(name="tasks.send_email_confirmation")
+@shared_task
 def send_email_confirmation(email_id, locale):
     translation.activate(locale)
     email_otp = EmailConfirmOtpModel.objects.get(id=email_id)
@@ -28,7 +26,7 @@ def send_email_confirmation(email_id, locale):
 
 
 
-@shared_task(name="tasks.send_email_reset_password")
+@shared_task
 def send_email_reset_password(token_id, target, locale):
     translation.activate(locale)
     t = PasswordResetTokenModel.objects.get(id=token_id)
@@ -45,8 +43,3 @@ def send_email_reset_password(token_id, target, locale):
     t.save()
 
 
-@shared_task
-def clean_password_reset_tokens():
-    cutoff = timezone.now() - timedelta(minutes=settings.RESET_PASSWORD_EXPIRE_TIME)
-    deleted_count, _ = PasswordResetTokenModel.objects.filter(created_at__lt=cutoff).delete()
-    print(f"Deleted {deleted_count} expired tokens")
