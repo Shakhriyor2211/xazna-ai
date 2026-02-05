@@ -214,5 +214,5 @@ def llm_transaction(balance, sub, rate, context_rate, content, mdl):
 
 def generate_public_id():
     rand_digits = f"{random.randint(0, 999999):06}"
-    date_part = timezone.now().strftime("%y%m%d")
+    date_part = timezone.now().strftime("%Y%m%d")
     return f"INV-{date_part}-{rand_digits}"
