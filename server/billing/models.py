@@ -5,13 +5,6 @@ from xazna.models import BaseModel
 
 
 class BillingModel(BaseModel):
-    id = models.UUIDField(
-        max_length=36,
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False,
-        unique=True
-    )
     invoice = models.CharField(max_length=20, unique=True)
     transaction_id = models.CharField(blank=True, null=True, unique=True)
     amount = models.DecimalField(max_digits=14, decimal_places=2, validators=[MinValueValidator(0)], default=0)

@@ -23,11 +23,13 @@ class TopUpView(APIView):
                 serializer = BillingSerializer(data=request.data)
                 serializer.is_valid(raise_exception=True)
 
-                invoice = generate_public_id()
-                serializer.save(user=request.user, invoice=invoice)
 
-                return Response(data={"invoice": invoice}, status=status.HTTP_200_OK)
-        except:
+                billing = serializer.save(user=request.user)
+                billing.invoice = generate_public_id(billing.id)
+                billing.save()
+                return Response(data={"invoice": billing.invoice}, status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
             return Response(data={"message": _("Something went wrong.")}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
