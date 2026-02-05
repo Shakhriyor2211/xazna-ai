@@ -18,7 +18,7 @@ import { AxiosErrorProps } from "@/types";
 import { useRouter } from "next/navigation";
 
 const MAX_TOP_UP_LIMIT = 1000000000;
-const MIN_TOP_UP_LIMIT = 1000;
+const MIN_TOP_UP_LIMIT = 100;
 const MERCHANT_ID = process.env.NEXT_PUBLIC_XAZNA_MERCHANT_ID;
 const RETURN_URL = process.env.NEXT_PUBLIC_XAZNA_REDIRECT_URL;
 const TARGET_URL = process.env.NEXT_PUBLIC_XAZNA_TARGET_URL;
