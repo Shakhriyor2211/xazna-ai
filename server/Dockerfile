@@ -7,7 +7,6 @@ RUN apt-get update && \
      build-essential \
      ffmpeg \
      gettext \
-     postgresql-client-15 && \
      rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
