@@ -213,4 +213,4 @@ def llm_transaction(balance, sub, rate, context_rate, content, mdl):
 
 def generate_public_id(id):
     date_part = int(timezone.now().timestamp() / 86400)
-    return f"{date_part}-{id:05}"
+    return f"{date_part}{id:05}"
